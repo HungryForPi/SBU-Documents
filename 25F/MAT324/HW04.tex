@@ -1,0 +1,471 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 324 HW04}
+\author{\large Aditya Pahuja}
+\date{\large Due 09/25}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Prove or give a counterexample:
+    If $F\subseteq\RR$ is such that every bounded continuous function
+    from $F$ to $\RR$ can be extended to a continuous function
+    from $\RR$ to $\RR$, then $F$ is a closed subset of $\RR$.
+\end{problem}
+
+\begin{soln}
+    Suppose $F\subseteq\RR$ is not closed; then, $F$ does not contain
+    one of its limit points $p\in\RR$. This means we can find
+    a strictly monotone sequence $x_1,x_2,\dots\in F$ converging to $p$;
+    suppose without loss of generality that this sequence is increasing.
+    Define $g\colon F\to\RR$ by
+    \begin{equation*}
+        g(x) = \begin{cases}
+	    (-1)^n & x = x_n\text{ for some integer }n\\
+	    tg(x_n) + (1-t)g(x_{n-1}) &
+	    x = tx_n + (1-t)x_{n-1}\text{ for some }t\in[0,1]
+	    \text{ and some }n\in\NN\\
+	    1 & \text{otherwise}.
+        \end{cases}
+    \end{equation*}
+    This function is continuous on $(-\infty,p)\cap F$ by the pasting lemma because
+    it is continuous on the locally finite collection of closed intervals
+    $(-\infty,x_1]$ and $[x_n,x_{n+1}]$ for $n\in\NN$;
+    the collection is locally finite because
+    \begin{enumerate}[(1)]
+        \ii it is of course locally finite on the interior of each of these intervals;
+	\ii for any $x_n$, the neighborhood $(x_{n-1},x_{n+1})$
+	intersects only $[x_{n-1},x_n]$ and $[x_n,x_{n+1}]$
+	and no others in the collection.
+    \end{enumerate}
+    Also, $g$ is continuous on $(p,\infty)\cap F$ because it is constantly $1$
+    on $(p,\infty)\cap F$. Therefore, $g$ is continuous on $F$,
+    and it is bounded between $-1$ and $1$.
+
+    However, $g$ cannot be extended to a continuous function $\RR\to\RR$
+    because for any $\delta>0$, the neighborhood
+    $(p-\delta,p+\delta)$ contains the subsequence $x_N,x_{N+1},\dots$
+    of $(x_n)_{n\in\NN}$, which implies that $g$ achieves
+    both the values $1$ and $-1$ in any open neighborhood of $p$;
+    that is, $\lim_{x\to p} g(x)$ doesn't exist, which means that
+    any extension $\widetilde g$ of $g$ cannot be continuous at $p$.
+
+    That is, no non-closed subset $F$ of $\RR$ has the property that
+    bounded continuous functions on $F$ can be extended to
+    continuous functions on $\RR$, so contrapositively
+    any set with the extension property must be closed in $\RR$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    \begin{enumerate}[(a)]
+	\ii Let $A,B_1,B_2,\ldots\subseteq\RR$ and
+	$B = \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty B_k$. Show that
+	\begin{equation*}
+	    B\setminus A\subseteq\bigcup_{k=n}^\infty (B_k\setminus A)
+	    \quad\text{and}\quad
+	    A\setminus B\subseteq\bigcup_{k=n}^\infty (A\setminus B_k)
+	\end{equation*}
+	for all $n\in\NN$.
+	\ii Show that $A\subseteq\RR$ is Lebesgue if and only if
+	for every $\eps>0$ there exists a Borel subset $B\subseteq\RR$
+	such that
+	\begin{equation*}
+	    \abs{(B\setminus A)\cup(A\setminus B)} < \eps.
+	\end{equation*}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) We can write
+    \begin{equation*}
+	B\setminus A = \bigcup_{n=1}^\infty\left(
+	\left(\bigcap_{k=n}^\infty B_k\right)\setminus A\right)
+	= \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty (B_k\setminus A)
+    \end{equation*}
+    Since $\bigcup_{k=n}^\infty (B_k\setminus A)$ is
+    an increasing sequence of sets in $n$, we can get rid of
+    the first $N$ terms without changing the union; that is,
+    \begin{equation*}
+	B\setminus A = \bigcup_{n=N}^\infty \bigcap_{k=n}^\infty (B_k\setminus A)
+	\subseteq \bigcup_{n=N}^\infty \bigcup_{k=n}^\infty (B_k\setminus A)
+	= \bigcup_{k=N}^\infty (B_k\setminus A)
+    \end{equation*}
+    for any $N\in\NN$. For the other statement we similarly have
+    \begin{equation*}
+	A\setminus B =
+	\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty (A\setminus B_k)
+	= \bigcap_{n=N}^\infty \bigcup_{k=n}^\infty (A\setminus B_k)
+	\subseteq \bigcup_{n=N}^\infty \bigcup_{k=n}^\infty (A\setminus B_k)
+	= \bigcup_{k=N}^\infty (A\setminus B_k).
+    \end{equation*}
+    for any $N\in\NN$ because $\bigcup_{k=n}^\infty (A\setminus B_k)$ is
+    a decreasing sequence in $N$ so we can discard
+    the first $N$ terms in the intersection.
+    \\
+
+    (b) If $A\subseteq\RR$ is Lebesgue, then Axler 2.71c shows that
+    there exists a Borel set $B\subseteq A$ (manifested as the union of
+    countably many open subsets of $\RR$) such that $\abs{A\setminus B} = 0$.
+    Of course $B\subseteq A$ implies $\abs{B\setminus A} = 0$, so
+    \begin{equation*}
+	\abs{(B\setminus A)\cup(A\setminus B)} = 0 < \eps\text{ for all }\eps>0.
+    \end{equation*}
+
+    Conversely, suppose that $A$ is a subset of $\RR$ such that
+    given $\delta>0$, there exists a Borel set $B_\delta$ such that
+    $\abs{(A\setminus B_\delta)\cup(B_\delta\setminus A)} < \delta$,
+    and for brevity, let
+    $D_\delta = (A\setminus B_\delta)\cup(B_\delta\setminus A)$.
+    Then, let $\eps>0$. By definition of outer measure, there exists
+    an open set $U\subseteq\RR$ such that $D_{\eps/3}\subseteq U$ and
+    \begin{equation*}
+	\abs U < \eps/3 + \abs{D_{\eps/3}} < 2\eps/3.
+    \end{equation*}
+    This means $B_{\eps/3}\setminus U$ is a Borel set contained in $A$ such that
+    \begin{align*}
+	\abs{A\setminus(B_{\eps/3}\setminus U)}
+	= \abs{A\cap(B_{\eps/3}\cap U^c)^c}
+	&= \abs{A\cap(B_{\eps/3}^c\cup U)}\\
+	&= \abs{(A\setminus B_{\eps/3})\cup(A\cap U)}
+	\le \abs{D_\delta} + \abs{U}
+	< \eps/3 + 2\eps/3 = \eps.
+    \end{align*}
+    We showed in class that $A$ is Lebesgue if and only if
+    for each $\eps>0$ there exists a Lebesgue set $A^-_\eps\subseteq\RR$
+    such that $\abs{A\setminus A^-_\eps} < \eps$.
+    Here existence is shown by taking $A^-_\eps = B_{\eps/3}\setminus U$,
+    which is sufficient to conclude that $A$ is Lebesgue.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    \begin{enumerate}[(a)]
+        \ii Suppose $(X,\mathcal S,\mu)$ is a measure space and
+	$f\colon X\to[0,\infty]$ is an $\mathcal S$-measurable function.
+	Prove that
+	\begin{equation*}
+	    \int_X f\dd\mu > 0\text{ if and only if }
+	    \mu(\{x\in X : f(x) > 0\}) > 0.
+	\end{equation*}
+	\ii Give an example of a Borel measurable function
+	$f\colon[0,1]\to(0,\infty)$ such that
+	the lower Riemann integral $L(f,[0,1])$ is $0$.
+	\ii Compute $\int f\dd\lambda$,
+	where $f$ is your answer for (b) and
+	$\lambda$ is the Lebesgue measure on $[0,1]$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $E = \{x\in X : f(x) > 0\}$ and $E_n = \{x\in X : f(x) > 1/n\}$.
+    We have $\frac 1n\mathbf 1_{E_n}\le f$, so
+    \begin{equation*}
+	\frac{\mu(E_n)}n = \int_X \frac 1n\mathbf 1_{E_n}\dd\mu
+	\le \int_Xf
+    \end{equation*}
+    Since $E = \bigcup_{n=1}^\infty E_n$, $\mu(E) = \lim_{n\to\infty}\mu(E_n)$,
+    so if $\mu(E) > 0$ there exists $N$ such that $\mu(E_N) > 0$.
+    This implies that integral of $f$ is positive because
+    it is bounded below by $\frac{\mu(E_N)}{N}$.
+
+    Conversely suppose $\mu(E) = 0$. If $P$ is a $\mathcal S$-partition of $X$,
+    then for $I\in P$, or equivalently $\inf_I f \ne 0$ if and only if $I\subseteq E$.
+    Therefore
+    \begin{equation*}
+	\mathcal L(f,P) = \sum_{I\in P} (\inf_If)\mu(I)
+	= \sum_{\substack{I\in P\\ I\subseteq E}} (\inf_If)
+	\underbrace{\mu(I)}_{\le \mu(E) = 0} = 0
+    \end{equation*}
+    for every $\mathcal S$-partition of $X$, so taking the supremum gives
+    $\int_Xf\dd\mu = 0$.
+    \\
+
+    (b) Define $f\colon[0,1]\to(0,\infty)$ by
+    \begin{equation*}
+        f(x) = \begin{cases}
+	    1 & \text{if }x\notin\QQ\\
+	    1/q & \text{if }x=p/q\in\QQ
+	    \text{ with }p,q\in\ZZ_{\ge0}\text{ and }\gcd(p,q)=1
+        \end{cases}
+    \end{equation*}
+    where $\ZZ_{\ge0}$ is the set of nonnegative integers
+    (note that this means $f(0) = 1$).
+    Then, any interval $I\subseteq[0,1]$ with more than one point
+    contains infinitely many rationals. Since there are only
+    finitely many rational numbers with a given denominator,
+    $I$ contains rational numbers with arbitrarily large denominator, so
+    \begin{equation*}
+	\inf_{x\in I} f(x) \le \frac 1N
+    \end{equation*}
+    for arbitrarily large $N$, i.e. $\inf_{x\in I}f(x) = 0$.
+    This means that any interval $I$ in a partition $P$ of $[0,1]$
+    contributes $0\cdot\ell(I) = 0$ to the lower Riemann sum $L(f,P)$,
+    so the supremum of $L(f,P)$ over all partitions $P$ is $L(f,[0,1]) = 0$.
+
+    It thus remains to verify that $f$ is Borel measurable.
+    Since the image of $f$ is the set $\{1/n : n\in\NN\}$,
+    for any $S\subseteq(0,\infty)$, the set $f\inv(S)$
+    is the union of sets of the form $f\inv(1/n)$ for some $n\in\NN$,
+    each of which is Borel since $f\inv(1)$ is $[0,1]\setminus\QQ$,
+    which is the complement of the Borel set
+    $[0,1]\cap\QQ = \bigcup_{q\in[0,1]\cap\QQ}\{q\}$,
+    and $f\inv(1/n)$ for $n>1$ is finite.
+    There are only countably many sets of the form $f\inv(1/n)$,
+    so in fact $f\inv(S)$ for \emph{any} $S\subseteq(0,\infty)$ is
+    a countable union of Borel sets, hence is a Borel set.
+    \\
+
+    (c) The integral of $f$ with respect to $\lambda$ is $\boxed1$ because
+    \begin{align*}
+	1 = \lambda([0,1]\setminus\QQ)
+	&= \int_{[0,1]}\mathbf 1_{[0,1]\setminus\QQ}\dd\lambda\\
+	&\le \int_{[0,1]} f\dd\lambda
+	\le \int_{[0,1]} \mathbf 1_{[0,1]}\dd\lambda = \lambda([0,1]) = 1,
+    \end{align*}
+    where the inequalities are due to
+    $0 < f(x)\le 1$ for rational $x$ and $f(x) = 1$ for irrational $x$.
+\end{soln}
+
+\begin{problem}
+    Suppose $\mu$ is the measure on $(\NN, 2^\NN)$ defined by
+    \begin{equation*}
+	\mu(E) = \sum_{n\in E} \frac 1{2^n}.
+    \end{equation*}
+    Prove that for every $\eps>0$, there exists a set $E\subseteq\NN$
+    with $\mu(\NN\setminus E) < \eps$ such that
+    any sequence of functions $f_1,f_2,\dots\colon\NN\to\RR$
+    that converges pointwise on $\NN$ also converges uniformly on $E$.
+\end{problem}
+
+\begin{soln}
+    Given $\eps>0$, pick $N$ such that $\frac 1{2^N} < \eps$
+    and set $E = \{1, \dots, N\}$, so that
+    $\NN\setminus E = \{N+1, N+2, \dots\}$ has measure
+    \begin{equation*}
+	\sum_{n=N+1}^\infty \frac 1{2^n} = \frac 1{2^N} < \eps.
+    \end{equation*}
+    Let $\eps'>0$. For each $k=1,\dots,N$, pointwise convergence of the sequence
+    $f_1(k)$, $f_2(k)$, \dots means that there exists $M_k>0$ such that
+    $n>M_k$ implies $\abs{f(k) - f_n(k)} < \eps'$.
+    Take $M = \max_{1\le k\le N} M_k$; then $n>M$ implies
+    $\abs{f(k) - f_n(k)} < \eps'$ for all $k\in E$.
+    This is what it means for $f_1$, $f_2$, \dots
+    to converge uniformly to $f$ on $E$, so we are done.
+\end{soln}
+
+\begin{problem}
+    Let $(X,\mathcal S,\mu)$ be a measure space.
+    \begin{enumerate}[(a)]
+	\ii Let $f_n\colon X\to[0,\infty]$ be a sequence of measurable functions.
+	Show that
+	\begin{equation*}
+	    \int_X\left(\sum_{n=1}^\infty f_n\right)\dd\mu =
+	    \sum_{n=1}^\infty \left(\int_X f_n\dd\mu\right).
+	\end{equation*}
+	\ii Let $f\colon X\to[0,\infty)$ be a measurable function and
+	\begin{equation*}
+	    E_n = \{x\in X : 2^n < f(x) \le 2^{n+1}\}
+	\end{equation*}
+	for all $n\in\ZZ$. Show that $\int_X f\dd\mu<\infty$
+	if and only if $\sum_{n\in\ZZ} 2^n\mu(E_n) < \infty$.
+	\ii Let $\alpha\in\RR$ and $\lambda$ be the Lebesgue measure on $(0,1)$.
+	Show that $\int_{(0,1)} x^{-\alpha}\dd\lambda<\infty$ if and only if
+	$\alpha < 1$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $g_N = \sum_{n=1}^N f_n$ and
+    $g = \lim_{N\to\infty} g_N = \sum_{n=1}^\infty f_n$.
+    Since the $f_n$ are all nonnegative we can see that
+    the $g_N$ are a sequence of increasing functions,
+    so the monotone convergence theorem yields
+    \begin{align*}
+	\int_X \left(\sum_{n=1}^\infty f_n\right)\dd\mu
+	&= \int_X g\dd\mu
+	= \lim_{N\to\infty} \int_X g_N\dd\mu\\
+	&= \lim_{N\to\infty} \int_X \left(\sum_{n=1}^N f_n\right)\dd\mu
+	= \lim_{N\to\infty} \sum_{n=1}^N\left(\int_X f_n\dd\mu\right)
+	= \sum_{n=1}^\infty \left(\int_X f_n\dd\mu\right).
+    \end{align*}
+
+    (b) Observe that the $E_n$ are pairwise disjoint and cover $X$,
+    and let $g(x) = \sum_{n\in\ZZ} 2^n\cdot\mathbf 1_{E_n}(x)$
+    be a simple function. Since $2^n < f(x) \le 2^{n+1}$ for all $x\in E_n$,
+    we have $g(x) \le f(x) < 2g(x)$ for all $x\in X$.
+    Therefore, if $\int_X f\dd\mu < \infty$, then
+    \begin{equation*}
+	\sum_{n\in\ZZ}2^n\mu(E_n) =
+	\int_X g\dd\mu \le \int_X f\dd\mu < \infty,
+    \end{equation*}
+    and if conversely the sum is finite, then
+    \begin{equation*}
+	\int_X f\dd\mu \le \int_X 2g\dd\mu = \sum_{n\in\ZZ}2^{n+1}\mu(E_n)
+	= 2\cdot\sum_{n\in\ZZ}2^n\mu(E_n) < \infty.
+    \end{equation*}
+    \pagebreak
+
+    (c) Given $\alpha\in\RR$ define
+    \begin{equation*}
+	E_n = \{x\in (0,1) : 2^n < x^{-\alpha} \le 2^{n+1}\}
+	= \{x\in (0,1) : 2^{-(n+1)/\alpha} < x \le 2^{-n/\alpha}\}.
+    \end{equation*}
+
+    If $\alpha=0$ then $x^{-\alpha} = 1$ for all $x\in(0,1)$
+    so the integral is $\int_{(0,1)}1\dd\lambda = 1 < \infty$.
+
+    If $\alpha < 0$, then $-\alpha > 0$ so $0 < x^{-\alpha} < 1$.
+    This means that
+    \begin{equation*}
+	\int_{(0,1)} x^{-\alpha}\dd\lambda < \int_{(0,1)} \dd\lambda
+	= \lambda((0,1)) = 1 < \infty.
+    \end{equation*}
+
+    If $\alpha > 0$, then
+    since $x\in(0,1)$, $2^{-(n+1)/\alpha} < x$ can only happen
+    if $n$ is nonnegative; otherwise, if $n\le -1$, then
+    $-(n+1)/\alpha \ge 0$ so $2^{-(n+1)/\alpha}\ge 1$.
+    For these nonnegative $n$,
+    $\lambda(E_n) = 2^{-n/\alpha} - 2^{-(n+1)/\alpha}$.
+    The series
+    \begin{align*}
+	\sum_{n\in\ZZ} 2^n\lambda(E_n) = \sum_{n=1}^\infty 2^n\lambda(E_n)
+	&= \sum_{n=1}^\infty 2^n(2^{-n/\alpha} - 2^{-(n+1)/\alpha}) \\
+	&= \sum_{n=1}^\infty (2^{n(1-1/\alpha)} - 2^{n(1-1/\alpha)-1/\alpha}) \\
+	&= \sum_{n=1}^\infty (1-2^{-1/\alpha})(2^{n(1-1/\alpha)})
+    \end{align*}
+    is geometric with ratio $2^{1-1/\alpha}$, so this series is finite
+    if and only if $\abs{2^{1-1/\alpha}} < 1$, which only holds when
+    $1 - \frac 1\alpha < 0$. Since $\alpha$ is positive we can multiply through
+    by $\alpha$ and rearrange to get that $\alpha < 1$.
+    By part (b), the finiteness of this series is equivalent
+    to the finiteness of $\int_{(0,1)}x^{-\alpha}\dd\lambda$,
+    so if $0 < \alpha < 1$ then the integral is finite.
+
+    The cases above show that the integral $\int_{(0,1)} x^{-\alpha}\dd\mu$
+    is finite if and only if $\alpha < 1$, as desired.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

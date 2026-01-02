@@ -1,0 +1,439 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage{quiver}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 534 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\quiv}{\equiv}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\aut}{\operatorname{Aut}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+\providecommand{\Ob}{\operatorname{Ob}}
+\providecommand{\Hom}{\operatorname{Hom}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\id}{\operatorname{id}}
+\newcommand{\doubleparen}[1]{(\!(#1)\!)}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 534 HW05}
+\author{\large Aditya Pahuja}
+\date{\large Due 10/08}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $\mathscr C$ be a category.
+    \begin{enumerate}[(a)]
+	\ii Show that for any object $X\in\operatorname{Ob}(\mathscr C)$,
+	there is only one morphism from $X$ to itself
+	that has the defining property of $\id_X$.
+	\ii Suppose that $f\in\Hom(X,Y)$ is an isomorphism.
+	Does this imply that $f$ has a unique inverse in $\Hom(Y,X)$?
+	\ii Show that the group $\Aut(X)$
+	acts on the set of isomorphisms in $\Hom(X,Y)$
+	and that this action is transitive.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $\id_X$ and $\id'_X$ be two such morphisms. Then
+    \begin{equation*}
+        \id_X = \id_X\circ\id'_X = \id'_X.
+    \end{equation*}
+
+    (b) Yes; if $g,g'\in\Hom(Y,X)$ are two inverses of $f$,
+    meaning $g\circ f = g'\circ f = \id_X$ and $f\circ g = f\circ g' = \id_Y$,
+    then
+    \begin{equation*}
+	g = g\circ \underbrace{(f\circ g')}_{\id_Y}
+	= \underbrace{(g\circ f)}_{\id_X}\circ g' = g'.
+    \end{equation*}
+
+    (c) Define an action of $\Aut(X)$ on the isomorphisms in $\Hom(X,Y)$ by
+    $f\cdot g = f\circ g$. This is a right action because
+    \begin{equation*}
+	f\cdot(g\circ h) = f\circ(g\circ h) = (f\circ g)\circ h
+	= (f\cdot g)\cdot h,\quad
+	f\cdot\id_X = f\circ\id_X = f.
+    \end{equation*}
+    The action is transitive because
+    given $f_1,f_2\in\Hom(X,Y)$ are isomorphisms then
+    $f_2\inv \circ f_1\in\Aut(X)$ satisfies
+    \begin{equation*}
+        f_2\cdot(f_2\inv\circ f_1) = f_2\circ f_2\inv\circ f_1 = f_1.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    Given morphism $f\colon X\to Y$, denote by $(*)$ the property that
+    if $g\colon Y\to Z$ and $h\colon Y\to Z$ are two morphisms
+    such that $g\circ f = h\circ f$, then $g = h$.
+    \begin{enumerate}[(a)]
+	\ii Show that in \doubleparen{sets}, $f\colon X\to Y$ is surjective
+	iff $f$ satisfies $(*)$.
+	\ii Characterize the morphisms satisfying $(*)$ in
+	\doubleparen{topological spaces}.
+	\ii Characterize the morphisms satisfying $(*)$ in
+	\doubleparen{groups}.
+	\ii Characterize the morphisms satisfying $(*)$ in
+	\doubleparen{abelian groups}.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $f$ is surjective, then for each $y\in Y$,
+    there exists $x\in X$ such that $y = f(x)$, so
+    $g(y) = g(f(x)) = h(f(x)) = h(y)$ for each $y\in Y$,
+    which means $g = h$.
+
+    On the other hand if $f$ isn't surjective, then
+    there exists $y_0\in Y$ that is not mapped to by any $x\in X$.
+    If $g = \id_Y$ and $h$ is the function mapping $y_0$
+    to any other point in $Y$ while fixing all the other points
+    (i.e. $h(y_0) = y_1$ for some $y_1\ne y_0$ and
+    $h|_{Y\setminus\{y_0\}} = \id_{Y\setminus\{y_0\}}$).
+    Then, $g\ne h$ but $g\circ f = h\circ f$
+    because $y_0$ is never passed as a value to either $g$ or $h$.
+    Thus if $f$ isn't surjective then $(*)$ doesn't hold.
+    \\
+
+    (b) \todo{todo}
+\end{soln}
+
+\begin{problem}
+    Do the following categories have an inital or terminal object?
+    If so, describe them; if not, explain why not.
+    \begin{enumerate}[(a)]
+	\ii \doubleparen{sets}
+	\ii \doubleparen{groups}
+	\ii \doubleparen{fields}
+	\ii \doubleparen{fields of characteristic $0$}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) \doubleparen{sets} has initial object $\varnothing$,
+    since there is tautologically one function $\varnothing\to A$
+    for any set $A$ (and no other set is an initial object
+    because a morphism $X\to \{1,2\}$ necessarily has
+    at least two possible functions by sending everything
+    to either $1$ or $2$). Any singleton set is a final object
+    because a function from $X$ to a singleton set
+    leaves exactly one choice for each element of $X$
+    (and no other set is a final object because
+    a morphism $f\colon\{1\}\to A$ either has no choices for $f(1)$ if $A$ is empty,
+    or at least two choices for $f(1)$ if $A$ has more than one element).
+    \\
+
+    (b) Any group with one element is both an initial and final object,
+    since a morphism of groups always maps the identity of one
+    to the identity of the other. Since all initial objects are isomorphic
+    and all final objects are isomorphic (by Problem 6),
+    this characterizes all initial and final objects in \doubleparen{groups}.
+    \\
+
+    (c) The category of fields does not have an initial object
+    or a final object: any morphism of fields is injective,
+    so there is no morphism between fields of different characteristics,
+    i.e. given any field $F$ there exists another field $F'$
+    (for example any field with a different characteristic)
+    for which $\Hom(F,F')$ is empty, which automatically means
+    $\Hom(F,G)$ cannot have exactly one element for all fields $G$.
+    \\
+
+    (d) The category of fields with characteristic zero has
+    (any field isomorphic to) $\QQ$ as an initial object,
+    since a morphism $\QQ\to F$ is uniquely determined due to the fact
+    that $1$ must map to $1_F$.
+    On the other hand, there is no final object,
+    because apparently you can construct fields of arbitrarily large cardinality
+    (I don't understand why well enough to write down why),
+    and if $F,F'$ are fields such that
+    $F'$ has larger cardinality than $F$ then there is no morphism $F'\to F$
+    because field homomorphisms must be injective,
+    so $F$ cannot be final.
+\end{soln}
+
+\begin{problem}
+    In some categories, the objects are sets and have elements,
+    and then we can try to describe those elements category-theoretically.
+    For example:
+    \begin{enumerate}[(a)]
+	\ii Let $\mathbf 1$ be any one-element set in \doubleparen{sets},
+	for example $\{\varnothing\}$.
+	Show that the elements of a set $X$ are in 1-to-1 correspondence
+	with the morphisms $\Hom(\mathbf 1, X)$.
+	\ii In \doubleparen{groups}, show that
+	the elements of a group $G$ are in 1-to-1 correspondence
+	with $\Hom(\ZZ,G)$.
+	\ii Let $F$ be a field, and consider the category
+	\doubleparen{$F$-vector spaces} of vector spaces
+	over the field $F$. Can you find a vector space $V_0$ in this category
+	such that for any vector space $V$ over $F$,
+	the elements of $V$ are in 1-to-1 correspondence with $\Hom(V_0,V)$?
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since $\mb 1 = \{\varnothing\}$ has only one element, a morphism
+    $f\colon\mb 1\to X$ is uniquely determined by $f(\varnothing)$.
+    Thus there is a correspondence between elements $x\in X$
+    and morphisms $f\in\Hom(\mb 1,X)$ given by
+    \begin{equation*}
+        x \longleftrightarrow (\varnothing\mapsto x).
+    \end{equation*}
+
+    (b) Since $\ZZ$ is generated by $1$, a morphism
+    $f\colon\ZZ\to G$ is uniquely determined by $f(1)$,
+    as this tells us $\phi(n) = g^n$ for all $n\in\ZZ$.
+    Thus there is a correspondence between elements $g\in G$
+    and morphisms $\phi\in\Hom(\ZZ,G)$ given by
+    \begin{equation*}
+	g\longleftrightarrow (n\mapsto g^n).
+    \end{equation*}
+
+    (c) Let $V_0 = F$. Since $V_0$ is a $1$-dimensional $F$-vector space,
+    a morphism $f\in\Hom(V_0,V)$ is determined uniquely by $f(1)$.
+    Thus there is a correspondence between elements $v\in V$
+    and morphisms $f\in\Hom(V_0,V)$ given by
+    \begin{equation*}
+        v\longleftrightarrow (c\mapsto cv).\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    Let $\mathscr C$ be a category, and $A\in\mathscr C$ a fixed object.
+    For every $X\in\Ob(\mathscr C)$, let $F(X) = \Hom(A,X)$
+    be the set of morphisms from $A$ to $X$ in our category.
+    Show that $F$ is a functor from $\mathscr C$ to \doubleparen{sets}.
+\end{problem}
+
+\begin{soln}
+    If $f\colon X\to Y$ is a morphism in $\mathscr C$,
+    let $F(f)$ be the morphism $F(X)\to F(Y)$ sending
+    \begin{equation*}
+	(g\colon A\to X)\mapsto(f\circ g\colon A\to Y)
+    \end{equation*}
+    where $g\in\Hom(A,X)$ is any morphism. This is a functor because
+    \begin{itemize}
+        \ii $F(\id_X)$ is the map
+	$(g\colon A\to X)\mapsto(\id_X\circ g = g\colon A\to X)$
+	which is $\id_{F(X)}$.
+	\ii If $f_1\in\Hom(X,Y)$ and $f_2\in\Hom(Y,Z)$ then
+	$F(f_2)\circ F(f_1)$ is the composed map
+	\begin{equation*}
+	    (g\colon A\to X)\mapsto(f_1\circ g\colon A\to Y)
+	    \mapsto(f_2\circ f_1\circ g\colon A\to Z)
+	\end{equation*}
+	where $g\in\Hom(A,X)$, whose net effect is
+	exactly that of $F(f_2\circ f_1)\colon F(X)\to F(Z)$,
+	i.e. $F$ is well-behaved under composition.\qedhere
+    \end{itemize}
+\end{soln}
+
+\begin{problem}
+    Let $A$ and $B$ be two initial (or final) objects in a category.
+    Show that there is a unique isomorphism between $A$ and $B$.
+\end{problem}
+
+\begin{soln}
+    If $A$ and $B$ are two initial objects
+    or two final objects, then the important data is that
+    $\Hom(A,A)$, $\Hom(A,B)$, $\Hom(B,A)$, and $\Hom(B,B)$ each have
+    exactly one morphism, which we will respectively call
+    $f_{AA} = \id_A$, $f_{AB}$, $f_{BA}$, and $f_{BB} = \id_B$. Then
+    \begin{align*}
+	f_{AB}\circ f_{BA}\in\Hom(B,B)&\implies f_{AB}\circ f_{BA} = \id_B,\\
+	f_{BA}\circ f_{AB}\in\Hom(A,A)&\implies f_{BA}\circ f_{AB} = \id_A,
+    \end{align*}
+    so $f_{AB}$ is an isomorphism,
+    and in fact it is the unique (iso)morphism from $A$ to $B$.
+\end{soln}
+
+\begin{problem}
+    Given a topological space $X$, we can define
+    a category $\mathscr C_X$ as follows:
+    The objects of $\mathscr C_X$ are the open subsets of $X$,
+    and for any two open subsets $U,V\subseteq X$,
+    the set of morphisms in $\mathscr C_X$ is
+    \begin{equation*}
+        \Hom(U,V) = \begin{cases}
+	    \{i_{UV}\} & \text{if }U\subseteq V,\\
+	    \varnothing & \text{if }U\not\subseteq V.
+        \end{cases}
+    \end{equation*}
+    If $U\subseteq V\subseteq W$, we define composition as
+    $i_{VW}\circ i_{UV} = i_{UW}$.
+    \begin{enumerate}[(a)]
+        \ii Prove that $\mathscr C_X$ is indeed a category.
+	\ii Does $\mathscr C_X$ have an initial or final object?
+	\ii For every open $U\subseteq X$, define $F(U)$ to be
+	the set of continuous functions from $U$ to $\RR$.
+	Show that $F$ is a contravariant functor from $\mathscr C_X$
+	to the category \doubleparen{$\RR$-vector spaces}.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) To show that $\mathscr C$ is a category, we only need to check
+    that the morphisms behave as they are supposed to.
+    Each object has identity $i_{UU}$
+    (because inclusion of $U$ into $U$ is the identity), and
+    if $U\subseteq V\subseteq W\subseteq Z$ are open subsets then
+    \begin{equation*}
+	(i_{WZ}\circ i_{VW})\circ i_{UV} =
+	i_{VZ}\circ i_{UV} =
+	i_{UZ} =
+	i_{WZ}\circ i_{UW} =
+	i_{WZ}\circ(i_{VW}\circ i_{UV}),
+    \end{equation*}
+    proving associativity.
+    \\
+
+    (b) Each $\Hom(U,V)$ has at most one morphism, so
+    the only way that $U$ is initial is if $U\subseteq V$ for all open $V$,
+    i.e. $U = \varnothing$, so $\boxed{\varnothing}$ is the unique initial object;
+    and the only way that $V$ is final is if $V\supseteq U$ for all open $U$,
+    i.e. $V = \boxed X$ is the unique final object.
+    \\
+
+    (c) If $U,V\subseteq X$ are open sets
+    such that $U\subseteq V$, then the map $F(V)\to F(U)$ given by
+    \begin{align*}
+	F(i_{UV}) : F(V)&\to F(U)\\
+	(f\colon V\to\RR)&\mapsto (f\circ i_{UV}\colon U\to\RR)
+    \end{align*}
+    is well-defined because inclusion is a continuous map
+    and is obviously linear since $(f+g)\circ i_{UV} = f\circ i_{UV} + g\circ i_{UV}$
+    and $(cf)\circ i_{UV} = c(f\circ i_{UV})$ essentially by definition,
+    so we will say $F$ sends $i_{UV}$
+    to this morphism between $\RR$-vector spaces.
+
+    Now, we check that $F$ is a contravariant functor:
+    \begin{itemize}
+	\ii For any open $U\subseteq X$, $F(\id_U) = F(i_{UU})$
+	is the map $(f\colon U\to\RR)\mapsto(f\circ i_{UU} = f\colon U\to\RR)$,
+	so it is the identity on $F(U)$.
+	\ii If $U\subseteq V\subseteq W$ are open sets in $X$, then
+	$F(i_{UV})\circ F(i_{VW})$ is the composed map
+	\begin{equation*}
+	    (f\colon W\to\RR)\mapsto(f\circ i_{VW}\colon V\to\RR)
+	    \mapsto(f\circ i_{VW}\circ i_{UV}\colon U\to\RR)
+	\end{equation*}
+	which is the same as the map $F(i_{VW}\circ i_{UV})$ by definition.
+    \end{itemize}
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,330 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 322 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+\providecommand{\tensor}{\otimes}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 322 HW09}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 322 HW09}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/29}
+\begin{document}
+\maketitle
+
+\begin{problem}
+	For each of the following functions $T\colon\RR^4\times\RR^4\to\RR$,
+	verify that $T$ is a $2$-tensor on $\RR^4$ and express $T$
+	in terms of the standard basis of $\mathcal L^2(\RR^4)$.
+	\begin{enumerate}[(a)]
+		\ii $T(x,y)=x_1y_3+2x_3y_1-3x_2y_4$
+		\ii $T(x,y)=7x_4y_2+2x_2y_3+11x_1y_1$
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	We note that the basis elements $e_i^*\otimes e_j^*$ are the tensors
+	such that $(e_i^*\otimes e_j^*)(x,y) = x_iy_j$, so for (a) we can write
+	\[T = e_1^*\otimes e_3^* + 2e_3^*\otimes e_1^* - 3e_2^*\otimes e_4^*\]
+	and for (b) we can write
+	\[T = 7e_4^*\otimes e_2^* + 2e_2^*\otimes e_3^* + 11e_1^*\otimes e_1^*.\]
+	In either case, we can see that $T$ must be a $2$-tensor on $\RR^4$
+	because it is a linear combination of $2$-tensors on $\RR^4$.
+\end{soln}
+
+\begin{problem}
+	For each of the following functions $\omega\colon\RR^4\times\RR^4\to\RR$,
+	verify that $\omega$ is an alternating $2$-tensor on $\RR^4$ and
+	express $\omega$ in terms of the standard basis of $\mathcal A^2(\RR^4)$.
+	\begin{enumerate}[(a)]
+		\ii $\omega(x,y)=x_1y_3-y_1x_3 + 2x_3y_1-2y_3x_1 - 3x_2y_3+3y_2x_3$
+		\ii $\omega(x,y)=7x_1y_2-7y_1x_2 + 2x_2y_3-2y_2x_3$
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	We can write $(e_i^*\wedge e_j^*)(x,y) = x_iy_j - x_jy_i$,
+	and the standard basis is the set of $e_i^*\wedge e_j^*$ with $i<j$.
+	For (a)
+	\[\omega = e_1^*\wedge e_3^* + 2e_3^*\wedge e_1^* - 3e_2^*\wedge e_3^*
+	= -e_1^*\wedge e_3^* - 3e_2^*\wedge e_3^*,\]
+	and for (b)
+	\[\omega = 7e_1^*\wedge e_2^* + 2e_2^*\wedge e_3^*.\]
+	These are linear combinations of alternating $2$-tensors on $\RR^4$,
+	so they must also be alternating $2$-tensors on $\RR^4$,
+	since $\mathcal A^2(\RR^4)$ is a linear subspace of $\mathcal L^2(\RR^4)$.
+\end{soln}
+
+\begin{problem}
+	Consider the differential $1$-forms on $\RR^3$ given by
+	\[\omega = xyd x+3dy-yzdz,\quad \eta = xdx-yz^2dy+2xdz.\]
+	Verify by direct computation that
+	\[d(d\omega) = 0,\quad
+	d(\omega\wedge\eta) = d\omega\wedge\eta-\omega\wedge d\eta.\]
+\end{problem}
+
+\begin{soln}
+	Writing $d\omega = \omega_1dx + \omega_2dy + \omega_3dz$
+	(so $\omega_1 = xy$, $\omega_2 = 3$, $\omega_3 = -yz$), we have
+	\begin{align*}
+		d\omega &=
+		d\omega_1\wedge dx + d\omega_2\wedge dy + d\omega_3\wedge dz\\
+		&= (ydx + xdy)\wedge dx + 0\wedge dy + (-zdy - ydz)\wedge dz\\
+		&= -xdx\wedge dy - zdy\wedge dz.
+	\end{align*}
+	Then we can compute
+	\[d(d\omega) = -dx\wedge dx\wedge dy - dz\wedge dy\wedge dz = 0.\]
+	We also see that
+	\[\omega\wedge\eta =
+	(-xy^2z^2-3x)dx\wedge dy + (2x^2y+xyz)dx\wedge dz+(6x-y^2z^3)dy\wedge dz,\]
+	so
+	\[d(\omega\wedge\eta) = (-2xy^2z-2x^2-xz+6)dx\wedge dy\wedge dz.\]
+	On the other hand,
+	\[d\eta = 2dx\wedge dz + 2yzdy\wedge dz,\]
+	which gives us
+	\[d\omega\wedge\eta - \omega\wedge d\eta =
+	(-2x^2-xz)dx\wedge dy\wedge dz - (-6 + 2xy^2z)dx\wedge dy\wedge dz,\]
+	which is equal to $(-2xy^2z-2x^2-xz+6)dx\wedge dy\wedge dz
+	=d(\omega\wedge\eta)$ as desired.
+\end{soln}
+
+\begin{problem}
+	Let $\omega$ be a $k$-form on an open set $U\subseteq\RR^n$.
+	We say $\omega$ \vocab{vanishes} at $x\in U$ if $\omega_x$
+	is the zero tensor.
+	\begin{enumerate}[(a)]
+		\ii Show that if $\omega$ vanishes for all $x$ in
+		a neighborhood of $x_0$, then $d\omega$ vanishes at $x_0$.
+		\ii Give an example to show that if $\omega$ vanishes at $x_0$
+		then $d\omega$ need not vanish at $x_0$.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	(a) Let $\omega = \sum_I\omega_Idx_I$ where the sum is over all
+	sequences $I = (i_1,\dots,i_k)$ of integers satisfying
+	$1\le i_1<\cdots<i_k\le n$, $dx_I$ is shorthand for
+	$dx_{i_1}\wedge\cdots\wedge dx_{i_k}$, and the $\omega_I$ are
+	smooth functions $U\to\RR$. The vanishing condition means that
+	$\omega_I(x) = 0$ for all $x$ in a neighborhood of $x_0$,
+	so the derivative of $\omega_I$ is $0$ in a neighborhood of $x_0$
+	(in particular the partials are all zero in a neighborhood of $x_0$).
+	This means that, for $x$ in this neighborhood,
+	\[d\omega_x = \sum_{I}d\omega_I(x)\wedge dx_I = \sum_I 0\wedge dx_I =0.\]
+
+	(b) Take $\omega\colon\RR\to\RR$ to be the $0$-form given by $f(x) = x$
+	for all $x$. Then $\omega_0 = 0$, but $d\omega = dx\ne 0$ for all $x$.
+\end{soln}
+
+\begin{problem}
+	We say that $\omega\in\Omega^k(U)$ is \vocab{exact} if
+	there exists $\eta\in\Omega^{k-1}(U)$ such that $\omega = d\eta$,
+	and we say that $\omega$ is \vocab{closed} if $d\omega = 0$.
+	Note that $d(d\eta) = 0$ implies all exact forms are closed.
+	\begin{enumerate}[(a)]
+		\ii Show that the $1$-form
+		\[\omega = \frac{x}{x^2+y^2}dx + \frac{y}{x^2+y^2}dy\]
+		on $\RR^2\setdiff\{(0,0)\}$ is both closed and exact.
+		\ii Show that the $1$-form
+		\[\omega = \frac{-y}{x^2+y^2}dx + \frac{x}{x^2+y^2}dy\]
+		on $\RR^2\setdiff\{(0,0)\}$ is closed.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	(a) It suffices to show that $\omega$ is exact. Indeed, noting
+	$\omega = d\eta$ where $\eta$ is the differential
+	$0$-form $\ln(\sqrt{x^2+y^2})$ proves exactness.
+	
+	(b) This is just a direct derivative computation: we have
+	\begin{align*}
+		d\omega& = \left(\frac{-y\cdot -2y}{(x^2+y^2)^2}
+		- \frac{1}{x^2+y^2}\right)dy\wedge dx + \left(\frac{x\cdot-2x}
+		{(x^2+y^2)^2}+\frac{1}{x^2+y^2}\right)dx\wedge dy\\
+		&= \left(\frac{y^2-x^2}{(x^2+y^2)^2}\right)(dy\wedge dx+dx\wedge dy)
+	\end{align*}
+	which obviously equals zero.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

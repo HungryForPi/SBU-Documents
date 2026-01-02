@@ -1,0 +1,530 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 548 Notes}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=theorem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\PP}{\mathbb P}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\Gr}{\operatorname{Gr}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+\providecommand{\norm}[1]{\left\|#1\right\|}
+\providecommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\providecommand{\ceil}[1]{\left\lceil #1\right\rceil}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 548 Notes}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2em}MAT 548: Geometry and Topology I}
+\author{\large Aditya Pahuja}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{August 26}\label{sec:aug26}
+
+\begin{definition}[Topological manifold]
+    \label{def:topman}
+    An \vocab{$n$-dimensional topological manifold}
+    is a second-countable Hausdorff space $X$ that is locally Euclidean,
+    i.e. for all $x\in X$, there is an open $U\subseteq X$ containing $x$
+    that is homeomorphic to an open subset of $\RR^n$.
+\end{definition}
+
+Note that this implies that manifolds are locally compact
+because open sets in $\RR^n$ are locally compact.
+Topological manifolds also satisfy a useful property called paracompactness:
+\begin{definition}[Paracompactness]
+    \label{def:paracompact}
+    A topological space $X$ is paracompact if
+    any open cover $\{U_\alpha\}_{\alpha\in A}$ of $X$
+    has a locally finite refinement;
+    this means that there is an open cover $\{V_\beta\}_{\beta\in B}$ of $X$
+    such that
+    \begin{enumerate}[(1)]
+        \ii for all $\beta\in B$, there exists $\alpha\in A$ satsifying
+	$V_\beta\subseteq U_\alpha$.
+	\ii for all $x\in X$, there is a neighborhood $U$ of $x$
+	such that $U$ intersects finitely many elements of $\{V_\beta\}_{\beta\in B}$.
+    \end{enumerate}
+\end{definition}
+
+\begin{prop}
+    \label{prop:topman-paracompact}
+    Topological manifolds are paracompact.
+    More strongly, given a topological manifold $X$,
+    an open cover $\{U_\alpha\}_{\alpha\in A}$, and
+    any basis $\mathcal B$ for the topology on $X$,
+    there exists a countable, locally finite
+    refinement of $\{U_\alpha\}_{\alpha\in A}$
+    consisting of elements of $\mathcal B$.
+\end{prop}
+
+\begin{proof}
+    Let $K_1$, $K_2$, $K_3$, \dots be a set of compact subsets of $X$
+    such that $K_i\subseteq \operatorname{Int}K_{i+1}$ and
+    $\bigcup_{i=1}^\infty K_i = X$.
+    Then, define the open set $O_i = \operatorname{Int}K_{i+2}\setminus K_{i-1}$
+    and the compact set $C_i = K_{i+1}\setminus\operatorname{Int}K_i$.
+    (Such a set exists in general for any second-countable locally compact
+    Hausdorff space; see Prop. A.60 in Lee.)
+
+    Now, for each $x\in C_i$, there exists a $U_\alpha$ such that $x\in U_\alpha$
+    and a basis element $B_x$ containing $x$ such that $B_x\subseteq U_\alpha\cap O_i$.
+    Since $C_i$ is compact, we can find a finite subcover of the $B_x$, say
+    $\{B_{i,1}, B_{i,2}, \dots, B_{i,N_i}\}$.
+    The set $\{B_{i,j} : j\le N_i\}$ is clearly a refinement of
+    $\{U_\alpha\}_{\alpha\in A}$, and we will show local finiteness.
+
+    To do this, given $x\in X$, pick $k$ such that $x\in O_k$.
+    If $B_{m,*}\cap O_k\ne\varnothing$, then $C_m\cap O_k\ne\varnothing$,
+    which implies that $k-1\le m\le k+2$. There are only finitely many $B_{m,*}$
+    satisfying this, so $O_k$ intersects finitely many sets in our refinement,
+    proving that the refinement is locally finite and thus $X$ is paracompact.
+\end{proof}
+
+\begin{prop}
+    \label{prop:strongrefinement}
+    Let $X$ be a topological manifold and $\{U_\alpha\}_{\alpha\in A}$
+    an open cover that is locally finite.
+    Then, there exists a locally finite open cover $\{V_\alpha\}_{\alpha\in A}$
+    such that for all $\alpha\in A$, $\ol{V_\alpha}\subseteq U_\alpha$.
+\end{prop}
+
+\begin{proof}
+    \todo{todo; didn't understand the one shown in class}
+\end{proof}
+
+\begin{definition}[$C^\infty$ manifold]
+    \label{def:smooth-man}
+    Let $X$ be an $n$-dimensional topological manifold.
+    An \vocab{atlas} on $X$ is an open cover $\{U_\alpha\}_{\alpha\in A}$ of $X$
+    with homeomorphisms
+    \begin{equation*}
+        h_\alpha\colon U_\alpha\to O_\alpha\stackrel{open}{\subseteq}\RR^n
+    \end{equation*}
+    such that for all $\alpha,\beta\in A$ with $h_\beta\circ h_\alpha\inv$
+    is a diffeomorphism between $h_\alpha(U_\alpha\cap U_\beta)$
+    and $h_\beta(U_\alpha\cap U_\beta)$. The pairs $(U_\alpha, h_\alpha)$ are called
+    \vocab{coordinate charts} of the underlying topological manifold
+    and the composed maps $h_\beta\circ h_\alpha\inv$ are
+    called \vocab{transition maps}.
+    Then, the pair $(X, \{(U_\alpha,h_\alpha)\}_{\alpha\in A})$,
+    abbreviated as $(X, \{U_\alpha\}_{\alpha\in A})$, is a
+    \vocab{$C^\infty$ manifold} or \vocab{smooth manifold}
+    (which we will just shorten to ``manifold'').
+\end{definition}
+
+The transition maps should be thought of as a ``local change of coordinates.''
+
+\begin{definition}[Smooth map to $\RR^N$]
+    \label{def:smooth-map-RN}
+    Let $(X,\{U_\alpha\}_{\alpha\in A})$ be a manifold
+    and $f\colon X\to\RR^N$ a function.
+    We say that $f$ is (infinitely) differentiale (or smooth, or $C^\infty$) if
+    for all $\alpha\in A$, $f\circ h_\alpha\inv : h_\alpha(U_\alpha)\to\RR^N$
+    is $C^\infty$.
+\end{definition}
+
+\begin{definition}[Smooth map between manifolds]
+    \label{def:smooth-map-man}
+    Let $(X,\{U_\alpha\}_{\alpha\in A})$ and
+    $(Y,\{V_\beta\}_{\beta\in B})$ be manifolds.
+    A map $F\colon X\to Y$ is differentiale (or smooth or $C^\infty$) if
+    for all $x\in X$, there exists $U_\alpha\ni x$ and
+    $V_\beta\ni f(x)$ and an open set $O$ around
+    $h_\alpha(x)$ such that $F(h\inv_\alpha(O))\subseteq V_\beta$,
+    and the composition
+    \begin{equation*}
+	O\stackrel{h\inv_\alpha}{\longrightarrow} U_\alpha
+	\stackrel{F}{\longrightarrow} V_\beta
+	\stackrel{h_\beta}{\longrightarrow} h_\beta(V_\beta)
+    \end{equation*}
+    is smooth.
+\end{definition}
+
+\begin{definition}[Compatibility of atlases]
+    \label{def:atlas-compatibility}
+    Two atlases $\mathcal U = \{U_\alpha\}_{\alpha\in A}$ and
+    $\mathcal V = \{V_\beta\}_{\beta\in B}$ on $X$
+    are \vocab{compatible} if $\mathcal U\cup\mathcal V$ is an atlas
+    (so transition maps between elements of $\mathcal U$ and $\mathcal V$
+    are smooth).
+\end{definition}
+
+Given an open subset $W$ of a manifold $X$ and a diffeomorphism
+$\psi\colon W\to O\stackrel{\text{open}}\subseteq \RR^n$,
+the atlas of $X$ is compatible with the atlas resulting from
+adding $(W,\psi)$ to the atlas. This means that given an atlas
+$\mathcal U$ of $X$, we can define
+\begin{equation*}
+    \mathcal U_{\text{max}} = \mathcal U \cup
+    \{ (W,\psi) : \psi\text{ is a diffeomorphism from
+	    $W\stackrel{\text{open}}\subseteq X$ to
+    an open set in $\RR^n$} \}.
+\end{equation*}
+
+It is not hard to check that this is indeed an atlas,
+and $\mathcal U_{\text{max}}$ is maximal with respect to inclusion,
+meaning it is not properly contained by any other atlases on $X$.
+
+\begin{example}
+    Some examples of manifolds:
+    \begin{itemize}
+        \ii Any open subset $U\subseteq\RR^n$ can be made a manifold
+	with the atlas $\{(U,\operatorname{id})\}$.
+	(What is the corresponding maximal atlas then?)
+	\ii The general linear group $GL_n(\RR)$,
+	which is open in $\RR^{n^2}$, can be made a manifold
+	as stated above. $GL_n(\RR)$ is also of course a group
+	where the multiplication map $(A,B)\mapsto AB$ and
+	inverse map $A\mapsto A\inv$ are both $C^\infty$.
+	This is an example of a \vocab{Lie group}.
+    \end{itemize}
+\end{example}
+
+\section{August 28}\label{sec:aug28}
+\subsection{Some more examples of manifolds}
+
+The sphere $S^n = \{ x\in\RR^{n+1} : \norm{x} = 1\}$ is
+a manifold of dimension of $n$ with charts
+\begin{align*}
+    \varphi_k^{\pm} : B^n_1(0)&\to S^n\\
+    x &\mapsto
+    (x_1,\dots,x_{k-1},\sqrt{1-\norm{x}^2},x_k,\dots,x_n)
+\end{align*}
+where $B^n_r(y)$ indicates an open $n$-dimensional ball
+centered at $y$ with radius $r$ and $k=1,\dots,n$.
+(It is very simple to verify that the transition maps
+are diffeomorphisms; try it!)
+
+The sphere can be acted upon by $\ZZ_2$ via
+the antipodal map $x\mapsto -x$ (more precisely,
+identity element goes to identity homeomorphism and
+the other element goes to the antipodal homeomorphism),
+and the orbit space $S^n/\ZZ_2$ is what we call \vocab{real projective space},
+denoted $\RR\PP^n$; equivalently, this is
+the set of one-dimentional subspaces of $\RR^{n+1}$
+(since we can identify each subspace with a pair of antipodal points on $S^n$).
+This is a manifold of dimension $n$ with the coordinate charts
+\begin{align*}
+    \varphi_k\colon\RR^n &\to \RR\PP^n \\
+    (x_1,\dots,x_{k-1},x_{k+1},\dots,x_{n+1})&\mapsto
+    (x_1,\dots,x_{k-1},1,x_{k+1},\dots,x_{n+1})
+\end{align*}
+for $k=1,\dots,n+1$. We need to check that
+the transition maps are diffeomorphisms in this case.
+Note that $\varphi_k(\RR^n)$ is the subset of $\RR\PP^n$
+whose $k$th coordinate is nonzero, so if $j\ne k$, then
+$\varphi_j(\RR^n)\cap\varphi_k(\RR^n)$ is the subset
+whose $j$th and $k$th coordinates are both nonzero,
+so the map $\varphi_j\circ\varphi_k\inv\colon\varphi_k(\RR^n)\to\varphi_j(\RR^n)$,
+which is simply the division-by-$x_j$ map
+\begin{equation*}
+    (x_1,\dots,1,\dots,x_k,\dots,x_n)\mapsto
+    \left(\frac{x_1}{x_k},\dots,\frac{1}{x_k},\dots,1,\dots,\frac{x_n}{x_k}\right),
+\end{equation*}
+is differentiable because $x_k\ne 0$, as is its inverse because $x_j\ne 0$.
+
+A generalization of projective space is the \vocab{Grassmannian}
+$\Gr(k,n)$ for $0\le k\le n$, which is the space of
+all $k$-dimensional subspaces of $\RR^n$.
+\todo{i don't get how he computed the dim as $k(n-k)$}
+
+One last example is given by taking a function $F\colon\RR^3\to\RR$
+and looking at the pre-image $M = F\inv(0)$ ($0$ is of course arbitrary).
+Of course, this need not be a manifold, such as in the case
+$F = x^2 + y^2 - z^2$ (no chart exists around $(0,0,0)$);
+on the other hand, the simple condition that the derivative $(\nabla F)_x$
+at any $x\in M$ is nonzero is enough to make $M$ a manifold!
+\todo{prove this}
+
+\subsection{Partitions of unity}
+
+The idea of partitions of unity is to write a smooth function $f\colon X\to\RR$ as
+a sum of possibly infinitely many smooth functions such that
+the sum locally looks like a finite sum around any $x\in X$,
+so we are not restricted to finite sums while also not having to worry
+about issues of convergence.
+
+The first step of this is to construct a smooth function $\RR^n\to\RR$
+that is supported on a closed ball.
+\todo{bump f'ns}
+
+\pagebreak
+
+\section{September 2}\label{sec:sep2}
+
+\todo{partitions of unity stuff}
+
+\todo{def mfld w bd}
+
+The geometric idea of a tangent vector
+is that we want to take a $C^\infty$ curve
+$\gamma\colon(-\eps,\eps)\to X$,
+and then the tangent vector to $\gamma$ at $\gamma(0)$ is
+$\frac{\dd\gamma}{\dd t}(0)$.
+This, however, depends on the choice of coordinates.
+We will instead use a coordinate-free, more abstract path
+to define tangent vectors.
+
+\begin{definition}[Germs of a manifold]
+    \label{def:germs}
+    Let $X$ be a manifold. Consider the collection of pairs
+    \begin{equation*}
+	C_p = \{ (U,f) : p\in U\overset{\text{open}}\subseteq X,
+	f\in C^\infty(U)\}
+    \end{equation*}
+    and define an equivalence relation $\sim$ on $C_p$ by
+    $(U,f)\sim(U',f')$ if there is a neighborhood $W$ of $p$
+    contained in $U\cap U'$ such that $f \equiv f'$ on $W$.
+    The \vocab{germs} at $p$ are the equivalence classes,
+    the collection of which we denote by $C^\infty_p(X)$.
+\end{definition}
+
+The germs at $p$ form a unital associative algebra
+where the operations of addition, multiplication, and scalar multiplication
+are given by
+\begin{align*}
+    [(U,f)] + [(V,g)] &= [(U\cap V, f+g)]\\
+    [(U,f)][(V,g)] &= [(U\cap V, fg)]\\
+    \lambda[(U,f)] &= [(U, \lambda f)]\\
+\end{align*}
+where $[(W,h)]$ is the germ containing $h$.
+
+\begin{exercise}
+    Check that these operations are well-defined.
+\end{exercise}
+
+The upshot is that we can understand local properties of a function $f$
+just by looking at its equivalence class, somehow?
+
+\begin{definition}[Tangent vector]
+    \label{def:tangent-vector}
+    A \vocab{tangent vector} $v$ at $p\in X$ is a linear map
+    $V\colon C^\infty_p(X)\to\RR$ such that
+    \begin{equation*}
+        v(fg) = v(f)g(p) + f(p)v(g)
+    \end{equation*}
+\end{definition}
+\todo{im too tired for this shit}
+
+\section{September 4}\label{sec:sep4}
+\todo{there was some stuff with showing that
+partials make basis of tangent space}
+
+\begin{definition}[Tangent bundle]
+    \label{def:tangent-bundle}
+    The tangent bundle $TX$ is the disjoint union
+    \begin{equation*}
+	\coprod_{x\in X} T_xX
+    \end{equation*}
+    equipped with a map $\pi\colon TX\to X$
+    given by $\pi(T_xX) = x$.
+    A \vocab{section} of $TX$ over an open subset $U\subseteq X$
+    is a map $\sigma\colon U\to TX$ such that
+    $\pi\circ\sigma = \operatorname{Id}_U$,
+    i.e. $\sigma(x)\in T_x(X)$ for all $x\in U$.
+\end{definition}
+
+If $\varphi\colon U\to\mathscr O\subseteq\RR^n$
+gives local coordinates on $X$, then
+\begin{equation*}
+    \frac{\partial}{\partial x_j}\colon \mathscr O\to T\mathscr O
+\end{equation*}
+are local sections of $T\mathscr O$ and w ehave a bijection
+$\mathscr O\times\RR^n\to T\mathscr O$ by taking
+\begin{equation*}
+    (x,c_1,\dots,c_n) \mapsto
+    \sum_{j=1}^n c_j\frac\partial{\partial x_j}\bigg\vert_x.
+\end{equation*}
+The inverse $T\mathscr O\to\mathscr O\times\RR^n$
+induces local coordinates on $T\mathscr O$, hence on $TX$.
+
+\begin{prop}
+    \label{prop:tangent-bundle-is-mfld}
+    If $X$ is a manifold then $TX$ is a $C^\infty$ manifold.
+\end{prop}
+
+\begin{proof}
+    We need to check that the transition maps between the charts
+    described above are diffeomorphisms.\todo{do that.}
+\end{proof}
+
+\begin{definition}[Tangent vector field]
+    \label{def:tangent-vector-field}
+    A \vocab{tangent vector field} $v$ on an open subset $U\subseteq X$
+    is a $C^\infty$ section $\sigma\colon U\to TU$.
+\end{definition}
+
+\section{September 9}\label{sec:sep9}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

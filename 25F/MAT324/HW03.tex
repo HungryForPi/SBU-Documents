@@ -1,0 +1,533 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 324 HW03}
+\author{\large Aditya Pahuja}
+\date{\large Due 09/18}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $(X,d_X)$ and $(Y,d_Y)$ be metric spaces, $A\subseteq X$,
+    and $f\colon X\to Y$ a map.
+    \begin{enumerate}[(a)]
+        \ii Suppose $f$ is continuous at every $x\in A$.
+	Show that $f|_A$ is continuous.
+	\ii Given an example showing that the converse need not hold,
+	i.e. $f|_A$ may be continuous despite $f$ being discontinuous
+	at some $x\in A$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $f$ is continuous on $X$ then, for every open $V\subseteq Y$,
+    $f\inv(V)$ is open in $X$, so
+    $f|_A\inv(V) = A\cap f\inv(V)$ is open in $A$;
+    this is what it means for $f|_A$ to be continuous.\\
+
+    (b) Take $f\colon\RR\to\RR$ defined as
+    \begin{equation*}
+        f(x) = \begin{cases}
+	    0 & \text{if }x<0\\
+	    1 & \text{if }x\ge1
+        \end{cases}
+    \end{equation*}
+    and let $A = [0,\infty)$. Then, $f|_A$ is constant, hence continuous,
+    but $f$ is not continuous at $0\in A$ because $f(0)\in(\half,\infty)$ but
+    $f\inv((\half,\infty)) = [0,\infty)$ does not contain a neighborhood of $0$.
+\end{soln}
+
+\begin{problem}
+    Suppose $A\subseteq\RR$ is closed and $f\colon A\to\RR$ is a continuous function.
+    Thus, $\RR\setminus A$ is a union of at most countably many disjoint intervals
+    $(a_k,b_k)$ with $a_k,b_k\in A\sqcup\{\pm\infty\}$ distinct for $k\in\NN$.
+    Show that the function $g\colon\RR\to\RR$ defined by
+    \begin{equation*}
+	g(x) = \begin{cases}
+	    f(x) & \text{if }x\in A\\
+	    f(b_k) & \text{if }x\in(a_k,b_k)\text{ for some }k
+	    \text{ such that }a_k=-\infty\\
+	    f(a_k) & \text{if }x\in(a_k,b_k)\text{ for some }k
+	    \text{ such that }b_k=\infty\\
+	    tf(a_k) + (1-t)f(b_k) & \text{if }x = ta_k + (1-t)b_k
+	    \text{ for some }t\in[0,1]\text{ and }k
+	\end{cases}
+    \end{equation*}
+    is continuous.
+\end{problem}
+
+\begin{soln}
+    If $x$ is not a boundary point of $A$ (i.e. it either lies outside $A$
+    or in the interior of $A$) then $g$ is continuous at $x$ because
+    $g$ is continuous on the open sets $\operatorname{Int}(A)$ and $\RR\setminus A$.
+
+    Now suppose $x\in \partial A$ is on the boundary. We consider two cases.
+    First, if there is no sequence of $b_k$s converging to $x$,
+    then there is a neighborhood $B = (x-\delta,x+\delta)$
+    of $x$ not containing any boundary points besides possibly $x$.
+    By construction $g$ must be continuous on $(x-\delta, x]$ and $[x,x+\delta)$,
+    since $g\equiv f$ on one of these intervals and $g$ is described by
+    a linear polynomial on the other (because one of the intervals is contained in $A$
+    and the other isn't); the pasting lemma then gives continuity
+    on the neighborhood $B$, so $g$ is continuous at $x$.
+
+    The alternative is that some sequence of $b_k$s converges to $x$;
+    call this sequence $(\widehat b_n)_{n\in\NN}$
+    and let $\widehat a_n$ be the left endpoint of the interval
+    in $\RR\setminus A$ that has $\widehat b_n$ as its right endpoint.
+    Assume that the $\widehat b_n$s are all less than $x$; we will show that
+    \begin{equation*}
+	\lim_{\substack{x'\to x^-}} g(x') = g(x)
+    \end{equation*}
+    The sequence $\widehat a_n$ also converges to $x$ because
+    \begin{equation*}
+	\sup_{\widehat b_k \le \widehat a_n} \widehat b_k
+	\le \widehat a_n \le \widehat b_n.
+    \end{equation*}
+    Now we have for any $\delta>0$ that if $x'\in(x-\delta,x]\setminus A$, then
+    \begin{equation*}
+	\abs{g(x)-g(x')}\le
+	\max\left(\sup_{\widehat a_k\in (x-\delta,x]} \abs{g(x) - g(\widehat a_k)},
+	\sup_{\widehat b_k\in (x-\delta,x]} \abs{g(x)-g(\widehat b_k)}\right)
+    \end{equation*}
+    because for each $[\widehat a_k,\widehat b_k]\subseteq (x-\delta,x]$,
+    $g$ reaches its maximum and minimum value at the endpoints $a_k$, $b_k$.
+    Since the $\widehat a_k$ and $\widehat b_k$ converge to $x$,
+    given $\eps>0$ we can pick $\delta$ so that the upper bound is
+    less than $\eps$, which implies that $\abs{g(x)-g(x')} < \eps$.
+    By continuity of $f$ at $x$, we can also shrink $\delta$ to ensure that
+    if $x'\in (x-\delta,x]\cap A$ then $\abs{g(x)-g(x')} < \eps$
+    still holds, hence the bound holds for all $x'\in (x-\delta,x]$. Thus
+    \begin{equation*}
+	\lim_{x'\to x^-} g(x') = g(x).
+    \end{equation*}
+
+    To get the limit from above, we can find a sequence of $a_k$s,
+    say $\widetilde a_n$, (and the corresponding $\widetilde b_n$) whose terms are
+    all at least as large as $x$ that converges to $x$.
+    Then, consider $h(x) = g(-x)$, which is now defined
+    as a extension of $x\mapsto f(-x)$ by linear polynomials on intervals
+    $(-b_k,-a_k)$. The $-\widetilde a_n$ and $-\widetilde b_n$
+    converge to $-x$ from below and $-x$ is in the closed set
+    $-A = \{-a : a\in A\}$ on which $x\mapsto f(-x)$
+    is defined, so the preceding paragraph applies to $h$
+    and we may use continuity from below
+    for $h$ at $-x$ to extract continuity from above for $g$ at $x$.
+    Thus $g$ is continuous at all $x\in A$, completing the proof.
+\end{soln}
+
+\begin{problem}
+    Let $A\subseteq\RR$. Show that the function $f\colon\RR\to\RR$ given by
+    \begin{equation*}
+        f(x) = \begin{cases}
+	    x & \text{if }x\in A\\
+	    -x & \text{if }x\notin A
+        \end{cases}
+    \end{equation*}
+    is Lebesgue measurable if and only if $A$ is a Lebesgue measurable set.
+\end{problem}
+
+\begin{soln}
+    Since $\{(a,\infty) : a\in\RR\}$ generates the Borel $\sigma$-algebra on $\RR$,
+    $f$ is Lebesgue measurable if and only if $f\inv((a,\infty))$ is Lebesgue
+    for all $a\in\RR$. To show that this is equivalent to $A$ being Lebesgue,
+    we write
+    \begin{equation*}
+        f\inv((a,\infty)) = (A\cap(a,\infty)) \cup (A^c\cap(-\infty,-a)).
+    \end{equation*}
+    If $A$ is Lebesgue, then this set is of course Lebesgue for all real $a$
+    because Lebesgue sets form a $\sigma$-algebra.
+    Conversely, if $f\inv((a,\infty))$ is Lebesgue for all real $a$, then
+    \begin{equation*}
+	A\cap(0,\infty) = (0,\infty)\cap f\inv((0,\infty)),
+	\quad
+	A\cap(-\infty,0) = (-\infty,0)\cap f\inv((0,\infty)),
+    \end{equation*}
+    are both Lebesgue, implying
+    \begin{equation*}
+	A\setminus\{0\}
+	= (A\cap(0,\infty))\cup ((-\infty,0)\setminus(A^c\cap(-\infty,0))
+    \end{equation*}
+    is Lebesgue. If $A\setminus\{0\} = A$ then $A$ is Lebesgue,
+    otherwise $(A\setminus\{0\}) \cup\{0\} = A$ so $A$ is still Lebesgue.
+    Thus $A$ is Lebesgue if and only if the pre-image
+    of every open ray under $f$ is Lebesgue.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $(X,\mathcal S)$ be a measurable space.
+    \begin{enumerate}[(a)]
+        \ii Suppose $(Y,d)$ is a metric space,
+	$g\colon Y\to\RR$ is a continuous function,
+	and $f\colon X\to Y$ is a function such that $f\inv(V)\in\mathcal S$
+	for every open subset $V\subseteq Y$.
+	Show that the function $g\circ f\colon X\to\RR$
+	is $\mathcal S$-measurable.
+	\ii Suppose $f_1,\dots,f_k\colon X\to\RR$ are
+	$\mathcal S$-measurable functions and
+	$f = (f_1,\dots, f_k)\colon X\to\RR^k$.
+	Show that $f\inv(V)\in\mathcal S$ for every
+	open subset $V\subseteq\RR$.
+	\ii Show that $f_1,f_2\colon X\to\RR$ are
+	$\mathcal S$-measurable functions and $a_1,a_2\in\RR$.
+	Show that
+	\begin{equation*}
+	    a_1f_1 + a_2f_2\colon X\to\RR\text{ and }f_1f_2\colon X\to\RR
+	\end{equation*}
+	are also $\mathcal S$-measurable functions.
+	If in addition $f_2\inv(0) = \varnothing$, show that
+	$f_1/f_2\colon X\to\RR$ is an $\mathcal S$-measurable function.
+	\ii Show that a function $f\colon X\to\RR$ is Lebesgue measurable
+	if and only if the function $f^3$ is Lebesgue measurable.
+	\ii Give an example of a function $f\colon\RR\to\RR$
+	so that it is not Lebesgue measurable,
+	but $f^2\colon\RR\to\RR$ is Lebesgue measurable.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) It suffices to check that the pre-image of an open set
+    under $g\circ f$ is in $\mathcal S$.
+    Suppose $U\subseteq\RR$ is open. Then
+    $g\inv(U)$ is open in $Y$ by continuity,
+    so $(g\circ f)\inv(U) = f\inv(g\inv(U))$ is in $\mathcal S$.\\
+
+    (b) The rational cubes $(a_1,b_1)\times\cdots\times(a_k,b_k)$,
+    where $a_j<b_j$ for $j=1,\dots,k$ are rational numbers,
+    are a basis for the topology of $\RR^k$.
+    That is, for any open $V\subseteq\RR^k$, we can find cubes
+    $I_n = (a^{(n)}_1, b^{(n)}_1)\times\cdots\times(a^{(n)}_k,b^{(n)}_k)$,
+    where the intervals have endpoints in $\QQ$,
+    such that $V = \bigcup_{n=1}^\infty I_n$. Then,
+    \begin{equation*}
+	f\inv(V) = \bigcup_{n=1}^\infty f\inv(I_n) =
+	\bigcup_{n=1}^\infty \bigcap_{j=1}^k f_j\inv((a^{(n)}_j,b^{(n)}_j))
+    \end{equation*}
+    because the pre-image of $I_n$ is the set of $x\in X$ such that
+    $f_j(x)\in(a^{(n)}_j,b^{(n)}_j)$ for each $j=1,\dots,k$.
+    In summary, $f\inv(V)$ is the union of countably many
+    finite intersections of $\mathcal S$-measurable sets,
+    since of course $f_j\inv((a_j^{(n)},b_j^{(n)}))$ is $\mathcal S$-measurable,
+    so $f\inv(V)$ is $\mathcal S$-measurable.\\
+
+    (c) Define $f\colon X\to\RR^2$ by $f(x) = (f_1(x), f_2(x))$;
+    this is $\mathcal S$-measurable because, by part (b),
+    the pre-image of every open subset of $\RR$ under $f$ is in $\mathcal S$,
+    which by part (a) implies that $f$ is a $\mathcal S$-measurable function.
+    Then, the functions $g_1,g_2\colon\RR^2\to\RR$ and
+    $g_3\colon\RR\times(\RR\setminus\{0\})\to\RR$ given by
+    \begin{equation*}
+        g_1(x,y) = a_1x+a_2y,\quad g_2(x,y) = xy,\quad g_3(x,y) = x/y
+    \end{equation*}
+    are all continuous on their domains, so by (a)
+    the functions $g_1\circ f = a_1f_1 + a_2f_2$
+    and $g_2\circ f = f_1f_2$ are $\mathcal S$-measurable,
+    and if $f_2\inv(0)=\varnothing$,
+    then $g_3\circ f = f_1/f_2$ is also $\mathcal S$-measurable.\\
+
+    (d) If $f\colon X\to\RR$ is measurable then we can compose $f$
+    with the continuous map $x\mapsto x^3$ to get that $f^3$ 
+    is also measurable by (a). Conversely if $f^3\colon X\to\RR$ is measurable
+    then we compose $f^3$ with the continuous map $x\mapsto\sqrt[3]{x}$
+    to get that $\sqrt[3]{f^3} = f$ is also measurable by (a).\\
+
+    (e) Let $V\subseteq\RR$ be a non-Lebesgue set.
+    The function $f\colon\RR\to\RR$ defined by
+    \begin{equation*}
+        f(x) = \begin{cases}
+	    1 & \text{if }x\in V\\
+	    -1 & \text{if }x\notin V.
+        \end{cases}
+    \end{equation*}
+    Then the pre-image of the Borel set $\{1\}$ is $V$,
+    so $f$ is not Lebesgue measurable, but $f^2\equiv1$ everywhere
+    so obviously it is Lebesgue measurable.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    Let $(X,\mathcal S, \mu)$ be a measurable space and
+    $f_1,f_2,\dots\colon X\to[-\infty,\infty]$ be
+    $\mathcal S$-measurable functions converging to
+    a function $f\colon X\to[-\infty,\infty]$ pointwise.
+    Thus, $f$ is also $\mathcal S$-measurable and the subsets
+    $X^\pm = f\inv(\pm\infty)$ are elements of $\mathcal S$.
+    \begin{enumerate}[(a)]
+        \ii Suppose $\mu(X^+) < \infty$.
+	Show that for every $\eps>0$ there exists $X_\eps^+\in\mathcal S$
+	so that $X_\eps^+\subseteq X^+$, $\mu(X^+\setminus X_\eps^+)<\eps$,
+	and the functions $f_1|_{X_\eps^+}$, $f_2|_{X_\eps^+}$, \dots
+	converge uniformly to $\infty$.
+	\ii Suppose $\mu(X) < \infty$. Show that for every $\eps > 0$
+	there exists $X_\eps\in\mathcal S$ so that $\mu(X\setminus X_\eps)<\eps$
+	and the functions $f_1|_{X_\eps}$, $f_2|_{X_\eps}$, \dots
+	converge uniformly to $f|_{X_\eps}$.
+	\ii Give an example showing that the last conclusion can fail
+	if $\mu(X) = \infty$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) For $N,t\in\NN$, let $X_{N,t} = X^+\cap
+    \bigcap_{n=N}^\infty f_n\inv([t,\infty])$;
+    this is the subset of $X^+$ on which
+    $f_n(x) \ge t$ for all $n\ge N$. Then,
+    \begin{equation*}
+	X^+ = \bigcup_{N=1}^\infty X_{N,t}
+    \end{equation*}
+    because for each $x\in X^+$, given $t\in\NN$, there exists $N\in\NN$
+    such that $n\ge N$ implies $f_n(x)\ge t$ ---
+    this is what pointwise convergence means.
+    Clearly $X_{N,t}\subseteq X_{N+1,t}$ for all $N$ and $t$,
+    so monotone convergence of measure gives
+    \begin{equation*}
+	\mu(X^+) = \lim_{N\to\infty} \mu(X^+\cap X_{N,t})
+    \end{equation*}
+    for all $t>0$. The limit is finite, so for each positive integer $t$
+    there is an $N_t$ such that $\mu(X^+)$ is within $\eps/2^t$ of
+    $\mu(X_{N_t,t})$, hence $\mu(X^+\setminus X_{N_t,t}) < \eps/2^t$. Let
+    \begin{equation*}
+	X^+_\eps = \bigcap_{t=1}^\infty X_{N_t,t}.
+    \end{equation*}
+    For each $t\in\NN$, $X^+_\eps\subseteq X_{N_t,t}$, which means that
+    there is an $N=N_t\in\NN$ depending only on $t$ such that
+    $f_n(x)\ge t$ for all $n\ge N$, i.e. convergence of $f_1$, $f_2$, \dots
+    on $X^+_\eps$ is uniform. Furthermore,
+    \begin{equation*}
+	\mu(X^+\setminus X^+_\eps) \le
+	\mu\left(\bigcup_{t=1}^\infty X^+\setminus X_{N_t,t}\right) \le
+	\sum_{t=1}^\infty \mu(X^+\setminus X_{N_t,t}) < \sum_{t=1}^\infty \eps/2^t
+	= \eps,
+    \end{equation*}
+    so $X^+_\eps$ has the desired properties.
+    \\
+
+    (b) Let $X^0 = f\inv(\RR)\in\mathcal S$
+    be the set of points on which $f$ is finite.
+    By Egorov's theorem for sequences of functions
+    that converge to a function mapping into the reals,
+    there exists $X^0_{\eps/3}\subseteq X^0$ in $\mathcal S$ such that
+    $\mu(X^0\setminus X^0_{\eps/3})<\eps/3$ and
+    $f_1|_{X^0_{\eps/3}}$, $f_2|_{X^0_{\eps/3}}$, \dots converges
+    uniformly to $f|_{X^0_{\eps/3}}$.
+
+    By part (a), there exists $X^+_{\eps/3}\subseteq X^+$ in $\mathcal S$
+    such that $\mu(X^+\setminus X^+_{\eps/3}) < \eps/3$ and the sequence
+    $f_1|_{X^+_{\eps/3}}$, $f_2|_{X^+_{\eps/3}}$, \dots converges
+    uniformly to $f|_{X^+_{\eps/3}}$.
+
+    Similarly, applying (a) to the sequence $-f_1|_{X^-}$, $-f_2|_{X^-}$, \dots
+    converging to $-f|_{X^-}\equiv\infty$ yields the existence of a set
+    $X^-_{\eps/3}\subseteq X^-$ in $\mathcal S$
+    such that $\mu(X^-\setminus X^-_{\eps/3}) < \eps/3$ and the sequence
+    $-f_1|_{X^-_{\eps/3}}$, $-f_2|_{X^-_{\eps/3}}$, \dots converges
+    uniformly to $-f|_{X^-_{\eps/3}}$, or equivalently
+    $f_1|_{X^-_{\eps/3}}$, $f_2|_{X^-_{\eps/3}}$, \dots converges
+    uniformly to $f|_{X^-_{\eps/3}}$.
+
+    Then, take $X_\eps = X^0_{\eps/3}\cup X^+_{\eps/3}\cup X^-_{\eps/3}$, so that
+    \begin{equation*}
+        \mu(X\setminus X_\eps) \le
+	\mu(X\setminus X^0_{\eps/3}) +
+	\mu(X\setminus X^+_{\eps/3}) +
+	\mu(X\setminus X^-_{\eps/3}) <
+	\frac\eps3 + \frac\eps3 + \frac\eps3 = \eps
+    \end{equation*}
+    and we have uniform convergence on each of $X_\eps$
+    due to having uniform convergence on the component sets
+    $X^0_{\eps/3}$, $X^0_{\eps/3}$, $X^0_{\eps/3}$.
+    \\
+
+    (c) Let $f_1,f_2,\dots\colon\RR\to\RR$ be a sequence of functions
+    where $f_n$ is the indicator function $\mathbf 1_{[n,n+1]}$.
+    Then, $f_n$ converges pointwise to the zero function $f$,
+    but, if $\eps<1$, then any $X_\eps$ such that $\abs{\RR\setminus X_\eps}<\eps$
+    intersects each $[n,n+1]$ interval (otherwise $\RR\setminus X_\eps$
+    contains an interval of length $1$, hence has outer measure bigger than $\eps$),
+    so for any $n\in\NN$ we have
+    \begin{equation*}
+	\sup_{x\in X_\eps} |f(x) - f_n(x)| = 1,
+    \end{equation*}
+    meaning the convergence to $f$ is not uniform.
+\end{soln}
+
+\begin{problem}
+    Let $\QQ = \{q_1,q_2,\dots\}$, $I_k = (q_k-2^{-k},q_k+2^{-k})$
+    for $k\in\NN$, $U = \bigcup_{k=1}^\infty I_k$, and $A\subseteq\RR$.
+    \begin{enumerate}[(a)]
+	\ii Suppose $\abs{\RR\setminus A} = 0$. Show that
+	$A\cap I_k\ne\varnothing$ for every $k\in\NN$ and
+	$A\cap U$ is dense in $A$.
+	\ii Suppose $\mathbf 1_U|_A$ is continuous. Show that
+	$\abs{\RR\setminus A} > 0$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) We show the contrapositive:
+    if $A\cap I_k = \varnothing$ for some $k\in\NN$,
+    then $I_k\subseteq\RR\setminus A$,
+    so $\abs{\RR\setminus A}\ge \abs{I_k} = 2\cdot 2^{-k}$ is nonzero.
+
+    Suppose that $V$ is a nonempty open subset of $A$, so
+    $V = V'\cap A$ for some nonempty open subset $V'$ of $\RR$.
+    Then, for each $x\in V'$, there is an $\eps>0$ such that
+    the open ball $B_\eps(x)$ centered at $x$ is a subset of $V'$
+    Choose $N\in\NN$ such that $2^{-N} < \eps/2$, so that
+    $B_{2^{-N}}(x)\subseteq B_\eps(x)$.
+    Since $B_{2^{-N}}(x)$ contains infinitely many rational numbers,
+    there exists an $n\ge N$ such that $q_n\in B_{2^{-N}}(x)$.
+    In particular, any point $y\in B_{2^{-n}}(q_n) = I_n$ satisfies
+    \begin{equation*}
+	\abs{x - y} \le \abs{x-q_n} + \abs{q_n-y} <
+	2^{-N} + 2^{-n} \le 2\cdot 2^{-N} < \eps,
+    \end{equation*}
+    so $V'$ contains $I_n$. Since $A\cap I_n$ is nonempty, $A$ contains a point of
+    $U\cap V'\supseteq I_n$, so $U\cap A\cap V' = U\cap A\cap V$ is nonempty,
+    which is what it means for $U\cap A$ to be dense in $A$.
+
+    (b) Suppose for the sake of contradiction that
+    $\abs{\RR\setminus A} = 0$, so $\abs A$ is infinite
+    (else $\abs{A\cup(\RR\setminus A)} = \abs\RR$ would be finite).
+    The indicator function of $U$ restricted to $A$
+    is the same thing as the function $\mathbf 1_{U\cap A}\colon A\to\RR$.
+    Since $\mathbf 1_{U\cap A}$ is constant on $U\cap A$,
+    it is uniformly continuous on $U\cap A$, so, since $U\cap A$ is dense in $A$
+    by part (a) (and our assumption that $\abs{\RR\setminus A} = 0$),
+    $\mathbf 1_{U\cap A}$ uniquely extends to a (uniformly)
+    continuous function on $A$; this is an easy result from MAT 320.
+
+    One continuous function $A\to\RR$ whose restriction to $U\cap A$
+    is $\mathbf 1_{U\cap A}$ is the constant function $\mathbf 1_A\colon A\to\RR$.
+    By uniqueness it must be the only such function,
+    implying $\mathbf 1_U|_A$ is the same function as $\mathbf 1_A|_A$,
+    which forces $U\cap A = A$, so $A\subseteq U$. However,
+    \begin{equation*}
+	\abs U \le \sum_{k=1}^\infty \abs{I_k} =
+	\sum_{k=1}^\infty 2\cdot 2^{-k} = 2,
+    \end{equation*}
+    so $\abs A$ is finite because $A$ is contained in a set of finite measure,
+    which is a contradiction.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

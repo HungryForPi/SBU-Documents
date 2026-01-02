@@ -1,0 +1,525 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 362 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 362 HW03}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 362 HW03}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/20}
+\begin{document}
+\maketitle
+
+\begin{problem*}2.2.1.
+	Show that the cylinder $\{(x,y,z)\in\RR^3 : x^2 + y^2 = 1\}$
+	is a regular surface, and find parametrizations
+	whose coordinate neighborhoods cover it.
+\end{problem*}
+
+\begin{soln}
+	Consider the four maps $\mb x_1, \mb x_2,\mb x_3,\mb x_4\colon
+	(-1,1)\times\RR\to\RR^3$ defined as follows:
+	\begin{align*}
+		\mb x_1(x,z) &= (x,\sqrt{1-x^2},z)\\
+		\mb x_2(x,z) &= (x,-\sqrt{1-x^2},z)\\
+		\mb x_1(y,z) &= (\sqrt{1-y^2},y,z)\\
+		\mb x_2(y,z) &= (\sqrt{1-x^2},y,z).
+	\end{align*}
+	
+	The union of the images of the $\mb x_i$ is the cylinder itself,
+	the images of $\mb x_1$ and $\mb x_2$ together cover all points except
+	the ones with a $y$-coordinate of zero, while $\mb x_3$ and $\mb x_4$
+	cover the points on the cylinder with nonzero $x$-coordinate.
+	
+	We will verify that $\mb x_1$ is a parametrization of
+	its image $\mb x_1(\RR^2)$; the other verifications are analogous,
+	so this will prove that the cylinder is a regular surface.
+	
+	First, it's clear that all the component functions of $\mb x_1$
+	are smooth; in particular $\sqrt{1-x^2}$ is a composition of
+	smooth functions so it is smooth.
+	
+	Second, $\mb x_1$ is a homeomorphism between $\RR^2$
+	and its image $\mb x_1(\RR^2)$, since it is clearly continuous
+	and it has a continuous inverse
+	in the form of a projection onto the $xz$-plane.
+	
+	Third, its differential map is the matrix
+	\[\begin{pmatrix}
+		1&0\\
+		*&0\\
+		0&1
+	\end{pmatrix}\]
+	where $*$ is some function of $x$ that we don't care about;
+	this matrix has rank two because the rows $(1, 0)$ and $(0, 1)$
+	are unconditionally independent of one another.
+\end{soln}
+
+\begin{problem*}2.2.3.
+	Show that the two-sheeted cone with its vertex at the origin
+	(that is, the set $S = \{(x,y,z)\in\RR^3 : x^2+y^2-z^2=0\}$)
+	is not a regular surface.
+\end{problem*}
+
+\begin{soln}
+	Suppose that $\mb x\colon U\to V\cap S$ is a parametrization
+	that defines a coordinate neighborhood
+	$V\cap S$ of $0$. Then, observe that $(V\cap S)\setdiff\{0\}$
+	is disconnected because $S\setdiff\{0\}$ is disconnected.
+	We show that this implies $S$ cannot be regular.
+	
+	\begin{claim*}
+		If $U$ is an open set in $\RR^3$,
+		then it has no cut points;
+		that is, there are no points $x\in U$ such that
+		$U\setdiff\{x\}$ is disconnected.
+	\end{claim*}
+	\begin{proof}
+		Suppose $U$ has a cut point $x$ and let $U' = U\setdiff\{x\}$.
+		Then, there exist nonempty open sets $A,B\subseteq\RR^3$
+		that do not intersect in $U'$ and whose union contains $U'$.
+		Let $B_\eps(x)\subseteq U$ be an open ball centered at $x$
+		with radius $\eps$ contained inside $U$. It is easy to show that
+		$B_\eps(x)\setdiff\{x\}$ is connected; in fact, it is path connected,
+		for the ball (with $x$) is convex, and so two points in
+		the ball without $x$ can be connected by a segment, or,
+		if the segment passes through $x$, then by a path made by
+		joining two segments, with the intermediary endpoint
+		not being collinear with the endpoints of the path.
+		
+		Since $B_\eps(x)\setdiff\{x\}$ is connected,
+		it must lie entirely in one of $A$ or $B$ --- say WLOG $A$ --- else
+		$A$ and $B$ form a separation of $B_\eps(x)\setdiff\{x\}$,
+		contradicting its connectedness.
+		But then the set $A' = A\cup \{x\}$ is open
+		because it is the union of $A$ with $B_\eps(x)$
+		and doesn't intersect $B$ inside $U$, so $A$ and $B$
+		exhibit that $U$ is disconnected, which is a contradiction.
+	\end{proof}
+
+	Since $U$ and $V\cap S$ are homeomorphic, a cut point of $U$
+	maps to a cut point of $V\cap S$ and vice versa ---
+	but $U$ has no cut points, so $V\cap S$ must have no cut points.
+	This is false in our situation here, so $S$ cannot be regular.
+\end{soln}
+
+\begin{problem*}2.2.7.
+	Let $f(x,y,z) = (x + y + z - 1)^2$.
+	\begin{enumerate}[(a)]
+		\ii Locate the critical points and critical values of $f$.
+		\ii For what values of $c$ is the set $f(x,y,z) = c$
+		a regular surface?
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	The differential of $f$ is
+	\[\mathrm df_{(x,y,z)} = 2(x+y+z-1)\cdot(1,1,1).\]
+	Thus $(x,y,z)$ is a critical point iff $x+y+z-1 = 0$.
+	The corresponding critical value is just $f(x,y,z) = 0$.
+	
+	Since $f\inv(c)$ is a regular surface
+	whenever $c$ is a regular value, any $c\ne 0$ makes the set
+	a regular surface.
+	
+	We then have to check whether $f(x,y,z) = 0$ is a regular surface.
+	This is trivial; the set $f\inv(0)$ is $\{(x,y,z)\in\RR^3:x+y+z=1\}$
+	which is a plane and thus regular,
+	for example with the parametrization $(u,v)\mapsto(u,v,1-u-v)$.
+	Clearly this is infinitely differentiable and a homeomorphism
+	between $\RR^2$ and the plane, and the derivative
+	\[\begin{pmatrix}
+		1&0\\
+		0&1\\
+		-1&-1
+	\end{pmatrix}\]
+	is obviously injective.
+\end{soln}
+
+\begin{problem*}2.2.16.
+	One way to define a system of coordinates for the sphere $S^2$,
+	given by $x^2 + y^2 + (z-1)^2 = 1$, is to consider
+	the so-called \vocab{stereographic projection}
+	$\pi\colon S\setdiff\{N\}\to\RR^2$ which carries a point
+	$p\in S^2$ that is not equal to the north pole $N = (0,0,2)$
+	to the intersection of the $xy$-plane with the line through $N$ and $p$.
+	Let $(u,v) = \pi(x,y,z)$ where $(x,y,z)\in S^2\setdiff\{N\}$.
+	\begin{enumerate}[(a)]
+		\ii Show that $\pi\inv\colon\RR^2\to S^2$ is given by
+		\[\pi\inv(u, v) = \begin{pmatrix}
+			\dfrac{4u}{u^2 + v^2 + 4}\\[2ex]
+			\dfrac{4v}{u^2 + v^2 + 4}\\[2ex]
+			\dfrac{2(u^2 + v^2)}{u^2 + v^2 + 4}
+		\end{pmatrix}.\]
+		\ii Show that it is possible, using stereographic projection,
+		to cover the sphere with two coordinate neighborhoods.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) Let $O = (0,0,0)$ be the origin, $A = (u,v,0)$ be
+	the point in the $xy$-plane, and $B = \pi\inv(u,v)$
+	be the point we are trying to find, namely the second intersection of
+	line $\ol{NA}$ with the sphere. Then, since $\ol{ON}$
+	is a diameter of the sphere, $\angle NBO = \frac\pi2$,
+	so we are trying to compute the foot of the altitude from
+	$O$ to line $\ol{NA}$. The vector $\overrightarrow{OB}$ can then
+	simply be computed as
+	\begin{align*}
+		\overrightarrow{ON} + \overrightarrow{NB}
+		&= (0,0,2) +
+		\frac{\overrightarrow{NO}\cdot\overrightarrow{NA}}
+		{\|\overrightarrow{NA}\|}
+		\cdot\frac{\overrightarrow{NA}}{\|\overrightarrow{NA}\|}\\
+		&= (0,0,2) + \frac{(0,0,-2)\cdot(u,v,-2)}{\|(u,v,-2)\|^2}
+		\cdot (u,v,-2)\\
+		&= (0,0,2) + \frac{4}{u^2+v^2+4}\cdot (u,v,-2)\\
+		&= \frac{1}{u^2+v^2+4}(4u,4v,-8+2(u^2+v^2+4))\\
+		&= \frac{1}{u^2+v^2+4}(4u,4v,2(u^2+v^2)).
+	\end{align*}
+	
+	(b) Let $\pi_1 \equiv \pi$ be the stereographic projection
+	of $S^2\setdiff{N}$ onto the $xy$-plane and let
+	$\pi_2$ be the stereographic projection of $S^2\setdiff\{O\}$
+	onto the plane $z = 2$, where $O = (0,0,0)$ is the south pole.
+	To be more precise $\pi_2$ projections the sphere onto $z=2$
+	and then forgets the $z$-coordinate/projects $z=2$ to the $xy$-plane.
+	I claim that these two maps exhibit a covering of $S^2$
+	with the two coordinate neighborhoods $S^2\setdiff\{N\}$
+	and $S^2\setdiff\{O\}$.
+	
+	We can see clearly that $\pi_1\inv\colon\RR^2\to S^2\setdiff\{N\}$
+	and $\pi_2\colon\RR^2\to S^2\setdiff\{O\}$ are
+	differentiable of all orders (the only possible obstruction
+	would be creating a denominator of zero somehow, but the denominators
+	of the rational functions would just be powers of $u^2+v^2+4$,
+	which are always nonnegative), so this verifies condition (1).
+	
+	Note now that $\pi_1\inv$ and $\pi_2\inv$ are
+	bijections (since they are invertible, having inverses $\pi_1$, $\pi_2$,
+	by part (a)) from an open subset of $\RR^2$
+	to an open subset $S^2$ (where ``open'' is with respect to
+	the subspace $S^2$, i.e. the intersection of an open set
+	in $\RR^2$ with $S^2$). To check condition (2) we need to also check
+	that $\pi_1$, $\pi_2$ are continuous. We will just check it for $\pi_1$
+	by directly computing $\pi_1(x,y,z)$. If we are given
+	\[\pi\inv(u,v) = (x,y,z),\]
+	then we can compute
+	\[z = \frac{2(u^2+v^2)}{u^2+v^2 + 4}\iff
+	u^2+v^2 = \frac{4z}{2-z}\]
+	(noting that $2-z\ne 0$ because $z < 2$) and then
+	\[x = \frac{4u}{4z/(2-z) + 4} = \frac{4u}{8/(2-z)} = \frac{u(2-z)}{2}
+	\iff u = \frac{2x}{2 - z}\]
+	and similarly $v = \frac{2y}{2-z}$. These are clearly continuous
+	in $x,y,z$, so $\pi_1$ is continuous. A similar proof follows for $\pi_2$
+	(or one can apply the change of coordinates $z\mapsto 2-z$
+	to reflect the stereographic projection over $z=1$,
+	swapping $O$ and $N$ as well as the planes that are being mapped to).
+	We are hence done verifying condition (2).
+	
+	To finish proving that these are coordinate neighborhoods we need to check
+	that the derivatives of $\pi_1\inv$ and $\pi_2\inv$ are injective.
+	Again we check this only in the case of $\pi_1\inv$: first we compute
+	\[\mathrm d\pi_1\inv_{(u,v)} =
+	\frac1{(u^2+v^2+4)^2}
+	\begin{pmatrix}
+		4(-u^2+v^2+4) & -8uv\\
+		-8uv & 4(u^2-v^2+4)\\
+		16u & 16v
+	\end{pmatrix}.\]
+	To check that this linear map is one-to-one,
+	we need the three equations
+	\begin{align*}
+		4(-u^2 + v^2 + 4) &= -8\lambda uv\\
+		-8uv &= 4\lambda(u^2 - v^2 + 4)\\
+		16u &= 16\lambda v
+	\end{align*}
+	to simultaneously hold for some real $\lambda \ne 0$,
+	noting that neither of the two columns can be all zero at the same time,
+	since either $u$ or $v$ would have to be zero
+	but then $4(-u^2+v^2+4)$ or $4(u^2-v^2+4)$ respectively would be nonzero.
+	This also means we can assume $u,v\ne0$.
+	We can now get $\lambda = \frac uv$ so that
+	\begin{align*}
+		4(-u^2 + v^2 + 4) &= -8u^2\\
+		4(u^2 - v^2 + 4) &= -8v^2.
+	\end{align*}
+	In fact both equations are equivalent to $4u^2 + 4v^2 = -16$,
+	which is impossible because squares are nonnegative.
+	This checks off condition (3) for $\pi_1\inv$,
+	and by an analogous argument or by symmetry, we can conclude
+	that it holds for $\pi_2\inv$ as well, thus finishing the problem.
+\end{soln}
+\pagebreak
+\begin{problem*}2.3.1.
+	Let $S^2$ be the unit sphere and let
+	$A\colon S^2\to S^2$ be the \vocab{antipodal map}
+	$A(x,y,z) = -(x,y,z)$. Prove that $A$ is a diffeomorphism.
+\end{problem*}
+
+\begin{soln}
+	Since $A$ is its own inverse, we only need to show that
+	$A$ is differentiable on all of $S^2$.
+	By definition, we wish to show that for all $x\in A$
+	and for any two parametrizations
+	$\mb x_1\colon U_1\to S^2$, $\mb x_2\colon U_2\to S^2$
+	such that $x\in\mb x_1(U_1)\cap\mb x_2(U_2)$,
+	the composition
+	\[\mb x_2\inv\circ A\circ\mb x_1\]
+	is differentiable at $\mb x_1\inv(x)$ in the sense that
+	a map from $\RR^2$ to $\RR^2$ is differentiable. This is immediate
+	in light of the fact that $-v\mapsto v$ is a differentiable map
+	on all of $\RR^3$, and compositions of differentiable functions
+	are differentiable.
+\end{soln}
+
+\begin{problem*}2.3.2.
+	Let $S\subseteq\RR^3$ be a regular surface and let
+	$\pi\colon S\to\RR^2$ be the map that takes each $p\in S$
+	into its orthogonal projection over $\RR^2 = \{(x,y,z)\in\RR^3 : z=0\}$.
+	Is $\pi$ differentiable?
+\end{problem*}
+
+\begin{soln}
+	We observe that $\pi(x,y,z) = (x,y,0)$ is differentiable
+	when treated as a function from $\RR^3$ to $\RR^2$.
+	Thus, if $\mb x\colon U\to V$ is a parametrization of
+	a coordinate neighborhood of some $p\in S$,
+	then, noting that $\mb x$ is differentiable on $U$
+	and $\pi$ is differentiable on $\mb x(U) = V$
+	(in the $\RR^3\to\RR^2$ sense),
+	$\pi\circ \mb x\colon U\to\RR^2$ is differentiable on all of $U$,
+	hence $\pi$ is differentiable.
+\end{soln}
+
+\begin{problem*}2.3.4.
+	Construct a diffeomorphism between the ellipsoid
+	\[\frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1\]
+	and the sphere $x^2 + y^2 + z^2 = 1$.
+\end{problem*}
+
+\begin{soln}
+	Let $E$ be the ellipsoid and $S^2$ the sphere.
+	Then, consider the map $f\colon E\to S^2$ given by
+	$f(x,y,z) = (x/a,y/b,z/c)$. Clearly this is a bijection
+	between points on $E$ and $S^2$, for $f(x,y,z)$ is in $S^2$ iff
+	\[(x/a)^2 + (y/b)^2 + (z/c)^2 = 1\]
+	which holds iff $(x,y,z)$ is on $E$, and this map has an inverse
+	$f\inv(x,y,z) = (ax,by,cz)$.
+	Moreover, $f$ is differentiable because it is the restriction of
+	a differentiable function $\RR^3\to\RR^3$ to $E$
+	and its inverse is differentiable because it is similarly
+	the restriction of a differentiable function $\RR^3\to\RR^3$ to $S^2$.
+	Thus $f$ is a diffeomorphism between $E$ and $S^2$.
+\end{soln}
+
+\begin{problem*}2.3.5.
+	Let $S\subseteq\RR^3$ be a regular surface, and let
+	$d\colon S\to\RR$ be given by $d(p) = |p - p_0|$, where
+	$p\in S$, $p_0\in\RR^3$, $p_0\notin S$.
+	Prove that $d$ is differentiable.
+\end{problem*}
+
+\begin{soln}
+	We show that $d'\colon\RR^3\to\RR$ defined by
+	$d'(p) = |p - p_0|$ (so $d'|_S = d$) is differentiable
+	at all points besides $p_0$, at which point the result follows
+	because the restriction of a map $\RR^3\to\RR$
+	that is differentiable at $x$ to a map $S\to\RR$
+	is still differentiable at $x$.
+	
+	We first show that $d'(p)^2$ is differentiable on all of $\RR^3$;
+	this follows from $d'(p)^2 = |p - p_0|^2 = (p - p_0)\cdot(p - p_0)$
+	and so its derivative is the linear map given by the $1\times 3$ matrix
+	$2(p - p_0)$ (so the derivative at a point $x$ is $2(p-p_0)\cdot x$).
+	Then, $\sqrt{d'(p)^2}$ is differentiable everywhere except at $p_0$
+	because $\sqrt\bullet\colon\RR_{\ge0}\to\RR$
+	is differentiable on all positive reals but not at zero.
+	
+	By the first paragraph, this finishes the problem.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

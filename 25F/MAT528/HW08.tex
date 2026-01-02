@@ -1,0 +1,258 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 528 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 528 HW08}
+\author{\large Aditya Pahuja}
+\date{\large Due 10/30}
+\begin{document}
+\maketitle
+
+\begin{problem}[Munkres 30.4]
+    Show that every compact metrizable space $X$ has a countable basis.
+\end{problem}
+
+\begin{soln}
+    Let $d$ be a metric on $X$ that induces the topology of $X$.
+    For each $n\in\NN$, let $\mathcal U_n$ be the collection of
+    open balls in $X$ (with respect to $d$) with radius $1/n$.
+    This is an open cover of $X$,
+    so since $X$ is compact it has a finite subcover $\mathcal B_n$.
+    Let $\mathcal B = \bigcup_{n=1}^\infty\mathcal B_n$;
+    this is a union of countably many finite sets, so it is countable.
+
+    I claim that this collection is a basis for the topology on $X$.
+    For any $x\in X$ and open $U\subseteq X$ containing $x$,
+    let $B_r(x)$ be an open ball centered at $x$ with radius $r$
+    contained in $U$. Then, pick positive integer $m$
+    such that $\frac 1m < \frac r{2}$. There exists a ball
+    $B_{1/m}(x')\in\mathcal B_m$ containing $x$ because $\mathcal B_m$
+    is an open cover of $X$, and this ball is a subset of $B_r(x)$ because
+    if $y\in B_{1/m}(x')$, then
+    \begin{equation*}
+        d(x,y) \le d(x,x') + d(x',y) < \frac 1m + \frac 1m
+	< \frac r2 + \frac r2 = r.
+    \end{equation*}
+    Thus given $x\in X$ and $U\subseteq X$ open containing $x$,
+    there is an element $B\in \mathcal B$ such that
+    $x\in B\subseteq U$, which is what it means
+    for $\mathcal B$ to be a basis for the topology on $X$.
+\end{soln}
+
+\begin{problem}[Munkres 30.9]
+    Let $A$ be a closed subspace of $X$. Show that if $X$ is Lindel\"of,
+    then $A$ is Lindel\"of. Show by example that if $X$ has
+    a countable dense subset, $A$ need not have a countable dense subset.
+\end{problem}
+
+\begin{soln}
+    Let $\mathcal U$ be an open cover of $A$.
+    Each element $U\in \mathcal U$ is the intersection of an open set $U'$
+    with $A$; let $\mathcal U'$ be the collection of these $U'$.
+    Then, $\mathcal U' \cup \{X\setminus A\}$ is an open cover of $X$,
+    so it has a countable subcover $\mathcal V$.
+    If $X\setminus A$ is in this subcover, remove it;
+    the resulting collection of open subsets of $X$
+    is a countable subset of $\mathcal U'$, and since $X\setminus A$
+    is disjoint from $A$, $\mathcal V\setminus\{X\setminus A\}$
+    is an open cover of $A$. Thus $\{V\cap A : V\in\mathcal V\}$
+    is a countable subcover of $\mathcal U$, proving that $A$ is Lindel\"of.
+
+    $\RR_\ell^2$ is separable with countable dense subset $\QQ^2$,
+    since any basis element $[a,b)\times[c,d)$ contains a point
+    with rational coordinates. On the other hand, the subset
+    $L = \{(a,-a) : a\in\RR\}$ is not separable because it is uncountable
+    and inherits the discrete topology from $\RR_\ell^2$,
+    as shown in Munkres's Example 30.4.
+\end{soln}
+
+\begin{problem}[Munkres 31.8]
+    Let $G$ be a compact topological group;
+    let $X$ be a topological space;
+    let $\alpha$ be an action of $G$ on $X$.
+    If $X$ is Hausdorff, regular, normal, locally compact, or second-countable,
+    then so is $X/G$.
+\end{problem}
+
+\begin{soln}
+    We show that the projection map $\pi\colon X\to X/G$
+    is closed, surjective, and perfect, so that by Munkres's Exercises 31.6 and 31.7,
+    the problem statement holds.
+
+    Since $X\to X/G$ is a quotient map, it is surjective.
+    Let $A\subseteq X$ be closed. Then $\pi(A)$ is closed in $X/G$
+    if and only if $\pi\inv(\pi(A))$, which is the union of
+    the orbits of all elements in $A$, is closed in $X$.
+    We can write this set equivalently as $GA\coloneq\{g\cdot x : g\in G, x\in A\}$,
+    which is the image $\alpha(G\times A)$.
+    If $y\notin GA$ then $gy\notin A$ for all $g\in G$.
+    Since $X\setminus A$ is open, for each $g$ there is a neighborhood
+    $U_g\times V_g\subseteq G\times X$ of $(g,y)$ such that
+    $\alpha(U_g\times V_g)\cap A = \varnothing$.
+    The $U_g$ cover $G$, so we can choose a finite subcover
+    $U_{g_1}$, \dots, $U_{g_n}$ because $G$ is compact.
+    Then $V = V_{g_1}\cap\cdots\cap V_{g_n}$ is a neighborhood of $y$
+    and $\alpha(G\times V)$ does not intersect $A$,
+    so $V$ does not intersect $GA$ (otherwise, if $z\in V\cap GA$,
+    then $g_0z \in A$ for some $g_0\in G$, so $\alpha(G\times\{z\})$ intersects $A$).
+    This proves that $GA$ is closed, so $\pi$ is a closed map.
+
+    Finally, $\pi$ is perfect because the orbit of any $x\in X$
+    is $Gx\coloneq\{g\times x : g\in G\}$, which is the continuous image
+    of the compact set $G$, so the preimage of any point $[Gx]\in X/G$,
+    which is $\pi\inv([Gx]) = Gx$, is compact.
+\end{soln}
+
+\begin{problem}[Munkres 32.4]
+    Show that every regular Lindel\"of space is normal.
+\end{problem}
+
+\begin{soln}
+    Let $X$ be regular Lindel\"of, and let $A,B\subseteq X$ be
+    disjoint closed subsets of $X$.
+    Each point $x$ of $A$ has a neighborhood $U$ not intersecting $B$.
+    Using regularity, choose a neighborhood $V$ of $x$ whose closure lies in $U$.
+    The collection of all such $V$ (as $x$ varies over $A$)
+    is an open cover of $A$, so it has a countable subcover $\{U_n : n\in\NN\}$
+    because closed subsets of Lindel\"of spaces are Lindel\"of
+    (by Munkres's exercise 30.9).
+    By a similar procedure, choose a countable collection
+    of open sets $\{V_n : n\in\NN\}$ covering $B$
+    such that $\ol{V_n}$ is disjoint from $A$ for each $n$.
+
+    Given $n$, define
+    \begin{equation*}
+	U'_n = U_n\setminus\bigcup_{i=1}^n\ol{V_i},\quad
+	V'_n = V_n\setminus\bigcup_{i=1}^n\ol{U_i}.
+    \end{equation*}
+    Each set $U'_n$ is open because $U_n$ is being intersected with
+    the complement of the closed set $\bigcup_{i=1}^n\ol{V_i}$,
+    and $U'_n$ covers $A$ because $\ol{V_i}$ is disjoint from $A$ for all $i$.
+    Similarly, $\{V'_n : n\in\NN\}$ is an open cover of $B$.
+    Finally, by construction, $\bigcup_{n=1}^\infty U'_n$ and
+    $\bigcup_{n=1}^\infty V_n$ are disjoint
+    since $U'_n$ is disjoint from $V_j\supseteq V'_j$ for all $j\le n$
+    and and $V'_n$ is disjoint from $U_j\supseteq U'_j$ for all $j\le n$,
+    so we have separated $A$ and $B$ by the open sets $\bigcup_{n=1}^\infty U'_n$
+    and $\bigcup_{n=1}^\infty V'_n$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

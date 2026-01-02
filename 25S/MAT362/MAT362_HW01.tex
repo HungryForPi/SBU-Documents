@@ -1,0 +1,451 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 362 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 362 HW01}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 362 HW01}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/06}
+\begin{document}
+\maketitle
+
+\begin{problem*}1.2.2.
+	Let $\alpha(t)$ be a parametrized curve which
+	does not pass through the origin. If $\alpha(t_0)$ is the point
+	of the trace of $\alpha$ which is closest to the origin
+	and $\alpha'(t_0)\ne 0$, show that
+	the position vector $\alpha(t_0)$ is orthogonal to $\alpha'(t_0)$.
+\end{problem*}
+
+\begin{soln}
+	Consider the quantity $\|\alpha(t)\|^2 = \alpha(t)\cdot\alpha(t)$.
+	The length of the vector $\alpha(t)$ is minimized at $t=t_0$,
+	we have that the derivative of $\alpha(t)\cdot\alpha(t)$
+	at $t=t_0$ is zero, namely
+	\[2\alpha(t_0)\cdot\alpha'(t_0) = 0.\]
+	The conditions in the problem guarantee that $\alpha(t_0)$
+	and $\alpha'(t_0)$ are both not zero vectors, so they must be orthogonal
+	in order for their dot product to be zero.
+\end{soln}
+
+\begin{problem*}1.2.4.
+	Let $\alpha\colon I\to\RR$ be a parametrized curve
+	and let $v\in\RR^3$ be a fixed vector. Assume that $\alpha'(t)$
+	is orthogonal to $v$ for all $t\in I$ and that $\alpha(0)$
+	is also orthogonal to $v$. Prove that $\alpha(t)$ is orthogonal to $v$
+	for all $t\in I$.
+\end{problem*}
+
+\begin{soln}
+	We can compute
+	\[(\alpha(t)\cdot v)' = \alpha'(t)\cdot v = 0\]
+	for all $t$, so $\alpha(t)\cdot v$ is constant on $I$.
+	We already know that $\alpha(0)\cdot v = 0$,
+	hence $\alpha(t)\cdot v = 0$ for all $t$.
+\end{soln}
+
+\begin{problem*}1.2.5.
+	Let $\alpha\colon I\to\RR^3$ be a parametrized curve,
+	with $\alpha'(t)\ne 0$ for all $t\in I$. Show that
+	$|\alpha(t)|$ is a nonzero constant if and only if
+	$\alpha(t)$ is orthogonal to $\alpha'(t)$ for all $t\in I$.
+\end{problem*}
+
+\begin{soln}
+	Of course, $|\alpha(t)|$ is a nonzero constant if and only if its square
+	$|\alpha(t)|^2 = \alpha(t)\cdot\alpha(t)$ is as well. We have
+	\[\frac{d}{dt}|\alpha(t)|^2 = 2\alpha(t)\cdot\alpha'(t) = 0,\]
+	so $\alpha(t)$ and $\alpha'(t)$ are orthogonal if and only if
+	$\alpha(t)$ is nonzero and $t\mapsto |\alpha(t)|^2$ is a constant function
+	$I\to\RR$, i.e. $|\alpha(t)|$ is a nonzero constant.
+\end{soln}
+
+\begin{problem*}1.3.5.
+	Let $\alpha\colon(-1,+\infty)\to\RR^2$ be given by
+	\[\alpha(t) = \left(\frac{3at}{1+t^3},\frac{3at^2}{1+t^3}\right).\]
+	Prove that:
+	\begin{enumerate}[(a)]
+		\ii For $t = 0$, $\alpha$ is tangent to the $x$-axis.
+		\ii As $t\to+\infty$, $\alpha(t)\to(0,0)$ and $\alpha'(t)\to(0,0)$.
+		\ii Take the curve with the opposite orientation. Now, as $t\to-1$,
+		the curve and its tangent approach the line $x+y+a=0$.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) Of course, $\alpha(0) = (0,0)$, so the curve intersects
+	the $x$-axis at $t=0$. To show that it's tangent to the $x$-axis,
+	we can compute
+	\[\alpha'(t) = \left(\frac{3a(1+t^3) - 3at(3t^2)}{(1+t^3)^2},
+	\frac{6at(1+t^3) - 3at^2(3t^2)}{(1+t^3)^2}\right)
+	= \left(\frac{3a-6at^3}{(1+t^3)^2},
+	\frac{6at-3at^4}{(1+t^3)^2}\right),\]
+	so that $\alpha'(0) = (3a,0)$ is a vector along the $x$-axis.
+	
+	(b) The coordinates of $\alpha$ and $\alpha'$ are all
+	rational functions in $t$ such that in each case
+	the degree of the polynomial in the numerator is smaller than
+	that in the denominator. This is enough to imply that
+	each of the rational functions goes to zero as $t$ grows
+	arbitrarily large.
+	
+	(c) As $t\to-1$, the curve gets closer to $x+y+a=0$
+	in the sense that $x+y$ becomes arbitrarily close to $-a$.
+	In particular, the sum of coordinates of $\alpha(t)$ is
+	\[\frac{3at(1+t)}{(1+t^3)} = \frac{3at}{1-t+t^2}\]
+	which as $t\to-1$ approaches $\frac{-3a}{3} = -a$.
+	Moreover, the tangent approaches $x+y=-a$ in that the derivative
+	becomes arbitrarily close to a scalar multiple of $(1,-1)$,
+	so that the slope of the tangent line approaches that of $x+y-a$.
+	We can see this by noting that the sum of the coordinates of $\alpha'$,
+	which is the derivative of $\frac{3at}{1-t+t^2}$, is equal to
+	\[\frac{3a(1-t+t^2) - 3at(2t-1)}{(1-t+t^2)}\]
+	which, by setting $t=-1$, we can compute is equal to zero
+	in the limit as $t\to-1$.
+\end{soln}
+
+\begin{problem*}1.3.6.
+	Let $\alpha(t) = (ae^{bt}\cos t,ae^{bt}\sin t)$ for $t\in\RR$
+	with $a$ and $b$ constants, $a > 0$, and $b < 0$ be a parametrized curve.
+	\begin{enumerate}[(a)]
+		\ii Show that as $t\to +\infty$, $a(t)$ approaches the origin $0$,
+		spiraling around it.
+		\ii Show that $\alpha'(t)\to(0,0)$ as $t\to+\infty$ and that
+		\[\lim_{t\to\infty} \int_{t_0}^t |\alpha'(u)|\dif u\]
+		is finite.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) Since $b < 0$,
+	\[\lim_{t\to\infty} e^{bt} = 0,\]
+	and $\cos t$ and $\sin t$ are bounded so $ae^{bt}\cos t$
+	and $ae^{bt}\sin t$ both approach zero as $t$ goes to $+\infty$.
+	
+	(b) The tangent vector is
+	\[\alpha'(t) =
+	(abe^{bt}\cos(t) - ae^{bt}\sin t, abe^{bt}\sin t + ae^{bt}\cos t),\]
+	and we have already shown that each of the addends in each coordinate
+	will approach zero as $t$ grows large because the addends are all
+	products of bounded expressions with $e^{bt}$;
+	hence $\alpha'(t)$ approaches $(0,0)$ as $t\to+\infty$.
+	Moreover, we can compute
+	\[\int_{t_0}^t |\alpha'(u)|\dif u=
+	\int_{t_0}^t \sqrt{a^2e^{2bu}(\cos^2u+\sin^2u)}\dif u
+	= \int_{t_0}^t ae^{bu}\dif u = \frac{a}{b}(e^{bt} - e^{bt_0}),\]
+	so, as $t\to+\infty$, the $e^{bt}$ term disappears, leaving behind
+	the finite quantity
+	\[\frac{-aeb^{t_0}}{b}\]
+	(note that this is positive because $b < 0$).
+\end{soln}
+
+\begin{problem*}1.3.10.
+	Let $\alpha\colon I\to\RR^3$ be a parametrized curve.
+	Let $[a,b]\subseteq I$and set $\alpha(a) = p$, $\alpha(b) = q$.
+	\begin{enumerate}[(a)]
+		\ii Show that for any constant vector $v$, $|v| = 1$,
+		\[(q-p)\cdot v = \int_a^b \alpha'(t)\cdot v\dif t
+		\le \int_a^b |\alpha'(t)|\dif t.\]
+		\ii Set $v = \frac{q-p}{|q-p|}$ and show that
+		\[|\alpha(b) - \alpha(a)|\le \int_a^b |\alpha'(t)|\dif t;\]
+		that is, the curve of shortest length from $a$ to $b$
+		is the straight line joining these points.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) The equality follows from the fundamental theorem of calculus,
+	since, if $\alpha(t) = (x(t), y(t), z(t))$ and $v = (v_1, v_2, v_3)$, then
+	\begin{align*}
+		\int_a^b \alpha'(t)\cdot v\dif t
+		&= \int_a^b x'(t)v_1 + y'(t)v_2 + z'(t)v_3\dif t\\
+		&= (x(b)v_1 + y(b)v_2 + z(b)v_3) - (x(a)v_1 + y(a)v_2 + z(a)v_3)\\
+		&= p\cdot v - q\cdot v = (p-q)\cdot v.
+	\end{align*}
+	Then, the inequality follows from
+	\[\int_a^b \alpha'(t)\cdot v\dif t
+	\le \int_a^b |\alpha'(t)\cdot v|\dif t
+	\le \int_a^b |\alpha'(t)|\cdot|v|\dif t
+	= \int_a^b |\alpha'(t)|\dif t,\]
+	where $|\alpha'(t)\cdot v|\le|\alpha'(t)|\cdot|v|$ is an application
+	of the Cauchy-Schwarz inequality and the last equality uses $|v| = 1$.
+	
+	(b) Taking $v$ to be the given expression shows that
+	\[(q-p)\cdot v = \frac{(q-p)\cdot (q-p)}{|q-p|} =
+	\frac{|q-p|^2}{|q-p|} = |q-p| = |\alpha(b)-\alpha(a)|\]
+	can, as in the result of part (a),
+	be bounded above by $\int_a^b |\alpha'(t)|\dif t$,
+	which is what we wanted.
+\end{soln}
+
+\begin{problem*}1.4.5.
+	Show that the equation of a plane passing through
+	three noncollinear points $p_1$, $p_2$, and $p_3$ is given by
+	\[(p - p_1)\wedge(p - p_2)\cdot(p - p_3) = 0,\]
+	where $p$ is an arbitrary point in the plane.
+\end{problem*}
+
+\begin{soln}
+	Recall that if three vectors $a_1$, $a_2$, $a_3$ are coplanar
+	with the origin of $\RR^3$, then $\det(a_1,a_2,a_3) = 0$.
+	If $p$ lies in the plane through $p_1$, $p_2$, $p_3$, then
+	$p_1-p$, $p_2-p$, and $p_3-p$ are coplanar with $p-p$,
+	since subtracting $p$ is just a translation by the vector $-p$.
+	We can also negate all the vectors without affecting
+	coplanarity, since reflecting through the origin doesn't affect
+	coplanarity, so actually $p-p_1$, $p-p_2$, and $p-p_3$
+	are coplanar with $0$. To finish, we have
+	\[(p - p_1)\wedge(p - p_2)\cdot(p - p_3) =
+	\det(p-p_1,p-p_2,p-p_3) = 0.\qedhere\]
+\end{soln}
+
+\begin{problem*}1.4.10.
+	The natural orientation of $\RR^2$ makes it possible to associate
+	a sign to the area $A$ of a parallelogram generated by
+	two linearly independent vectors $u,v\in\RR^2$. To do this,
+	let $\{e_1,e_2\}$ be the natural ordered basis of $\RR^2$,
+	and write $u = u_1e_2 + u_2e_2$, $v = v_1e_1 + v_2e_2$.
+	Observe the matrix relation
+	\[\begin{pmatrix}
+		u\cdot u & u\cdot v\\
+		v\cdot u & v\cdot v
+	\end{pmatrix} =
+	\begin{pmatrix}
+		u_1&u_2\\v_1&v_2
+	\end{pmatrix}
+	\begin{pmatrix}
+		u_1&v_1\\u_2&v_2
+	\end{pmatrix}\]
+	and conclude that
+	\[A^2 = \begin{vmatrix}
+		u_1&u_2\\v_1&v_2
+	\end{vmatrix}^2.\]
+	Since the last determinant has the same sign as
+	the basis $\{u,v\}$, we can say $A$ is positive or negative
+	according to whether the orientation of $\{u,v\}$ is positive or negative.
+	This is called the \vocab{oriented area} in $\RR^2$.
+\end{problem*}
+
+\begin{soln}
+	The square of the area is
+	\[\begin{vmatrix}
+		u\cdot u & u\cdot v\\
+		v\cdot u & v\cdot v
+	\end{vmatrix} = \begin{vmatrix}
+		u_1&u_2\\v_1&v_2
+	\end{vmatrix}
+	\begin{vmatrix}
+	u_1&v_1\\u_2&v_2
+	\end{vmatrix}
+	= \begin{vmatrix}
+		u_1&u_2\\v_1&v_2
+	\end{vmatrix}^2,\]
+	noting that a matrix has the same determinant as its transpose.
+\end{soln}
+
+\begin{problem*}1.4.11(a).
+	Show that the volume $V$ of a parallelepiped generated by
+	three linearly independent vectors $u,v,w\in\RR^3$ is given by
+	$V = |(u\wedge v)\cdot w|$, and introduce an
+	\vocab{oriented volume} in $\RR^3$.
+\end{problem*}
+
+\begin{soln}
+	The expression $|(u\wedge v)\cdot w|$ is equal to
+	$|u\wedge v|\cdot|w||\cos\theta|$, where $\theta$ is the angle formed by
+	the vector $w$ and the normal to the $uv$-plane
+	(since $u\wedge v$ is normal to the $uv$-plane).
+	
+	We know that the norm of $u\wedge v$ is the area of
+	the parallelogram generated by $u$ and $v$, and $|w||\cos\theta|$
+	is the length of the projection of $w$ on $u\wedge v$,
+	i.e. the distance from $w$ to the $uv$-plane, which is
+	the height of the parallelepiped between the two faces
+	that are parallel to the $uv$-plane.
+	Therefore, the volume of the parallelepiped is
+	the product of the base area and the height, i.e. $|(u\wedge v)\cdot w|$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

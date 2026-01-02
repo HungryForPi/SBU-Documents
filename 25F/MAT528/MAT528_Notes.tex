@@ -1,0 +1,1208 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{accents}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 528 Notes}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=theorem]{thmlemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=theorem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\interior}[1]{\accentset{\circ}{#1}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\renewcommand{\tilde}{\widetilde}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 528 Notes}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2em}MAT 528: Foundations of Topology}
+\author{\large Aditya Pahuja}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{August 25}\label{sec:aug25}
+\begin{definition}[Topological space]
+    \label{def:topspace}
+    Given a set $X$, a topology $\mathcal T$ on $X$ is
+    a collection of subsets of $X$, called \vocab{open sets}, such that
+    \begin{enumerate}[(1)]
+	\ii $\varnothing$ and $X$ are in $\mathcal T$.
+	\ii If $\{U_\alpha\}_{\alpha\in I}$ is
+	an arbitrary subcollection of $\mathcal T$, then
+	$\bigcup_{\alpha\in I}U_\alpha$ is also in $\mathcal T$.
+	\ii If $U_1,\dots,U_n$ are finitely many sets in $\mathcal T$,
+	then $U_1\cap\cdots\cap U_n$ is in $\mathcal T$ as well.
+    \end{enumerate}
+    In English, (2) says that arbitrary unions of open sets are also open sets
+    and (3) says that finite intersections of open sets are also open sets.
+    The pair $(X,\mathcal T)$ is a \vocab{topological space},
+    which, if the underlying topology is clear from context,
+    will just be referred to as $X$.
+\end{definition}
+
+\begin{example}
+    Suppose $X = \{a,b,c\}$ is a $3$-element set.
+    Here are some topologies on $X$:
+    \begin{enumerate}[(a)]
+	\ii $\mathcal T = \{\varnothing, X\}$;
+	in general, this is called the \vocab{trivial topology}.
+	\ii $\mathcal T = \mathcal P(X)$, the power set of $X$;
+	in general, this is called the \vocab{discrete topology}.
+	\ii $\mathcal T = \{\{a\}, \varnothing, X\}$.
+	\ii $\mathcal T = \{\{a\}, \{a,b\}, \varnothing, X\}$.
+    \end{enumerate}
+    Some non-examples: $\{\{a\}, \{b\}, \varnothing, X\}$
+    and $\{\{a,b\}, \{a,c\}, \varnothing, X\}$ aren't topologies on $X$.
+\end{example}
+
+A very standard example that lends itself well to visual intuition is the following:
+\begin{example}
+    [Euclidean topology on $\RR$]
+    \label{ex:euclideantopology-R}
+    Give $\RR$ a topology by defining $U\subseteq\RR$ to be open
+    if for all $x\in U$, there is $\eps > 0$ such that $(x-\eps,x+\eps)\subseteq\RR$.
+    Checking that this is a topology:
+    \begin{enumerate}[(1)]
+        \ii $\varnothing$ and $X$ are trivially open by this definition (check it!).
+	\ii If $\{U_\alpha\}_{\alpha\in I}$ is an arbitrary collection of
+	open subsets of $\RR$, then any $x\in\bigcup_{\alpha\in I}U_\alpha$
+	is contained in one of the $U_\alpha$s, say $U_\beta$;
+	then, there exists an $\eps>0$ such that
+	$(x-\eps,x+\eps)\subseteq U_\beta\subseteq\bigcup_{\alpha\in I} U_\alpha$
+	so the union of the $U_\alpha$ is open.
+	\ii If $U_1$, \dots, $U_n$ are open and $x$ lies in their intersection,
+	then it of course lies in each $U_i$. Thus for each $i=1,\dots,n$,
+	there is $\eps_i>0$ such that $(x-\eps_i,x+\eps_i)\subseteq U_i$.
+	Therefore, letting $\eps$ be the positive number $\min_{i=1,\dots,n}\eps_i$,
+	we see that $U_1\cap\cdots\cap U_n$ is open because
+	$(x-\eps,x+\eps)\subseteq (x-\eps_i,x+\eps_i)\subseteq U_i$ for each $i$.
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    \label{exer:extrapolate-euclideantop}
+    Extrapolate the construction of Example \ref{ex:euclideantopology-R}
+    to get a topology on $\RR^n$ (there are a few natural ways to do this;
+    try to show that they all result in the same topology).
+\end{exercise}
+
+\begin{definition}[Basis]
+    \label{def:basis}
+    Let $\mathcal T$ be a topology of $X$.
+    Then, $\mathcal B\subseteq\mathcal T$ is
+    a \vocab{basis} for $\mathcal T$ if any $U\subseteq\mathcal T$
+    can be written as the union of some elements of $\mathcal B$.
+\end{definition}
+
+\begin{example}
+    [Basis of the Euclidean topology]
+    \label{ex:euclideantopology-basis}
+    Consider $\RR$ with the Euclidean topology.
+    Then, $\mathcal B = \{(a,b) : a,b\in\RR,\; a<b\}$
+    is a basis because if $U$ is an open subset of $\RR$,
+    then for all $x\in U$, there is an $\eps_x>0$ such that
+    $(x-\eps_x,x+\eps_x)\subseteq U$, which implies that
+    \begin{equation*}
+	\bigcup_{x\in U} (x-\eps_x,x+\eps_x) = U.
+    \end{equation*}
+\end{example}
+
+The scenario in the preceding example happens more generally,
+as we can take note of the fact that the open sets in $U$ were
+essentially defined with respect to the basis of open intervals.
+\begin{theorem}[Egg yolk property]
+    \label{thm:basiscriterion}
+    Let $\mathcal T$ be a topology on $X$ and
+    let $\mathcal B$ be some collection of sets in $\mathcal T$.
+    Then, $\mathcal B$ is a basis for $\mathcal T$ if and only if
+    for all open sets $U$ and all $x\in U$, there exists $B\in\mathcal B$
+    such that $x\in B\subseteq U$.
+\end{theorem}
+
+\begin{proof}
+    If $\mathcal B$ is a basis, then any open $U$ can be written as
+    $\bigcup_{\alpha\in I}B_\alpha$ for some
+    subcollection $\{B_\alpha\}_{\alpha\in I}$ of $\mathcal B$.
+    Then, any $x\in U$ is contained in $B_\beta$ for some $\beta\in I$,
+    so $x\in B_\beta\subseteq U$.
+
+    Conversely, if $\mathcal B$ has the given property,
+    then given open $U$, associate with each $x\in U$ a set $B_x\in\mathcal B$
+    such that $x\in B_x\subseteq U$. Then,
+    \begin{equation*}
+	\bigcup_{x\in U}B_x = U
+    \end{equation*}
+    so $U$ is a union of sets in $\mathcal B$, meaning $\mathcal B$ is a basis
+    for the given topology on $X$.
+\end{proof}
+
+\begin{remark}
+    We called this the ``egg yolk property'' in class because
+    the picture of $x\in U\subseteq X$, when drawing $U$ and $X$ as blobs,
+    looks like an egg $X$ with a yolk $U$.
+    This property is really a more general principle:
+    if for each $x\in U$ one can find an open set $V$
+    (often a basis element) such that $x\in V\subseteq U$,
+    then $U$ must be an open set as well.
+\end{remark}
+
+The previous theorem can be interpreted as saying that
+given basis $\mathcal B$ for topology $\mathcal T$ on $X$,
+the sentence ``for all $x\in U$, there exists $B\in\mathcal B$ such that
+$x\in B\subseteq U$'' means the same thing as ``$U$ is open''.
+Observing this lets us quickly prove a nice criterion
+for checking whether two topologies of $X$ are equal
+just by looking at a basis of each topology.
+\begin{theorem}[Bases give same topology]
+    \label{thm:sametopologyfrombases}
+    Let $\mathcal B_1$ be a basis for topology $\mathcal T_1$ on $X$, and
+    let $\mathcal B_2$ be a basis for topology $\mathcal T_2$ on $X$.
+    Then, $\mathcal T_1=\mathcal T_2$ if and only if for all $x\in X$,
+    given $B_1\in\mathcal B_1$ containing $x$, there is a $B_2\in\mathcal B_2$
+    such that $x\in B_2\subseteq B_1$, and vice versa.
+\end{theorem}
+
+\begin{proof}
+    Observe that the given condition is equivalent to saying that
+    each $B_1$ is open with respect to $\mathcal T_2$ and vice versa;
+    therefore, if $U$ is open in $\mathcal T_1$,
+    it is a union of sets in $\mathcal B_1$, hence also a union of sets
+    that are open in $\mathcal T_2$, hence also open with respect to $\mathcal T_2$;
+    and vice versa. That is, $\mathcal T_1$ and $\mathcal T_2$
+    have the same collection of open sets!
+\end{proof}
+
+Thus, the topologies on $\RR^2$ generated by (1) the rectangles $(a,b)\times(c,d)$
+and (2) the $\eps$-balls $B_\eps(x) = \{y\in\RR^2 : |x-y|<\eps \}$
+are easily shown to be the same.
+
+It is also sometimes helpful to consider a more minimal way of generating a topology:
+\begin{definition}[Subbasis]
+    \label{def:subbasis}
+    Let $S$ be a collection of subsets of $X$ whose union is $X$.
+    Then, the \vocab{topology generated by $S$}, denoted $\mathcal T(S)$,
+    consists of arbitrary unions of finite intersections of sets in $S$.
+    $S$ is called a \vocab{subbasis} of $\mathcal T(S)$.
+\end{definition}
+
+\begin{exercise}
+    Check that $\mathcal T(S)$ is indeed a topology
+    (thus the set of finite intersections of elements of $S$
+    is a basis of $\mathcal T(S)$).
+    Also, convince yourself that a basis for a topology
+    is also a subbasis for the same topology.
+\end{exercise}
+
+It is helpful to think of the generated topology as
+the ``smallest'' topology on $X$ that contains $S$, in the following sense:
+\begin{definition}[Fine/coarse]
+    \label{def:finecoarse}
+    Let $\mathcal T_1$ and $\mathcal T_2$ be two topologies on a set $X$.
+    We say that $\mathcal T_1$ is \vocab{finer} (or larger)
+    than $\mathcal T_2$ and $\mathcal T_2$ is \vocab{coarser} (or smaller)
+    than $\mathcal T_1$ if $\mathcal T_1\supseteq\mathcal T_1$.
+\end{definition}
+That is:
+\begin{theorem}[Generated topology is minimal]
+    \label{thm:minimality-generatedtop}
+    Let $S$ be a subbasis of the topology $\mathcal T$.
+    Then, $\mathcal T$ is the unique coarsest topology containing $S$,
+    meaning if $\mathcal T'$ contains $S$ as well,
+    then $\mathcal T\subseteq\mathcal T'$.
+\end{theorem}
+
+\begin{proof}
+    Clearly if $\mathcal T'$ contains $S$ then it contains
+    all finite intersections of elements of $S$ and
+    arbitrary unions of these finite intersections,
+    so $\mathcal T\subseteq\mathcal T'$.
+
+    Furthermore, if $\mathcal T$ and $\mathcal T'$ both contain $S$
+    and are as coarse as possible, then by definition of ``maximally coarse''
+    we have both
+    $\mathcal T\subseteq\mathcal T'$ and $\mathcal T'\subseteq\mathcal T$.
+\end{proof}
+
+\begin{exercise}
+    Let $S$ be a subbasis for the topology $\mathcal T(S)$ on $X$.
+    Show that $\mathcal T(S)$ is the intersection
+    of all the topologies on $X$ containing $S$
+    (you may want to first convince yourself that, in general,
+    the intersection of two topologies on $X$ is also a topology on $X$).
+\end{exercise}
+
+\begin{exercise}
+    Show that the set of open rays, in $\RR$, i.e.
+    \begin{equation*}
+	\{(a,\infty) : a\in\RR\}\cup\{(\infty,b) : b\in\RR\},
+    \end{equation*}
+    is a subbasis for the Euclidean topology on $\RR$.
+\end{exercise}
+
+\section{August 27}\label{sec:aug27}
+\begin{definition}[Product topology]
+    \label{def:finiteprodtop}
+    Let $X$ and $Y$ be topological spaces.
+    The \vocab{product topology} on $X\times Y$ is given by the basis
+    \begin{equation*}
+	\{U\times V : U\subseteq X\text{ and }V\subseteq Y\text{ are open}\}.
+    \end{equation*}
+    (In other words, open sets in $X\times Y$ look like
+    arbitrary unions of boxes.)
+\end{definition}
+
+\begin{exercise}
+    Verify that this basis really is a basis for $X\times Y$
+    (as opposed to a subbasis; you'll need to check that the set is
+    closed under finite intersections, see Definition \ref{def:subbasis}).
+\end{exercise}
+
+\begin{lemma}
+    \label{lem:prodofbases}
+    If $\mathcal B_X$ and $\mathcal B_Y$ are bases for
+    topologies on $X$ and $Y$, respectively, then
+    the product topology has basis
+    $\mathcal B = \{U\times V : U\in\mathcal B_X,\,V\in\mathcal B_Y\}.$
+\end{lemma}
+
+\begin{proof}
+    Let $(x,y)$ be a point in $X\times Y$ and $U$ an open set in $X\times Y$.
+    Then, by definition of product topology, there exists open $U_X\subseteq X$
+    and $U_Y\subseteq Y$ such that $(x,y)\in U_X\times U_Y\subseteq U$.
+    Pick a basis element $B_X\in\mathcal B_X$ so that
+    $x\in B_X\subseteq U_X$, and similarly pick $B_Y\in\mathcal B_Y$ so
+    $y\in B_Y\subseteq U_Y$. Then we get
+    \begin{equation*}
+	(x,y)\in B_X\times B_Y\subseteq U_X\times U_Y\subseteq U
+    \end{equation*}
+    so the egg yolk property is satisfied and $\mathcal B$ is a basis.
+\end{proof}
+
+Thus, one can impose a topology on $\RR^2$ by giving open rectangles as a basis.
+Of course, this is equal to the topology given by $\eps$-balls,
+as shown in the case of $n=2$ last lecture.
+
+\begin{definition}[Subspace topology]
+    \label{def:subpsace}
+    Let $Y$ be a subset of topological space $X$.
+    Then, $Y$ can be made a topological space
+    by declaring a subset $U$ of $Y$ to be open
+    if and only if $U = V\cap Y$ for some open subset $V$ of $X$.
+    This is called the \vocab{subspace topology}
+    or \vocab{topology induced by $X$} or other phrases of the same ilk.
+\end{definition}
+
+\begin{example}
+    Give $X = [0,1)\cup\{2\}$ the subspace topology it inherits
+    as a subset of $\RR$.
+    Then, $\{2\}$ and $[0,1)$ are open subsets of $X$,
+    even though they aren't open in $\RR$
+    (check the egg yolk property at $0$ and $2$ to show this).
+\end{example}
+
+\begin{exercise}
+    Given a basis $\mathcal B_X$ for $X$ and $Y\subseteq X$,
+    what is the obvious basis $\mathcal B_X$ for the topology of $Y$?
+    Prove that this really is a basis.
+\end{exercise}
+
+\begin{definition}[Closed set]
+    \label{def:closedset}
+    A subset $E\subseteq X$ is closed if it is equal to $U^c$,
+    the complement $X\setminus U$, of an open subset $U$.
+\end{definition}
+
+\begin{example}
+    The set $[0,1]$ is closed in $\RR$ because it is the complement of
+    the union of open sets $(-\infty,0)\cup(1,\infty)$,
+    while $[0,1)$ is neither open nor closed --- it isn't open
+    because egg yolk property fails at $0$,
+    and it isn't closed because its complement fails egg yolk property at $1$.
+\end{example}
+
+\begin{prop}
+    \label{prop:closedset-intersectionunion}
+    Closed sets satisfy the following union and intersection properties:
+    \begin{enumerate}[(1)]
+	\ii $\varnothing$ and $X$ are closed.
+        \ii Arbitrary intersections of closed sets are closed.
+	\ii Finite unions of closed sets are closed.
+    \end{enumerate}
+    In principle, one could use closed sets to define a topology
+    instead of open sets; the convention just happens to be open sets
+    for most purposes (although for example the Zariski topology
+    cares more about closed sets).
+\end{prop}
+
+\begin{proof}
+    Immediate from writing closed sets as complements of open sets,
+    since the complement passes through the unions and intersections.
+\end{proof}
+
+\section{September 3}\label{sec:sep03}
+
+\subsection{Closure and limit points}
+
+\begin{definition}[Interior and closure]
+    \label{def:interior-closure}
+    The \vocab{interior} $\accentset{\circ}{A}$ of $A\subseteq X$
+    is the union of all open subsets of $X$ contained in $A$.
+    The \vocab{closer} $\ol A$ of $A\subseteq X$
+    is the intersection of all closed subsets of $X$ containing $A$.
+\end{definition}
+
+\begin{prop}
+    \label{prop:interior-closure-extremal}
+    The interior and closure are respectively maximal and minimal
+    in the following sense:
+    \begin{enumerate}[(1)]
+        \ii $\interior A$ is the largest open set contained in $A$.
+	\ii $\ol A$ is the smallest closed set containing $A$.
+    \end{enumerate}
+\end{prop}
+
+This is of course immediate from the definition.
+Note also that $A = \interior A$ is equivalent to $A$ being open
+and $A = \ol A$ is equivalent to $A$ being closed.
+
+The closure of a set can also be defined in terms of
+more local properties of the set.
+To make this idea more precise, we define the following:
+\begin{definition}[Limit point]
+    \label{def:limit-point}
+    Let $A\subseteq X$. Then $x\in X$ is a \vocab{limit point} of $A$
+    if any open set containing $x$ intersects $A$ at a point besides $x$,
+    i.e. $U\cap A$ contains a point not equal to $x$
+    for all open $U\ni x$.
+\end{definition}
+
+\begin{theorem}[Limit points provide closure]
+    \label{thm:closure-by-limit-pts}
+    Given $A\subseteq X$, let $A'$ be the set of limit points of $A$ in $X$.
+    Then $\ol A = A\cup A'$.
+\end{theorem}
+
+\begin{proof}
+    If $x\notin A\cup A'$, then there is a neighborhood $U\ni x$
+    that does not intersect $A$. This means that $X\setminus U$
+    is a closed set containing $A$ that doesn't contain $x$,
+    so $x$ is also not in $\ol A$. Thus $\ol A\subseteq A\cup A'$.
+
+    Conversely, if $F\supseteq A$ is closed and $x$ is not in $F$,
+    then $x$ is contained in the open set $X\setminus F$,
+    which does not intersect $A$ at all, so $x$ isn't a limit point for $A$.
+    Therefore any closed set containing $A$ contains $A\cup A'$,
+    so $\ol A$ contains $A\cup A'$.
+
+    We have shown that $\ol A$ and $A\cup A'$ contain each other,
+    so the two sets are equal.
+\end{proof}
+
+At this point a useful condition to impose on topological spaces is
+that they be \vocab{Hausdorff}, meaning that
+given any distinct $x$ and $y$ in $X$,
+there exist open $U\ni x$ and $V\ni y$ that are disjoint.
+This ensures that our space has enough open sets
+to meaningfully separate points from each other;
+most topological spaces we encounter in the real world are Hausdorff.
+
+\begin{exercise}
+    Show that $\RR^n$ with the standard topology is Hausdorff.
+\end{exercise}
+
+\begin{prop}
+    \label{prop:finite-subset-of-hausdorff-closed}
+    Finite subsets of Hausdorff spaces are closed.
+\end{prop}
+
+\begin{proof}
+    It suffices to prove this for singleton sets,
+    since finite subsets are finite unions of singleton sets.
+    Indeed, if $x\in X$, then for any $y\in X$ not equal to $x$
+    there are neighborhoods $U\ni x$ and $V\ne y$
+    such that $U\cap V=\varnothing$ so in particular $x\notin V$;
+    this implies that any $y\ne x$ is not a limit point of $\{x\}$,
+    so $\{x\}$ is closed in $X$.
+\end{proof}
+
+\subsection{Continuous functions}
+The standard definition of a continuous function between two metric spaces
+asks that for any threshold $\eps$, there is a $\delta$ such that
+two points that are at most $\delta$ apart in the domain
+well be at most $\eps$ apart in the codomain.
+Said differently, given $x\in X$, the ball $B_Y(f(x),\eps)$
+has pre-image containing some open ball $B_X(x,\delta)$ in $X$.
+By taking sub-balls of $B_Y(f(x),\eps)$ centered at each point in this ball,
+we find that this forces $f\inv(B_Y(f(x),\eps))$ to be open in $X$
+since we have an open ball in $X$ centered at each point of the pre-image
+while still living inside the pre-image.
+Because the balls in $Y$ are a basis for $Y$'s topology,
+this shows that the pre-image of any open set in $Y$
+must be open in $X$ (since unions pass through pre-images).
+
+What we have done, in short, is eliminated any reference to
+the metrics on $X$ and $Y$ in our definition of continuity,
+referring instead to only topological data! This is the insight behind
+the definition of continuous functions between topological spaces:
+\begin{definition}[Continuous function, homeomorphism]
+    \label{def:continuity-homeomorphism}
+    A function $f\colon X\to Y$ between topological spaces
+    is \vocab{continuous} if, for every open $V\subseteq Y$,
+    the pre-image $f\inv(V)\subseteq X$ is open.
+    If $f$ is bijective and $f\inv$ is continuous as well,
+    then $f$ is a \vocab{homeomorphism} and
+    $X$ and $Y$ are \vocab{homeomorphic}.
+\end{definition}
+
+\begin{exercise}
+    Exhibit a homeomorphism between $\RR$ (with the standard topology)
+    and any open interval in $\RR$ (with the subspace topology from $\RR$).
+\end{exercise}
+
+\begin{exercise}
+    Show that $f\colon[0,2\pi)\to S^1\subseteq\RR^2$
+    (where $S^1$ is the unit circle in $\RR^2$)
+    defined as $f(t) = (\cos t, \sin t)$ is continuous and bijective
+    but not a homeomorphism, because its inverse is not continuous.
+\end{exercise}
+
+\pagebreak
+
+\section{September 8}\label{sec:sep08}
+
+\subsection{Product topology}
+
+Recall that given finitely many topological spaces
+$X_1$, $X_2$, \dots, $X_n$ we can impose a topology on
+$X_1\times X_2\times\cdots\times X_n$
+by decreeing its basis to be
+\begin{equation*}
+    \{U_1\times\cdots\times U_n : U_i\overset{\text{open}}\subseteq X_i\}.
+\end{equation*}
+
+If instead we are given an arbitrary collection $\{X_\alpha\}_{\alpha\in A}$
+of topological spaces, then one way to impose a topology on
+$\prod_{\alpha\in A}X_\alpha$ is:
+\begin{definition}[Box topology]
+    \label{def:box-top}
+    The \vocab{box topology} on the product $\prod_{\alpha\in A}X_{\alpha}$
+    of topological space $\{X_\alpha\}_{\alpha\in A}$
+    is given by the basis
+    \begin{equation*}
+	\left\{\prod_{\alpha\in A}U_{\alpha} :
+	U_\alpha\overset{\text{open}}\subseteq X_\alpha\right\}
+    \end{equation*}
+\end{definition}
+
+We will shortly see that this topology on the product is insufficient,
+and we prefer the following one instead:
+\begin{definition}[Product topology]
+    \label{def:inf-product-top}
+    The \vocab{product topology} on $\prod_{\alpha\in A} X_{\alpha}$
+    is given by the subbasis
+    \begin{equation*}
+	\mathcal S = \bigcup_{\alpha\in A}
+	\left\{\pi_\alpha\inv(U_\alpha) :
+	U_{\alpha}\overset{\text{open}}\subseteq X_\alpha\right\},
+    \end{equation*}
+    where $\pi_\alpha$ is the projection onto $X_\alpha$.
+\end{definition}
+
+\begin{exercise}
+    What is the basis of the product topology
+    given by the subbasis $\mathcal S$?
+    (i.e. what is the collection of
+    finite intersections of sets in $\mathcal S$?)
+\end{exercise}
+
+\begin{exercise}
+    Show that the box and product topologies agree
+    for products of finitely many spaces.
+\end{exercise}
+
+In other words, the product topology is defined as the coarsest topology
+that makes the $\pi_\alpha$ maps continuous.
+The $\pi_\alpha$ are continuous because we are specifically saying that
+the pre-image of any open set in $U_\alpha$ is open
+in the product topology --- this is literally the definition of $\mathcal S$.
+It shortly follows that this is also the coarsest topology
+allowing the projections to be continuous.
+
+\begin{theorem}[Continuity via component functions]
+    \label{thm:f-cont-iff-components-cont}
+    Suppose $\prod_{\alpha\in A} X_\alpha$ is given the product topology.
+    Then, a map $f\colon Y\to\prod_{\alpha\in A}X_\alpha$ is continuous
+    if and only if the components functions $f_\alpha\colon Y\to X_\alpha$,
+    defined as $\pi_\alpha\circ f$, are all continuous.
+\end{theorem}
+
+\begin{proof}
+    If $f$ is continuous then the result is immediate
+    because compositions of continuous functions are continuous.
+    (This hasn't been proven in these notes yet; go check it.)
+
+    On the other hand, if the $f_\alpha$ are continuous,
+    we can verify that $f$ is continuous by checking that $f\inv(U)$ is open
+    where $U$ is an element of the subbasis $\mathcal S$
+    that generates the product topology. Taking $U = \pi_\alpha\inv(U_\alpha)$,
+    \begin{equation*}
+        f\inv(U) = f\inv(\pi_\alpha\inv(U_\alpha)) =
+	(\pi_\alpha\circ f)\inv(U_\alpha) = f_\alpha\inv(U_\alpha).\qedhere
+    \end{equation*}
+\end{proof}
+
+The kicker is that this theorem fails for the box topology!
+\begin{example}
+    [Box topology is bad]
+    Let $\RR^\omega$ be the product of countably many copies of $\RR$,
+    endowed with the box topology.
+    Consider $f\colon\RR\to\RR^\omega$ given by
+    $f(t) = (t, t, t, \dots)$; this definitely should be continuous
+    in any reasonable topology. However,
+    \begin{equation*}
+	U = \prod_{n=1}^\infty (-1/n, 1/n)
+    \end{equation*}
+    is an open set whose pre-image is $\bigcap_{n=1}^\infty (-1/n,1/n) = \{0\}$,
+    which isn't open in $\RR$!
+    (More abstractly, being able to take too many sets in the product
+    defining $U$ forced an infinite intersection of open sets
+    in the pre-image, which needn't be open.)
+\end{example}
+
+\subsection{Metric spaces}
+Recall the definition of a metric space:
+\begin{definition}[Metric space]
+    \label{def:metric-space}
+    A \vocab{metric space} is a set $X$ endowed with a \vocab{metric}
+    $d\colon X\times X\to\RR_{\ge0}$ such that
+    \begin{enumerate}[(1)]
+        \ii $d(x,y) = 0$ if and only if $x=y$;
+	\ii $d(x,y) = d(y,x)$ for all $x,y\in X$;
+	\ii $d(x,y)\le d(x,y) + d(z,y)$ for all $x,y,z\in X$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    $\RR^n$ with the distance function
+    \begin{equation*}
+	d(x,y) = \sqrt{\sum_{n=1}^\infty (x_i-y_i)^2}
+    \end{equation*}
+    is a metric space; the only nontrivial part of checking this
+    is showing the triangle inequality. One way to do this is
+    to anchor $z$ to the origin (since $d(x-z,y-z) = d(x,y)$)
+    and then expand and use the Cauchy-Schwarz inequality.
+\end{example}
+
+Then, metric spaces can be given a topology,
+as seen in analysis class:
+\begin{definition}[Metric topology]
+    \label{def:metric topology}
+    The \vocab{metric topology} on metric space $(X,d)$
+    has basis consisting of \vocab{metric balls}, i.e. the sets
+    $B_\eps(x) = \{y\in X : d(x,y) < \eps\}$.
+\end{definition}
+
+\begin{exercise}
+    Verify that this is a basis for a topology
+    by showing that the intersection of two balls
+    satisfies the egg yolk property
+    (that is, the intersection of the balls must be open,
+    hence a countable union of balls).
+\end{exercise}
+
+\begin{exercise}
+    Show that $\rho\colon\RR^n\times\RR^n\to\RR_{\ge0}$
+    defined by $\rho(x,y) = \max_i |x_i-y_i|$ is a metric on $\RR^n$
+    and that the corresponding topology is also the Euclidean topology.
+    What do the metric balls in this space look like?
+\end{exercise}
+
+\begin{theorem}[Equivalence of metrics]
+    \label{thm:equivalent-metrics}
+    Let $d$ and $d'$ be two metrics on $X$.
+    Then the topologies generated by $d$ and $d'$ are the same
+    if and only if there exists a constant $C\ge1$ such that
+    \begin{equation*}
+	B^{d'}_{C\inv\eps}(x)\subseteq B^d_\eps(x)
+	\subseteq B^{d'}_{C\eps}(x)
+    \end{equation*}
+    for all $x\in X$ and $\eps>0$.
+\end{theorem}
+
+\begin{definition}[Metrizable]
+    \label{def:metrizable}
+    A topological space $X$ with topology $\mathcal T$ is \vocab{metrizle}
+    if there is a metric on $X$ whose metric topology is $\mathcal T$.
+\end{definition}
+
+We will talk about metrizability Much Later.
+
+\section{Septmeber 10}\label{sec:sep10}
+
+\begin{prop}
+    \label{prop:metric-spaces-hausdorff}
+    Metric spaces are Hausdorff.
+\end{prop}
+
+\begin{proof}
+    Let $x\ne y$ be in $X$. Then, $d(x,y) = d_0 > 0$.
+    Take the open balls $B_{d_0/2}(x)\ni x$ and $B_{d_0/2}(y)\ni y$.
+    These two don't intersect, since if $z$ were in their intersection,
+    then by triangle inequality
+    \begin{equation*}
+	d_0 = \frac {d_0}2 + \frac {d_0}2 > d(x,z) + d(z,y) > d(x,y) = d_0,
+    \end{equation*}
+    which is a contradiction.
+\end{proof}
+
+\begin{theorem}[$\eps$-$\delta$ continuity]
+    \label{thm:eps-delta-continuity-metric-space}
+    A function $f\colon (X,d_X)\to(Y,d_Y)$ is continuous
+    if and only if for each $x_1,x_2\in X$ and $\eps>0$,
+    there exists $\delta>0$ (possibly depending on $x_1$, $x_2$)
+    such that
+    \begin{equation*}
+        d_X(x_1,x_2)<\delta\implies d_Y(f(x_1),f(x_2)) < \eps.
+    \end{equation*}
+\end{theorem}
+
+\begin{exercise}
+    Show that the operations $+$, $-$, $\times$, $\div$
+    are continuous as maps from $\RR^2$ to $\RR$.
+\end{exercise}
+
+\begin{definition}[Convergence]
+    \label{def:convergence}
+    Let $x_1,x_2,\ldots\in X$ be a sequence in topological space $X$.
+    We say that $(x_n)_n$ \vocab{converges} to $x\in X$ if
+    every open set containing $x$ contains cofinitely many terms
+    of the sequence.
+\end{definition}
+
+\begin{prop}
+    \label{prop:hausdorff-limits-unique}
+    If $X$ is Hausdorff and a sequence $(x_n)_{n\in\NN}$ converges
+    to both $x$ and $x'$ in $X$, then $x = x'$.
+\end{prop}
+
+\begin{proof}
+    If $x\ne x'$ then we pick disjoint open sets containing $x$ and $x'$;
+    it is not possible for both of these open sets to have
+    cofinitely many points of the sequence.
+\end{proof}
+
+\begin{theorem}[Convergent sequences provide limit points]
+    \label{thm:limit-points-by-seq}
+    Let $A\subseteq X$. If $(x_n)_{n\in\NN}$ is a sequence of points in $A$
+    with $x = \lim_{n\to\infty} x_n$, then $x\in\ol A$.
+    If $X$ is a metric space, then the converse is true;
+    that is, if $x\in\ol A$, then there is a sequence of points in $A$
+    converging to $A$.
+\end{theorem}
+
+\begin{remark}
+    More generally the converse holds in first countable spaces.
+\end{remark}
+
+\begin{proof}
+    If $x\in A$ then we are done.
+    Assuming $x\notin A$, the definition of convergence says that
+    any neighborhood of $x$ contains points in the sequence $(x_n)$,
+    which are in $A$; none of these $x_n$ are equal to $x$
+    by assumption, so $x$ is a limit points for $A$, hence in $\ol A$.
+
+    For the converse, we again are immediately done if $x\in A$
+    because we can take the constant sequence.
+    Otherwise, take successively smaller open balls
+    $B_{1/n}(x)$ around $x$; since these are open and contain $x$,
+    they intersect $A$, so take $x_n\in B_{1/n}(x)\cap A$.
+    Since any open set containing $x$ contains some $\eps$-ball
+    and for any $\eps>0$ there exists $n\in\NN$ such that $\frac 1n < \eps$,
+    we get that any open set containing $x$ contains cofinitely many
+    of the $x_n$.
+\end{proof}
+
+We can use sequences to phrase continuity if the spaces are nice enough,
+just like we did with maps between metric spaces:
+\begin{theorem}[Sequential continuity if domain is metric space]
+    \label{thm:seq-cont-dom-metric-sp}
+    Let $X$ be a metric space and $Y$ a map.
+    Then $f$ is continuous if and only if for every sequence
+    $x_n\to x$ in $X$ we have $f(x_n)\to f(x)$ in $Y$.
+\end{theorem}
+
+\begin{proof}
+    \todo{todo}
+\end{proof}
+
+\begin{exercise}
+    Show that $f\colon\RR^2\setminus\{(0,0)\}\to\RR$ defined by
+    $f(x,y) = \frac{xy}{x^2+y^2}$ cannot be extended
+    to a continuous function on $\RR^2$.
+\end{exercise}
+
+\begin{definition}[Uniform convergence]
+    \label{def:uniform-convergence}
+    Let $f_n\colon X\to(Y,d_Y)$ be a sequence of functions
+    (where $X$ can be anything it wants to be).
+    They \vocab{converge uniformly} to $f\colon X\to Y$ if
+    given $\eps>0$ there exists $N$ such that $d(f_n(x), f(x)) < \eps$
+    for all $n\ge N$ and $x\in X$.
+\end{definition}
+In other words, $f_n(x)\to f(x)$ at roughly the same rate for all $x\in X$.
+
+\begin{exercise}
+    Let $f_n\colon[0,\half]\to\RR$ be defined by $f_n(x) = x^n$.
+    Show that $f_n$ converges to the zero function uniformly.
+    What if the domain is instead $[0,1]$ or $[0,1)$?
+\end{exercise}
+
+\section{September 15}\label{sec:sep15}
+\subsection{Quotient topology and quotient maps}
+
+Another way to construct topological spaces is by gluing pieces of
+spaces together, such as rolling up a square into a cylinder
+and then rolling that cylinder into a donut,
+or simply rolling an interval into a circle.
+One can make this idea precise as follows:
+
+\begin{definition}[Quotient topology]
+    \label{def:quotient-top}
+    Let $X$ be a topological space endowed with an equivalence relation $\sim$.
+    Then, the set of equivalence classes $X/{\sim}$ is the
+    \vocab{quotient space} of $X$ modulo $\sim$,
+    which is topologized by declaring $U\subseteq X/{\sim}$ to be open
+    if and only if the union of the equivalence classes in $U$,
+    i.e. $\bigcup_{[x]\in U} [x]$, is open in $X$.
+    Equivalently, $U\subseteq X/{\sim}$ is open if and only if
+    $p\inv(U)\subseteq X$ is open, where the projection $p\colon X\to X/{\sim}$
+    is the map $p(x) = [x]$.
+\end{definition}
+Note of course that this means $p$ is a continuous map $X\to X/{\sim}$.
+
+\begin{example}
+    [$S^1$ is a quotient of $\lbrack0,2\pi\rbrack$]
+    Give $[0,2\pi]$ the equivalence relation
+    whose only nontrivial relation is $0\sim 2\pi$.
+    Then $X=[0,2\pi]/{\sim}$ is homeomorphic to the unit circle
+    $S^1 = \{(\cos\theta,\sin\theta) \in\RR^2 : \theta\in[0,2\pi)\}\subseteq\RR^2$
+    via the map $h\colon X\to S^1$ defined as $h(x) = (\cos x,\sin x)$.
+\end{example}
+
+\begin{exercise}
+    Check that $h$ really is a homeomorphism $X\to S^1$.
+\end{exercise}
+
+\begin{example}
+    Let $X = \ol{B_1(0)}\subseteq\RR^2$ be the closed disk of radius $1$
+    centered at $0$, and let $\sim$ be the relation such that
+    any two points on the boundary $S^1$ are equivalent.
+    This is actually homeomorphic to the sphere $S^2\subseteq\RR^3$!
+    We can imagine the boundary collapsing onto the north pole,
+    and then it is not too hard to convince yourself
+    that open sets around the north pole in $S^2$ correspond to
+    open sets in $X$.
+\end{example}
+
+\begin{exercise}
+    Let $X = [0,1]^2$ and identify points with the relation
+    $(x,0)\sim(x,1)$ for all $x\in[0,1]$ and $(0,y)\sim(1,0)$
+    for all $y\in[0,1]$. What shape does $X/{\sim}$ look like?
+    (Hint: identify the two pairs of edges one at a time.)
+\end{exercise}
+
+We can also get quotient maps in a sort of backwards way,
+by deriving the underlying equivalence relation via
+a map that behaves like the projection map.
+\begin{definition}[Quotient map]
+    \label{def:quotient-map}
+    Let $p\colon X\to Y$ be a surjective map such that $p\inv(U)\subseteq X$
+    is open if and only if $U\subseteq Y$ is open.
+\end{definition}
+In this case $Y$ can be thought of as the quotient of $X$ by the relation
+$x\sim x'$ whenever $x,x'\in p\inv(Y)$ for some $y\in Y$.
+\begin{exercise}
+    Show that the map $p\colon[0,2\pi]\to S^1$ given by
+    $p(t) = (\cos t,\sin t)$ is continuous and surjective
+    but is not a quotient map.
+\end{exercise}
+
+\begin{prop}
+    \label{prop:quotient-universal-property}
+    Let $X/{\sim}$ be a quotient space of $X$ with
+    projection map $p\colon X\to X/{\sim}$
+    and suppose that there is a continuous map $f\colon X\to Z$
+    that is constant on $p\inv(y)$ for each $y\in X/{\sim}$.
+    Then, there exists a unique continuous map $\tilde f\colon X/{\sim}\to Z$
+    such that $\tilde f\circ p = f$. 
+\end{prop}
+
+\begin{proof}
+    For a given $y\in X/{\sim}$, define $\tilde f(y)$ to be
+    the value of $f$ at any point in $p\inv(y)$.
+    It is easy to see that $\tilde f\circ p = f$,
+    so it remains to check continuity.
+    \todo{check continuity}
+\end{proof}
+
+\begin{example}
+    [Real projective space]
+    $\RR P^n = S^n/{\sim}$ where $\sim$ identifies antipodal points.
+    (TODO elaborate)
+\end{example}
+
+Given $f\colon S^1\to\RR$ defined by $f(x,y) = y^2$ if $y\ge0$
+and $f(x,y)=0$ if $y<0$, does there exist a corresponding $\tilde f$?
+
+\subsection{Connectedness}
+
+\begin{definition}[Connectedness]
+    \label{def:connectned}
+    Let $X$ be a topological space with $X = U\cup V$
+    where $U,V$ are nonempty disjoint open sets; we say that $\{U,V\}$ is
+    a \vocab{separation} of $X$ and that $X$ is \vocab{connected}
+    if it does not admit a separation.
+\end{definition}
+
+\todo{examples}
+
+\section{September 17}\label{sec:sep17}
+
+\begin{prop}
+    \label{prop:connected-iff-no-clopen}
+    $X$ is connected if and only if the only subsets of $X$
+    that are both open and closed are $X$ and $\varnothing$.
+\end{prop}
+
+\begin{proof}
+    There exists a set $U$ that is both open and closed
+    if and only if there is a separation of $X$
+    (which is equivalent to $X$ being disconnected),
+    since $X = U\cup V$ is the union of two disjoint nonempty open sets
+    if and only if $U = X\setminus V$ is open by definition
+    and closed by being the complement of $V$.
+\end{proof}
+
+\begin{theorem}[Unions of connected sets]
+    \label{thm:union-connected-sets}
+    Let $\{U_\alpha\}$ be a collection of connected sets in $X$.
+    If the intersection of the $U_\alpha$ is nonempty, then
+    $\bigcup_\alpha U_\alpha$ is connected.
+\end{theorem}
+
+\begin{soln}
+    Suppose for the sake of contradiction that $\bigcup_\alpha U_\alpha$
+    has a separation $V\sqcup V'$.
+
+    \todo{lazy}
+\end{soln}
+
+\begin{theorem}[$f(\text{connected}) = \text{connected})$]
+    \label{thm:connected-pass-thru-cts}
+    Let $f\colon X\to Y$ be continuous.
+    If $X$ is connected then $f(X)$ is connected.
+\end{theorem}
+
+\begin{proof}
+    Suppose the subspace $f(X)\subseteq Y$ has a separation $U\sqcup V$.
+    Then $U = \tilde U \cap f(X)$ and $V = \tilde V\cap f(X)$
+    for some $\tilde U$, $\tilde V$ open in $Y$.
+    Then the pullbacks of $\tilde U$ and $\tilde V$ are
+    clearly open (by continuity) and nonempty, disjoint, and cover $X$
+    (by basic properties of pullbacks of sets),
+    so $f\inv(\tilde U)$ and $f\inv(\tilde V)$ are a separation of $X$,
+    hence $X$ is disconnected if $f(X)$ is disconnected.
+\end{proof}
+
+\begin{definition}[Path connected]
+    \label{def:path-connected}
+    $X$ is \vocab{path connected} if there exists a continuous path
+    between any two points $x,y\in X$; that is, there is a continuous function
+    $f\colon[0,1]\to X$ such that $f(0)=x$ and $f(1)=y$.
+\end{definition}
+
+\begin{prop}
+    \label{prop:path-conn-impiles-conn}
+    
+\end{prop}
+\todo{copy from 320 notse}
+
+\todo{comb space (line segments and $(0,1)$)}
+
+\section{September 22}\label{sec:sep22}
+
+\begin{lemma}
+    \label{lem:set-closure-sandwich-connected}
+    Let $X$ be a topological space and let $A\subseteq X$ be connected.
+    If $A\subseteq B\subseteq\ol A$ then $B$ is connected.
+\end{lemma}
+
+\begin{corollary}
+    \label{coro:deleted-comb-space-connected}
+    The deleted comb space is connected.
+\end{corollary}
+
+\begin{proof}[Proof of \autoref{lem:set-closure-sandwich-connected}]
+    Assume $B$ is disconnected, so there exist nonempty sets
+    $U,V\subseteq B$ that are open in $B$ whose union is $B$.
+    Let $\widetilde U = U\cap A$ and $\widetilde V = V\cap A$.
+    Then $\widetilde U$ and $\widetilde V$ are open in $A$
+    and $A = \widetilde U\cup\widetilde V$, so it remains to show that
+    $\widetilde U$, $\widetilde V$ are nonempty.
+    By definition of the subspace topology there exists
+    $\widehat U$ that is open in $X$ such that $U = \widehat U\cap B$,
+    hence $\widetilde U = \widehat U\cap A$. By the closure condition
+    either some point of $A$ is in $\widehat U$, in which case we're done,
+    or $\widehat U$ contains a limit point of $A$, in which case
+    it must still contain a point of $A$, so we are still done
+    (because either way $\widetilde U$ is nonempty,
+    hence so is $\widetilde V$ by symmetry).
+\end{proof}
+
+\begin{theorem}[Intervals are connected]
+    \label{thm:intervals-are-connected}
+    Intervals and rays in $\RR$
+    (i.e. sets of the form $(a,b)$, $(a,b]$, $[a,b)$, or $[a,b]$
+    such that $-\infty\le a\le b\le\infty$, with strict inequalities
+    if the corresponding endpoint is closed)
+    are connected.
+\end{theorem}
+
+\begin{proof}
+    Let $I$ be an interval and $U\cup V$ is a separation.
+    blah blah\todo{finish}
+\end{proof}
+
+\begin{corollary}
+    [Intermediate value theorem]
+    \label{coro:ivt}
+    blah blah
+\end{corollary}
+
+\begin{corollary}
+    [Brouwer fixed point theorem, 1D]
+    \label{coro:brouwer-1d}
+\end{corollary}
+
+\begin{exercise}
+    Does the equation $x^3 + x = e^{\sin(x^3)} + 10x^2 - \log(\abs x+1)$
+    have a solution in $\RR$?
+\end{exercise}
+
+\section{September 24}\label{sec:sep24}
+Given a topological space, one way to look at
+the connectedness/path-connectedness properties
+can be understood by looking at maximal (path-)connected subsets.
+
+\begin{definition}[(Path) connected components]
+    \label{def:connected-components}
+    A \vocab{connected component} (or just \vocab{component})
+    of a space $X$ is a maximal connected subset
+    of $X$. Equivalently, it is an equivalence class of $X$
+    under the relation $a\sim b$ if there exists a connected subset of $X$
+    containing both $a$ and $b$.
+    Analogously, \vocab{path components} are connected components
+    but for path connectedness.
+\end{definition}
+
+It is easy to show (and you should convince yourself if it isn't obvious)
+that any (path) connected subset of $X$ can only lie in one component of $X$.
+
+\begin{definition}[Local (path) connectedness]
+    \label{def:local-connectedness}
+    We say that $X$ is locally (path) connected if
+    for any $x\in X$ and neighborhood $U\ni x$
+    there exists an open (path) connected $V\subseteq U$ such that $V\ni x$.
+\end{definition}
+
+\begin{example}
+    Local connectedness and connectedness do not imply each other.
+    \begin{itemize}
+        \ii $\RR$ (or any connected manifold) is locally connected
+	and locally connected.
+	\ii $[0,1)\cup(1,2]$ is locally connected
+	but clearly not connected.
+	\ii The comb space is connected but not locally connected
+	(find a neighborhood that breaks!).
+	\ii $\QQ$ is neither connected nor locally connected.
+    \end{itemize}
+\end{example}
+
+\begin{theorem}[Locally connected means components of open are open]
+    \label{thm:lc-iff-components-of-open-are-open}
+    $X$ is locally connected if and only if each component of
+    any open $U\subseteq X$ is open.
+\end{theorem}
+
+\begin{theorem}[Path component properties]
+    \label{thm:path-component-props}
+    \begin{enumerate}[(1)]
+        \ii Path components lie inside connected components.
+	\ii If $X$ is locally path connected then the components
+	and path components of $X$ are the same.
+    \end{enumerate}
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+\end{document}

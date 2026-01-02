@@ -1,0 +1,422 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage{quiver}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 534 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\quiv}{\equiv}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\aut}{\operatorname{Aut}}
+\providecommand{\ann}{\operatorname{Ann}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+\providecommand{\Ob}{\operatorname{Ob}}
+\providecommand{\Hom}{\operatorname{Hom}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\id}{\operatorname{id}}
+\newcommand{\doubleparen}[1]{(\!(#1)\!)}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 534 HW09}
+\author{\large Aditya Pahuja}
+\date{\large Due 11/12}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    A module $M$ is said to be \vocab{simple} if
+    $M$ is not the zero module and the only submodules of $M$
+    are $M$ and $0$. Show that $M$ is a simple module
+    if and only if $M\cong R/I$, where $I$ is a maximal ideal of $R$
+    (where isomorphism is as an $R$-module).
+\end{problem}
+
+\begin{soln}
+    Let $m$ be any nonzero element of simple module $M$. Then
+    $\{rm : r\in R\}$ is a nontrivial submodule of $M$, so it equals $M$.
+    Let $I$ be the annihilator of $m$, which by Problem 4(a) is an ideal of $R$;
+    then, by (my solution to) Problem 4(b), $M\cong R/I$ with isomorphism
+    $\phi_m\colon R/I\to M$ given by $\phi_m(r + I) = rm$.
+    This means that given nonzero $s + I\in R/I$,
+    there exists $r + I\in R/I$ such that
+    $\phi_{sm}(r + I) = rsm = m$, i.e. $rs - 1\in\ann(m) = I$,
+    so $r+I$ and $s+I$ are inverse in $R/I$.
+    Thus, $R/I$ is a field, making $I$ a maximal ideal.
+
+    Conversely, we show that $R/I$ is a simple $R$-module
+    if $I$ is a maximal ideal of $R$.
+    Since $R/I$ is a field, multiplication by
+    a nonzero element of $R/I$ is a bijection on $R/I$,
+    meaning that given $r+I\in R/I$, the set $R(r + I) = \{s(r + I) : s\in R\}$
+    is equal to $R/I$. In particular, if $N$ is a nontrivial submodule
+    of $R/I$ containing a nonzero $m$, then $R/I = Rm \subseteq N$,
+    so $N$ is the entire module.
+\end{soln}
+
+\begin{problem}
+    Suppose that $M$ and $N$ are submodules of a module $P$.
+    Show that $(M+N)/M\cap N\cong (M/M\cap N)\oplus(N/M\cap N)$.
+\end{problem}
+
+\begin{soln}
+    Let $\phi\colon (M/M\cap N)\oplus(N/M\cap N)\to (M+N)/M\cap N$
+    such that
+    \begin{equation*}
+        \phi(a+M\cap N,b+M\cap N) = (a+b) + M\cap N.
+    \end{equation*}
+    This is of course surjective because any element of $M+N$
+    is written as $a+b$ for some $a\in M$, $b\in N$.
+    To show it is injective, we need to show that if
+    $a+b\quiv c+d\pmod{M\cap N}$ for $a,c\in M$ and $b,d\in N$,
+    then $a\quiv c\pmod{M\cap N}$ and $b\quiv d\pmod{M\cap N}$.
+    Indeed, we know a priori that $(a-c) + (b-d) \in M\cap N$,
+    so since $a-c\in M$ and $(a-c) + (b-d)\in M$,
+    their difference $b-d$ is also in $M$, hence in $M\cap N$,
+    and similarly for $a-c$.
+    Thus $\phi$ is an isomorphism between the two modules.
+\end{soln}
+
+\begin{problem}
+    Suppose that $R$ is an integral domain.
+    An element $m\in M$ is said to be a \vocab{torsion element}
+    if $rm = 0$ for some $r\ne 0$ in $R$, and we say that
+    $r$ \vocab{annihilates} $m$.
+    \begin{enumerate}[(a)]
+	\ii Let $M_{\text{tor}}$ be the set of torsion elements of $M$.
+	Show that $M_{\text{tor}}$ is a submodule of $M$.
+	\ii $M$ is said to be \vocab{torsion-free} if $M_{\text{tor}} = 0$.
+	Show that $M/M_{\text{tor}}$ is always torsion-free.
+	\ii Suppose $R = \ZZ$ and $M = \RR/\ZZ$.
+	What is $M_{\text{tor}}$ in this case?
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $m_1,m_2\in M_{\text{tor}}$, so there exist
+    $r_1,r_2\in R$ such that $r_1m_1 = r_2m_2 = 0$.
+    Then for every $r\in R$, $r_1(rm_1) = r(r_1m_1) = 0$,
+    so $M_{\text{tor}}$ is closed under multiplication by $R$,
+    and $r_1r_2(m_1 + m_2) = 0$, so $M_{\text{tor}}$
+    is closed under addition.
+    \\
+
+    (b) Let $m + M_{\text{tor}}$ be a torsion element of $M/M_{\text{tor}}$.
+    Then $rm \in M_{\text{tor}}$ for some $r\in R$,
+    so there exists $r'\in R$ such that $r'(rm) =(r'r)m = 0$,
+    which in turn implies that $m\in M_{\text{tor}}$,
+    i.e. $m + M_{\text{tor}}$ is the zero element of $M/M_{\text{tor}}$.
+    \\
+
+    (c) The torsion submodule of $\RR/\ZZ$ is $\QQ/\ZZ$,
+    since the torsion elements are the cosets corresponding to
+    the elements of $\RR$ which, when multiplied by some integer,
+    are themselves integers.
+\end{soln}
+
+\begin{problem}
+    Let $M$ be a module and let $m\in M$.
+    The \vocab{annihilator} $\operatorname{Ann}(m)$ of $m$ in $R$
+    is the set $\{r\in R : rm = 0\}$.
+    \begin{enumerate}[(a)]
+        \ii Show that $\ann(m)$ is an ideal of $R$.
+	\ii A module $M$ is said to be \vocab{cyclic}
+	if it is generated by a single element $m_0\in M$.
+	Show that $M$ is cyclic if and only if $M\cong R/I$
+	for some ideal $I\subseteq R$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $r_1,r_2\in\ann(m)$ and $r\in R$ then
+    \begin{equation*}
+	(r_1+r_2)m = r_1m + r_2m = 0,\qquad
+	r(r_1m) = (rr_1)m = 0
+    \end{equation*}
+    implies that $\ann(m)$ is closed under addition
+    and under multiplication by elements of $R$, hence is an ideal of $R$.
+    \ii
+
+    (b) Suppose $M$ is generated by $m_0\in M$
+    and let $I = \ann(m_0)$. Then, define $\phi\colon R/I\to M$
+    by $\phi(r + I) = rm_0$. This map is well-defined because
+    if $r-s\in I$ then $rm_0 - sm_0 = (r-s)m_0 = 0$.
+    It is surjective because $M$ is generated by $m_0$,
+    and it is an injective map because
+    \begin{equation*}
+        \phi(r + I) = rm_0 = 0\implies r\in\ann(m) = I.
+    \end{equation*}
+    Thus $\phi$ is an isomorphism between $R/I$ and $M$.
+\end{soln}
+
+\begin{problem}
+    Suppose that $R$ is an integral domain,
+    and let $I$ be a nonzero ideal of $R$.
+    Show that $I\cong R$ if and only if $I$ is a principal ideal of $R$.
+\end{problem}
+
+\begin{soln}
+    Suppose first that $I\cong R$ and let $\phi\colon R\to I$ be an isomorphism.
+    Define $a = \phi(1)$. Then, any element of $I$ can be written as
+    $\phi(r) = r\phi(1) = ra$ for some $r\in R$, so $I = (a)$.
+
+    Conversely, if $I = (a)$ for some $a\in R$, then the morphism
+    $\phi\colon R\to I$ determined by setting $\phi(1) = a$
+    is an isomorphism: it is clearly surjective because
+    $I = \{ra = \phi(r) : r\in R\}$, and it is injective because
+    $ra = r'a$ for $r,r'\in R$ implies $r = r'$, since $R$ is an integral domain.
+\end{soln}
+
+\begin{problem}
+    Let $F$ be a field and let $V$ be an $F[x]$-module
+    that is finite-dimensional as a vector space over $F$.
+    \begin{enumerate}[(a)]
+        \ii Show that $V$ is a torsion module.
+	\ii Let $T\colon V\to V$ be the map defined by
+	$T(v) = xv$ for $v\in V$. Show that $T$ is a linear transformation
+	of the $F$-vector space $V$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since $V$ is a finite-dimensional $F$-vector space,
+    for each $v\in V$ there exists an $n$ such that
+    $v$, $xv$, \dots, $x^nv$ are $F$-linearly independent,
+    so there exist $a_0,\dots,a_n\in F$, not all zero, such that
+    \begin{equation*}
+        a_0v + a_1xv + \cdots + a_nx^nv =
+	(a_0 + a_1x + \cdots + a_nx^n)v = 0,
+    \end{equation*}
+    which implies that $v$ is a torsion element of $V$.
+    \\
+
+    (b) $T$ essentially inherits linearity from the fact that
+    $V$ is an $F[x]$-module; for $v,w\in V$ and $c\in F$,
+    $T(v+w) = x(v+w) = xv + xw = T(v)+T(w)$,
+    and $T(cv) = x\cdot cv = c\cdot xv = cT(v)$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $F$ be a field, $G$ a finite group, and $F[G]$ the group ring.
+    Let $V$ be a finitely generated $F[G]$-module.
+    \begin{enumerate}[(a)]
+        \ii Show that $V$ is a finite-dimensional vector space over $F$.
+	\ii Let $g\in G$, and let $T_g\colon V\to V$ be the map $T_g(v) = gv$.
+	Show that $T_g$ is a linear transformation of
+	the $F$-vector space $V$.
+	\ii Let $v_1$, \dots, $v_n$ be a basis for $V$ over $F$,
+	and for each $g\in G$, let $M_g$ be the matrix of $T_g$
+	with respect to the basis $v_1$, \dots, $v_n$.
+	Show that $M_g\in GL_n(F)$ and that the map
+	\begin{equation*}
+	    \rho\colon G\to GL_n(F),\qquad g\mapsto M_g
+	\end{equation*}
+	is a group homomorphism.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Obviously $V$ is a vector space over $F$;
+    the harder part of the problem is to show that this vector space
+    is of finite dimension. Suppose $V$ is generated by $v_1,\dots,v_m\in V$.
+    Any element of $V$ is of the form $r_1v_1 + \cdots + r_mv_m$
+    where the $r_i$ belong to $F[G]$, meaning $r_i = \sum_{g\in G} a_{i,g}g$.
+    This means that any element of $V$ is an $F$-linear combination
+    of the elements of the finite set $\{gv_i : g\in G, i=1,\dots,m\}$
+    (where the coefficients are the $a_{i,g}$),
+    so $V$ is spanned by a finite set, hence has finite dimension.
+    \\
+
+    (b) As in the previous problem, linearity is pretty much trivial:
+    For $v,w\in V$ and $c\in F$,
+    $T_g(v+w) = g(v+w) = gv + gw = T_g(v)+T_g(w)$
+    and $T_g(cv) = g\cdot cv = c\cdot gv = cT_g(v)$.
+    \\
+
+    (c) To show $M_g\in GL_n(F)$ we need to show that $T_g$ is invertible;
+    the inverse is simply $T_{g\inv}$, as
+    $T_g(T_{g\inv}(v)) = gg\inv v = v$ and $T_{g\inv}(T_g(v)) = g\inv gv = v$.
+    Then, to show that $\rho$ is a homomorphism, we need to show that
+    $T_{gh} = T_g\circ T_h$ for any $g,h\in G$; this is true because
+    \begin{equation*}
+	T_{gh}(v) = ghv = T_g(hv) = T_g(T_h(v)) = (T_g\circ T_h)(v).\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    Let $R$ be a noetherian ring.
+    \begin{enumerate}[(a)]
+        \ii Let $M$ be a submodule of $R^n$ for some $n\ge 1$.
+	Let $\pi_1\colon R^n\to R$ be the projection to the first coordinate,
+	so $\pi_1(r_1,\dots,r_n) = r_1$. Show that $\pi_1(M)$
+	is an ideal in $R$.
+	\ii Let $M_0 = \{m\in M : \pi_1(m) = 0\}$.
+	Show that there is a finitely generated submodule $M'\subseteq M$
+	such that $M = M' + M_0$.
+	\ii Prove that every submodule of $R^n$ is finitely generated.
+	\ii Deduce that every submodule of a finitely generated $R$-module
+	is again finitely generated.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) $\pi_1(M)$ is a submodule of the $R$-module $R$,
+    and submodules of rings are ideals.
+    \\
+
+    (b) Since $R$ is noetherian, $\pi_1(M)$ is finitely generated,
+    say by $r_1,\dots,r_k\in\pi_1(M)$.
+    Let $m_1,\dots,m_k\in M$ be such that $\pi_1(m_j) = r_j$
+    for $1\le j\le k$, and let $M'$ be the submodule generated by the $m_j$.
+    Then, $\pi_1(M') = \pi_1(M)$ by construction,
+    so if $m\in M$, there exists $m'\in M'$ such that
+    the first coordinate of $m$ is equal to that of $m'$.
+    This means $\pi_1(m-m') = 0$, so $m-m'\in M_0$,
+    proving that $M' + M_0 = M$.
+    \\
+
+    (c) We induct on $n$, with the $n=1$ case following from
+    the fact that every submodule (ideal) of $R$ is finitely generated
+    because $R$ is noetherian. In general, if $M\subseteq R^n$,
+    then by (b), $M = M' + M_0$ where $M'$ is finitely generated
+    and $M_0 = \ker(\pi_1|_{M})$ is isomorphic
+    to a submodule of $R$, with embedding $M_0\to R^{n-1}$ given by
+    $(0, r_2,\dots,r_n)\mapsto(r_2,\dots,r_n)$.
+    By inductive hypothesis, $M_0$ is finitely generated.
+    To finish, any $m\in M$ can be written as $m' + m_0$
+    for some $m'\in M$ and $m_0\in M_0$, which are respectively
+    $R$-linear combinations of the generators of $M'$ and $M_0$,
+    so the generators of $M'$ and of $M_0$ together
+    constitute a finite set of generators of $M$.
+    \\
+
+    (d) Let $M$ be a finitely generated $R$-module
+    with generators $m_1$, \dots, $m_k$ and $N\subseteq M$ a submodule.
+    Then, the morphism $\phi\colon R^k\to M$ given by
+    $\phi(r_1,\dots,r_k) = r_1m_1 + \cdots + r_km_k$
+    is surjective, so $M\cong R^k/\ker(\phi)$.
+    Letting $\pi\colon R^k\to R^k/\ker(\phi)$ be the projection morphism,
+    the submodule $\phi\inv(N)$ of $R^k/\ker(\phi)$ corresponding to $N$
+    pulls back to a submodule $\pi\inv(\phi\inv(N))\subseteq R^k$,
+    which by (c) is finitely generated, say with generators $n_1$, \dots, $n_\ell$.
+    Then, if $n\in\pi\inv(\phi\inv(N))$ is an $R$-linear combination
+    of the $n_j$, its image $n + \ker(\phi)$ under $\pi$
+    descends to an $R$-linear combination of the $n_j + \ker(\phi)$,
+    so $\phi\inv(N)$ is generated by the finite set
+    $\{n_j + \ker(\phi) : j=1,\dots,\ell\}$, hence $N$ is finitely generated.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

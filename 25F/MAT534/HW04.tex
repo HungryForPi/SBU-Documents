@@ -1,0 +1,533 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage{quiver}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 534 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\quiv}{\equiv}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\aut}{\operatorname{Aut}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 534 HW04}
+\author{\large Aditya Pahuja}
+\date{\large Due 10/01}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    A \vocab{characteristic subgroup} of a group is a subgroup $H\le G$
+    such that $\alpha(H) = H$ for every automorphism $\alpha\in\aut(G)$.
+    Show that the center $Z$ and the commutator subgroup $G'$
+    are characteristic subgroups of $G$.
+\end{problem}
+
+\begin{soln}
+    Let $\alpha\in\aut(G)$. Then if $a\in Z$, let $g\in G$ be arbitrary;
+    we can compute
+    \begin{equation*}
+        \alpha(a)\alpha(g) = \alpha(ag) = \alpha(ga) = \alpha(g)\alpha(a),
+    \end{equation*}
+    so $\alpha(a)$ commutes with $\alpha(g)$ for all $g\in G$.
+    Since $\alpha$ is a bijection on $G$,
+    every $h\in G$ can be represented as $\alpha(g)$ for some $g\in G$,
+    so $\alpha(a)$ commutes with every element of $G$, meaning it is in $Z$;
+    that is, $\alpha(Z) \subseteq Z$. On the other hand,
+    $\alpha\inv\in\aut(G)$ is also an automorphism, so
+    $\alpha\inv(Z)\subseteq Z\implies Z\subseteq \alpha(Z)$,
+    giving the reverse inclusion, hence $\alpha(Z) = Z$.
+    \\
+
+    For the commutator subgroup, let $\alpha\in\aut(G)$ and let
+    $p\colon G\to G/G'$ and $p'\colon G\to G/\alpha(G')$ be
+    the projection homomorphisms.
+    Then, the kernel of $p'\circ\alpha$ is $G'$
+    because the kernel of $p'$ is $\alpha(G')$
+    and the kernel of $p\circ\alpha\inv$ is $\alpha(G')$
+    because the kernel of $p$ is $G'$, so by the univeral property of quotients,
+    there exist unique $\phi\colon G/G'\to G/\alpha(G')$
+    and $\phi'\colon G/\alpha(G')\to G/G'$ such that the following diagram commutes:
+    \[\begin{tikzcd}[row sep = 3em, column sep = 3em]
+	G &&& G \\
+	\\
+	\\
+	{G/G'} &&& {G/\alpha(G')}
+	\arrow["\alpha", tail reversed, from=1-1, to=1-4]
+	\arrow["p", from=1-1, to=4-1]
+	\arrow["{p'\circ\alpha}"{description, pos=0.7}, from=1-1, to=4-4]
+	\arrow["{p\circ\alpha^{-1}}"{description, pos=0.3}, from=1-4, to=4-1]
+	\arrow["{p'}"', from=1-4, to=4-4]
+	\arrow["{\exists!\phi}", shift left, dashed, from=4-1, to=4-4]
+	\arrow["{\exists!\phi'}", shift left, dashed, from=4-4, to=4-1]
+    \end{tikzcd}\]
+    Then, noting that $p = \phi'\circ\phi\circ p = p$
+    and $p' = \phi\circ\phi'\circ p'$,
+    one can use the universal property of quotients again
+    in the following diagrams to conclude that
+    $\phi'\circ\phi =\operatorname{id}_{G/G'}$ and
+    $\phi\circ\phi' =\operatorname{id}_{G/\alpha(G')}$.
+    \[\begin{tikzcd}[row sep = 2em, column sep = 2em]
+	G && {G/G'} \\
+	\\
+	{G/G'}
+	\arrow["p", from=1-1, to=1-3]
+	\arrow["p"', from=1-1, to=3-1]
+	\arrow["{\phi'\circ\phi=\operatorname{id}_{G/G'}}"'{pos=0.7}, dashed, from=3-1, to=1-3]
+    \end{tikzcd}
+    \qquad\qquad
+    \begin{tikzcd}[row sep = 2em, column sep = 2em]
+	G && {G/\alpha(G')} \\
+	\\
+	{G/\alpha(G')}
+	\arrow["p'", from=1-1, to=1-3]
+	\arrow["p'"', from=1-1, to=3-1]
+	\arrow["{\phi\circ\phi'=\operatorname{id}_{G/\alpha(G')}}"'{pos=0.7}, dashed, from=3-1, to=1-3]
+    \end{tikzcd}\]
+    Thus $G/G'\cong G/\alpha(G')$ is abelian;
+    $G'$ is the minimal normal subgroup among all normal subgroups
+    for which the quotient is abelian, so $G'\le \alpha(G')$.
+    Applying the same to the automorphism $\alpha\inv$ gives
+    $G'\subseteq \alpha\inv(G')\implies \alpha(G')\subseteq G'$, proving that
+    $\alpha(G') = G'$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $\phi\colon G\to\aut(G)$ be the map that associates to any $g\in G$
+    the corresponding inner automorphism $\phi(g) = \alpha_g$,
+    where $\alpha_g(x) = gxg\inv$ for all $x\in G$.
+    \begin{enumerate}[(a)]
+        \ii Show that $\phi$ is a homomorphism.
+	\ii Show that the kernel of $\phi$ is the center $Z\le G$.
+	\ii Let $\operatorname{Inn}(G)$ be the image of $\phi$.
+	Show that $\operatorname{Inn}(G)$ is a normal subgroup of $\aut(G)$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $g,h\in G$ then $\phi(g)\phi(h) = \alpha_g\circ\alpha_h$,
+    which is the map $x\mapsto g(hxh\inv)g\inv = \alpha_{gh}(x)
+    = \phi(gh)(x)$, so $\phi$ is a homomorphism.
+    \\
+
+    (b) $g$ is in the kernel of $\phi$ if $\phi(g)$ is the identity automorphism,
+    i.e. $gxg\inv = x$ for all $x\in G$; this is exactly what it means
+    for $g$ to be in the center $Z$, so the kernel of $\phi$ is $Z$.
+    \\
+
+    (c) Let $\alpha\in\aut(G)$ and $g\in G$. Then the conjugate
+    $\alpha\circ\alpha_g\circ\alpha\inv$ is given by
+    \begin{equation*}
+	(\alpha\circ\alpha_g\circ\alpha\inv)(x) =
+	\alpha(g\alpha\inv(x)g\inv) = \alpha(g)x\alpha(g\inv)
+	= \alpha_{\alpha(g)}(x)\in\operatorname{Inn}(G),
+    \end{equation*}
+    so $\operatorname{Inn}(G)$ is closed under conjugation,
+    hence is normal in $\aut(G)$.
+\end{soln}
+
+\begin{problem}
+    Let $n\ge 2$. Show that $A_n$ is the only subgroup of $S_n$ of index $2$.
+\end{problem}
+
+\begin{soln}
+    If $n = 2$ then there is obviously only one index $2$ subgroup
+    (the trivial subgroup).
+
+    Now let $N\le S_n$ be a subgroup of index $2$.
+    Since $2$ is the smallest prime it is certainly
+    the smallest prime factor of $S_n$, so by HW02 \#6(e),
+    $N$ is normal in $S_n$.
+
+    If $n = 4$ then there are five conjugacy classes:
+    \begin{itemize}
+	\ii $\{(1)\}$, with one element;
+	\ii $2$-cycles, of which there are $\binom 42=6$;
+	\ii $3$-cycles, of which there are $\frac{4\cdot3\cdot2}{3}=8$;
+	\ii $4$-cycles, of which there are $\frac{4\cdot3\cdot2\cdot1}{4}=6$; and
+	\ii products of two disjoint $2$-cycles, of which there are
+	$\half\binom 42\cdot\binom22 = 3$
+    \end{itemize}
+    (one can verify these are all the conjugacy classes by checking that
+    the total number of elements enumerated is $24$).
+    Since $N$ is the union of some of these conjugacy classes
+    and contains the trivial conjugacy class,
+    numerically we need $1 + \sum\abs C = 12$ where the sum is
+    over the nontrivial conjugacy classes $C$ contained in $N$.
+    If either of the $6$s are included then the remaining conjugacy classes,
+    which have sizes $3$, $6$, and $8$, must contribute $5$ more elements;
+    this is clearly impossible. Therefore the only way to get a sum of $12$
+    is $12 = 1 + 3 + 8$, which are precisely the conjugacy classes
+    containing even permutations, i.e. $N = A_n$.
+
+    If $n=3$ or $n\ge 5$, the simplicity of $A_n$ for these $n$
+    implies that $N\cap A_n\trianglelefteq A_n$
+    is either the trivial group or $A_n$.
+    In the former case, $N$ must contain at least one $2$-cycle,
+    hence contains the entire conjugacy class of $2$-cycles,
+    so $N = S_n$, which is a contradiction.
+    Thus only the latter case is possible,
+    where $N = A_n$ because $\abs N = \abs A_n$.
+\end{soln}
+
+\pagebreak 
+\begin{problem}
+    Let $n\ge 3$, and let $N\le A_n$ be the subgroup generated
+    by all $3$-cycles.
+    \begin{enumerate}[(a)]
+        \ii Show that $N\trianglelefteq A_n$.
+	\ii Show that $N = A_n$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    The main idea is that a product of two $2$-cycles can be written as
+    a product of $3$-cycles. To check this, we have $3$ cases
+    based on the number of shared elements in the $2$-cycles;
+    here, $a,b,c,d\in\{1,\dots,n\}$ are distinct.
+    \begin{enumerate}[(i)]
+        \ii $(a\; b)(a\; b) = (1)$ is trivially a product of (zero) $3$-cycles.
+	\ii $(a\; b)(b\; c) = (a\; b\; c)$.
+	\ii $(a\; b)(c\; d) = (a\; c\; b)(a\; c\; d)$.
+    \end{enumerate}
+    For any $\sigma\in A_n$, write $\sigma$ as the product of
+    an even number of $2$-cycles $\sigma_1$, \dots, $\sigma_{2k}$
+    and pair off the $2$-cycles:
+    \begin{equation*}
+	\sigma = (\sigma_1\sigma_2)(\sigma_3\sigma_4)\cdots(\sigma_{2k-1}\sigma_{2k}).
+    \end{equation*}
+    Each product $\sigma_{2j-1}\sigma_{2j}$ is a product of $3$-cycles,
+    so $\sigma\in N$, hence $A_n\le N$.
+    Conversely $N\le A_n$ because $3$-cycles are even, hence
+    every permutation in $N$ is even, so $N = A_n$
+    (which obviously means it's normal in $A_n$).
+\end{soln}
+
+\begin{problem}
+    Let $n\ge 4$. Show that there exists an injective group homomorphism
+    $S_n\to\aut(A_n)$. What happens for $n = 3$?
+\end{problem}
+
+\begin{soln}
+    Let $S_n$ act on $A_n$ by conjugation;
+    this of course induces a homomorphism $S_n\to\aut(A_n)$.
+    To check that it is injective suppose that $\sigma,\tau\in S_n$
+    act on $A_n$ in the same fashion, i.e. $\sigma x\sigma\inv = \tau x\tau\inv$
+    for all $x\in A_n$. This means $\tau\inv\sigma\circ x = x\circ\tau\inv\sigma$,
+    so $\tau\inv\sigma$ is in the center of $A_n$.
+    If $f=\tau\inv\sigma$ is not the identity, then there exist $a,b\in\{1,\dots,n\}$
+    such that $f(a) = b$ and $a\ne b$.
+    Since $n\ge 4$ there exist $c,d\in\{1,\dots,n\}$
+    distinct from each other and from $a$ and $b$, so
+    $f(b\;c\; d)$ maps $a$ to $b$ while $(b\; c\; d)f$ maps $a$ to $c$,
+    $f$ doesn't commute with $(b\;c\; d)$, contradiction.
+    Therefore $\tau\inv\sigma = (1)\iff \tau = \sigma$,
+    so the homomorphism $S_n\to\aut(A_n)$
+    given by the conjugation action of $S_n$ on $A_n$
+    is injective.
+
+    However, when $n=3$, $A_n\cong \ZZ/3\ZZ$ is abelian,
+    so its center is nontrivial, which is where this breaks down;
+    in particular $\aut(A_n)$ consists of two automorphisms,
+    the identity and the one swapping $(1\;3\;2)$ with $(1\;2\;3)$.
+\end{soln}
+
+\begin{problem}
+    Suppose that $G$ is a simple group of order $60$.
+    \begin{enumerate}[(a)]
+	\ii Show that $G$ has exactly six Sylow $5$-subgroups.
+	\ii Show that the action of $G$ on its Sylow $5$-subgroups by conjugation
+	gives an injective homomorphism $\phi\colon G\to S_6$,
+	and that the image of $\phi$ is a subgroup of $A_6$ of index $6$.
+	\ii Show that $G\cong A_5$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) By the Sylow theorem, the number of Sylow $5$-subgroups
+    divides $60/5 = 12$ and is $1\bmod 5$; these conditions together
+    imply that $G$ either has $1$ or $6$ Sylow $5$-subgroups.
+    The former implies that the Sylow $5$-subgroup is normal in $G$,
+    contradicting simplicity, so $G$ must have six Sylow $5$-subgroups.
+    \\
+
+    (b) The kernel of $\phi$ is normal in $G$, so
+    it must be either $\{1\}$ or $G$ because $G$ is simple.
+    However, the kernel cannot be $G$ because
+    the conjugation action of $G$ on its Sylow subgroups is transitive,
+    so the kernel is the trivial group.
+    $\phi(G)$ is a subgroup of $A_6$ because if it weren't, then the kernel of
+    the sign homomorphism $\operatorname{sgn}:\phi(G)\to\{\pm1\}$
+    would be an index $2$ normal subgroup of $G$, which contradicts simplicity;
+    and of course, by just counting the number of elements, $(A_6:\phi(G)) =
+    360/60 = 6$.
+    \\
+
+    (c) $\phi(G)$ is the stabilizer of the coset $\phi(G)$
+    when $A_6$ acts on the cosets of $\phi(G)$ by left multiplication,
+    which is enough to imply that $\phi(G)$ isomorphic to $A_5$.
+\end{soln}
+
+\begin{problem}
+    In this problem, we construct an exotic automorphism of $S_6$.
+    \begin{enumerate}[(a)]
+        \ii Show that $S_5$ has exactly $6$ Sylow $5$-subgroups.
+	\ii Show that the action of $S_5$ on its Sylow $5$-subgroups
+	gives an injective homomorphism $\phi\colon S_5\to S_6$,
+	whose image $H$ is a subgroup of $S_6$ of index $6$.
+	\ii Let $H_k\subseteq S_6$ be the stabilizer of $k\in\{1,\dots,6\}$.
+	Show that $H$ is \emph{not} one of the subgroups $H_1$, \dots, $H_6$.
+	\ii Show that the action of $S_6$ on the cosets of $H$
+	gives an automorphism $\alpha\colon S_6\to S_6$.
+	\ii Show that $\alpha$ is \emph{not} an inner automorphism.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) $S_5$ has more than one subgroup of order $5$,
+    since $\langle (1\;2\;3\;4\;5)\rangle$ and $\langle(2\;1\;3\;4\;5)\rangle$
+    are distinct subgroups of order $5$; thus the number $n_5$
+    of Sylow $5$-subgroups is at least $1$. On the other hand,
+    $n_5\cong 1\bmod 5$ and $n_5\mid 24$ by the Sylow theorem,
+    so $n_5\in\{1,6\}$ by listing out the divisors; thus $n_5$ must be $6$.
+    \\
+
+    (b) The only normal subgroups of $S_5$ are $\{(1)\}$, $A_5$, and $S_5$.
+    The conjugation action is transitive, hence the image of $S_5$
+    has more than two elements (at least one permutation in $\phi(S_5)$
+    sends $1$ to $j$ for each $j=2,\dots,6$), so $(S_5 : \ker\phi) > 2$
+    implies $\ker\phi = \{1\}$, hence $\phi$ is injective.
+    The index of $\phi(S_5)$ in $S_6$ is $\abs{S_6}/\abs{S_5} = 6$.
+    \\
+
+    (c) $H$ is not any of the $H_k$ because no Sylow $5$-subgroup
+    of $S_5$ is fixed under conjugation by all elements of $S_5$.
+    \\
+
+    (d) By HW02 \#6(c), the kernel of $\alpha$ is
+    $\sigma\in \bigcap_{g\in S_6}gHg\inv$; this is
+    the trivial subgroup of $S_6$ because it is normal in $S_6$
+    (whose only normal subgroups are $\{(1)\}$, $A_6$, and $S_6$)
+    and has at most $\abs H < \abs{A_6}$ elements.
+    Thus $\alpha$ is injective, so it is a bijection
+    because its domain and codomain have the same number of elements.
+    \\
+
+    (e) Let the cosets of $H$ be $H = C_1$, \dots, $C_6$,
+    so the action of a permutation $\tau$ fixes $H$ if and only if
+    $\alpha(\tau) \in H_1$.
+    If $\alpha$ were an inner automorphism, say conjugation by $\sigma$,
+    then it would bijectively map $H_{\sigma\inv(1)}$ to $H_{1}$;
+    however, $\alpha$ instead maps $H$ to $H_1$, and
+    part (c) established that $H$ can't be equal to $H_{\sigma\inv(1)}$
+    for any $\sigma\in S_6$, which proves that
+    $\alpha$ is not an inner automorphism.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $G$ be a solvable finite group. Show that there is a chain
+    \begin{equation*}
+	G = N_0\trianglerighteq N_1\trianglerighteq\cdots\trianglerighteq N_r=\{1\}
+    \end{equation*}
+    such that $N_i/N_{i+1}$ is cyclic for every $0\le i\le r-1$.
+\end{problem}
+
+\begin{soln}
+    The following lemma will let us insert groups into
+    the chain of normal subgroups with abelian quotients
+    guaranteed by the solvability of $G$:
+    \begin{lemma}
+	Let $A$ be a group and $B\trianglelefteq A$ a normal subgroup
+	such that $\ol A = A/B$ is abelian. Then there exists a chain
+	\begin{equation*}
+	    A = N_0\trianglerighteq N_1\trianglerighteq\cdots\trianglerighteq N_r = B
+	\end{equation*}
+	such that $N_i/N_{i+1}$ is cyclic for every $0\le i\le r-1$.
+    \end{lemma}
+
+    \begin{proof}
+	Since $\ol A = \ol N_0$ is abelian, it is isomorphic to
+	$(\ZZ/p_1^{e_1}\ZZ)\times\cdots\times(\ZZ/p_r^{e_r}\ZZ)$
+	for some primes $p_i$ and nonnegative integers $e_i$.
+	Then, let $\ol N_j$ be a subgroup of $\ol N_{j-1}$ isomorphic to
+	$\prod_{i=1}^{r-j}(\ZZ/p_i^{e_i}\ZZ)$,
+	so that $N_j/N_{j+1} \cong \ZZ/p_{r-j}^{e_{r-j}}\ZZ$ is cyclic.
+	By the fourth isomorphism theorem, we can lift the chain
+	$\ol N_0\trianglerighteq\cdots\trianglerighteq\ol N_r = \{B\}$
+	to a chain of subgroups of $A$ in which $N_{j+1}$ is normal in $N_j$,
+	and $N_j/N_{j+1}\cong \ol N_j/\ol N_{j+1}$ is cyclic,
+	which is what we want.
+    \end{proof}
+
+    Now, given a chain
+    $G = N_0\trianglerighteq N_1\trianglerighteq\cdots\trianglerighteq N_r=\{1\}$
+    such that successive quotients are abelian,
+    we can use the lemma to insert subgroups between each $N_j$ and $N_{j+1}$
+    so that successive quotients are cyclic
+    to get a chain of normal subgroups with the desired property.
+\end{soln}
+
+\begin{problem}
+    Let $G$ be a solvable group.
+    \begin{enumerate}[(a)]
+        \ii Show that every subgroup of $G$ is solvable.
+	\ii Let $\phi\colon G\to H$ be a homomorphism.
+	Show that $\phi(G)$ is solvable.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $H\le G$. Define $G_0 = G$ and $G_n = G'_{n-1}$
+    to be the commutator subgroup of $G_{n-1}$,
+    and similarly $H_0 = G$, $H_n = H'_{n-1}$.
+    Then, $H_0\le G_0$, and if $H_{n-1}\le G_{n-1}$, then
+    a commutator in $H_{n-1}$ is also a commutator in $G_{n-1}$,
+    so $H_n = H'_{n-1}\le G'_{n-1} = G_n$, hence by induction
+    $H_n\le G_n$ in general. Since $G$ is solvable
+    there exists $N$ such that $G_N$ is the trivial subgroup,
+    which in turn means $H_N$ is the trivial subgroup,
+    hence $H$ is also solvable.
+    \\
+
+    (b) It is easy to check that commutators in $G$ map to
+    commutators in $\phi(G)$, and each commutator in $\phi(G)$
+    is mapped to by a commutator in $G$; thus, if the derived series of $G$
+    eventually stabilizes at the trivial subgroup,
+    so does the derived series of $\phi(G)$.
+\end{soln}
+
+\begin{problem}
+    Let $N\trianglelefteq G$. Show that $G$ is solvable if and only if
+    both $N$ and $G/N$ are solvable.
+\end{problem}
+
+\begin{soln}
+    If $G$ is solvable then $N$ and $G/N$ are solvable
+    by Problem 9, since $G/N$ is the image of the projection homomorphism $G\to G/N$.
+
+    If $N$ and $G/N$ are solvable, then
+    we can lift a chain of normal subgroups of $G/N$
+    with successive abelian quotients up to $G$ via the fourth isomorphism theorem
+    to get a chain $G = N_0\trianglerighteq\cdots\trianglerighteq N_r = N$,
+    and then append a chain of normal subgroups
+    $N = N_r \trianglerighteq N_{r+1}\trianglerighteq\cdots\trianglerighteq N_{r'}
+    = \{1\}$ to the end to get that $G$ is solvable.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

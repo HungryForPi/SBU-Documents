@@ -1,0 +1,561 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 320 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 320 HW11}
+\ohead{\footnotesize December 10, 2024}
+
+\title{\vspace{-2em}MAT 320 HW11}
+\author{\large Aditya Pahuja}
+\date{\large Due 12/10}
+\begin{document}
+\maketitle
+
+\begin{problem}
+	Let $\varphi$ be the step function
+	\[\varphi := 2\cdot\varphi_{[-3,1]} + \frac12\cdot \varphi_{[-2,2]}
+	+ \frac23\cdot\varphi_{[-1,3]}.\]
+	Find the discontinuities of $\varphi$ and sketch its graph.
+	Compute its integral.
+\end{problem}
+
+\begin{soln}
+	We can write $\varphi$ as a piecewise constant function as follows:
+	\[\varphi = \begin{cases}
+		2 & -3 \le x < -2\\
+		5/2 & -2\le x < 1\\
+		19/6 & -1 \le x \le 1\\
+		7/6 & 1 < x \le 2\\
+		2/3 & 2 < x \le 3\\
+		0 & \text{otherwise}.
+	\end{cases}\]
+	Thus the graph of $\varphi$ on the interval $[-3,3]$ is
+	\begin{center}
+		\begin{asy}
+			fill((-3,2)--(-2,2)--(-2,5/2)--(-1,5/2)--(-1,19/6)--(1,19/6)--(1,7/6)--(2,7/6)--(2,2/3)--(3,2/3)--(3,0)--(-3,0)--cycle,red+opacity(0.2));
+			draw((-3,2)--(-2,2),red+linewidth(1));
+			filldraw(circle((-3,2),0.05),red,red);
+			filldraw(circle((-2,2),0.05),white,red);
+			draw((-2,5/2)--(-1,5/2),red+linewidth(1));
+			filldraw(circle((-2,5/2),0.05),red,red);
+			filldraw(circle((-1,5/2),0.05),white,red);
+			draw((-1,19/6)--(1,19/6),red);
+			filldraw(circle((-1,19/6),0.05),red,red);
+			filldraw(circle((1,19/6),0.05),red,red);
+			draw((1,7/6)--(2,7/6),red+linewidth(1));
+			filldraw(circle((1,7/6),0.05),white,red);
+			filldraw(circle((2,7/6),0.05),red,red);
+			draw((2,2/3)--(3,2/3),red+linewidth(1));
+			filldraw(circle((2,2/3),0.05),white,red);
+			filldraw(circle((3,2/3),0.05),red,red);
+			draw((-4,0)--(4,0),Arrows(5));
+			
+			for (int i = -3; i <= 3; ++i) {
+				draw((i, 0.1)--(i, -0.1));
+				label("$" + string(i) + "$", (i, -0.1),dir(-90));
+			}
+		\end{asy}
+	\end{center}
+	with discontinuities at $x\in\{-3, -2, -1, 1, 2, 3\}$.
+	In particular the function is continuous at all other points because
+	it is constant on the intervals $(-\infty, -3)$,
+	$(-3, -2)$, $(-2, -1)$, $(-1, 1)$, $(1, 2)$, $(2, 3)$, $(3, \infty)$,
+	so in particular it is constant in some neighborhood of any point
+	outside the given discontinuities.
+	
+	By definition, the integral of the step function $\varphi$ is just
+	\begin{align*}
+		\int_{-\infty}^\infty \varphi &=
+		2\int_{-\infty}^\infty \varphi_{[-3,1]} +
+		\frac12\int_{-\infty}^\infty \varphi_{[-2,2]} +
+		\frac23\int_{-\infty}^\infty \varphi_{[-1,3]}\\
+		&= 2(1 - (-3)) + \half(2 - (-2)) + \frac23(3 - (-1))\\
+		&= 4\left(2 + \half + \frac23\right)\\
+		&= 4\cdot\frac{19}6 = \boxed{\frac{38}{3}}.\qedhere
+	\end{align*}
+\end{soln}
+
+\begin{problem}
+	Show that the function $f(x) = x^2$ is integrable on $[0,1]$
+	by approximating with step functions. That is, show that,
+	for every $\eps > 0$, there are step functions $\psi$ and $\phi$
+	such that $\phi\le f\cdot\varphi_{[0,1]}\le\psi$ and
+	\[\int\psi - \int\phi < \eps.\]
+\end{problem}
+
+\begin{soln}
+	Let $\phi_n$ be the step function equaling $\left(\frac{k-1}{n}\right)^2$
+	on the interval $((k-1)/n, k/n]$
+	and let $\psi_n$ be the step function
+	equaling $\left(\frac kn\right)^2$ on the interval $((k-1)/n, k/n]$,
+	where $k\in\{1, 2, \dots, n\}$,
+	and let $\phi_n(x) = \psi_n(x) = 0$ everywhere else.
+	We can see that, for $x\in[0,1]$, either $x = 0$
+	or $(k-1)/n < x \le k/n$ for some integer $1\le k\le n$, in which case
+	\[\phi_n(x) = \left(\frac{k-1}{n}\right)^2 < x^2
+	\le \left(\frac kn\right)^2 \le \psi_n(x).\]
+	That is, $\phi_n(x) \le f(x) \le \psi_n(x)$ for all $x\in[0,1]$.
+	Moreover, we can see that
+	\[\psi(x) - \phi(x) = \left(\frac kn\right)^2 - \left(\frac{k-1}{n}\right)^2
+	= \frac{2k-1}{n^2}\]
+	when $x\in((k-1)/n, k/n]$, so the integral
+	of the difference between the functions is equal to
+	\[\sum_{k=1}^n \frac{1}{n}\cdot \frac{2k-1}{n^2}
+	= \frac{1}{n^3}\cdot(2\cdot(1 + 2 + \cdots + n) - n)
+	= \frac{n^2}{n^3} = \frac 1n.\]
+	Thus, for each $\eps$, pick $n$ large enough so that $\frac 1n < \eps$,
+	and then take $\psi := \psi_n$ and $\phi := \phi_n$
+	to get that $\phi \le f\cdot\varphi_{[0,1]} \le \psi$ and
+	\[\int \psi - \int \phi < \eps,\]
+	which proves that $x^2$ is Riemann integrable.
+\end{soln}
+
+\begin{problem}
+	Show that the function
+	\[f(x) := \begin{cases}
+		1 & x\in\QQ\cap[0,1]\\
+		0 & \text{otherwise}
+	\end{cases}\]
+	is not Riemann integrable.
+\end{problem}
+
+\begin{soln}
+	Consider an arbitrary step function $\psi$ that bounds $f$ from above.
+	Then, any interval $I\subseteq[0,1]$ of nonzero length
+	contains some rational number. If $I_1$, $I_2$, \dots, $I_n$
+	are a partition of $[0,1]$ such that $\psi$ is constant on $I_k$
+	for each $1\le k\le n$, then $\psi \ge 1$
+	on each of the intervals with nonzero length
+	(whose total length is thus still one) because, if $q_k\in\QQ\cap I_k$,
+	then $\psi(q_k) \ge f(q_k) = 1$.
+	Thus,
+	\[\int \psi = \sum_{k=1}^n \ell(I_k)\cdot c_k
+	= \sum_{\substack{1\le k\le n \\ \ell(I_k) > 0}} \ell(I_k)\cdot c_k
+	\ge \sum_{\substack{1\le k\le n \\ \ell(I_k) > 0}} \ell(I_k)\cdot 1 = 1.\]
+	On the other hand, by the same logic, if $\phi$ is a step function
+	bounding $f$ from below, then we can find that
+	$\phi(x) \le 0$ for all but finitely many $x\in[0,1]$, so
+	\[\int \phi \le 0.\]
+	Thus the infimum of the integrals of step functions from above cannot
+	be equal to the supremum of the integrals of step functions from below,
+	so $f$ is not Riemann integrable.
+\end{soln}
+
+\setcounter{problem}{4}
+
+\begin{problem}
+	Show that the function
+	\[f(x) = \begin{cases}
+		1/q & x = p/q\in\QQ\cap(0,1)\text{ with }\gcd(p,q) = 1\\
+		0 & \text{otherwise}
+	\end{cases}\]
+	is Riemann integrable and has integral zero.
+	Find all points at which $f$ is continuous, too.
+\end{problem}
+
+\begin{soln}
+	Consider the function $f_n(x)$ that is $f(x)$
+	restricted to rational numbers with denominator at most $n$
+	(where it is understood that the denominator refers to
+	the denominator when $x = p/q$ with $\gcd(p, q) = 1$ and $q > 0$).
+	That is,
+	\[f_n(x) = \begin{cases}
+		1/q & x = p/q\in\QQ\cap(0,1)\text{ with }\gcd(p,q) = 1
+		\text{ and }q\le n\\
+		0 & \text{otherwise}
+	\end{cases}\]
+
+	\begin{claim}
+		The $f_n$ converge uniformly to $f$.
+	\end{claim}
+	\begin{proof}
+		Indeed, observe that
+		\[|f(x) - f_n(x)| = \begin{cases}
+			1/q & x = p/q\in\QQ\cap(0,1)\text{ with }\gcd(p,q) = 1
+			\text{ and }q> n\\
+			0 & \text{otherwise}
+		\end{cases}\]
+		because the only points at which $f$ and $f_n$ disagree
+		are rational numbers in $(0,1)$ whose denominators
+		are more than $n$.
+		In particular we get
+		\[d(f, f_n) = \sup_{x\in\QQ\cap(0,1)} |f(x) - f_n(x)| =\frac 1{n+1},\]
+		which goes to zero as $n$ grows arbitrarily large,
+		independently of $x$, so $f_n\to f$ uniformly.
+	\end{proof}
+	
+	Now we know that the uniform limit of Riemann integrable functions
+	is also Riemann integrable, and that their integrals converge as expected.
+	Since each $f_n$ is zero except at finitely many points,
+	each $f_n$ has an integral of zero; thus $f$ also has an integral of zero.
+	
+	I now claim that the set of points at which $f$ is continuous is
+	all the points at which $f(x) = 0$, i.e. $\RR\setdiff(\QQ\cap(0,1))$.
+	Clearly $f$ is discontinuous on $\QQ\cap(0,1)$ because
+	if $f(x) = 1/q$ then, picking $\eps < \frac 1q - \frac 1{q+1}$,
+	there is no $y\in\RR$ for which $|f(x) - f(y)| < \eps$.
+	
+	We can argue that $f$ is continuous at the irrational points of $(0,1)$
+	with the following argument:
+	\begin{claim}
+		If a sequence of rationals $(q_n)$ converges to
+		an irrational number $r$, then the denominators of the $q_n$
+		grow arbitrarily large.
+	\end{claim}
+	\begin{proof}
+		Suppose that the denominators are bounded above by $N$.
+		There are only finitely many rational numbers with denominator
+		at most $N$ within the interval $(r - 1, r + 1)$,
+		and all $q_n$ must of course eventually stay in this interval.
+		By the Pigeonhole principle, one of these rational numbers
+		appears infinitely often among the $(q_n)$, and, supposing that
+		the $q_n$ converge, this rational number must be the limit
+		of the $q_n$ --- but then the limit $r$ is rational, contradiction.
+	\end{proof}
+	
+	Thus any sequence of rationals $(q_n)$ converging to an irrational $r$ has
+	$\lim f(q_n) = \lim \frac1{q_n} = 0$.
+	From here we can easily conclude that $f$ is sequentially continuous
+	on $(0,1)\setdiff\QQ$.
+	
+	For $(\infty, 0]\cup[1,\infty)$, we only need to verify continuity
+	at zero and $1$. It is easy to show that the claim above holds
+	when $r$ is an integer as long as we restrict $q_n\notin\ZZ$,
+	since the distance between a non-integral rational $p/q$ and an integer
+	is bounded below by $1/q$, so we can conclude sequential continuity
+	at zero from the right and at one from the left;
+	$f$ being constantly zero on the rest of $\RR$ finishes.
+\end{soln}
+
+\setcounter{problem}{6}
+
+\begin{problem}
+	Show that if $f$ is Riemann integrable on $[a,b]$ then
+	\[\int_a^b f(x)\dif x = \int_a^c f(x)\dif x + \int_c^b f(x)\dif x\]
+	for all $c\in(a,b)$.
+\end{problem}
+
+\begin{soln}
+	Observe that
+	\[\int_a^c f = \int_a^b f\cdot\varphi_{[a,c)},\quad
+	\int_c^b f = \int_a^b f\cdot\varphi_{[c,b]},\quad\]
+	and that
+	\[f\cdot\varphi_{[a,c)} + f\cdot\varphi_{[c,b]} = f\cdot\varphi_{[a,b]},\]
+	so we can use the fact that the intergal is a linear operator to say
+	\[\int_a^b f = \int_a^b f\cdot\varphi_{[a,c)} + f\cdot\varphi_{[c,b]}
+	= \int_a^b f\cdot\varphi_{[a,c)} + \int_a^b f\cdot\varphi_{[c,b]}
+	= \int_a^c f + \int_c^b f.\qedhere\]
+\end{soln}
+
+\begin{problem}
+	Show that if $f$ is a nonnegative continuous function such that
+	\[\int_a^b f(x)\dif x = 0\]
+	then $f(x) = 0$ for all $x\in[a,b]$.
+\end{problem}
+
+\begin{proof}
+	Suppose $f(r) > 0$ for some $r\in[a,b]$.
+	Then, picking $\eps < f(r)$, we can find a $\delta$ for which
+	$f(x) > f(r) - \eps > 0$ when $r - \delta < x < r + \delta$
+	because of the fact that $f$ is continuous.
+	Since $r\in[a,b]$, the intersection of $(r-\delta,r+\delta)$
+	with $[a,b]$ has nonzero length, say $d$, so we can compute
+	\[\int_a^b f\cdot \varphi_{(r-\delta,r+\delta)}
+	\ge d(f(r) - \eps) > 0.\]
+	Then, we know that $f$ is nonnegative on $[a,b]\setdiff(r-\delta,r+\delta)$,
+	so we can conclude that $f \ge f\cdot \varphi_{(r-\delta,r+\delta)}$
+	everywhere since the latter function is zero outside $(r-\delta,r+\delta)$,
+	which gives us the inequality
+	\[\int_a^b f \ge \int_a^b f\cdot \varphi_{(r-\delta,r+\delta)} > 0\]
+	as long as there exists a point $r\in[a,b]$ at which $f$ is positive.
+	
+	Therefore, if the integral of $f$ is equal to zero,
+	such an $r$ cannot exist, i.e. $f$ is the zero function.
+\end{proof}
+
+\setcounter{problem}{10}
+
+\begin{problem}
+	Show that the equation
+	\[x^2 = x\sin x + \cos x\]
+	has exactly two solutions.
+\end{problem}
+
+\begin{soln}
+	Define $f(x) = x^2 - x\sin x - \cos x$.
+	We can see that $f$ is an even function, i.e.
+	\[f(-x) = (-x)^2 - (-x)\sin(-x) - \cos(-x)
+	= x^2 - x\sin x - \cos x = f(x),\]
+	so $f(r) = 0$ iff $f(-r) = 0$. Note that $f(0) = -1 < 0$.
+	
+	\begin{claim}
+		$f$ is strictly increasing on $(0, \infty)$.
+	\end{claim}
+	\begin{proof}
+		We can compute
+		\[f'(x) = 2x - x\cos x - \sin x + \sin x = 2x - x\cos x.\]
+		Then, since $x > 0$, we can bound
+		\[1\cdot x < (2 - \cos x)\cdot x < 3\cdot x,\]
+		so in particular $f'(x) > 0$ when $x$ is positive.
+	\end{proof}
+	
+	We can see that
+	\[f(0) < 0 < f(\pi) = \pi^2 + 1,\]
+	so by the intermediate value theorem $f$ is zero
+	at a real number $c\in (0, \pi)$,
+	and $f$ being increasing on $(0,\infty)$ means that
+	$f(x) < 0$ for $0 < x < c$ and $f(x) > 0$ for $x > c$,
+	so in particular $f$ is zero at exactly one point in $(0,\infty)$.
+	As stated earlier, $f$ being even means that there is also exactly one
+	negative real at which $f(x) = 0$, namely $x = -c$,
+	so $f(x) = 0$ has only two solutions $x = \pm c$.
+\end{soln}
+
+\begin{problem}
+	Find all differentiable functions $f\colon(1,\infty)\to\RR$ such that
+	\[f(xy) = f(x) + f(y)\]
+	for all $x,y > 1$.
+\end{problem}
+
+\begin{proof}[Solution 1]
+	In fact we don't need differentiability, only continuity.
+	
+	The only such functions $f$ are of the form $c\cdot\log x$ for any real $c$.
+	Indeed, we can see that such $f$ work because
+	\[f(xy) = c\log(xy) = c(\log x + \log y) = c\log x + c\log y
+	= f(x) + f(y).\]
+	
+	Now we show that all $f$ must be of this form.
+	To start with, note that if $x > 1$, then $x^\alpha > 1$
+	for all $\alpha > 0$, so as long as $x > 1$,
+	we can pass $x^\alpha$ as an input of $f$.
+	We can see first that, for any $x > 1$ and positive integer $n$,
+	\[f(x^n) = f(x^{n-1}) + f(x) = f(x^{n-2}) + f(x) + f(x)
+	= \cdots = nf(x).\]
+	Next, we can get that for any two positive integers $m$, $n$,
+	\[nf(x^{m/n}) = f((x^{m/n})^n) = f(x^m) = mf(x)
+	\implies f(x^{m/n}) = \frac mn f(x).\]
+	Thus if we are given $f(x)$, we can compute $f(x^{q}) = qf(x)$
+	for any positive rational $q$.
+	
+	Now fix $x > 1$ and let $\alpha > 0$ be arbitrary.
+	Pick a sequence of positive rationals $(q_n)$ converging to $\alpha$.
+	Then, since $f$ is differentiable, it is continuous, so,
+	using the continuity of the map $t\mapsto x^t$,
+	\[f(x^\alpha) = \lim_{n\to\infty} f(x^{q_n})
+	= \lim_{n\to\infty} q_n f(x) = \alpha f(x).\]
+	
+	To finish, any element of $(1, \infty)$ can be written as some $e^y$
+	with $y = \log x > 0$, so we get that for any $x > 1$,
+	\[f(x) = f(e^y) = y\cdot f(e) = \log x\cdot f(e),\]
+	where $f(e)$ is some constant.
+	That is, any function satisfying the given constraints
+	must be of the form $c\cdot\log x$ for some real $c$, completing the proof.
+\end{proof}
+
+\begin{proof}[Solution 2]
+	Differentiate both sides with respect to $x$ to get
+	\[yf'(xy) = f'(x)\]
+	and with respect to $y$ to get
+	\[xf'(xy) = f'(y).\]
+	Then, dividing,  we conclude that
+	\[\frac{f'(x)}{f'(y)} = \frac yx.\]
+	Now, fixing $y$, we see that $yf'(y)$ is just a constant, so
+	\[f'(x) = \frac cx.\]
+	Taking for granted the fact that the integral of $\frac1x$ is $\log x$,
+	this implies that
+	\[f(t) = c\log t - c + f(e) = c\log t + d\]
+	for some constants $c$ and $d := f(e) - 1$ (integrate from $e$ to $t$).
+	We can check that $d = 0$, as
+	\[c\log(xy) + d = f(xy) = f(x) + f(y) = c\log x + c\log y + 2d
+	= c\log(xy) + 2d.\]
+	Thus $f$ must be of the form $c\log x$,
+	and indeed $c$ can be any real number, as checked in Solution 1,
+	so the full solution set is $f(x) = c\log x$ for any $c\in\RR$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
