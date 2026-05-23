@@ -1,0 +1,404 @@
+% TODO make hw stylesheet
+
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 535 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\tensor}{\otimes}
+\renewcommand{\hom}{\operatorname{Hom}}
+\providecommand{\tor}{\operatorname{Tor}}
+\providecommand{\Gal}{\operatorname{Gal}}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 535 HW09}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/23}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [\S14.6\#9]
+    Determine the Galois group of $x^4 + 4x - 1$.
+\end{problem}
+
+\begin{soln}
+    We can check that $p(x) = x^4 + 4x - 1$ is irreducible because
+    it has no rational roots by the rational root theorem
+    ($\pm 1$ are both clearly not roots) and
+    it has no quadratic factors because if
+    \begin{equation*}
+        p(x) = (x^2 + ax + c)(x^2 + bx + d)
+	= x^4 + (a + b)x^3 + (ab + c + d)x^2
+	+ (ad + bc)x + cd
+    \end{equation*}
+    then $cd = 1$, so $\{c,d\} = \{1,-1\}$;
+    $a+b = 0$, so $a = -b$;
+    $ab + c + d = -a^2 = 0$, so $a = 0$;
+    and $ad + bc = 4$ and $0$ simultaneously, contradiction.
+
+    The derivative $p'(x) = 4x^3 + 4$ has one real root,
+    meaning $p(x)$ as a function $\RR\to\RR$ has one global minimum
+    at $x = -1$, where $p(-1) = -2$. Thus, $p(x)$
+    has two real roots and two non-real roots.
+    This means that the complex conjugation automorphism
+    is a transposition of the two non-real roots.
+
+    The resolvent cubic of $p(x)$ is
+    \begin{equation*}
+        q(x) = x^3 + 4x - 16 = (x - 2)(x^2 + 2x + 8).
+    \end{equation*}
+    This means the Galois group of $p(x)$
+    is either $\ZZ/(4)$ or $D_8$
+    by the classification in the text,
+    but the former is impossible because cyclic subgroups of $S_4$
+    with order $4$ do not have any transpositions,
+    so the Galois group of $p(x)$ is dihedral with order $8$.
+\end{soln}
+
+\begin{problem}
+    [\S14.6\#19]
+    Let $f(x)$ be an irreducible polynomial of degree $4$
+    in $\QQ[x]$ with discriminant $D$.
+    Let $K$ denote the splitting field of $f(x)$,
+    viewed as a subfield of $\CC$.
+    \begin{enumerate}[(a)]
+	\ii Prove that $\QQ[\sqrt D]\subseteq K$.
+	\ii Let $\tau$ denote complex conjugation
+	and let $\tau_K$ denote the restriction of complex conjugation to $K$.
+	Prove that $\tau_K$ is an element of $\Gal(K/\QQ)$
+	with order $1$ or $2$
+	depending on whether every element of $K$ is real or not.
+	\ii Prove that if $D < 0$ then $\Gal(K/\QQ)$
+	cannot be cyclic of order $4$.
+	\ii Prove generally that $\QQ(\sqrt D)$ for squarefree $D < 0$
+	is not a subfield of a cyclic quartic field.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $\alpha_1$, $\alpha_2$, $\alpha_3$, $\alpha_4$
+    be the roots of $f$. By definition,
+    \begin{equation*}
+        \sqrt D = (\alpha_1-\alpha_2)
+	(\alpha_1-\alpha_3)
+	(\alpha_1-\alpha_4)
+	(\alpha_2-\alpha_3)
+	(\alpha_2-\alpha_4)
+	(\alpha_3-\alpha_4)
+    \end{equation*}
+    which is a product of differences of elements of $K$,
+    hence is in $K$, so $\QQ[\sqrt D]\subseteq K$.
+    \\
+
+    (b) Real numbers are fixed under complex conjugation,
+    so if every element of $K$ is real
+    then $\tau_K$ fixes every element of $K$, hence has order $1$.
+    If $K$ has any non-real elements
+    then $\tau_K$ is not of order $1$,
+    but its order is at most $2$ because
+    $\tau$ has order $2$ as an automorphism of $\CC$,
+    so $\tau_K$ must have order $2$.
+    \\
+
+    (c) If $\Gal(K/\QQ)$ has order $4$, then
+    $K/\QQ[\sqrt D]$ and $K/K_+$ are distinct degree $2$ subextensions
+    of $K/\QQ$, where $K_+ = \RR\cap K$
+    (they are distinct because $K_+\subseteq\RR$
+    and $\QQ[\sqrt D]$ is not a subset of $\RR$),
+    which means $\Gal(K/\QQ)$ has more than one element of order $2$,
+    so it is not cyclic.
+    \\
+
+    (d) Again, if $K/\QQ$ has degree $4$,
+    then $\QQ[\sqrt D]$ and $K_+$
+    are distinct subfields that both correspond to
+    order $2$ elements of $\Gal(K/\QQ)$,
+    so the Galois group is not cyclic because it has too many
+    elements of order $2$.
+\end{soln}
+
+\begin{problem}
+    [\S14.6\#28]
+    Let $\alpha$ be a root of the irreducible polynomial
+    $f(x)\in F[x]$ and let $K = F[\alpha]$.
+    Let $D$ be the discriminant of $f(x)$.
+    Prove that $D = (-1)^{n(n-1)/2} N_{K/F}(f'(\alpha))$.
+\end{problem}
+
+\begin{soln}
+    If $\alpha$ is not a separable element of $F$,
+    then $\alpha$ has a multiplicity higher than $1$
+    as a root of $f$, so $D = 0$ and $f'(\alpha) = 0$
+    implies that $N_{K/F}(f'(\alpha))$, as desired.
+
+    Assume now that $\alpha$, hence $f(x)$, is separable, and
+    let $\alpha = \alpha_1$, \dots, $\alpha_n$ be the roots of $f(x)$
+    in some splitting extension $L/K$ of $f(x)$. Then
+    \begin{equation*}
+	D = \prod_{i < j} (\alpha_i - \alpha_j)^2
+	= (-1)^{n(n-1)/2}
+	\prod_{i\ne j} (\alpha_i - \alpha_j)
+	= (-1)^{n(n-1)/2}
+	\prod_{i=1}^n \prod_{j\ne i} (\alpha_i - \alpha_j),
+    \end{equation*}
+    where the coefficient of $(-1)^{n(n-1)/2}$
+    comes from negating $1 + 2 + \cdots + n-1$
+    (i.e. half of the) factors in the leftmost product where $i < j$.
+    Then, $f'(x) = \sum_{i=1}^n \frac{f(x)}{x - \alpha_i}$,
+    so every addend but the $i$th has a factor of $x-\alpha_i$,
+    meaning $f'(\alpha_i) = \prod_{j\ne i}(\alpha_i - \alpha_j)$, so
+    \begin{equation*}
+	D = (-1)^{n(n-1)/2}\prod_{i=1}^n f'(\alpha_i).
+    \end{equation*}
+
+    On the other hand, since $\Gal(L/K)$
+    and $\Gal(L/F)$ act transitively on $\{\alpha_1,\dots,\alpha_n\}$,
+    \begin{equation*}
+	N_{K/F}(f'(\alpha))^{[L:K]} = N_{L/F}(f'(\alpha))
+	= \prod_{\sigma\in\Gal(L/F)} \sigma(f'(\alpha))
+	= \left(\prod_{i=1}^n f'(\alpha_i)\right)^{[L:K]}
+    \end{equation*}
+    where the first equality is true because
+    $N_{K/F}(f'(\alpha))\in K$,
+    so $D = (-1)^{n(n-1)/2} N_{K/F}(f'(\alpha))$.
+\end{soln}
+
+\begin{problem}
+    [\S14.7\#2]
+    Let $\zeta$ be a primitive $7$th root of unity
+    and let $\alpha = \zeta + \zeta\inv$.
+    \begin{enumerate}[(a)]
+	\ii Show that $\zeta$ is a root of
+	$z^2 - \alpha z + 1\in \QQ(\alpha)[z]$.
+	\ii Show using the minimal polynomial for $\zeta$ that
+	$\alpha$ is a root of the cubic
+	$x^3 + x^2 - 2x - 1$.
+	\ii Use (a) and (b) together with
+	the explicit solution of the cubic in (b)
+	to express $\zeta$ in terms of radicals.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Plugging in $z = \alpha$, we compute
+    \begin{equation*}
+        \zeta^2 - (\zeta + \zeta\inv)\zeta + 1
+	= \zeta^2 - \zeta^2 - 1 + 1 = 0.
+    \end{equation*}
+
+    (b) Since $\zeta^6 + \zeta^5 + \zeta^4 + \zeta^3
+    + \zeta^2 + \zeta + 1 = 0$, dividing by $\zeta^3$ gives
+    \begin{equation*}
+	\alpha^3 - \alpha^2 - 2\alpha - 1
+	= (\alpha^3 - 3\alpha)
+	+ (\alpha^2 - 2)
+	+ \alpha + 1
+	= (\zeta^3 + \zeta^{-3}) + (\zeta^2 + \zeta^{-2}) +
+	(\zeta + \zeta\inv) + 1 = 0.
+    \end{equation*}
+
+    (c) no thanks
+    (The idea is of course to pick a root of the cubic to be $\alpha$
+    and use the fact that $\alpha$ is twice the real part of $\zeta$
+    and $\abs\zeta = 1$ to compute the imaginary part of $\zeta$,
+    but I am not writing that out.)
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    [\S14.7\#7]
+    Let $F$ be a field of characteristic not dividing $n$
+    containing the $n$th roots of unity
+    and let $K$ be a cyclic extension of degree $d$ dividing $n$.
+    Then $K = F[\sqrt[n] a]$ for some nonzero $a\in F$.
+    Let $\sigma$ be a generator for $\Gal(K/F)$.
+    \begin{enumerate}[(a)]
+	\ii Show that $\sigma(\sqrt[n]a) = \zeta\sqrt[n]a$
+	for some primitive $d$th root of unity $\zeta$.
+	\ii Suppose $K = F[\sqrt[n]a] = F[\sqrt[n]b]$.
+	Use (a) to show that
+	\[
+	    \frac{\sigma(\sqrt[n]a)}{\sqrt[n]a}
+	    = \left(\frac{\sigma(\sqrt[n]b)}{\sqrt[n]b}\right)^i
+	\]
+	for some integer $i$ relatively prime to $d$.
+	Conclude that $\sigma$ fixes
+	$\frac{\sqrt[n]a}{(\sqrt[n]b)^i}$,
+	so this is an element of $F$.
+	\ii Prove that $K = F[\sqrt[n]a] = F[\sqrt[n]b]$
+	if and only if $a = b^ic^n$
+	and $b = a^jd^n$ for some $c,d\in F$,
+	i.e. $a$ and $b$ represent the same subgroup
+	of $F^\times/(F^\times)^n$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) The minimal polynomial of $\sqrt[n]a$ divides $x^n - a$,
+    so the Galois conjugates of $\sqrt[n]a$
+    are $\sqrt[n]a$ times some $n$th root of unity,
+    so $\sigma(\sqrt[n]a) = \zeta\sqrt[n]a$
+    for an $n$th root of unity $\zeta$.
+    The order of $\zeta$ in $F^\times$
+    is equal to the order of $\sigma$ in $\Gal(K/F)$
+    because $\sigma$ is determined by its action on $\sqrt[n]a$.
+    This order is equal to $d$,
+    so $\zeta$ is a primitive $d$th root of unity.
+    \\
+
+    (b) By (a), $\sigma(\sqrt[n]a) = \zeta_1\sqrt[n]a$
+    and $\sigma(\sqrt[n]b) = \zeta_2\sqrt[n]b$
+    for primitive $d$th roots of unity $\zeta_1$ and $\zeta_2$.
+    These roots of unity both generate the cyclic group
+    of roots of unity $\mu_d$, so some power $\zeta_2^i$ of $\zeta_2$
+    must equal $\zeta_1$ as desired.
+    Rearrangning the resulting equality then shows
+    \begin{equation*}
+	\sigma\left(\frac{\sqrt[n]a}{(\sqrt[n]b)^i}\right)
+	= \frac{\sigma(\sqrt[n]a)}{(\sigma(\sqrt[n]b))^i}
+	= \frac{\sqrt[n]a}{(\sqrt[n]b)^i},
+    \end{equation*}
+    which means that $\frac{\sqrt[n]a}{(\sqrt[n]b)^i}$
+    is fixed by $\sigma$, which only fixes $F$
+    because it generates $\Gal(K/F)$.
+    \\
+
+    (c) If $a = b^i c^n$ and $b = a^j d^n$
+    then $\sqrt[n]a = c(\sqrt[n]b)^i$ implies
+    $\sqrt[n]a\in F[\sqrt[n]b]$
+    and similarly $\sqrt[n]b = d(\sqrt[n]a)^j$ implies
+    $\sqrt[n]b\in F[\sqrt[n]a]$.
+    Conversely, if $\sqrt[n]a$ and $\sqrt[n]b$ generate
+    the same extension of $F$, then (b) implies that
+    $\sqrt[n]a = c(\sqrt[n]b)^i$ for some $c\in F$,
+    and applying (b) again after swapping $a$ and $b$
+    shows that $\sqrt[n]b = d(\sqrt[n]a)^j$ for some integer $i$
+    and $d\in F$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+\end{document}

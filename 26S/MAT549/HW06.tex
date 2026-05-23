@@ -1,0 +1,306 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 549 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+\providecommand{\tanvec}[1]{\frac{\partial}{\partial #1}}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 549 HW06}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/21}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [16-3(a)]
+    Suppose $E$ and $M$ are smooth $n$-manifolds
+    with or without boundary, and $\pi\colon E\to M$ is
+    a smooth $k$-sheeted covering map or generalized covering map.
+    Show that if $E$ and $M$ are oriented and
+    $\pi$ is orientation-preserving, then
+    \begin{equation*}
+        \int_E\pi^*\omega = k\int_M\omega
+    \end{equation*}
+    for any compactly supported $n$-form $\omega$ on $M$.
+\end{problem}
+
+\begin{soln}
+    Let $\mathcal U$ be an open cover of $M$ by connected
+    evenly covered open sets and let $\{\varphi_U : U\in\mathcal U\}$
+    be a partition of unity subordinate to this open cover.
+    Then, $\tilde{\mathcal U} = \{\tilde U = \pi\inv(U) : U\in\mathcal U\}$
+    is an open cover of $E$ and the functions
+    $\psi_{\tilde U} = \varphi_U\circ\pi$ for $\tilde U\in\tilde{\mathcal U}$
+    form a partition of unity on $E$ subordinate to $\tilde{\mathcal U}$.
+    To see that this collection of functions is indeed a partition of unity,
+    we of course have that $\psi_{\tilde U}(x) = \varphi_U(\pi(x))\in[0,1]$
+    and
+    \begin{equation*}
+	\sum_{\substack{\tilde U\in\tilde{\mathcal U}\\ x\in\tilde U}}
+	\psi_{\tilde U}(x) =
+	\sum_{\substack{U\in{\mathcal U}\\ \pi(x)\in U }}
+	\varphi_U(\pi(x)) = 1
+    \end{equation*}
+    for all $x\in E$. Thus
+    \begin{equation*}
+        \int_E \pi^*\omega
+	= \sum_{\tilde U\in\tilde{\mathcal U}}
+	\int_{\tilde U}\psi_{\tilde U}\cdot\pi^*\omega
+	= \sum_{\tilde U\in\tilde{\mathcal U}}
+	\int_{U}\sum_{i=1}^k\varphi_{U}\cdot\omega
+	= k\sum_{U\in\tilde{\mathcal U}}\int_U \varphi_U\cdot\omega
+	= k\int_M\omega,
+    \end{equation*}
+    where the second equality is due to the fact that
+    $\pi\inv(U)$ consists of $k$ components diffeomorphic to $U$ via
+    the orientation-preserving map $\pi$
+    and that $\psi_{\tilde U} = \varphi_U\circ\pi$.
+\end{soln}
+
+\begin{problem}
+    [16-4]
+    Suppose $M$ is an oriented compact smooth manifold with boundary.
+    Show that there does not exist a smooth retraction
+    of $M$ onto its boundary.
+\end{problem}
+
+\begin{soln}
+    Suppose a smooth retraction $r\colon M\to\partial M$ exists.
+    Since $M$ is orientable, so is its boundary,
+    so let $\omega$ be an orientation form on $\partial M$,
+    which in particular means that $\int_{\partial M}\omega \ne 0$.
+    Then, Stokes's theorem gives the following contradiction:
+    \begin{equation*}
+	\int_{\partial M}\omega
+	= \int_{\partial M} r^*\omega
+	= \int_M \dd (r^*\omega) = \int_M r^*(\dd\omega) = 0.
+    \end{equation*}
+    To be thorough, the first equality holds because
+    the pullback of $r^*\omega$ by the inclusion
+    $\partial M\hookrightarrow M$ gives $\omega$
+    because $r$ composed with the inclusion is the identity
+    and the last equality is true because $\omega$ is a top-degree form
+    on $\partial M$, hence $\dd\omega = 0$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    [16-5]
+    Suppose $M$ and $N$ are oriented, compact, and connected
+    smooth manifolds, and $F,G\colon M\to N$ are homotopic diffeomorphisms.
+    Show that $F$ and $G$ are either both orientation-preserving
+    or both orientation-reversing.
+\end{problem}
+
+\begin{soln}
+    Let $\omega$ be an orientation form on $N$, $I = [0,1]$,
+    and let $H\colon M\times I\to N$ be a homotopy from $F$ to $G$,
+    which we can take to be smooth by Theorem 6.29
+    and which satisfies $H(p,0) = F(p)$ and $H(p,1) = G(p)$ for all $p\in M$.
+    By Stokes's theorem and the fact that $\dd\omega = 0$,
+    \begin{equation*}
+	\int_{\partial(M\times I)} H^*\omega
+	= \int_{M\times I} \dd H^*\omega
+	= \int_{M\times I} H^*\dd\omega = 0.
+    \end{equation*}
+    Then, $\partial(M\times I) = M\times\{0,1\})$
+    with the map $i\colon M\times\{0\}\to M\times\{1\}$
+    given by $i(x,0) = (x,1)$ being orientation-reversing
+    (due to the orientation that $\partial I = \{0,1\}$ inherits from $I$).
+    Then, if $\iota_k \colon M\to M\times\{k\}$ is the map
+    $\iota_k(x) = (x,k)$ for $k\in\{0,1\}$,
+    \begin{align*}
+	0 &= \int_{M\times I}H^*\omega
+	= \int_{M\times\{0\}} H^*\omega - \int_{M\times\{1\}} H^*\dd\omega
+	= \int_M \iota_0^* H^*\omega - \iota_1^* H^*\omega\\
+	&= \int_M (H\circ\iota_0)^*\omega - (H\circ\iota_1)^*\omega
+	= \int_M F^*\omega - G^*\omega,
+    \end{align*}
+    which implies that $F$ and $G$ either both preserve
+    or both reverse orientation
+    (since $\int_M F^*\omega = \int_M G^*\omega = \pm\int_N \omega$,
+    with the sign depending on whether or not $F$ and $G$ reverse orientation).
+\end{soln}
+
+\begin{problem}
+    [16-6]
+    Prove that the following are equivalent.
+    \begin{enumerate}[(a)]
+        \ii There exists a nowhere-vanishing vector field on $S^n$.
+	\ii There exists a continuous map $V\colon S^n\to S^n$
+	satisfying $V(x)\perp x$ for all $x\in S^n$.
+	\ii The antipodal map $\alpha\colon S^n\to S^n$
+	is homotopic to the identity map.
+	\ii The antipodal map $\alpha\colon S^n\to S^n$
+	is orientation-preserving.
+	\ii $n$ is odd.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) implies (b). This follows from the basic fact of Euclidean geometry
+    that the unit normal at a given point $x\in S^n$ is $x$:
+    if $\hat V$ is a nowhere zero vector field on $S^n$,
+    then let $V\colon S^n\to S^n$ be defined by
+    $V(x) = \frac{\hat V(x)}{\smnorm{\hat V(x)}}$,
+    so that $V(x)$ is tangent to $S^n$ at $x$, hence orthogonal to $x$.\\
+
+    (b) implies (c).
+    Let $H\colon S^n\times I\to S^n$ be the map
+    \begin{equation*}
+        H(x,t) = \cos(\pi t)x + \sin(\pi t)V(x),
+    \end{equation*}
+    which is well-defined because
+    $\norm{H(x,t)} = \cos(\pi t)^2 + \sin(\pi t)^2 = 1$ for all
+    $(x,t)\in S^n\times I$
+    and satisfies $H|_{S^n\times\{0\}} = \operatorname{Id}_{S^n}$,
+    $H|_{S^n\times\{1\}} = \alpha$,
+    so $H$ is a homotopy betwen $\alpha$ and the identity map.
+    \\
+
+    (c) implies (d). This follows from Problem 16-5
+    and the fact that the identity map is obviously orientation-preserving.
+    \\
+
+    (d) implies (e). This follows from Problem 15-3
+    from last week's homework.
+    \\
+
+    (e) implies (a). For $n = 2k - 1$ odd, let
+    $V$ be the vector field on $S^n\subseteq\RR^{2k}$ defined by
+    \begin{equation*}
+        V(x_1,y_1,x_2,y_2,\dots,x_k,y_k) =
+	(-y_1,x_1,-y_2,x_2,\dots,-y_k,x_k),
+    \end{equation*}
+    which is a tangent vector field because it
+    satisfies $V(x)\perp x$ for all $x\in S^n$, and is nowhere zero
+    because $\norm{V(x)} = \norm{x} = 1$ for all $x\in S^n$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

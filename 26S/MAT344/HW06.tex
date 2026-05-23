@@ -1,0 +1,427 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 344 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+\providecommand{\im}{\operatorname{im}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 344 HW06}
+\author{\large Aditya Pahuja}
+\date{\large Due 03/10}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [p.161\#1ce]
+    Find the poles and residues of the following functions:
+    (c) $\frac 1{\sin z}$; (e) $\frac 1{\sin^2z}$.
+\end{problem}
+
+\begin{soln}
+    The zeroes of $\sin z$ (hence also of $\sin^2 z$)
+    are the points at which
+    \begin{equation*}
+	\sin z = \frac{e^{iz} - e^{-iz}}{2i} = 0
+	\iff e^{2iz} = 1
+	\iff z = n\pi\text{ for }n\in\ZZ.
+    \end{equation*}
+    At $z = n\pi$, $\sin z$ locally has the power series representation
+    \begin{equation*}
+	\sum_{k=1}^\infty \frac{(z-n\pi)^{2k-1}}{(2k-1)!},
+    \end{equation*}
+    so
+    \begin{equation*}
+	1 = \lim_{z\to n\pi} \frac{z-n\pi}{\sin(z)} =
+	\lim_{z\to n\pi} \frac{(z-n\pi)^2}{\sin^2(z)}
+    \end{equation*}
+    (with the second equality coming from
+    the continuity of squaring).
+    This means that for every integer $n$, $n\pi$ is an order $1$ pole of
+    $\frac 1{\sin z}$ and an order $2$ pole of $\frac 1{\sin^2z}$.
+    The formula for residues that we calculated in class
+    implies that the answer to (c) is
+    \begin{equation*}
+	\operatorname{Res}_{z=n\pi}\left(\frac 1{\sin z}\right)
+	= \lim_{z\to n\pi}\frac{z-n\pi}{\sin z} = \boxed 1.
+    \end{equation*}
+    For (e),
+    \begin{align*}
+	\operatorname{Res}_{z=n\pi}\left(\frac 1{\sin^2 z}\right)
+	&= \lim_{z\to n\pi}
+	\frac{\dd}{\dd z}\frac{(z-n\pi)^2}{\sin^2 z}\\
+	&= \lim_{z\to 0} \frac{2z\sin^2 z - 2z^2\sin z\cos z}{\sin^4z}\\
+	&= \lim_{z\to 0} \frac{2z\sin z - 2z^2\cos z}{\sin^3z}\\
+	&= \lim_{z\to 0} \frac{2\sin z - 2z\cos z}{z^2}.
+    \end{align*}
+    If we write out the power series for $\sin z$
+    and $z\cos z$, the linear terms cancel,
+    so that $\sin z - z\cos z$ has a zero of order $3$ at $0$,
+    meaning that the limit at the end,
+    hence the residues of $\frac 1{\sin^2z}$, are $\boxed 0$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    [p.161\#cd]
+    Evaluate the following integrals by the method of residues:
+    \begin{equation*}
+	\text{(c) }\int_{-\infty}^\infty
+	\frac{x^2 - x + 2}{x^4 + 10x^2 + 9}\dd x,\qquad
+	\text{(d) }\int_0^\infty \frac{x^2}{(x^2 + a^2)^3}\dd x,\; a\in\RR.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    (c) Let $\gamma_R$ be the counterclockwise-oriented
+    semicircular arc above the real axis of radius $R$ centered at $0$.
+    By the residue theorem, if $R$ is large enough (greater than $3$
+    should suffice, since the roots of $x^4 + 10x^2 + 9$
+    are $\pm i$, $\pm 3i$), then
+    \begin{equation*}
+	\int_{-R}^R \frac{x^2 - x + 2}{x^4 + 10x^2 + 9}\dd x
+	+ \int_{\gamma_R}\frac{x^2 - x + 2}{x^4 + 10x^2 + 9}\dd x
+	= 2\pi i\left(\operatorname{Res}_{i}\left(\frac{x^2 - x + 2}
+	{x^4 + 10x^2 + 9}\right)
+	+ \operatorname{Res}_{3i}\left(\frac{x^2 - x + 2}
+	{x^4 + 10x^2 + 9}\right)\right).
+    \end{equation*}
+    Noting that the roots of the denominator each have multiplicity $1$,
+    i.e. are simple poles, the sum of the residues equals
+    \begin{equation*}
+	\frac{i^2 - i + 2}{(i+i)(i^2 + 9)}
+	+ \frac{(3i)^2 - 3i + 2}{((3i)^2 + 1)(3i + 3i)}
+	= \frac{1-i}{16i} + \frac{-7-3i}{-48i}
+	= \frac 1{48i}(3 - 3i + 7 + 3i) = \frac 5{24i}.
+    \end{equation*}
+    Taking $R$ arbitrarily large,
+    the latter integral on the right-hand side goes to zero because
+    \begin{equation*}
+	\int_{\gamma_R}\frac{x^2 - x + 2}{x^4 + 10x^2 + 9}\dd x
+	= \int_0^{\pi}\frac{R^2e^{2i\theta} - Re^{i\theta} + 2}
+	{R^4e^{4i\theta} + 10R^2e^{2i\theta} + 9}\cdot Re^{i\theta}\dd\theta
+	= \int_0^\pi \frac 1{R}\cdot
+	\frac{e^{2i\theta}-R^{-1}e^{i\theta}+1R^{-2}}
+	{e^{4i\theta} + 10R^{-2}e^{2i\theta} + 9}\cdot e^{i\theta}\dd\theta,
+    \end{equation*}
+    which, in magnitude, is bounded above by
+    \begin{equation*}
+	\int_0^\pi \frac 1R\cdot\frac{1 + R^{-1} + 2R^{-2}}
+	{1-10R^{-1}-9R^{-2}}\dd\theta
+	= \frac \pi R\cdot O(1).
+    \end{equation*}
+    Thus, in the limit, we get that
+    \begin{equation*}
+	\int_{-\infty}^\infty \frac{x^2 - x + 2}{x^4 + 10x^2 + 9}\dd x
+	= 2\pi i\cdot \frac 5{24i}
+	= \boxed{\frac{5\pi}{12}}.
+    \end{equation*}
+
+    (d) Since the integrand is even,
+    \begin{equation*}
+	\int_0^\infty\frac{x^2}{(x^2 + a^2)^3}\dd x
+	= \half \int_{-\infty}^\infty\frac{x^2}{(x^2 + a^2)^3}\dd x.
+    \end{equation*}
+    By the same procedure as with (c),
+    \begin{equation*}
+	\int_{-\infty}^\infty \frac{x^2}{(x^2 + a^2)^3}
+	= 2\pi i\operatorname{Res}_{ai}\left(\frac{x^2}{(x^2+a^2)^3}\right).
+    \end{equation*}
+    Since $(x^2 + a^2)^3 = (x+ai)^3(x-ai)^3$,
+    $ai$ is a pole of order $3$, so the residue is equal to
+    \begin{equation*}
+	\frac 1{2!}\cdot\frac{\dd^2}{\dd x^2}\frac{x^2(x-ai)^3}{(x^2+a^2)^3}
+	\bigg|_{x=ai}
+	= \half\left(\frac{12(ai)^2}{(2ai)^5}
+	- \frac{12ai}{(2ai)^4} + \frac 2{(2ai)^3}\right)
+	= \frac{-i}{16a^3},
+    \end{equation*}
+    meaning
+    \begin{equation*}
+	\int_{0}^\infty \frac{x^2}{(x^2 + a^2)^3}
+	\half\int_{-\infty}^\infty \frac{x^2}{(x^2 + a^2)^3}
+	= \half\cdot2\pi i\cdot \frac{-i}{16a^3}
+	= \boxed{\frac{\pi}{16a^3}}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    [p.136\#1]
+    Show that $\abs{f(z)}\le 1$ for $\abs z\le 1$ implies
+    \begin{equation*}
+	\frac{\abs{f'(z)}}{1-\abs{f(z)}^2}
+	\le \frac{1}{1-\abs{z}^2}.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Using equation (36) on p.136 with
+    $R = M = 1$, we get that for any $z_0$ in the unit disk,
+    \begin{equation*}
+	\abs{\frac{(f(z) - f(z_0))/(z-z_0)}{1 - \ol{f(z_0)}f(z)}}
+	\le \abs{\frac{1}{1-\ol{z_0}z}}.
+    \end{equation*}
+    Taking the limit as $z\to z_0$ gives the desired inequality
+    at $z_0$, since the denominators become
+    $1 - \ol{f(z_0)}f(z_0)$ and $1-\ol z_0z_0$
+    and the numerator on the left becomes $f'(z_0)$.
+\end{soln}
+
+\begin{problem}
+    [p.136\#5]
+    Show by use of Schwarz's lemma that
+    every one-to-one conformal mapping of a disk onto another
+    (or a half-plane) is given by a linear transformation.
+\end{problem}
+
+\begin{soln}
+    Suppose first that $f$ sends the unit disk to itself
+    biholomorphically. Then, if $a\in\Delta$ is the point
+    such that $f(a) = 0$, compose $f$ with the linear transformation
+    \begin{equation*}
+        T\colon\Delta\to\Delta,\qquad
+	Tz = \frac{a-z}{1-\ol az}
+    \end{equation*}
+    sending $0$ to $a$, so that $g = f\circ T$
+    is an automorphism of $\Delta$ sending $0$ to $0$.
+    Then let $h\colon \Delta\to\Delta$ be the inverse of $g$,
+    and apply Schwarz's lemma to $g$ and $h$ to get that
+    $\abs{g'(0)}$ and $\abs{h'(0)}$ are both at most $1$.
+    By the chain rule $1 = g'(0)\cdot h'(g(0)) = g'(0)\cdot h'(0)$,
+    implying that $\abs{g'(0)} = \abs{h'(0)} = 1$.
+    The equality case of Schwarz's lemma tells us that
+    $g(z) = cz$ for some constant $c$ with $\abs c = 1$,
+    hence $f(z) = cT\inv(z) = cT(z)$, which is a linear transformation.
+
+    In the general case, where $f\colon U\to V$
+    is biholomorphic, the function
+    $\varphi\circ f\circ\psi\inv\colon\Delta\to\Delta$
+    where $\psi\colon U\to \Delta$ and $\psi\colon V\to\Delta$
+    are linear transformations satisfies the hypotheses of the problem,
+    so the prevoius paragraph tells us that it is a linear transformation,
+    hence so is $f$.
+\end{soln}
+
+\begin{problem}
+    [p.136\#6]
+    If $\gamma$ is a piecewise differentiable arc contained in $\abs z < 1$
+    the integral
+    \begin{equation*}
+	\int_\gamma \frac{\abs{\dd z}}{1-\abs z^2}
+    \end{equation*}
+    is called the \emph{noneuclidean} or \emph{hyperbolic} length of $\gamma$.
+    Show that an analytic function $f(z)$ with $\abs{f(z)} < 1$
+    for $\abs z < 1$ maps every $\gamma$ to
+    an arc with smaller or equal noneuclidean length.
+    Deduce that a linear transformation of a disk onto itself
+    preserves noneuclidean lengths, and check the result
+    by an explicit computation.
+\end{problem}
+
+\begin{soln}
+    Parametrize $\gamma$ as a function $\gamma\colon[0,1]\to\Delta$.
+    By p.136\#1, we have
+    \begin{equation*}
+	\frac{\abs{\gamma'(t)\cdot f'(\gamma(t))}}
+	{1-\abs{f(\gamma(t))}^2}
+	\le \frac{\abs{\gamma'(t)}}{1-\abs{\gamma(t)}^2}
+    \end{equation*}
+    for all $t\in[0,1]$, so integrating over $[0,1]$
+    and doing a change of variables gives
+    \begin{equation*}
+	\int_{f(\gamma)}\frac{\abs{\dd z}}{1-\abs z^2}
+	\le \int_{\gamma}\frac{\abs{\dd z}}{1-\abs z^2}.
+    \end{equation*}
+    If $T$ is a linear transformation on the unit disk then
+    the hyperbolic length of $T\gamma$ is less than or equal
+    to that of $\gamma$ and the hyperbolic length of $T\gamma$
+    is less than or equal to that of $T\inv(T\gamma) = \gamma$,
+    i.e. $T\gamma$ and $\gamma$ have the same hyperbolic length.
+
+    Concretely, suppose that $f(z) = \frac{c(a-z)}{1-\ol az}$
+    is an automorphism of $\Delta$, where $\abs c = 1$ and $\abs a < 1$.
+    Then for a piecewise differentiable curve $\gamma\colon[0,1]\to\CC$,
+    \begin{equation*}
+	\frac{\abs{\gamma'(t)\cdot f'(\gamma(t))}}
+	{1-\abs{f(\gamma(t))}^2}
+	= \frac{\abs{\gamma'(t)}\cdot\abs{\frac{1-\abs a^2}
+	{(1-\ol a\gamma(t))^2}}}{1 -
+	\abs{\frac{a-\gamma(t)}{1-\ol a\gamma(t)}}^2}
+	= \frac{\abs{\gamma'(t)}\cdot(1-\abs a^2)}
+	{\abs{1-\ol a\gamma(t)}^2 - \abs{a-\gamma(t)}^2}.
+    \end{equation*}
+    The squared magnitudes in the denominator
+    can be expanded by writing them as the argument
+    times its conjugate to get
+    \begin{equation*}
+	(1-\ol a\gamma(t))(1- a\ol{\gamma(t)})
+	- (a-\gamma(t))(\ol a-\ol{\gamma(t)})
+	= 1 - \abs a^2 - \abs{\gamma(t)}^2
+	+ \abs a^2\abs{\gamma(t)}^2
+	= (1-\abs a^2)(1-\abs{\gamma(t)}^2)
+    \end{equation*}
+    so that the fraction above equals
+    \begin{equation*}
+	\frac{\abs{\gamma'(t)\cdot f'(\gamma(t))}}
+	{1-\abs{f(\gamma(t))}^2}
+	= \frac{\abs{\gamma'(t)}}{1-\abs{\gamma(t)}^2}.
+    \end{equation*}
+    Thus,
+    \begin{equation*}
+	\int_\gamma\frac{\abs{dz}}{1-\abs z^2}
+	= \int_0^1 \frac{\abs{\gamma'(t)}}{1-\abs{\gamma(t)}^2}\dd t
+	= \int_0^1 \frac{\abs{\gamma'(t)\cdot f'(\gamma(t))}}
+	{1-\abs{f(\gamma(t))}^2}\dd t
+	= \int_{f(\gamma)}\frac{\abs{\dd z}}{1 - \abs z^2}
+    \end{equation*}
+    as desired.
+\end{soln}
+
+\begin{problem}
+    [p.186\#1]
+    Prove that the Laurent development is unique.
+\end{problem}
+
+\begin{soln}
+    This follows from the fact that the coefficients
+    $a_n$ in the Laurent series
+    \begin{equation*}
+	f(z) = \sum_{n=-\infty}^\infty a_n(z-z_0)^n
+    \end{equation*}
+    can be directly computed in terms of $f$, $z_0$, and $n$ as
+    \begin{equation*}
+	a_n = \frac 1{2\pi i}\int_{\abs{z-z_0}=r}\frac{f(\zeta)}
+	{(\zeta-z_0)^{n+1}}\dd\zeta,
+    \end{equation*}
+    where $r$ is between the smaller and larger radius
+    of the annulus of convergence of the series.
+    Note also that the integral is independent of
+    the particular choice of $r$ by homotopy invariance/Green's theorem.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

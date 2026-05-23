@@ -1,0 +1,405 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 549 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+\providecommand{\tanvec}[1]{\frac{\partial}{\partial #1}}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 549 HW03}
+\author{\large Aditya Pahuja}
+\date{\large Due 03/03}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [10-6, vector bundle construction theorem]
+    Let $M$ be a smooth manifold and let $\{U_\alpha\}_{\alpha\in A}$
+    be an open cover of $M$. Suppose that for each
+    $\alpha,\beta\in A$ we are given a smooth map
+    $\tau_{\alpha\beta}\colon U_{\alpha}\cap U_\beta\to GL_k\RR$
+    such that $\tau_{\alpha\beta}\tau_{\beta\gamma} = \tau_{\alpha\gamma}$
+    on $U_\alpha\cap U_\beta\cap U_\gamma$ for all
+    $\alpha,\beta,\gamma\in A$. Show that there is
+    a smooth rank-$k$ vector bundle $p\colon E\to M$
+    with smooth local trivializations
+    $\Phi_\alpha\colon p\inv(U_\alpha)\to U_\alpha\times\RR^k$
+    whose transition functions are the given maps $\tau_{\alpha\beta}$.
+\end{problem}
+
+\begin{soln}
+    Let $E = (\coprod_{\alpha\in A} U_\alpha\times\RR^k)/{\sim}$
+    where $(x_1,v_1)\in U_\alpha\times\RR_k$
+    and $(x_2,v_2)\in U_\beta\times\RR^k$
+    satisfy $(x_1,v_1)\sim(x_2,v_2)$ if
+    $(x_1,v_1) = (x_2,\tau_{\alpha\beta}(x_1)v_2)$
+    (in particular $x_1$ must equal $x_2$).
+    Observe that $\sim$ is an equivalence relation:
+    \begin{itemize}
+        \ii Let $(x,v)\in U_\alpha\times\RR^k$.
+        Note that
+        $\tau_{\alpha\alpha}(x) = \operatorname{id}_{x_\alpha\times\RR^k}$
+        since $\tau_{\alpha\alpha}(x)^2 = \tau_{\alpha\alpha}(x)$
+        for each $x\in U_\alpha$ by the cocycle condition and
+        the invertibility of $\tau_{\alpha\alpha}(x)\in GL_k\RR$,
+        so $(x,v) = (x,\tau_{\alpha\alpha}(x)v)$
+        Thus $(x,v)\sim(x,v)$.
+        \ii Let $(x,v_1),(x,v_2)\in (U_\alpha\cap U_\beta)\times\RR^k$
+        such that $(x,v_1)\sim(x,v_2)$. Then observe that
+        \begin{equation*}
+            \tau_{\alpha\beta}(x)\tau_{\beta\alpha}(x) = \tau_{\alpha\alpha}(x)
+            = \operatorname{id}_{x\times\RR^k},\qquad
+            \tau_{\beta\alpha}(x)\tau_{\alpha\beta}(x) = \tau_{\beta\beta}(x)
+            = \operatorname{id}_{x\times\RR^k}
+        \end{equation*}
+        for $x\in U_\alpha\cap U_\beta$, so $\tau_{\alpha\beta}(x)$
+        and $\tau_{\beta\alpha}(x)$ are inverse linear transformations. Thus
+        \begin{equation*}
+            v_1 = \tau_{\alpha\beta}(x)v_2
+            \iff v_2 = \tau_{\beta\alpha}(x)v_1
+        \end{equation*}
+        which means that $(x,v_2)\sim(x,v_1)$.
+        \ii Let $(x,v_1),(x,v_2),(x,v_3)\in
+        (U_\alpha\cap U_\beta\cap U_\gamma) \times\RR^k$,
+        such that $(x,v_1)\sim (x,v_2)$ and $(x,v_2)\sim(x,v_3)$. Then
+        \begin{equation*}
+            v_1 = \tau_{\alpha\beta}(x)v_2
+            = \tau_{\alpha\beta}(x)\tau_{\beta\gamma}(x)v_3
+            = \tau_{\alpha\gamma}(x)v_3
+        \end{equation*}
+        by the cocycle condition, so $(x,v_1)\sim(x,v_3)$.
+    \end{itemize}
+
+    Define $p\colon E\to M$ by sending the equivalence class of
+    a pair $(x,v)$ to $x$; this is well-defined because
+    two equivalent elements in $\coprod_{\alpha\in A}U_\alpha\times\RR^k$
+    must have the same first coordinate by definition.
+    Then, define
+    \begin{equation*}
+        \Phi_\alpha\colon p\inv(U_\alpha)\to U_\alpha\times\RR^k,\qquad
+	\Phi_\alpha([(x,v)]) = (x,v)
+    \end{equation*}
+    where $[(x,v)]$ is the equivalence class of
+    $(x,v)\in U_\alpha\times\RR^k$;
+    this is well-defined because if $(x,v_1)\sim(x,v_2)$
+    for $(x,v_1),(x,v_2)\in U_\alpha\times\RR^k$, then
+    $v_1 = \tau_{\alpha\alpha}(x)v_2 = v_2$,
+    i.e. each equivalence class in $E$ contains at most one element
+    of each set in the disjoint union, and it is a bijection
+    because it has an inverse given by just sending $(x,v)$
+    to the equivalence class containing it. We can then see that
+    for $(x,v)\in (U_\alpha\cap U_\beta)\times\RR^k$,
+    \begin{equation*}
+        \Phi_\alpha\circ\Phi_\beta\inv(x,v)
+	= \Phi_\alpha([(x,v)])
+	= \Phi_\alpha([(x,\tau_{\alpha\beta}(x)v)])
+	= (x,\tau_{\alpha\beta}(x)v)
+    \end{equation*}
+    where $(x,\tau_{\alpha\beta}(x)v)$ is the unique element
+    of $U_\alpha\times\RR^k$ which is equivalent to
+    $(x,v)\in U_\beta\times\RR^k$ under $\sim$
+    (uniqueness follows from the previous sentence,
+    since the equivalence class contains at most
+    one element of $U_\alpha\times\RR^k$).
+
+    The work above shows that $E$, together with the given data,
+    satisfies the conditions of Lee's Lemma 10.6,
+    so $E$ has a unique topology and smooth structure
+    making it into a smooth rank-$k$ vector bundle
+    whose local trivializations are the $\Phi_\alpha$;
+    and of course the transition function
+    between $\Phi_\alpha$ and $\Phi_\beta$ is $\tau_{\alpha\beta}$
+    by definition of transition function.
+\end{soln}
+
+\begin{problem}
+    [10-7]
+    Compute the transition function for $TS^2$ associated with
+    the trivializations determined by stereographic coordinates.
+\end{problem}
+
+\begin{soln}
+    Let $\sigma$ be the stereographic projection from the north pole
+    and $\tilde\sigma = -\sigma(-x)$ the stereographic projection
+    from the south pole, as per Lee's Problem 1-7.
+    Then, we can compute
+    \begin{align*}
+        \tilde\sigma(\sigma\inv(u_1,u_2))
+	&= \tilde\sigma\left(\frac{u_1}{\abs u^2+1},
+	\frac{u_2}{\abs u^2+1},\frac{\abs u^2-1}{\abs u^2+1}\right)\\
+	&= -\frac 1{1 + \frac{\abs u^2-1}{\abs u^2+1}}
+	\left(-\frac{u_1}{\abs u^2+1},-\frac{u_2}{\abs u^2+1}\right)
+	= \frac 1{\abs u^2}(u_1,u_2)
+    \end{align*}
+    as the change of coordinates between $S^2$ minus the north pole $N$
+    and $S^2$ minus the south pole $S$,
+    so that at each point $p$ of $S^2 - \{N\} - \{S\}$,
+    the transition function is simply the map between tangent spaces
+    induced by $\tilde\sigma\circ\sigma\inv$, namely the Jacobian
+    \begin{equation*}
+	\frac 1{(u_1^2+u_2^2)^2}
+        \begin{pmatrix}
+	    u_2^2-u_1^2&-2u_1u_2\\-2u_1u_2&u_1^2-u_2^2
+        \end{pmatrix}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    [11-7]
+    In the following problems, $M$ and $N$ are smooth manifolds,
+    $F\colon M\to N$ is a smooth map, and $\omega\in\mathfrak X^*(N)$.
+    Compute $F^*\omega$ in each case.
+    \begin{enumerate}[(a)]
+        \ii $M = N = \RR^2$; $F(s,t) = (st,e^t)$;
+	$\omega = x\dd y - y\dd x$.
+	\ii $M = \RR^2$; $N = \RR^3$;
+	$F(\theta,\varphi) = ((\cos\varphi+2)\cos\theta,
+	(\cos\varphi+2)\sin\theta, \sin\varphi)$;
+	$\omega = z^2\dd x$.
+	\ii $M = \{(s,t)\in\RR^2 : s^2 + t^2 < 1\}$;
+	$N = \RR^3 - \{0\}$;
+	$F(s,t) = (s,t,\sqrt{1-s^2-t^2})$;
+	$\omega = (1-x^2-y^2)\dd z$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    For each $p\in M$ and $v\in T_pM$,
+    \begin{equation*}
+	(F^*\omega)_p(v) = \omega_{F(p)}(\dd F_p(v)).
+    \end{equation*}
+    (a) Since
+    \begin{equation*}
+	\dd F_{(s,t)} = \begin{pmatrix}
+	    t&s\\
+	    0&e^t
+        \end{pmatrix}
+    \end{equation*}
+    we can compute
+    \begin{equation*}
+	(F^*\omega)_{(s,t)}\begin{pmatrix}
+	    a\\b
+	\end{pmatrix}
+	= \omega_{F(s,t)} \begin{pmatrix}
+	    at+bs\\ be^t
+	\end{pmatrix}
+	= stbe^t - e^t(at+bs) = -te^t\cdot a + se^t(t-1)\cdot b,
+    \end{equation*}
+    so $F^*\omega = -te^t\dd s + se^t(t-1)\dd t$.\\
+
+    (b) Since
+    \begin{equation*}
+	\dd F_{(\theta,\varphi)} = \begin{pmatrix}
+	    -(\cos\varphi+2)\sin\theta&-\sin\varphi\cos\theta\\
+	    (\cos\varphi+2)\cos\theta&-\sin\varphi\sin\theta\\
+	    0 & \cos\varphi
+	\end{pmatrix}
+    \end{equation*}
+    we can compute
+    \begin{equation*}
+	(F^*\omega)_{(\theta,\varphi)}\begin{pmatrix}
+	    a\\b
+	\end{pmatrix}
+	= \omega_{F(\theta,\varphi)}\begin{pmatrix}
+	    -a(\cos\varphi+2)\sin\theta - b\sin\varphi\cos\theta\\
+	    a(\cos\varphi+2)\cos\theta - b\sin\varphi\sin\theta\\
+	    b\cos\varphi
+	\end{pmatrix}
+	= -\sin^2\varphi(\cos\varphi+2)\sin\theta\cdot a
+	- \sin^3\varphi\cos\theta\cdot b
+    \end{equation*}
+    so $F^*\omega = -\sin^2\varphi(\cos\varphi+2)\sin\theta\dd\theta
+    - \sin^3\cos\theta\dd\varphi$.
+    \\
+
+    (c) Since
+    \begin{equation*}
+	\dd F_{(s,t)} = \begin{pmatrix}
+	    1&0\\0&1\\
+	    \frac{-s}{\sqrt{1-s^2-t^2}}&
+	    \frac{-t}{\sqrt{1-s^2-t^2}}
+	\end{pmatrix}
+    \end{equation*}
+    we can compute
+    \begin{equation*}
+	(F^*\omega)_{(s,t)}\begin{pmatrix}
+	    a\\b
+	\end{pmatrix}
+	= \omega_{F(s,t)}\begin{pmatrix}
+	    a\\b\\\frac{-as-bt}{\sqrt{1-s^2-t^2}}
+	\end{pmatrix}
+	= -s\sqrt{1-s^2-t^2}\cdot a - t\sqrt{1-s^2-t^2}\cdot b
+    \end{equation*}
+    so $F^*\omega = -s\sqrt{1-s^2-t^2}\dd s
+    - t\sqrt{1-s^2-t^2}\dd t$.
+\end{soln}
+
+\begin{problem}
+    [11-9]
+    Let $f\colon\RR^3\to\RR$ be the function
+    $f(x,y,z) = x^2 + y^2 + z^2$, and let
+    $F\colon\RR^2\to\RR^3$ be
+    \begin{equation*}
+	F(u,v) = \left(\frac{2u}{u^2+v^2+1}, \frac{2v}{u^2+v^2+1},
+	\frac{u^2+v^2-1}{u^2+v^2+1}\right),
+    \end{equation*}
+    the inverse of the stereographic projection.
+    compute $F^*\dd f$ and $\dd(f\circ F)$ separately,
+    and verify that they are equal.
+\end{problem}
+
+\begin{soln}
+    Noting that $\dd f = 2x\dd x + 2y\dd y + 2z\dd z$, we can calculate
+    \begin{align*}
+        F^*(2x\dd x)
+	&= \frac{2u}{u^2+v^2+1}\left(\frac{2(-u^2+v^2+1)}{(u^2+v^2+1)^2}\dd u
+	- \frac{4uv}{(u^2+v^2+1)^2}\dd v\right)\\
+        F^*(2y\dd y)
+	&= \frac{2v}{u^2+v^2+1}\left(- \frac{4uv}{(u^2+v^2+1)^2}\dd u
+	+ \frac{2(u^2-v^2+1)}{(u^2+v^2+1)^2}\dd v\right)\\
+        F^*(2z\dd z)
+	&= \frac{u^2+v^2-1}{u^2+v^2+1}\left(\frac{4u}{(u^2+v^2+1)^2}\dd u
+	+ \frac{4u}{(u^2+v^2+1)^2}\dd v\right).
+    \end{align*}
+    Summing, we find that the coefficient of $\dd u$ is
+    $(u^2+v^2+1)^{-3}$ times
+    \begin{equation*}
+        4u(-u^2+v^2+1) - 8uv^2 + 4u(u^2+v^2-1)
+	= 4u(2v^2) - 8uv^2 = 0,
+    \end{equation*}
+    and by symmetry the coefficient of $\dd v$ is also zero,
+    so $F^*\dd f \equiv 0$.
+
+    On the other hand, $f\circ F = 1$
+    since $F$ sends points in $\RR^2$ to the sphere in $\RR^3$
+    by definition of (the inverse of) stereographic projection,
+    implying $\dd(f\circ F) = 0$, as expected from above.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

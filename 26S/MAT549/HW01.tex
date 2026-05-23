@@ -1,0 +1,310 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 549 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 549 HW01}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/10}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $M$ be a nonempty positive-dimensional smooth manifold
+    with or without boundary. Show that $\mathfrak X(M)$
+    is infinite-dimensional.
+\end{problem}
+
+\begin{soln}
+    By working in local coordinates, we may assume that $M = \RR^n$.
+    For $k\in\NN$, let $f_k\colon M\to[0,\infty)$ such that
+    $f\inv(0) = \RR^n - \ol B_{1/k}(0)$ (e.g. $f(x) = 1/k^2 - \abs{x}^2$
+    for $x\in B_{1/k}(0)$ and $f(x) = 0$ otherwise);
+    that is, the supports of the $f_k$ are a strictly
+    decreasing sequence of sets. Define the vector fields
+    $X_k = f_k\frac{\partial}{\partial x_1}$.
+
+    Given the vector fields $X_{i_1}$, \dots, $X_{i_m}$
+    with $i_1 < \cdots < i_m$ that are linearly dependent,
+    consider a linear combination $a_1 X_{i_1} + \cdots + a_m X_{i_m}$ for
+    nonzero real $a_1$, \dots, $a_m$.
+    By construction, $X_{i_1}$ is nonzero at some points
+    outside $\ol B_{1/i_2}(0)$ while all the other vector fields
+    are zero outside this closed ball, so the linear combination
+    is nonzero on $B_{1/i_1}(0) - \ol B_{1/i_2}(0)$.
+    Thus any finite linear combination of the $X_k$ is nonzero,
+    meaning $\{X_1,X_2,\dots\}$ is an infinite linearly independent
+    subset of $\mathfrak X(M)$, so the space of vector fields on $M$
+    is infinite-dimensional.
+\end{soln}
+
+\begin{problem}
+    Let $M$ be a smooth manifold with boundary.
+    Show that there exists a global smooth vector field on $M$
+    whose restriction to $\partial M$ is everywhere inward-pointing,
+    and one whose restriction to $\partial M$
+    is everywhere outward-pointing.
+\end{problem}
+
+\begin{soln}
+    Let $(U_\alpha,\varphi_\alpha)_{\alpha\in I}$
+    be a collection of charts on $M$ whose domains cover $M$,
+    and let $(\psi_\alpha)_{\alpha\in I}$ be a partition of unity
+    subordinate to the covering $(U_\alpha)_{\alpha\in I}$.
+    Then, for each $\alpha\in I$, define a vector field $X_\alpha$
+    on $U_\alpha$ as follows: if $U_\alpha$ is contained
+    in the interior of $M$, then set $X_\alpha\equiv 0$;
+    otherwise, define $X_\alpha = \frac\partial{\partial x_n}$
+    in local coordinates, so that $X_\alpha|_{\partial M\cap U_\alpha}$
+    is an inward-pointing vector at each point of
+    $\partial M\cap U_\alpha$. Then,
+    \begin{equation*}
+	X = \sum_{\alpha\in I}\varphi_\alpha X_\alpha
+    \end{equation*}
+    is a global vector field for which $X|_{\partial M}(p)$
+    is the sum of some inward-pointing vectors, hence inward-pointing,
+    for every $p\in\partial M$.
+    Negating $X$ yields a global vector field
+    that is outward-pointing at every point of $\partial M$.
+\end{soln}
+
+\begin{problem}
+    For each of the following vector fields on the plane,
+    compute its coordinate representation in
+    polar coordinates on the right half-plane.
+    \begin{enumerate}[(a)]
+	\ii $X = x\frac{\partial}{\partial x}
+	+ y\frac{\partial}{\partial y}$
+	\ii $Y = x\frac{\partial}{\partial y}
+	- y\frac{\partial}{\partial x}$
+	\ii $Z = (x^2 + y^2)\frac{\partial}{\partial x}$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    By the change of coordinates formula (equation (3.11)),
+    \begin{equation*}
+	\frac\partial{\partial r}
+	= \cos\theta\cdot\frac\partial{\partial x}
+	+ \sin\theta\cdot\frac\partial{\partial y},\qquad
+	\frac\partial{\partial \theta}
+	= -r\sin\theta\cdot\frac\partial{\partial x}
+	+ r\cos\theta\cdot\frac\partial{\partial y}.
+    \end{equation*}
+    This implies that
+    \begin{equation*}
+        X = r\cos\theta\cdot\frac\partial{\partial x}
+	+ r\sin\theta\cdot\frac\partial{\partial y}
+	=\boxed{ r\frac{\partial}{\partial r}},\qquad
+	Y = -r\sin\theta\cdot\frac\partial{\partial x}
+	+ r\cos\theta\cdot\frac\partial{\partial y}
+	=\boxed{ \frac\partial{\partial\theta}}
+    \end{equation*}
+    and we can solve the system of equations
+    for $\frac\partial{\partial x}$ directly to get
+    \begin{equation*}
+	Z = \boxed{r^2\cos\theta\cdot\frac\partial{\partial r}
+	- r\sin\theta\cdot\frac\partial{\partial\theta}}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    Show that there is a smooth vector field on $S^2$
+    that vanishes at exactly one point.
+\end{problem}
+
+\begin{soln}
+    Consider the vector field $X\in\mathfrak X(S^2)$ given by
+    \begin{equation*}
+	X(x,y,z) = \frac 12(y^2-x^2 + (1-z)^2, -2xy, 2x(1-z)).
+    \end{equation*}
+    The component functions are smooth on $\RR^3$,
+    hence of course smooth on $S^2$.
+    The vectors are tangent to $S^2$ because
+    \begin{align*}
+        X(x,y,z)\cdot(x,y,z)
+	&= \half(xy^2 - x^3 + x(1-z)^2 - 2xy^2 + 2xz(1-z))\\
+	&= \half(-x^3 - xy^2 + x(1-z^2))\\
+	&= \frac x2(1-x^2 - y^2 - z^2) = 0.
+    \end{align*}
+    Finally, to see that the vector field is only zero at one point,
+    observe that $X(x,y,z) = 0$ implies that $x = 0$ or $y = 0$
+    by looking at the second component; the first case means
+    the first component $y^2 + (1-z)^2 = 0$,
+    hence $y=0$ and $1-z=0$; on the other hand,
+    the second case (assuming $x\ne 0$)
+    implies that $1-z=0$ from the third component
+    and then $x = 0$ because the first component equals $x^2 = 0$.
+    In either case, $X(x,y,z) = 0$ implies $(x,y,z) = (0,0,1)$,
+    so $X$ is nonzero away from $(x,y,z) = (0,0,1)$.
+\end{soln}
+
+\begin{problem}
+    For each of the following pairs of vector fields,
+    compute the Lie bracket $[X,Y]$.
+    \begin{enumerate}[(a)]
+	\ii $X = y\frac{\partial}{\partial z}
+	- 2xy^2\frac{\partial}{\partial y}$;
+	$Y = \frac{\partial}{\partial y}$
+	\ii $X = x\frac\partial{\partial y} - y\frac\partial{\partial x}$;
+	$Y = y\frac\partial{\partial z}-z\frac\partial{\partial y}$
+	\ii $X = x\frac\partial{\partial y} - y\frac\partial{\partial x}$;
+	$Y = x\frac\partial{\partial y} + y\frac\partial{\partial x}$
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) \begin{equation*}
+	[X,Y] = X(1)\frac\partial{\partial y}
+	- Y(-2xy^2)\frac\partial{\partial y}
+	- Y(y)\frac\partial{\partial z}
+	= \boxed{4xy\frac\partial{\partial y} - \frac\partial{\partial z}}
+    \end{equation*}
+
+    (b) \begin{equation*}
+	[X,Y] = X(-z)\frac\partial{\partial y}
+	+ X(y)\frac\partial{\partial z}
+	- Y(-y)\frac\partial{\partial x}
+	- Y(x)\frac\partial{\partial y}
+	= \boxed{x\frac\partial{\partial z} - z\frac\partial{\partial x}}
+    \end{equation*}
+
+    (c) \begin{equation*}
+	[X,Y] = X(x)\frac\partial{\partial y}
+	+ X(y)\frac\partial{\partial x}
+	- Y(-y)\frac\partial{\partial x}
+	- Y(x)\frac\partial{\partial y}
+	= \boxed{2x\frac\partial{\partial x} - 2y\frac\partial{\partial y}}
+	\qedhere
+    \end{equation*}
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

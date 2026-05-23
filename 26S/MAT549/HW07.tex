@@ -1,0 +1,322 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 549 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+\providecommand{\tanvec}[1]{\frac{\partial}{\partial #1}}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 549 HW07}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/28}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [17-1]
+    Let $M$ be a smooth manifold with or without boundary
+    and let $\omega\in\Omega^p(M)$, $\eta\in\Omega^q(M)$
+    be closed forms. Show that the de Rham cohomology class
+    of $\omega\wedge\eta$ depends only on
+    the cohomology classes of $\omega$ and $\eta$,
+    and thus there is a well-defined bilinear map
+    $\smile\colon H^p_{dR}(M)\times H^q_{dR}(M)\to H^{p+q}_{dR}(M)$,
+    called the cup product, given by
+    $[\omega]\smile[\eta] = [\omega\wedge\eta]$.
+\end{problem}
+
+\begin{soln}
+    Let $\omega'\in[\omega]$ and $\eta'\in[\eta]$,
+    so $\omega' - \omega = \dd\alpha$ and $\eta' - \eta = \dd\beta$ are exact.
+    Then
+    \begin{equation*}
+	\omega\wedge\eta - \omega'\wedge\eta'
+	= (\omega - \omega')\wedge\eta
+	+ \omega'\wedge(\eta - \eta')
+	= \dd\alpha\wedge\eta + \omega'\wedge\dd\beta
+	= \dd(\alpha\wedge\eta + \omega'\wedge\beta),
+    \end{equation*}
+    where the last equality uses the fact that
+    $\eta$ and $\omega'$ are closed, so
+    $[\omega\wedge\eta] = [\omega'\wedge\eta']$.
+    Thus $\smile$ is a well-defined map on the cohomology groups,
+    and it inherits bilinearity from the bilinearity of $\wedge$:
+    explicitly, we can write
+    \begin{equation*}
+	[a\omega + b\eta]\smile[\alpha] = [(a\omega + b\eta)\wedge\alpha]
+	= [a\omega\wedge\alpha] + [b\eta\wedge\alpha]
+	= a[\omega]\smile[\alpha] + b[\eta]\smile[\alpha]
+    \end{equation*}
+    to show linearity in the first argument,
+    and essentially the same calculation
+    shows linearity in the second argument.
+\end{soln}
+
+\begin{problem}
+    [17-12]
+    Suppose $M$ and $N$ are compact, connected, and oriented $n$-manifolds,
+    and $F\colon M\to N$ is a smooth map.
+    Prove that if $\int_M F^*\eta\ne 0$ for some $\eta\in\Omega^n(N)$,
+    then $F$ is surjective. Give an example to show that
+    $F$ can be surjective even if $\int_M F^*\eta = 0$
+    for every $\eta\in\Omega^n(N)$.
+\end{problem}
+
+\begin{soln}
+    Suppose $F$ is not surjective.
+    Then, any point not in $F(M)$ is vacuously a regular value for $F$,
+    so the degree of $F$ is zero; that is,
+    \begin{equation*}
+        \int_M F^*\eta = \deg F \cdot \int_N \eta = 0
+    \end{equation*}
+    for all $\eta\in\Omega^n(N)$.
+
+    To show that the converse does not hold,
+    let $M = N = S^1\cong \RR/\ZZ$ and consider
+    $F\colon S^1\to S^1$ given by
+    \begin{equation*}
+	F(x) = \sin^2(\pi x).
+    \end{equation*}
+    Since $x\mapsto\sin^2(\pi x)$ is a surjective smooth map $\RR\to[0,1]$,
+    it descends to the smooth map $F\colon S^1\to S^1$.
+    To see that $F$ has degree $0$ we note that it is homotopic to
+    a constant map via the homotopy
+    \begin{align*}
+	H\colon S^1\times[0,1]&\to S^1\\
+	(x,t)&\mapsto tF(x)
+    \end{align*}
+    (thinking of the $S^1$ in the codomain as $[0,1]$
+    with its endpoints identified).
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    [17-13]
+    Let $T^2 = S^1\times S^1$ be the $2$-torus.
+    Consider the two maps $f,g\colon T^2\to T^2$ given by
+    $f(w,z) = (w,z)$ and $g(w,z) = (z,\ol w)$.
+    Show that $f$ and $g$ have the same degree, but are not homotopic.
+\end{problem}
+
+\begin{soln}
+    Since $f$ is the identity map, it has degree $1$.
+    To show that $g$ has degree $1$ observe that
+    $g$ is a diffeomorphism because it has a smooth inverse
+    $g\inv(w,z) = (\ol z,w)$, and it is orientation-preserving because
+    the determinant of the differential of $g$ at any point is
+    \begin{equation*}
+        \begin{vmatrix}
+	    0&1\\-1&0
+        \end{vmatrix} = 1,
+    \end{equation*}
+    and we know that orientation-preserving diffeomorphisms
+    have degree $1$.
+    However, these maps are not homotopic because
+    $f$ induces the identity homomorphism on $\pi_1(T^2)$
+    while $g$ induces the homomorphism
+    \begin{equation*}
+	g_*([\gamma_1],[\gamma_2])
+	= ([\gamma_2], -[\gamma_1])
+    \end{equation*}
+    which is clearly not the identity,
+    where $(\gamma_1,\gamma_2)\colon S^1\to T^2$
+    is an arbitrary loop in $T^2$.
+\end{soln}
+
+\begin{problem}
+    Find the de Rham cohomology groups of the $3$-torus
+    $T^3 = S^1\times S^1\times S^1$.
+\end{problem}
+
+\begin{soln}
+    We more generally compute $H^k(T^n)\cong\RR^{\binom nk}$
+    for all nonnegative integers $n$ and integers $k$ by induction on $n$,
+    starting with the observation that the singleton set $T^0$
+    has de Rham cohomology
+    \begin{equation*}
+        H^k(T^0) = \begin{cases}
+	    \RR = \RR^{\binom00} & \text{if }k = 0\\
+	    0 & \text{if }k > 0.
+        \end{cases}
+    \end{equation*}
+    Write $S^1 = U\cap V$ where $U$ and $V$ are arcs of $S^1$
+    and $U\cup V = S^1$.
+    Then, the intersection $U\cap V$ consists of two disjoint arcs.
+    The sets $\tilde U = U\times T^{n-1}$ and $\tilde V = V\times T^{n-1}$
+    give us an open cover of $T^n$, and the corresponding
+    Mayer-Vietoris sequence tells us that
+    \begin{equation*}
+	\dots\to H^{k-1}(\tilde U\cap\tilde V)
+	\overset{\delta^{k-1}}\longrightarrow H^{k}(T^n)
+	\overset{\alpha^{k}}\longrightarrow
+	H^{k}(\tilde U)\oplus H^{k}(\tilde V)
+	\overset{\beta^{k}}\longrightarrow H^{k}(\tilde U\cap\tilde V)
+	\to\dots
+    \end{equation*}
+    is exact for all $k$. Since $U$ and $V$ are contractible,
+    $\tilde U$ and $\tilde V$ are homotopy equivalent to $T^{n-1}$.
+    Also, $\tilde U\cap\tilde V$ has two components $W_1$, $W_2$
+    that are homotopy equivalent to $T^{n-1}$.
+    Writing $H^k(\tilde U\cap\tilde V)\cong H^k(W_1)\oplus H^k(W_2)$,
+    the map $\beta^k$ is given by
+    \begin{equation*}
+	\eta^k([\omega],[\eta]) =
+	([\omega|_{W_1}] - [\eta|_{W_1}], [\omega|_{W_2}] - [\eta|_{W_2}]),
+    \end{equation*}
+    so the image of this map, which equals
+    the kernel of $\delta^k$, is the diagonal $([\omega],[\omega])$.
+    Observe also that the image of $\alpha^k$
+    (which is also the kernel of $\beta^k$)
+    is also the diagonal of $H^k(T^{n-1})\oplus H^k(T^{n-1}$,
+    which is isomorphic to the image of $\beta^k$.
+    Thus the image and kernel of $\beta^k$ have the same dimension
+    $\binom{n-1}k$, using the inductive hypothesis.
+
+    Finally, the dimension of $H^k(T^n)$ is
+    sum of the dimension of the image of $\alpha^k$
+    and the dimension of the image of $\delta^{k-1}$;
+    the former we know to be $\binom{n-1}k$,
+    and the latter is $\dim H^{k-1}(\tilde U\cap\tilde V) =2\binom{n-1}{k-1}$
+    minus $\dim\ker\delta^{k-1} = \dim\operatorname{im}\beta^{k-1}
+    = \binom{n-1}{k-1}$, meaning
+    \begin{equation*}
+	\dim H^k(T^n) = \binom{n-1}k + \binom{n-1}{k-1} = \boxed{\binom nk}.
+    \end{equation*}
+
+    In the $n=3$ case this means
+    \begin{equation*}
+        H^k(T^3) = \begin{cases}
+	    \RR & \text{if }k=0,3\\
+	    \RR^3 & \text{if }k=1,2\\
+	    0 & \text{if }k > 3.
+        \end{cases}\qedhere
+    \end{equation*}
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

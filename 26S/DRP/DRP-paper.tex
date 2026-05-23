@@ -1,0 +1,319 @@
+\documentclass[10pt]{article}
+
+\usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={Obstruction theory notes}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=scriptsize]{todonotes}
+
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\setminus}{\!-\!}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\dd}{\mathrm d}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\HH}{\mathbb H}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\RP}{\mathbb RP}
+\providecommand{\CP}{\mathbb CP}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\supp}{\opname{supp}}
+\providecommand{\im}{\opname{im}}
+\providecommand{\Ext}{\opname{Ext}}
+\providecommand{\Tor}{\opname{Tor}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\abs}[1]{\left\lvert{#1}\right\rvert}
+\providecommand{\norm}[1]{\left\|{#1}\right\|}
+\providecommand{\dif}{\;d}
+\providecommand{\id}{\operatorname{id}}
+
+\newcommand{\expow}{\Lambda}
+\newcommand{\tensor}{\otimes}
+\newcommand{\Hom}{\opname{Hom}}
+
+\reversemarginpar
+\setlength{\marginparwidth}{1in}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+
+\declaretheorem[style=boldhead,name=Example,sibling=theorem]{example}
+
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=theorem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,sibling=theorem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+%\providecommand{\vocab}[1]{{{\sffamily\textolor{ForestGreen}{#1}}}}
+\providecommand{\vocab}[1]{{{\sffamily\textit{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\ord}{\operatorname{ord}}
+\providecommand{\Int}{\operatorname{Int}}
+\providecommand{\rk}{\operatorname{rk}}
+\providecommand{\Mat}{\operatorname{Mat}}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+
+\title{\vspace{-2.0cm}The Thom Isomorphism and Characteristic Classes}
+\author{\large Aditya Pahuja}
+\date{\large \today}
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Homology and cohomology}
+
+\section{Smooth vector bundles}
+
+\subsection{Definitions and basic properties}
+
+\subsection{Oriented vector bundles}
+
+
+Let $\pi\colon E\to B$ be an oriented rank-$n$ vector bundle.
+The Thom isomorphism relates the cohomology
+$H^k(B;\Lambda)$ to the relative cohomology of $H^{k+n}(E,E_0; \Lambda)$
+where $E_0$ is the complement of the zero section of $E$
+and $\Lambda$ is an (associative) unital ring.
+Note that for each fiber $F = \pi\inv(b)$, $b\in B$,
+with $F_0 = F\cap E_0$ being the nonzero elements of $F$,
+the relative cohomology $H^*(F,F_0; \Lambda)$ is equal to
+\begin{equation*}
+    H^*(F,F_0; \Lambda) = \begin{cases}
+	\Lambda & \text{if }* = n\\
+	0 & \text{otherwise;}
+    \end{cases}
+\end{equation*}
+one can see this by considering the long exact sequence of the pair $(F,F_0)$.
+The orientation on the vector bundle then confers a
+canonical generator $u_{F,\ZZ}$ upon each
+fiberwise cohomology group $H^n(F,F_0;\ZZ)\cong\ZZ$.
+Then, since there is a unique homomorphism $\ZZ\to\Lambda$
+for any unital ring $\Lambda$, we may define $u_{F,\Lambda}$
+to be the image of $u_{F,\ZZ}$ under the map
+$H^n(F,F_0;\ZZ)\to H^n(F,F_0;\Lambda)$;
+thus the orientation of the vector bundle gives a canonical generator
+for the fiberwise cohomologies regardless of the ring.
+
+% TODO move most of the above to a separate preceding section
+% TODO this is a bad way to do the canonical orientatino stuff;
+% rephrase wrt \Lambda-ortienability
+
+\section{Thom Isomorphism}
+We follow Milnor and Stasheff's account of the Thom isomorphism theorem.
+
+\begin{definition}[Thom class]
+    \label{def:thom-class}
+    A \vocab{Thom class} $u_\Lambda = u\in H^n(E,E_0;\Lambda)$
+    which restricts to $u_F = u_{F,\Lambda}$ for every fiber
+    $F = \pi\inv(b)$ above a point $b\in B$.
+\end{definition}
+
+\begin{theorem}[Thom isomorphism]
+    \label{thm:thom-isomorphism}
+    Each $\Lambda$-oriented vector bundle $\pi\colon E\to B$
+    possesses a unique Thom class. Furthermore, there is an isomorphism
+    \begin{align*}
+	\Phi\colon{} H^k(E;\Lambda)&\to H^{k+n}(E,E_0;\Lambda)\\
+	y&\mapsto y\smile u.
+    \end{align*}
+\end{theorem}
+
+Note that $E$ deformation retracts onto the zero section,
+which is homeomorphic to $B$, by simply linearly contracting each fiber.
+Thus the Thom isomorphism gives an isomorphism
+$\Phi\circ\pi^*\colon H^k(B;\Lambda)\to H^k(E,E_0;\Lambda)$.
+
+Some geometric intuition for the Thom class:
+Consider the space of differential $n$-forms on $E$
+whose restriction to each fiber is compactly supported;
+these are called \vocab{differential forms with compact vertical supports},
+which form cohomology groups $H^*_{\text{cv}}(E)$.
+A \vocab{Thom form} $\phi$ is an $n$-form on $E$
+whose restriction to each fiber integrates to $1$
+(thus represents the Thom class of $E$ when $\Lambda = \RR$).
+The Thom isomorphism theorem says that there is an isomorphism
+$H_{\text{dR}}^k(B)\to H^{k+n}_{\text{cv}}(E)$
+via wedging with $\phi$; the inverse of this map
+is given by integrating a compactly vertically supported $(k+n)$-form
+on each fiber to get a $k$-form on $B$.
+
+An alternative perspective is to observe that
+the relative cohomology $H^k(E,E_0;\Lambda)$ manifests
+as the cohomology of the \vocab{Thom space}, defined as follows.
+After equipping $E$ with a Euclidean structure,
+% TODO explain somewhere why this can always be done
+let $D(E)$ be the subspace of $E$ consisting of vectors
+with magnitude at most $1$ (hence is an $n$-disk bundle)
+and $S(E)$ the subspace consisting of vectors
+with magnitude equal to $1$ (hence is an $(n-1)$-sphere bundle).
+Then the Thom space $T(E) = D(E)/S(E)$ can be thought of
+as compactifying each fiber of $E$ to get an $n$-sphere bundle
+and then collapsing the zero section to a point.
+The Thom isomorphism theorem is a statement about
+the cohomology of the Thom space, since
+\begin{equation*}
+    H^k(E,E_0;\Lambda) = H^k(D(E), S(E);\Lambda)
+    = \widetilde H^k(D(E)/S(E);\Lambda).
+\end{equation*}
+
+\missingfigure{thom space (steal from F\&F maybe)}
+
+The proof of Theorem \ref{thm:thom-isomorphism}
+will proceed in roughly three steps:
+first, we prove it for trivial vector bundles;
+then, we prove it when $B$ can be covered by
+finitely many open sets over which the given vector bundle is trivial;
+and finally, we prove it in the general case
+by taking a limit over compact sets.
+
+\begin{lemma}
+    [The case of a trivial bundle]
+    \label{lem:thom-isomorphism-trivial-bundle}
+    Let $\pi\colon E = B\times\RR^n\to B$ be a trivial vector bundle.
+    Then the unique Thom class of this bundle is $u = 1\times e^n$,
+    which induces the isomorphism indicated in the statement
+    of Theorem \ref{thm:thom-isomorphism}.
+\end{lemma}
+% TODO define cohomology cross product earlier
+
+\begin{proof}
+    TODO
+\end{proof}
+
+Now suppose that $B = B^1 \cup B^2$ is a cover of $B$ by two open sets
+such that Theorem \ref{thm:thom-isomorphism} holds for
+the restricted vector bundles
+$\pi|_{\pi\inv(B^1)}\colon E^1 = \pi\inv(B^1)\to B^1$ and
+$\pi|_{\pi\inv(B^2)}\colon E^2 = \pi\inv(B^2)\to B^2$.
+
+
+
+
+
+
+
+
+
+
+\end{document}

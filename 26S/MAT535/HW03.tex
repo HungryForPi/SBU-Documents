@@ -1,0 +1,409 @@
+% TODO make hw stylesheet
+
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 535 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\tensor}{\otimes}
+\renewcommand{\hom}{\operatorname{Hom}}
+\providecommand{\tor}{\operatorname{Tor}}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 535 HW03}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/19}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [\S17.1\#10a,d]
+    \begin{enumerate}[(a)]
+	\ii Prove that an arbitrary direct sum $\bigoplus_{i\in I} P_i$
+	of projective modules $P_i$ is projective
+	and that an arbitrary direct product $\prod_{j\in J}Q_j$
+	of injective modules $Q_j$ is injective.
+	\setcounter{enumi}{3}
+	\ii Prove that $\tor^R_n(A,\bigoplus_{j\in J}B_j)
+	\cong\bigoplus_{j\in J}\tor^R_n(A,B_j)$
+	for any collection of $R$-modules $\{B_j\}_{j\in J}$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $\{P_i\}_{i\in I}$ be a collection of projective modules,
+    $u\colon M\to N$ is an epimorphism, and
+    $f\colon\bigoplus_{i\in I}P_i\to N$.
+    Define  the canonical inclusion $q_i\colon P_i\to\bigoplus_{i\in I} P_i$
+    and let $f_i\colon P_i\to N$ be $f_i = f\circ q_i$.
+    Since the $P_i$ are projective, there exist $\tilde f_i\colon P_i\to M$
+    making the diagram
+    \begin{center}
+        \begin{tikzcd}
+	    & P_i\arrow[ld,dashed,"\exists\tilde f_i"']
+	    \arrow[d,"f_i"]\\
+	    M\arrow[r,"u"] & N\arrow[r] & 0
+        \end{tikzcd}
+    \end{center}
+    commute. By the universal property of the coproduct,
+    the maps $\tilde f_i$ factor through the $q_i$,
+    i.e. there is a unique morphism
+    $\tilde f\colon\bigoplus_{i\in I}P_i\to M$ such that
+    $\tilde f\circ q_i = \tilde f_i$.
+    Moreover, the universal property of the coproduct also says that $f$
+    is uniquely characterized by the equations $f_i = f\circ q_i$.
+    Since $(u\circ\tilde f)\circ q_i = f_i$ for all $i$,
+    this implies that $u\circ\tilde f = f$, so $\tilde f$
+    is the desired lift of $f$.
+
+    The analogous result for injective modules follows
+    from passing to the opposite category,
+    or equivalently making the same argument but with
+    the universal property of the product instead
+    (since in that setting there would be maps $g_j\colon N\to Q_j$
+    which need to be extended to maps $\tilde g_j\colon M\to Q_j$
+    in a manner compatible with a given monomorphism $u\colon N\to M$).
+    \\
+
+    (d) Fix a projective resolution
+    $\dots\to P_{j,2}\to P_{j,1}\to P_{j,0}\to B_j\to 0$ for each $j\in J$.
+    Since direct sums of projective modules are projective by (a)
+    and direct sums of exact sequences are exact, we obtain
+    a projective resolution
+    \begin{equation*}
+	\cdots\to \bigoplus_{j\in J}P_{j,2}\to
+	\bigoplus_{j\in J}P_{j,1}\to
+	\bigoplus_{j\in J}P_{j,0}\to
+	\bigoplus_{j\in J}B_j\to 0,
+    \end{equation*}
+    which, upon tensoring with $A$ and truncating, yields the complex
+    \begin{equation*}
+	\cdots\to
+	A\tensor_R\bigoplus_{j\in J}P_{j,2}\to
+	A\tensor_R\bigoplus_{j\in J}P_{j,1}\to
+	A\tensor_R\bigoplus_{j\in J}P_{j,0}\to
+	A\tensor_R\bigoplus_{j\in J}B_j\to 0.
+    \end{equation*}
+    The homology of this complex is exactly equal to
+    $\tor_n^R(A,\bigoplus_{j\in J}B_j)$.
+    On the other hand, noting that the tensor product commutes
+    with direct sums, this complex is the direct sum of the complexes
+    \begin{equation*}
+	\cdots\to
+	A\tensor_RP_{j,2}\to
+	A\tensor_RP_{j,1}\to
+	A\tensor_RP_{j,0}\to
+	A\tensor_RB_j\to 0,
+    \end{equation*}
+    whose $n$th homology module is $\tor_n^R(A,B_j)$.
+    The fact that homology commutes with direct sums then implies that
+    the $n$th homology of
+    \begin{equation*}
+	\cdots\to
+	\bigoplus_{j\in J}A\tensor_RP_{j,2}\to
+	\bigoplus_{j\in J}A\tensor_RP_{j,1}\to
+	\bigoplus_{j\in J}A\tensor_RP_{j,0}\to
+	\bigoplus_{j\in J}A\tensor_RB_j\to 0
+    \end{equation*}
+    is exactly $\bigoplus_{j\in J}\tor_n^R(A,B_j)$.
+\end{soln}
+
+\begin{problem}
+    [\S17.1\#15]
+    \begin{enumerate}[(a)]
+        \ii If $I$ is an ideal in $R$ and $M$ is an $R$-module,
+	prove that $\tor_1^R(M,R/I)$ is isomorphic
+	to the kernel of the map $M\otimes_RI\to M$
+	that maps $m\otimes i$ to $mi$ for $i\in I$ and $m\in M$.
+	\ii Prove that the $R$-module $M$ is flat
+	if and only if $\tor_1^R(M,R/I) = 0$
+	for every finitely generated ideal $I$ of $R$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) The short exact sequence $0\to I\to R\to R/I\to 0$
+    is transformed by $\tor_\bullet^R(M,-)$ into the long exact sequence
+    \begin{equation*}
+        \dots\to\tor_1^R(M,R)\to\tor_1^R(M,R/I)\to
+	M\tensor_RI\to M\tensor_RR\to M\tensor_R R/I\to 0.
+    \end{equation*}
+    There is an isomorphism $M\tensor_RR\cong M$ by sending
+    $m\tensor r\mapsto mr$ (since every $m\tensor r$
+    can be expresed uniquely as $n\tensor 1$ for some $n\in M$),
+    so the morphism $M\tensor_RI\to M\tensor_RR\to M$
+    given by composing this isomorphism with the
+    morphism in the exact sequence induced by the inclusion
+    $I\hookrightarrow M$ is the composed map
+    $m\tensor i\mapsto m\tensor i\mapsto mi$.
+
+    Since $R$ is a free $R$-module, it is flat,
+    so $\tor_1^R(M,R) = 0$. By exactness of the sequence above
+    at $\tor_1^R(M,R/I)$, this means that $\tor_1^R(M,R/I)$ maps injectively
+    into $M\otimes_R I$. Then, by exactness at $M\tensor_R I$,
+    the kernel of the $M\tensor_RI\to M\tensor_RR\cong M$ map
+    is equal to the image of the preceding map in the sequence,
+    which we just established is injective,
+    so this image (hence the kernel of the map in question)
+    is isomorphic to $\tor_1^R(M,R/I)$, as desired.
+    \\
+
+    (b) If $M$ is flat then $\tor_1^R(M,N) = 0$ for all $N$.
+
+    Conversely, suppose we are given that
+    $\tor_1^R(M,R/I) = 0$ for every finitely generated ideal $I\subseteq R$;
+    in the long exact sequence for $\tor_\bullet^R(M,-)$, this means
+    \begin{equation*}
+        0\to M\tensor_R I\to M\tensor_RR\to M\tensor_RR/I\to 0
+    \end{equation*}
+    is an exact sequence. Flatness then follows from $\S10.5\#25$.
+\end{soln}
+
+\begin{problem}
+    [\S17.1\#16]
+    Suppose $R$ is a PID and $A$ and $B$ are $R$-modules.
+    If $t(B)$ denotes the torsion submodule of $B$, show that
+    $\tor_1^R(A,t(B))\cong\tor_1^R(A,B)$ and deduce that
+    $\tor_1^R(A,B)\cong\tor_1^R(t(A),t(B))$.
+\end{problem}
+
+\begin{soln}
+    Let $B' = t(B)$ and $B'' = B/t(B)$.
+    For any ideal $I = (a)$ of $R$, the map
+    \begin{equation*}
+        B''\tensor_RI\to B''\tensor_RR\cong B'',\quad
+	m\tensor ra\mapsto mra
+    \end{equation*}
+    is injective, since if $m_1r_1a = m_2r_2a$ then
+    $m_1r_1 - m_2r_2$ is annihilated by $a$,
+    meaning it is zero because $B/t(B)$ is torsionfree,
+    so $m_1\tensor r_1a = m_1r_1\tensor a
+    = m_2r_2\tensor a = m_2\tensor r_2a$.
+    Since the kernel of this map is zero, the long exact sequence for
+    $\tor_\bullet^R(B'',-)$ applied to the short exact sequence
+    $0\to I\to R\to R/I\to 0$ yields $\tor_1^R(B'',R/I) = 0$,
+    hence $B''$ is flat by part (b) of the previous problem.
+    This in turn means that $\tor_n^R(N,B'') = 0$ for all $R$-modules $N$,
+    so the long exact sequence for $\tor_\bullet^R(A,-)$
+    applied to $0\to B'\to B\to B''\to 0$ looks like
+    \begin{equation*}
+	\cdots\to\underbrace{\tor_{n+1}^R(A,B'')}_{=0}\to
+	\tor_n^R(A,B')\stackrel{\cong}\to\tor_n^R(A,B)
+	\to\underbrace{\tor_n^R(A,B'')}_{=0}\to\cdots
+    \end{equation*}
+    meaning $\tor_n^R(A,B)\cong\tor_n^R(A,t(B))\cong\tor_n^R(t(A),t(B))$
+    for all $n \ge 1$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    [\S17.1\#23]
+    Let $D\inv R$ be the localization of the commutative ring $R$
+    with respect to the multiplicative subset $D$ of $R$.
+    Prove that localization commutes with $\tor$, i.e.
+    \[
+	D\inv\tor_n^R(A,B)\cong\tor_n^{D\inv R}(D\inv A,D\inv B)
+    \]
+    for all $R$-modules $A$ and $B$ and all $n\ge 0$.
+\end{problem}
+
+\begin{soln}
+    By exercise \S17.1\#22 with $S = D\inv R$
+    and $f$ the obvious inclusion of $R$ into $S$, we have that
+    $\tor_n^{D\inv R}(D\inv A,D\inv B) = \tor_n^R(A,D\inv B)$.
+    For a given projective resolution $\dots\to P_1\to P_0\to A\to 0$
+    of $A$, $\tor_\bullet^R(A,D\inv B)$ is the homology of
+    \begin{equation*}
+        \dots\to P_1\tensor_R D\inv B
+	\to P_0\tensor_R D\inv B
+	\to 0.
+    \end{equation*}
+    On the other hand, $-\tensor_RD\inv R$ is an exact functor
+    because $D\inv R$ is flat, so it preserves
+    kernels and cokernels, hence commutes with homology.
+    Since $D\inv B\cong B\tensor D\inv R$,
+    we can rewrite the chain complex above as
+    \begin{equation*}
+        \dots\to(P_1\tensor_R B)\tensor_RD\inv R
+	\to(P_0\tensor_R B)\tensor_RD\inv R
+	\to 0,
+    \end{equation*}
+    and its homology is
+    $\tor_\bullet^R(A,B)\tensor_RD\inv R
+    = D\inv\tor_\bullet^R(A,B)$.
+\end{soln}
+
+\begin{problem}
+    [\S17.1\#26]
+    \begin{enumerate}[(a)]
+        \ii Prove that every finitely generated module
+	over a Noetherian ring $R$ is finitely presented.
+	\ii Prove that an $R$-module $M$ is finitely presented
+	and projective if and only if $M$ is a direct summand
+	of $R^n$ for some integer $n\ge 1$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $M$ be a finitely generated $R$-module,
+    say with $t$ generators. Then there is a surjective map
+    $q\colon R^t\to M$ sending each basis element to a generator of $M$.
+    The kernel of this map must be finitely generated
+    because submodules of finitely generated modules
+    over Noetherian rings are finitely generated.
+    Supposing that $\ker q$ has $s$ generators, there is an exact sequence
+    $R^s\to R^t\overset q\to M\to 0$ where the leftmost map
+    sends each basis element of $R^s$ to one of the generators of $\ker q$;
+    the existence of this exact sequence is what it means
+    to be finitely presented.
+    \\
+
+    (b) If $M$ is a direct summand of $R^n$ then it is of course projective.
+    The projection $R^n\to M$ shows that $M$ is finitely generated,
+    since it is generated by the images of the basis elements of $R^n$;
+    (a) then shows that $M$ is finitely presented.
+
+    Conversely, suppose $M$ is finitely presented and projective.
+    Then there is a positive integer $t$
+    and a surjection $R^t\overset q\to M$ (this is part
+    of the exact sequence we obtain by $M$ being finitely presented).
+    Since $M$ is projective, the identity map $M\to M$ lifts
+    to a section $\sigma\colon M\to R^t$ such that
+    $\sigma\circ q = \operatorname{id}$; therefore,
+    the short exact sequence
+    \begin{center}
+        \begin{tikzcd}
+	    0\arrow[r]&\ker q\arrow[r] &
+	    R^t\arrow[r,"q"] & M
+	    \arrow[bend left=33, dashed]{l}{\sigma}\arrow[r]&0
+        \end{tikzcd}
+    \end{center}
+    splits, by the splitting lemma.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

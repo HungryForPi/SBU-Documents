@@ -1,0 +1,371 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 549 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+\providecommand{\tanvec}[1]{\frac{\partial}{\partial #1}}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 549 HW04}
+\author{\large Aditya Pahuja}
+\date{\large Due 03/10}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [12-8]
+    Let $M$ be a smooth $n$-manifold,
+    and let $A$ be a smooth covariant $k$-tensor field on $M$.
+    If $(U,(x_i))$ and $(\tilde U,\tilde x_j)$ are
+    overlapping smooth charts on $M$, we can write
+    \begin{equation*}
+	A
+	= \sum_{1\le i_1,\dots,i_k\le n}A_{i_1,\dots,i_k}
+	\dd x_{i_1}\otimes\cdots\otimes\dd x_{i_k}
+	= \sum_{1\le j_1,\dots,j_k\le n}\tilde A_{j_1,\dots,j_k}
+	\dd \tilde x_{j_1}\otimes\cdots\otimes\dd \tilde x_{j_k}.
+    \end{equation*}
+    Compute a transformation law analogous to (11.7)
+    expressing the component functions $A_{i_1,\dots,i_k}$
+    in terms of $\tilde A_{j_1,\dots,j_k}$.
+\end{problem}
+
+\begin{soln}
+    By equation (11.7) in Lee,
+    \begin{equation*}
+	\dd x_i =
+	\sum_{j=1}^n\frac{\partial \tilde x_j}{\partial x_i}\dd\tilde x_j.
+    \end{equation*}
+    By definition of tensors, the smooth function commutes
+    with $\otimes$, so
+    \begin{equation*}
+	\sum_{1\le i_1,\dots,i_k\le n}A_{i_1,\dots,i_k}
+	\dd x_{i_1}\otimes\cdots\otimes\dd x_{i_k}
+	= 
+	\sum_{1\le i_1,\dots,i_k\le n}\tilde A_{i_1,\dots,i_k}
+	\left(\sum_{j_1=1}^n\frac{\partial \tilde x_{j_1}}
+	{\partial x_{i_1}}\dd\tilde x_{j_1}\right)
+	\otimes\cdots\otimes
+	\left(\sum_{j_k=1}^n\frac{\partial \tilde x_{j_k}}
+	{\partial x_{i_k}}\dd\tilde x_{j_k}\right).
+    \end{equation*}
+    This means that the coefficient of a particular simple tensor
+    $\dd\tilde x_{\ell_1}\otimes\cdots\otimes\dd\tilde x_{\ell_k}$ is
+    \begin{equation*}
+	A_{\ell_1,\dots,\ell_k} =
+	\boxed{\sum_{1\le i_1,\dots,i_k\le n} \tilde A_{i_1,\dots,i_k}
+	\frac{\partial\tilde x_{\ell_1}}{\partial x_{i_1}}
+	\cdots\frac{\partial\tilde x_{\ell_k}}{\partial x_{i_k}}}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    [14-1]
+    Show that covectors $\omega_1$, \dots, $\omega_k$
+    on a finite-dimensional vector space $V$ are linearly dependent
+    if and only if $\omega_1\wedge\cdots\wedge\omega_k = 0$.
+\end{problem}
+
+\begin{soln}
+    If $\omega_1$, \dots, $\omega_k$ are linearly dependent,
+    there exist real numbers $c_1$, \dots, $c_k$, not all zero, such that
+    $c_1\omega_1 + \cdots + c_k\omega_k = 0$.
+    Since reordering the vectors does not change whether
+    their wedge product is nonzero (only affecting the sign),
+    we can assume that $c_1\ne 0$, so that
+    $\omega_1 = \frac {c_2}{c_1}\omega_2 \wedge
+    \cdots \wedge \frac{c_k}{c_1}\omega_k$. Then
+    \begin{equation*}
+        \omega_1\wedge\omega_2\wedge\cdots\wedge\omega_k
+	= \sum_{j=2}^k \frac{c_j}{c_1}\omega_j\wedge\omega_2\cdots\omega_k
+	= 0
+    \end{equation*}
+    where each summand is zero because $\omega_j$ appears twice in the wedge.
+
+    Conversely suppose that $\omega_1$, \dots, $\omega_k$
+    are linearly independent, so that we can find covectors
+    $\omega_{k+1}$, \dots, $\omega_n$ to make the list
+    $\omega_1$, \dots, $\omega_n$ a basis of $V$. Then
+    $\omega_1\wedge\cdots\wedge\omega_n$ is nonzero
+    (since otherwise $\Lambda^nV^*$ would be zero-dimensional,
+    because any element of $\Lambda^nV^*$ can be written
+    as a scalar multiple of $\omega_1\wedge\cdots\wedge\omega_n$).
+    This implies $\omega_1\wedge\cdots\wedge\omega_k$ is nonzero too,
+    because the wedging with zero always yields zero.
+\end{soln}
+
+\begin{problem}
+    [14-5]
+    Let $M$ be a smooth $n$-manifold with or without boundary
+    and let $(\omega_1,\dots,\omega_k)$ be an ordered $k$-tuple
+    of smooth $1$-forms on an open subset $U\subseteq M$
+    such that $(\omega_1|_p,\dots,\omega_k|_{p})$
+    is linearly independent for each $p\in U$.
+    Given smooth $1$-forms $\alpha_1$, \dots, $\alpha_k$ on $U$ such that
+    \begin{equation*}
+	\sum_{i=1}^k \alpha_i\wedge\omega_i = 0,
+    \end{equation*}
+    show that each $\alpha_i$ can be written as
+    a linear combination of the $\omega_i$ with smooth coefficients.
+\end{problem}
+
+\begin{soln}
+    Let $p\in M$ be arbitrary,
+    and let $U$ be a small enough open set around $p$
+    such that $(\omega_1,\dots,\omega_k)$ can be extended to
+    a list $(\omega_1,\dots,\omega_n)$ for which
+    $(\omega_1|_p,\dots,\omega_n|_p)$ is a basis for $T^*_pM$
+    for each $p\in U$. Then, for each $1\le i\le k$ and $1\le j\le n$
+    there exist $A_{i,j}\in C^\infty(U)$ such that
+    \begin{equation*}
+	\alpha_i = \sum_{j=1}^nA_{i,j}\omega_j.
+    \end{equation*}
+    For a particular $1\le i\le k$,
+    \begin{equation*}
+	0 = \left(\sum_{i'=1}^n\alpha_{i'}\wedge\omega_{i'}\right)
+	\wedge(\omega_1\wedge\cdots\wedge\omega_{i-1}
+	\wedge\omega_{i+1}\wedge\cdots\wedge\omega_k)
+	= (-1)^{i-1}\alpha_i\wedge(\omega_1\wedge\cdots\wedge\omega_k)
+    \end{equation*}
+    This implies that $(\alpha_i,\omega_1,\dots,\omega_k)$
+    are linearly dependent at each $p\in M$,
+    so, in $U$, the coefficients $A_{\ell,j}$ of $\omega_\ell$
+    for $k+1\le\ell\le n$ in the coordinate representation
+    of $\alpha_i$ are all zero (noting that the $\omega_j$
+    are nonzero because they span $T^*_pM$ at each $p\in U$).
+    Thus $\alpha_i = \sum_{j=1}^k A_{i,j}\omega_j$ in $U$.
+
+    If $\alpha_i = \sum_{j=1}^k A_{i,j}\omega_j$ in $U$
+    and $\alpha_i = \sum_{j=1}^k B_{i,j}\omega_j$ in $V$
+    for some open subsets $U,V\subseteq M$,
+    then by the linear independence of the $\omega_j|_p$
+    we can conclude that $A_{i,j} = B_{i,j}$ on $U\cap V$.
+    Thus the coefficients $A_{i,j}^{U_p}$ in a neighborhood $U_p$ of $p\in M$
+    agree with each other inside intersections of sets
+    in the open cover $\{U_p\}$, so they define smooth functions
+    $A_{i,j}\colon M\to\RR$ globally.
+\end{soln}
+
+\begin{problem}
+    [14-6]
+    Define a $2$-form $\omega$ on $\RR^3$ by
+    \begin{equation*}
+        \omega = x\dd y\wedge\dd z + y\dd z \wedge\dd x + z\dd x\wedge\dd y.
+    \end{equation*}
+    \begin{enumerate}[(a)]
+        \ii Compute $\omega$ in spherical coordinates
+	$(\rho,\psi,\theta)$ defined by $(x,y,z)
+	= (\rho\sin\varphi\cos\theta,
+	\rho\sin\varphi\sin\theta,
+	\rho\cos\varphi)$.
+	\ii Compute $\dd\omega$ in both Cartesian and spherical coordinates
+	and verify that both expressions represent the same $3$-form.
+	\ii Compute the pullback $\iota^*_{S^2}\omega$ to $S^2$,
+	using coordinates $(\varphi,\theta)$ on
+	the open subset where these coordinates are defined.
+	\ii Show that $\iota^*_{S^2}\omega$ is nowhere zero.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) We have
+    \begin{align*}
+	\dd x
+	&= \sin\varphi\cos\theta\dd\rho
+	+ \rho\cos\varphi\cos\theta\dd\varphi
+	- \rho\sin\varphi\sin\theta\dd\theta\\
+	\dd y
+	&= \sin\varphi\sin\theta\dd\rho
+	+ \rho\cos\varphi\sin\theta\dd\varphi
+	+ \rho\sin\varphi\cos\theta\dd\theta\\
+	\dd z
+	&= \cos\varphi\dd\rho - \rho\sin\varphi\dd\varphi\\
+	\dd x\wedge\dd y
+	&= \rho^2\cos\varphi\sin\varphi\dd\varphi\wedge\dd\theta
+	+ \rho\sin^2\varphi\dd\rho\wedge\dd\theta\\
+	\dd y\wedge\dd z
+	&= -\rho\sin\theta\dd\rho\wedge\dd\varphi
+	+ \rho^2\sin^2\varphi\cos\theta\dd\varphi\wedge\dd\theta
+	- \rho\sin\varphi\cos\varphi\cos\theta\dd\rho\wedge\dd\theta
+	\\
+	\dd z\wedge\dd x
+	&= \rho\cos\theta\dd\rho\wedge\dd\varphi
+	+ \rho^2\sin^2\varphi\sin\theta\dd\varphi\wedge\dd\theta
+	- \rho\sin\varphi\cos\varphi\sin\theta\dd\rho\wedge\dd\theta
+    \end{align*}
+    so
+    \begin{equation*}
+        \omega = \rho^3\sin\varphi\dd\varphi\wedge\dd\theta.
+    \end{equation*}
+
+    (b) In Cartesian coordinates,
+    \begin{equation*}
+        \dd\omega = \dd x\wedge\dd y\wedge\dd z
+	+ \dd y\wedge \dd z \wedge\dd x
+	+ \dd z\wedge\dd x\wedge\dd y
+	= 3\dd x\wedge\dd y\wedge\dd z,
+    \end{equation*}
+    noting that the cyclic permutations of $x$, $y$, and $z$ are even.
+    In spherical coordinates, we get
+    \begin{equation*}
+        \dd\omega = 3\rho^2\sin\varphi\dd\rho\wedge\dd\varphi\wedge\dd\theta
+    \end{equation*}
+    which is equal to the expression in Cartesian coordinates
+    by Corollary 14.21 in Lee:
+    \begin{equation*}
+	\dd\rho\wedge\dd\varphi\wedge\dd\theta
+        = \det \begin{pmatrix}
+	    \sin\theta\cos\theta & \rho\cos\varphi\cos\theta &
+	    -\rho\sin\varphi\sin\theta\\
+	    \sin\varphi\sin\theta & \rho\cos\varphi\sin\theta &
+	    \rho\sin\varphi\cos\theta\\
+	    \cos\varphi & -\rho\sin\varphi & 0
+        \end{pmatrix}\dd x\wedge\dd y\wedge\dd z
+	= \rho^2\sin\varphi\dd\rho\wedge\dd\varphi\wedge\dd\theta.
+    \end{equation*}
+
+    (c) In spherical coordinates, $\iota_{S^2}(\varphi,\theta)
+    = (1,\varphi,\theta)$, so the pullback of $\omega$ by the inclusion is
+    \begin{equation*}
+	\iota^*_{S^2}\omega = \sin\varphi\dd(\varphi\circ\iota_{S^2})\wedge
+	\dd(\theta\circ\iota_{S^2}) = \sin\varphi\dd\varphi\wedge\dd\theta.
+    \end{equation*}
+
+    (d) The coordinate system $(\varphi,\theta)$
+    is defined away from the poles, and in this region
+    $0 < \varphi < \pi$, so
+    $\omega = \sin\varphi\dd\varphi\wedge\dd\theta$ is nonzero
+    away from the poles.
+    A similar argument applied after swapping the $x$ and $z$ axes
+    shows that $\omega$ is nonzero away from the
+    intersections of $S^2$ with the $x$-axis, so $\iota^*_{S^2}\omega$
+    is nowhere zero.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
