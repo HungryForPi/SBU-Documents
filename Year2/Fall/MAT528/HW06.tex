@@ -1,0 +1,364 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 528 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 528 HW06}
+\author{\large Aditya Pahuja}
+\date{\large Due 10/09}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [Munkres 26.3]
+    Show that a finite union of compact subspaces of $X$ is compact.
+\end{problem}
+
+\begin{soln}
+    Let $C_1$, \dots, $C_n$ be compact subspaces of $X$.
+    If $\mathcal U = \{U_\alpha\}_{\alpha\in I}$ is an open cover
+    of $C_1\cup\cdots\cup C_n$, then it is an open cover
+    of each $C_k$ for $k = 1,\dots,n$. Since $C_k$ is compact,
+    it has a finite subcover $\mathcal U_k\subseteq \mathcal U$,
+    so $C_1\cup\cdots\cup C_n$ is has the finite open cover
+    $\mathcal U_1\cup\cdots\cup\mathcal U_n\subseteq\mathcal U$.
+    Thus, given any open cover of $C_1\cup\cdots\cup C_n$
+    we can extract a finite subcover,
+    which is what it means for $C_1\cup\cdots\cup C_n$ to be compact.
+\end{soln}
+
+\begin{problem}
+    [Munkres 26.4]
+    Show that every compact subspace of a metric space
+    is bounded in that metric space. Find a metric space
+    in which not every closed bounded space is compact.
+\end{problem}
+
+\begin{soln}
+    Suppose $C$ is a compact subspace of metric space $X$ with metric $d$.
+    Then, fixing $\eps > 0$, $C$ has an open cover
+    $\{B_\eps(x)\}_{x\in C}$ consisting of balls centered at each $x\in C$,
+    and this open cover has a finite subcover
+    $\mathcal U = \{B_\eps(x_j) : x_1,\dots,x_n\in C\}$
+    of open balls corresponding to some finitely many points $x_1,\dots,x_n\in C$.
+
+    If $x_0\in X$ is an arbitrary fixed point, then for any $y\in X$,
+    $B_{d(x_0,y) + \eps}(x_0)$ contains $B_\eps(y)$ because
+    if $y'\in B_\eps(y)$ then
+    \begin{equation*}
+        d(x_0,y')\le d(x_0,y) + d(y,y') < \eps.
+    \end{equation*}
+    This means that for $k=1,\dots,n$,
+    $B_\eps(x_k)\in\mathcal U$ is contained in $B_{d(x_0,x_k)+\eps}(x_0)$, so
+    if $M = \max\{d(x_0,x_k) : k=1,\dots,n\}$ then
+    \begin{equation*}
+	C\subseteq \bigcup_{k=1}^n B_\eps(x_k) = B_{M+\eps}(x_0),
+    \end{equation*}
+    so $C$ is bounded because it is contained in an open ball.
+    (more specifically, $C$ is bounded because
+    $d(x,y) < 2(M+\eps)$ for any $x,y\in B_{M+\eps}(x_0)$,
+    hence the same inequality holds for any $x,y\in C$,
+    so $C$ has diameter at most $2(M+\eps)$)
+    \\
+
+    On the other hand, give $\RR$ the metric
+    \begin{align*}
+	d(x,y) = 1\text{ if }x\ne y\\
+	d(x,y) = 0\text{ if }x=y.
+    \end{align*}
+    Then $\RR$ is closed (by definition) and bounded (because $d(x,y) \le 1$
+    for all $x,y\in\RR$) but $\RR$ is not compact
+    because, by example 1 of section 20 in Munkres,
+    $d$ induces the discrete topology, so the collection of singleton sets
+    $\{\{x\}\}_{x\in\RR}$ is an open cover, which cannot have a finite subcover
+    since the union of any finite subcollection of these singleton sets
+    is a finite set, and $\RR$ is not finite.
+\end{soln}
+
+\begin{problem}
+    [Munkres 26.7]
+    Show that if $Y$ is compact, then the projection
+    $\pi_1\colon X\times Y\to X$ is a closed map.
+\end{problem}
+
+\begin{soln}
+    Let $F\subseteq X\times Y$ be a closed set.
+    We show that the complement of $\pi_1(F)$ is open.
+    Let $x_0\in X\setminus\pi_1(F)$;
+    to show that $X\setminus\pi_1(F)$ we need to show that
+    there exists an open set $W$ such that $x_0\in W\subseteq X\setminus\pi_1(F)$.
+    The set $(X\times Y)\setminus F$
+    is an open set containing $\{x_0\}\times Y$,
+    so by the tube lemma $(X\times Y)\setminus F$ contains
+    a tube $W\times Y$ where $W\subseteq X$ is an open set containing $x_0$.
+    In particular, no point of $W\times Y$ is in $F$, so
+    $\pi_1(W)\subseteq X\setminus\pi_1(F)$ is an open set in $X$ (because
+    $\pi_1$ is an open map, as shown on a previous homework)
+    that contains $x_0$; this proves that $X\setminus\pi_1(F)$ is open.
+\end{soln}
+
+\begin{problem}
+    [Munkres 26.8]
+    Let $Y$ be a compact Hausdorff space
+    and let $f\colon X\to Y$. Then $f$ is continuous
+    if and only if the \vocab{graph} $G_f$ of $f$,
+    \begin{equation*}
+	G_f \coloneq \{(x,f(x)) : x\in X\},
+    \end{equation*}
+    is closed in $X\times Y$.
+\end{problem}
+
+\begin{soln}
+    Suppose $f$ is continuous and let $(x_0,y_0)$ be
+    a point in $(X\times Y)\setminus G_f$.
+    Then $f(x_0)\ne y_0$, so there exist disjoint open sets
+    $U,V\subseteq Y$ such that $f(x_0)\in U$ and $y_0\in V$
+    because $Y$ is Hausdorff. Then, the open set
+    $f\inv(U)\times V$ is disjoint from $G_f$
+    because $V$ does not contain any points in $f(f\inv(U)) = U$,
+    which is enough to prove that the complement of $G_f$ is open in $X\times Y$,
+    hence $G_f$ is closed.
+
+    Conversely suppose that $G_f$ is closed in $X\times Y$.
+    Let $V$ be an open set in $Y$ and let $F = (X\times V)\cap G_f$,
+    which is closed. Then $F$ is the set
+    \begin{equation*}
+	\{(x,y)\in G_f : y\in V\} =
+	\{(x,f(x))\in X\times Y : x\in X\text{ such that }f(x)\in V\},
+    \end{equation*}
+    so $\pi_1(F) = f\inv(V)$ because it is the set of all $x\in X$
+    for which $f(x)\in V$; since $Y$ is compact, the preceding problem
+    implies that $\pi_1$ is a closed map, so $\pi_1(F) = f\inv(V)$ is closed
+    for every closed set $F$, implying $F$ continuous.
+\end{soln}
+
+\begin{problem}
+    [Munkres 27.2ab]
+    Let $X$ be a metric space with metric $d$ and let $A\subseteq X$ be nonempty.
+    \begin{enumerate}[(a)]
+        \ii Show that $d(x,A) = 0$ if and only if $x\in\ol A$.
+	\ii Show that if $A$ is compact, $d(x,A) = d(x,a)$ for some $a\in A$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $x\in\ol A$ then for each $\eps>0$
+    the ball $B_\eps(x)$ contains some point $y\in A$, so
+    $d(x,A) \le d(x,y) < \eps$; this implies $d(x,A) = 0$.
+
+    Conversely, if $X\notin\ol A$ then there exists $\eps>0$
+    such that $B_\eps(x)$ does not intersect $A$, meaning
+    for any $y\in A$, $d(x,y)\ge \eps$; taking the infimum over all $y\in A$
+    gives $d(x,A) \ge \eps > 0$.\\
+
+    (b) The function $d(x,-)\colon X\to\RR$ is continuous at each $y\in X$ because
+    for each $\eps>0$,
+    \begin{equation*}
+	d(y,y') < \eps \implies \abs{d(x,y) - d(x,y')} \le d(y,y') < \eps
+    \end{equation*}
+    where $\abs{d(x,y) - d(x,y')} \le d(y,y')$ because
+    $d(x,y) \le d(x,y') + d(y,y')$ and $d(x,y') \le d(x,y) + d(y',y)$.
+    Therefore by Munkres's Theorem 27.4, since $A$ is compact,
+    $d(x,-)$ there exists a point $a\in A$ for which
+    \begin{equation*}
+	d(x,a) = \inf_{y\in A}d(x,y) = d(x,A).\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    [Munkres 27.6]
+    Let $A_0$ be the closed interval $[0,1]$ in $\RR$.
+    Let $A_1$ be the set obtained from $A_0$ by deleting its ``middle third''
+    $(\frac13,\frac23)$. Let $A_2$ be the set obtained from $A_1$
+    by deleting its ``middle thirds'' $(\frac19,\frac29)$ and $(\frac79,\frac89)$.
+    In general, define $A_n$ by the equation
+    \begin{equation*}
+	A_n = A_{n-1}\setminus\bigcup_{k=0}^\infty
+	\left(\frac{1+3k}{3^n},\frac{2+3k}{3^n}\right).
+    \end{equation*}
+    The intersection $C = \bigcap_{n=1}^\infty A_n$ is called the
+    \vocab{Cantor set}; it is a subspace of $[0,1]$.
+    \begin{enumerate}[(a)]
+        \ii Show that $C$ is totally disconnected.
+	\ii Show that $C$ is compact.
+	\ii Show that each set $A_n$ is a union of
+	finitely many disjoint closed intervals of length $3^{-n}$,
+	and show that the endpoints of these intervals lie in $C$.
+	\ii Show that $C$ has no isolated points.
+	\ii Conclude that $C$ is uncountable.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Suppose $A\subseteq C$ contains two distinct points $x,y$.
+    Then, pick $n$ so that $3^{-n} < \abs{x-y}$, so that by (c),
+    $x$ and $y$ must lie in distinct intervals of $A_n$.
+    If $I$ is the interval containing $x$ then $I$ and $A_n\setminus I$
+    are both closed in $A_n$ because they are unions of finitely many closed intervals,
+    nonempty, and disjoint, so $I\cap A$ and $A\cap(A_n\setminus I) = A\setminus I$
+    are closed in $I$, nonempty (since $I$ contains $x$ but not $y$
+    so $A\setminus I$ contains $y$), and disjoint, which means
+    we have found a separation of $A$.
+    Thus $C$ is totally disconnected
+    because we have shown that any set $A\subseteq C$
+    with more than two elements is disconnected.
+    \\
+
+    (b) Each $A_n$ is closed because it is the intersection of closed sets
+    \begin{equation*}
+	A_n = A_{n-1}\setminus\bigcup_{k=0}^\infty
+	\left(\frac{1+3k}{3^n},\frac{2+3k}{3^n}\right)
+	= A_{n-1}\cap\underbrace{\left(\RR\setminus\bigcup_{k=0}^\infty
+	\left(\frac{1+3k}{3^n},\frac{2+3k}{3^n}\right)\right)}_
+	{\text{complement of open, so closed}}.
+    \end{equation*}
+    Thus the intersection $C = \cap_{n=1}^\infty A_n$ of closed sets
+    is closed, and $C$ is bounded because it is contained in the bounded set $[0,1]$,
+    which means it is compact by Munkres's Theorem 27.3.
+    \\
+
+    (c) This follows from induction: clearly it is true for $A_0$,
+    and if $A_n$ consists of finitely many closed intervals of length $3^{-n}$,
+    then removing the middle third $((2a+b)/3, (a+2b)/3)$ of
+    some closed interval $[a,b]$ leaves behind the closed intervals
+    $[a,(2a+b)/3]$, $[(a+2b)/3, b]$ with a third of the length.
+    Furthermore, since removing the middle third
+    necessarily means that only interior points of each interval are removed
+    and the endpoints of each interval stay as endpoints of some new intervals
+    (as in the one-interval example $[a,b]$ above), one can never lose the endpoints
+    via the middle-thirds-deletion process, so the endpoints are in $C$.
+    \\
+
+    (d) For each $x\in C$ and $n\in\NN$, since $x\in A_n$
+    it is contained in some interval of length $3^{-n}$ that is contained in $A_n$.
+    The endpoints of this interval are in $C$ by part (c)
+    and are at most $3^{-n}$ away from $x$; let $x_n$ be one of these endpoints
+    (if $x$ is an endpoint of the interval then pick $x_n$ to be the other endpoint).
+    We have thus found a point $x_n\in C$ not equal to $x$
+    such that $\abs{x-x_n} < 3^{-n}$. This means that $\lim_{n\to\infty}x_n = x$,
+    so any open set around $x$ contains some (in fact cofinitely many)
+    $x_n$ (none of which are equal to $x$), so $x$ is not an isolated point.
+    \\
+
+    (e) Since $C$ is a nonempty compact Hausdorff space with no isolated points,
+    Munkres's Theorem 27.7 implies that $C$ is uncountable.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

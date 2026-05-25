@@ -1,0 +1,245 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 344 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+\providecommand{\im}{\operatorname{im}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 344 HW05}
+\author{\large Aditya Pahuja}
+\date{\large Due 03/03}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    How many roots does the equation
+    $z^7 - 2z^5 + 6z^3 - z + 1 = 0$ have
+    in the disk $|z| < 1$?
+\end{problem}
+
+\begin{soln}
+    For $\abs z = 1$,
+    \begin{equation*}
+	\abs{z^7 - 2z^5 - z + 1} \le 5 < 6 = \abs{6z^3},
+    \end{equation*}
+    so Rouch\'e's theorem implies that
+    $z^7 - 2z^5 + 6z^3 - z + 1 = 0$ has the same number of solutions
+    in the unit disk as $6z^3 = 0$, namely $\boxed 3$.
+\end{soln}
+
+\begin{problem}
+    How many roots of the equation $z^4 - 6z + 3 = 0$
+    have their modulus between $1$ and $2$?
+\end{problem}
+
+\begin{soln}
+    Observe that
+    \begin{equation*}
+	\abs{-6z + 3} \le 6\cdot 2 + 3 = 15 < 16 = \abs{z^4}
+    \end{equation*}
+    when $\abs z = 2$, so the given equation has all four roots
+    in the disk centered at $0$ with radius $2$.
+    On the other hand,
+    \begin{equation*}
+	\abs{z^4 + 3} \le 4 < 6 = \abs{6z}
+    \end{equation*}
+    when $\abs z = 1$, so the given equation has one root inside
+    (or on the boundary of) the disk centered at $0$ with radius $1$.
+    Therefore $4-1=\boxed{3}$ of the solutions to the given equation
+    have modulus between $1$ and $2$.
+\end{soln}
+
+\begin{problem}
+    How many roots of the equation
+    $z^4 + 8z^3 + 3z^2 + 8z + 3 = 0$
+    lie in the right half-plane?
+\end{problem}
+
+\begin{soln}
+    Let $R > 0$ be a real number.
+    The image under the given polynomial $f$
+    of the line segment joining $iR$ and $-iR$
+    is contained in the right half-plane because for any $r\in\RR$,
+    $f(ir) = (r^4 - 3r^2 + 3) + i(-8r^3 + 8r)$
+    and $r^4 - 3r^2 + 3 = (r^2 - \frac32)^2 + \frac34 > 0$
+    when $r$ is real, so this image is path homotopic to
+    the segment joining $f(iR)$ and $f(-iR)$.
+    This means that the winding number of the image under $f$ of
+    the loop formed by the segment joining $-iR$ and $iR$
+    and the counterclockwise semicircular arc from $-iR$ to $iR$
+    is the same as the winding number of the loop formed by
+    the image under $f$ of the semicircular arc and the segment
+    joining $f(iR)$ to $f(-iR)$.
+
+    Parametrize the semicircular arc as a function on $[-\pi/2,\pi/2]$
+    in the obvious way and parametrize the segment from $f(iR)$ to $f(-iR)$
+    as a function on $[0,\pi]$; the concatenation of these two paths
+    is a loop which spends half its time traversing the semicircle
+    and half its time traversing the segment.
+    Reparametrize the loop by scaling and shifting its domain to be $[0,1]$,
+    and call the loop $\gamma\colon[0,1]\to\CC-\{0\}$
+    (to be precise, $\gamma$ traverses the semicircle on $[0,1/2]$
+    and the segment on $[1/2,1]$); recall that our goal is
+    to compute the winding number of $\gamma$ around $0$.
+    Let $\omega\colon[0,1]\to\CC-\{0\}$ be the loop
+    $\omega(t) = R^4e^{8\pi it}$ for $0\le t\le 1/2$
+    and $\omega(t) = R^4$ for $1/2\le t\le 1$, so that
+    $\omega$ winds around $0$ twice before staying for a while at $R^4$.
+    Then,
+    \begin{equation*}
+	\abs{\gamma(t) - \omega(t)} < \abs{\omega(t)} = R^4
+    \end{equation*}
+    for large enough $R$, noting that
+    $f(\pm iR) - R^4 = (-3R^2 + 3) \pm i(-8R^3 + 8R)$
+    is only cubic in $R$ so that the inequality holds for $t\in[1/2,1]$.
+    It follows from a similar argument to Rouch\'e's theorem that
+    $\gamma$ and $\omega$ have the same winding number of \boxed{2}.
+
+    To be thorough, the inequality tells us that
+    for each $t$, the segment joining $\gamma(t)$ to $\omega(t)$
+    does not contain $0$, so there is a homotopy
+    $H_s(t)\colon[0,1]\times[0,1]\to\CC-\{0\}$
+    such that for a given $t$, $H_s(t)$ is the segment from $\gamma(t)$
+    to $\omega(t)$. This map has the property that for each $s$,
+    $H_s(0) = H_s(1)$, so $H$ descends to a homotopy
+    $S^1\times[0,1]\to\CC-\{0\}$ via the quotient map
+    $[0,1]\to S^1$. Such a homotopy preserves winding numbers
+    because the change of basepoint isomorphism
+    from $\pi_1(\CC-\{0\},\gamma(0))$ to $\pi_1(\CC-\{0\},\omega(0))$
+    along the path $H_s(0)\colon[0,1]\to\CC-\{0\}$
+    then sends the homotopy class of $\gamma$
+    to the homotopy class of $\omega$.
+\end{soln}
+
+% \begin{proof}
+%     [Solution 2]
+%     In fact we can explicitly solve the given polynomial:
+%     $(z^2 + 1)^2 - 2z^2 + 8z(z^2 + 1) + 3z^2
+% \end{proof}
+
+
+
+
+
+
+
+
+
+
+\end{document}

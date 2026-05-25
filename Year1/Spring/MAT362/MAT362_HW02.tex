@@ -1,0 +1,699 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 362 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 362 HW02}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 362 HW02}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/13}
+\begin{document}
+\maketitle
+
+\begin{problem*}1.5.1.
+	Given the parametrized curve
+	\[\alpha(s) = \left(a\cos\frac sc, a\sin\frac sc, b\frac sc\right),\quad
+	s\in\RR,\]
+	where $c^2 = a^2 + b^2$,
+	\begin{enumerate}[(a)]
+		\ii Show that the parameter $s$ is the arc length.
+		\ii Determine the curvature and torsion of $\alpha$.
+		\ii Determine the osculating plane of $\alpha$.
+		\ii Show that the lines containing $n(s)$ and
+		passing through $\alpha(s)$ meet the $z$-axis under a constant angle
+		equal to $\pi/2$.
+		\ii Show that the tangent lines to $\alpha$ make
+		a constant angle with the $z$-axis.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) It suffices to show that $|\alpha'(s)| = 1$. To see this, we compute
+	\[|\alpha'(s)| = \sqrt{\left(-\frac ac\sin\frac sc\right)^2 +
+	\left(\frac ac\cos\frac sc\right)^2 + \left(\frac bc\right)^2}
+	= \sqrt{\frac{a^2 + b^2}{c^2}} = 1.\]
+	
+	(b) The curvature of $\alpha$ is equal to $|\alpha''(s)|$,
+	which in this case is
+	\[\abs{\left(-\frac{a}{c^2}\cos\frac sc, -\frac{a}{c^2}\sin\frac sc,
+		0\right)} = \boxed{\frac{a}{c^2}}.\]
+	The normal vector $n(s)$ is then $(-\cos\frac sc,-\sin\frac sc,0)$
+	and we know that $t(s) = (-\frac ac\sin\frac sc, \frac ac\cos\frac sc,
+	\frac bc)$, so their vector product is
+	\[b(s)= t(s)\wedge n(s) = \left(\frac bc\sin\frac sc, -\frac bc\cos\frac sc,
+	\frac ac\right),\]
+	so the torsion of $\alpha$ is
+	\[|b'(s)| = \abs{\left(\frac b{c^2}\cos\frac sc,
+		\frac b{c^2}\cos\frac sc,0\right)}
+	= \boxed{\frac b{c^2}}.\]
+	
+	(c) The osculating plane of $\alpha$ is the plane through $\alpha(s)$
+	determined by $t(s)$ and $n(s)$, i.e. orthogonal to $b(s)$.
+	This means it is the set of points $x$ such that
+	\[(x - \alpha(s))\cdot b(s) = 0.\]
+	Expanding this yields the plane
+	\[\boxed{x_1\cdot b\sin\frac sc - x_2\cdot b\cos\frac sc + ax_3 = abs}.\]
+	
+	(d) We computed above that $n(s) = (-\cos\frac sc, -\sin\frac sc, 0)$,
+	so the line in the direction of $n(s)$ passing through $\alpha(s)$ is
+	\[\ell(x) = \alpha(s) + x\cdot n(s)\]
+	for $x\in\RR$. This line meets the $z$-axis at $x = a$, which is the point
+	\[\ell(a) = \left(0, 0, \frac{bs}c\right).\]
+	It is clear that the line makes a right angle with the $z$-axis
+	because $n(s)\cdot (0,0,1) = 0$ means that $n(s)$
+	and the unit vector in the direction of the $z$-axis are orthogonal.
+	
+	(e) The tangent lines to $\alpha$ make an angle of
+	\[\arccos(t(s)\cdot (0,0,1)) =
+	\arccos\left(
+	\left(-\frac ac\sin\frac sc, \frac ac\cos\frac sc, \frac bc\right)
+	\cdot(0,0,1)\right) = \arccos\frac bc\]
+	with the $z$-axis, which is independent of our only parameter $s$.
+\end{soln}
+
+\begin{problem*}1.5.6.
+	A \vocab{translation} by a vector $v\in\RR^3$ is the map
+	$A\colon\RR^3\to\RR^3$ that is given by $A(p) = p + v$.
+	A linear map $\rho\colon\RR^3\to\RR^3$ is an
+	\vocab{orthogonal transformation} if $\rho u\cdot\rho v = u\cdot v$
+	for all $u,v\in\RR^3$. A \vocab{rigid motion} in $\RR^3$ is
+	the result of composing a translation with an orthogonal transformation
+	with positive determinant.
+	\begin{enumerate}[(a)]
+		\ii Demonstrate that the norm of a vector
+		and the angle $\theta$ between two vectors, $0\le \theta\le\pi$,
+		are invariant under orthogonal transformations with
+		positive determinant.
+		\ii Show that the vector product of two vectors is invariant under
+		orthogonal transformations with positive determinant.
+		is the assertion still true if we drop the condition
+		on the determinant?
+		\ii Show that the arc length, the curvature, and the torsion
+		of a parametrized curve are (whenever defined)
+		invariant under rigid motions.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) Let $\rho$ be an orthogonal transformation and let $u\in\RR^3$. Then
+	\[\|u\|^2 = u\cdot u = \rho u\cdot\rho u = \|\rho u\|^2\]
+	implies norm is preserved under orthogonal transformations.
+	Moreover, if $\theta$ is the angle between two vectors $u,v\in\RR^3$,
+	\[\cos\theta = \frac{u\cdot v}{\|u\|\|v\|}
+	= \frac{\rho u\cdot \rho v}{\|\rho u\|\|\rho v\|} = \cos\theta'\]
+	where $\theta'$ is the angle between $\rho u$ and $\rho v$
+	(with $0\le\theta, \theta' \le \pi$), which implies that
+	$\theta = \theta'$ because $\cos$ is injective on $[0,\pi]$,
+	i.e. angle is preserved by $\rho$.
+	
+	(b) Let $u,v\in\RR^3$ be two vectors. The above problem shows
+	that $\rho u$, $\rho v$, and $\rho (u\wedge v)$
+	have the same norms as $u$, $v$, $u\wedge v$, and moreover,
+	$\rho(u\wedge v)$ is orthogonal to $\rho u$ and $\rho v$.
+	This narrows down $\rho(u\wedge v)$ to two possible vectors:
+	either $\rho u\wedge \rho v$ or $-\rho u\wedge\rho v$.
+	This is where we can use the fact that $\rho$ has positive determinant:
+	since $\rho$ preserves orientation,
+	$\rho u$, $\rho v$, and $\rho (u\wedge v)$ have the same orientation
+	as $u$, $v$, and $u\wedge v$,
+	which confirms that $\rho(u\wedge v) = \rho u\wedge\rho v$.
+	
+	Indeed, if $\rho$ is allowed to have negative orientation, then
+	consider the transformation given by the matrix
+	\[\rho = \begin{pmatrix}
+		1&0&0\\0&1&0\\0&0&-1
+	\end{pmatrix}\]
+	in the standard basis, i.e. reflection through the $xy$-plane.
+	This is an orthogonal transformation because for any two $u,v\in\RR^3$,
+	\[\rho u\cdot\rho v = (u_1,u_2,-u_3)\cdot(v_1,v_2,-v_3) =
+	u_1v_1 + u_2v_2 + u_3v_3 =
+	u\cdot v.\]
+	However, if $e_1$, $e_2$, $e_3$ are the standard basis vectors, then
+	\[e_3 = e_1\wedge e_2 = \rho e_1 \wedge \rho e_2 = -\rho e_3\]
+	because $\rho e_1 = e_1$ and $\rho e_2 = e_2$,
+	so $\rho$ doesn't preserve vector products.
+	
+	(c) Let $\alpha(s)$ be an arc length parametrized curve.
+	Let $\rho$ be an orthogonal transformation with matrix
+	\[\rho = \begin{pmatrix}
+		\horzbar&v_1&\horzbar\\
+		\horzbar&v_2&\horzbar\\
+		\horzbar&v_3&\horzbar
+	\end{pmatrix}\]
+	where $v_1$, $v_2$, $v_3$ are row vectors.
+	To start with we show that tangent vectors are invariant under $\rho$:
+	\[(\rho\alpha)'(s) = \begin{pmatrix}
+		v_1\cdot\alpha(s)\\v_2\cdot\alpha(s)\\v_3\cdot\alpha(s)
+	\end{pmatrix}' =\begin{pmatrix}
+		v_1\cdot\alpha'(s)\\v_2\cdot\alpha'(s)\\v_3\cdot\alpha'(s)
+	\end{pmatrix} = \rho\cdot\alpha'(s).\]
+	In particular, the arc length of the curve $\rho\alpha(s)$
+	from $s=a$ to $s=b$ is
+	\[\int_a^b |\rho\alpha'(s)|\dif s = \int_a^b |\alpha'(s)|\dif s,\]
+	recalling that $\rho$ preserves norm, so arc length is preserved by $\rho$.
+	Then, the curvature is
+	\[|(\rho\alpha)''(s)| = |\rho\cdot\alpha''(s)| =
+	|\alpha''(s)| = \kappa(s),\]
+	so it is also preserved by $\rho$. For the torsion, we can check first that
+	the binormal of $\alpha$ at point $s$ is mapped to the binormal
+	of $\rho\alpha$ at $s$: clearly $t(s) = \alpha'(s)$
+	and $n(s) = \alpha''(s)/\kappa(s)$ are preserved by $\rho$,
+	and part (b) says that their vector product is also preserved by $\rho$.
+	Then we have that the torsion of $\rho\alpha$ is the norm of
+	$(\rho b)'(s)$, which is again just $|b'(s)| = \tau(s)$,
+	so finally torsion is preserved by $\rho$.
+\end{soln}
+
+\begin{problem*}1.5.8(a).
+	The trace of the parametrized curve (arbitrary parameter)
+	\[\alpha(t) = (t, \cosh t),\quad t\in\RR\]
+	is called the \vocab{catenary}. Show that the signed curvature
+	of the catenary is $\kappa(t) = \frac{1}{\cosh^2t}$.
+\end{problem*}
+
+\begin{soln}
+	Recall that $\cosh t = \half(e^t + e^{-t})$ and
+	$\sinh t = \half(e^t - e^{-t})$. We can compute
+	\[\alpha'(t) = (1, \sinh t),\quad |\alpha'(t)| = \sqrt{1 + \sinh^2 t}
+	= \cosh t\]
+	(note that we do not need to say $|\cosh t|$ because $e^t$ and $e^{-t}$
+	are always positive).Therefore the normalized tangent vector is
+	\[T(t) = \left(\frac{1}{\cosh t}, \tanh t\right).\]
+	We then compute
+	\[\frac{d}{ds} T(t) = \frac{dt}{ds}\cdot T'(t).\]
+	We know that
+	\[\frac{dt}{ds} = \frac{1}{ds/dt} = \frac{1}{|\alpha'(t)|},\]
+	so the derivative of $T$ with respect to $s$ is
+	\[\frac{T'(t)}{|\alpha'(t)|} = \frac{1}{\cosh t}\cdot
+	\left(-\frac{\sinh t}{\cosh^2t}, 1-\frac{\sin^2t}{\cosh^2t}\right) =
+	\frac{1}{\cosh^2 t}\left(-\tanh t, \frac{1}{\cosh t}\right),\]
+	noting that $\cosh^2 t - \sinh^2 t = 1$.
+	On the other hand, the unit normal vector $n$ such that
+	$\{T, n\}$ has the same orientation as $\{e_1, e_2\}$ is the
+	$\frac\pi2$-counterclockwise rotation of $T$, which is
+	\[\left(-\tanh t, \frac{1}{\cosh t}\right).\]
+	By definition, the signed curvature is the scalar $\kappa$ such that
+	$T'(s) = \kappa n$, so we find that $\kappa = \frac{1}{\cosh^2t}$
+	as desired.
+\end{soln}
+
+\begin{problem*} 1.5.10.
+	Consider the map
+	\[\alpha(t) = \begin{cases}
+		(t, 0, e^{-1/t^2}), & t>0\\
+		(t, e^{-1/t^2}, 0), & t<0\\
+		(0, 0, 0) & t=0
+	\end{cases}\]
+	\begin{enumerate}[(a)]
+		\ii Prove that $\alpha$ is a differentiable curve.
+		\ii Prove that $\alpha$ is regular for all $t$ and that
+		the curvature $\kappa(t)\ne 0$ for $t\ne 0$, $t\ne\pm\sqrt{2/3}$,
+		and $\kappa(0) = 0$.
+		\ii Show that the limit of the osculating planes as $t\to 0$,
+		$t > 0$ is the plane $y=0$ but that the limit of
+		the osculating planes as $t\to 0$, $t<0$,
+		is the plane $z=0$.
+		\ii Show that $\tau$ can be defined so that $\tau\equiv 0$,
+		even though $\alpha$ is not a plane curve.
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) Differentiability away from zero is trivial, so we just check
+	that $\alpha'(0)$ exists. Specifically, we need to check that the functions
+	\[y(t) = \begin{cases}
+		e^{-1/t^2} & t < 0\\
+		0 & t\ge 0
+	\end{cases}\qquad z(t) = \begin{cases}
+		e^{-1/t^2} & t > 0\\
+		0 & t\le 0
+	\end{cases}\]
+	are differentiable at zero. Notice that $y(t) = z(-t)$,
+	so we will verify differentiability for $y$ only,
+	since differentiability at $0$
+	for one function implies the same for the other.
+	This amounts to computing
+	\[\lim_{h\to 0} \frac{y(h) - y(0)}{h}.\]
+	From the left, this limit is clearly $0$, so we need to show that
+	\[\lim_{h\to 0^+} \frac{e^{-1/h^2}}{h} = 0.\]
+	We have
+	\[0\le\lim_{h\to 0^+} \frac{e^{-1/h^2}}{h}=
+	\lim_{x\to\infty} \frac{x}{e^{x^2}} \le
+	\lim_{x\to\infty} \frac{x}{x^2} = 0\]
+	where the latter inequality comes from $e^r > r^2$ for large enough $r$,
+	so this confirms that $y'(0) = z'(0) = 0$.
+	
+	(b) $\alpha$ is regular for all $t$ because the $x$-component
+	of $\alpha'$ is always $1$, so $|\alpha'| \ge 1$ for all $t$.
+	To compute the curvature we use the following fact,
+	noting that $\alpha$ is essentially a plane curve
+	when restricting to $t > 0$ or $t < 0$.
+	\begin{claim*}[Problem 1.5.12(d)]
+		If $\alpha\colon I\to\RR^2$ is a plane curve
+		$\alpha(t) = (x(t), y(t))$, the signed curvature of $\alpha$ at $t$ is
+		\[\kappa(t) = \frac{x'y'' - x''y'}{((x')^2 + (y')^2)^{3/2}}.\]
+	\end{claim*}
+	\begin{proof}
+		To start with we can calculate the unit tangent
+		\[T(t) = \left(\frac{x'}{\sqrt{(x')^2 + (y')^2}},
+		\frac{y'}{\sqrt{(x')^2 + (y')^2}}\right).\]
+		Then, the derivative of the unit tangent with respect to $t$ is
+		\[\left(\frac{-y'(x'y'' - x''y')}{((x')^2 + (y')^2)^{3/2}},
+		\frac{x'(x'y'' - x''y')}{((x')^2 + (y')^2)^{3/2}}\right),\]
+		which can be verified by some menial computation.
+		To get the derivative with respect to $s$, we just multiply this by
+		$dt/ds = \frac1{|\alpha'(t)|}$. This means that,
+		if $n$ is the normal vector obtained by a $\frac\pi2$-counterclockwise
+		rotation of $T$, then the signed curvature is the scalar $\kappa$
+		such that $T = \kappa n$: in this case
+		\[n = \left(\frac{-y'}{|\alpha'|}, \frac{x'}{|\alpha'|}\right),\]
+		and we know that
+		\[\frac{dT}{ds} = \frac{1}{|\alpha'|}\cdot
+		\frac{x'y'' - x''y'}{((x')^2 + (y')^2)^{3/2}}\cdot(-y',x') =
+		\frac{x'y'' - x''y'}{((x')^2 + (y')^2)^{3/2}}\cdot
+		\frac{(-y', x')}{|\alpha'|},\]
+		so we can see that the curvature is indeed
+		the expression in the claim.
+	\end{proof}
+	
+	We focus on $t\ge 0$, since $t < 0$ and $t > 0$
+	are symmetrical and so the computations for a given value of $t$
+	end up being the same as for $-t$.
+	For $t > 0$, the curvature is equal to
+	\[\frac{|x'z'' - x''z'|}{|\alpha'|^3}
+	= \frac{|z''|}{|\alpha'|^3},\]
+	so we need to find $t > 0$ for which $z'' = 0$ in order to check
+	when the curvature is $0$. We have
+	\[z''(t) = \frac{-6}{t^4}e^{-1/t^2} + \frac{4}{t^6} e^{-1/t^2},\]
+	which is zero if and only if
+	\[6t^2 = 4,\]
+	so for $t > 0$ the only point of zero curvature is $t = \sqrt{2/3}$.
+	Symmetrically, for $t<0$, the only point of zero curvature
+	is $t = -\sqrt{2/3}$.
+	
+	Finally, for $t = 0$, we can tediously compute that
+	the normal vector is the zero vector, which is enough to imply
+	that the curvature is $0$.
+	
+	(c) For $t > 0$, the $y$-coordinate is always $0$,
+	so the curve as well as its tangent and normal vectors
+	live in the $y=0$ plane,
+	hence the osculating plane is the $y=0$ plane as well;
+	similarly, the curve and its tangent and normal vectors
+	all lie in the $z=0$ plane for $t<0$, so
+	the osculating plane there is $z=0$.
+	The corresponding limits follow immediately.
+	
+	(d) The torsions for $t > 0$ and for $t < 0$ are both zero
+	because $\alpha$ lies in a single plane for each of $t > 0$ and $t < 0$.
+	Moreover we can continuously extend $\tau$ to be $0$ at $t=0$,
+	so we can reasonably have $\tau\equiv 0$ despite $\alpha$
+	not being a planar curve.
+\end{soln}
+
+\begin{problem*}1.5.11.
+	One often gives a plane curve in polar coordinates by $\rho = \rho(\theta)$,
+	$a\le\theta\le b$.
+	\begin{enumerate}[(a)]
+		\ii Show that the arc length is
+		\[\int_a^b \sqrt{\rho^2 + (\rho')^2}\dif\theta,\]
+		where the prime denotes the derivative relative to $\theta$.
+		\ii Show that the curvature is
+		\[\kappa(\theta) = \frac{2(\rho')^2 - \rho\rho'' + \rho^2}
+		{((\rho')^2+\rho^2)^{3/2}}.\]
+	\end{enumerate}
+\end{problem*}
+
+\begin{soln}
+	(a) The curve can be expressed as
+	$\alpha(\theta) = (\rho(\theta)\cos\theta, \rho(\theta)\sin\theta)$.
+	Then, its arc length is
+	\[\int_a^b |\alpha'(\theta)|\dif\theta.\]
+	We see that
+	\[\alpha'(\theta) = (-\rho\sin\theta + \rho'\cos\theta,
+	\rho\cos\theta + \rho'\sin\theta),\]
+	so that we can calculate $|\alpha'(\theta)| = \sqrt{\rho^2 + (\rho')^2}$,
+	justifying the given arc length formula.
+	
+	(b) We use the following formula
+	(proof copied over from the previous problem):
+	\begin{claim*}[Problem 1.5.12(d)]
+		If $\alpha\colon I\to\RR^2$ is a plane curve
+		$\alpha(t) = (x(t), y(t))$, the signed curvature of $\alpha$ at $t$ is
+		\[\kappa(t) = \frac{x'y'' - x''y'}{((x')^2 + (y')^2)^{3/2}}.\]
+	\end{claim*}
+	\begin{proof}
+		To start with we can calculate the unit tangent
+		\[T(t) = \left(\frac{x'}{\sqrt{(x')^2 + (y')^2}},
+		\frac{y'}{\sqrt{(x')^2 + (y')^2}}\right).\]
+		Then, the derivative of the unit tangent with respect to $t$ is
+		\[\left(\frac{-y'(x'y'' - x''y')}{((x')^2 + (y')^2)^{3/2}},
+		\frac{x'(x'y'' - x''y')}{((x')^2 + (y')^2)^{3/2}}\right),\]
+		which can be verified by some menial computation.
+		To get the derivative with respect to $s$, we just multiply this by
+		$dt/ds = \frac1{|\alpha'(t)|}$. This means that,
+		if $n$ is the normal vector obtained by a $\frac\pi2$-counterclockwise
+		rotation of $T$, then the signed curvature is the scalar $\kappa$
+		such that $T = \kappa n$: in this case
+		\[n = \left(\frac{-y'}{|\alpha'|}, \frac{x'}{|\alpha'|}\right),\]
+		and we know that
+		\[\frac{dT}{ds} = \frac{1}{|\alpha'|}\cdot
+		\frac{x'y'' - x''y'}{((x')^2 + (y')^2)^{3/2}}\cdot(-y',x') =
+		\frac{x'y'' - x''y'}{((x')^2 + (y')^2)^{3/2}}\cdot
+		\frac{(-y', x')}{|\alpha'|},\]
+		so we can see that the curvature is indeed
+		the expression in the claim.
+	\end{proof}
+
+	We have already compute $x'$ and $y'$ above; we can also calculate
+	\begin{align*}
+		x'' &= -\rho\cos\theta - \rho'\sin\theta - \rho'\sin\theta
+		+ \rho''\cos\theta = -\rho\cos\theta - 2\rho'\sin\theta
+		+ \rho''\cos\theta\\
+		y'' &= -\rho\sin\theta + \rho'\cos\theta + \rho'\cos\theta
+		+ \rho''\sin\theta = -\rho\sin\theta + 2\rho'\cos\theta
+		+ \rho''\sin\theta.
+	\end{align*}
+	Then
+	\begin{align*}
+		x'y'' &= (-\rho\sin\theta + \rho'\cos\theta)
+		(-\rho\sin\theta + 2\rho'\cos\theta + \rho''\sin\theta)\\
+		&= \rho^2\sin^2\theta - 3\rho\rho'\cos\theta\sin\theta
+		- \rho\rho''\sin^2\theta + 2(\rho')^2\cos^2\theta
+		+ \rho'\rho''\cos\theta\sin\theta\\
+		y'x'' &= (\rho\cos\theta + \rho'\sin\theta)
+		(-\rho\cos\theta - 2\rho'\sin\theta + \rho''\cos\theta)\\
+		&= -\rho^2\cos^2\theta - 3\rho\rho'\cos\theta\sin\theta
+		+\rho\rho''\cos^2\theta - 2(\rho')^2\sin^2\theta
+		+ \rho'\rho''\cos\theta\sin\theta
+	\end{align*}
+	so the difference is
+	\[x'y'' - x''y' = \rho^2 - \rho\rho'' + 2(\rho')^2,\]
+	hence the signed curvature is
+	\[\frac{x'y'' - x''y'}{|\alpha'|^3} =
+	\frac{\rho^2 - \rho\rho'' + 2(\rho')^2}{(\rho^2 + (\rho')^2)^{3/2}},\]
+	but this is equal to the unsigned curvature
+	because the numerator is always nonnegative, for the expression
+	$a^2 - ab + 2b^2$ is always nonnegative $a,b$ as it's equal to
+	a linear combination of squares:
+	\[\left(a - \frac b2\right)^2 + \frac{7b^2}{4}.\qedhere\]
+\end{soln}
+
+\begin{problem*}1.7.1.
+	Is there a simple closed curve in the plane
+	with length equal to $6$ feet and bounding an area of $3$ square feet?
+\end{problem*}
+
+\begin{soln}
+	\framebox{No}; the isoperimetric inequality says that
+	\[\ell^2 \ge 4\pi A\]
+	must hold, where $\ell$ is the length of the curve and $A$ is
+	the area bounded by the curve, but we can see clearly that
+	\[6^2 = 12\cdot 3 < 4\pi\cdot 3 = 12\pi,\]
+	so this combination of area and arc length is impossible.
+\end{soln}
+
+\begin{problem*}1.7.2.
+	Let $\ol{AB}$ be a segment of a straight line and let $\ell$
+	be greater than the length of $\ol{AB}$. The curve $\gamma$
+	with endpoints $A$ and $B$ has length $\ell$ and maximizes
+	the area bounded by $\gamma$ and segment $\ol{AB}$.
+	Show that $\gamma$ is an arc of a circle passing through $A$ and $B$.
+\end{problem*}
+
+\begin{soln}
+	We will take for granted that $\gamma\colon[0,1]\to\RR^2$
+	with $\gamma(0) = A$, $\gamma(1) = B$ is a
+	parametrized non self-intersecting regular curve.
+	In an abuse of notation, we will also refer to the image of $\gamma$
+	by $\gamma$ (so for example when we say a point $P$ ``lies on $\gamma$''
+	we mean that there is a $t\in[0,1]$ such that $\gamma(t) = P$).
+	
+	Also, let $\gamma'\colon[0,2]\to\RR^2$ be the curve such that
+	$\gamma'|_{[0,1]} = \gamma$ and $\gamma'|_{[1,2]}$ is a parametrization
+	of segment $\ol{AB}$ with $\gamma'(1) = B$, $\gamma'(2) = \gamma'(0) = A$.
+	Then $\gamma'$ is a simple closed piecewise regular parametrized curve.
+	Let $R$ be the region whose area we are trying to maximize
+	(i.e. the region bounded by $\gamma'$).
+	We first show the following claim:
+	\begin{claim*}
+		If line $\ol{AB}$ intersects the interior of $R$, then
+		the area of $R$ is not maximal.
+	\end{claim*}
+	\begin{proof}
+		Suppose line $\ol{AB}$ intersects the interior of $R$.
+		and orient the plane so that $\ol{AB}$ lies in the $x$-axis
+		with $A$ to the left of $B$ (so as $t$ increases,
+		the point $\gamma'(t)$ moves ``clockwise'' along the curve).
+		Moreover, $\ol{AB}$ borders an ``inside region'' and an
+		``outside region''; if necessary, reflect the plane about the $x$-axis
+		so that the side of $\ol{AB}$ bordering the ``outside region''
+		is below the $x$-axis. That is, if an ant were to stand at
+		an arbitrary point on segment $\ol{AB}$ (but not on $A$ or $B$)
+		and then walk $\eps$ units in the negative $y$ direction
+		for any sufficiently small $\eps > 0$, it would be outside $R$.
+		
+		Let $T(t)$ be the tangent line to $\gamma$ at the point $\gamma(t)$.
+		As $t$ varies from $0$ to $1$, this line varies continuously.
+		If $T(0)$ does not intersect the interior of $R$, then
+		one can rotate this line counterclockwise until it first intersects
+		$\gamma$ at a point lying below the $x$-axis;
+		let $\lambda$ be the resulting line.
+		
+		Otherwise, if $T(0)$ does intersect the interior of $R$, then
+		consider the infimum $t_0$ of all $t$ such that $T(t)$
+		does not intersect the interior of $R$ (there exist such $t$
+		because the tangent line at the point of $\gamma$
+		with maximal $y$-coordinate is necessarily horizontal
+		and thus can't intersect the interior of $R$).
+		The line $T(t_0)$ intersects $\gamma$ at $P = \gamma(t_0)$ and
+		another point $Q$ such that $P$, $A$, $B$, and $Q$
+		lie on $\gamma'$ in counterclockwise order.
+		In this case let $\lambda = T(t_0)$.
+		
+		In either case, we can reflect $\ol{AB}$
+		and the arcs joining $A$ and $B$ to the nearest points of $\gamma$
+		lying on $\lambda$ over the line $\lambda$.
+		Since $\gamma$ can only intersect the $x$-axis finitely many times
+		except at arcs lying entirely within the $x$-axis
+		(maybe more accurately phrased as ``can only start intersecting
+		the $x$-axis finitely many times''), we can repeat this process
+		until eventually the resulting curve is entirely within
+		one of the half-planes generated by the image of line $\ol{AB}$,
+		and each reflection increases the area of the bounded region
+		while preserving the arc length; thus we have constructed
+		a $\widehat\gamma$ that bounds a larger area than that of $R$.
+	\end{proof}
+	
+	Now let $O$ be a point such that $OA = OB = r$
+	and $O$ and $C$ are on different sides of line $AB$.
+	If $2\theta = \angle AOB$, then we impose the restriction
+	\[\frac{2\theta}{2\pi} = \frac{\ell}{2\pi r}\iff
+	\ell = 2r\theta.\]
+	To see that such an $(r, \theta)$ pair exists, we can just
+	compute directly that
+	\[AB = 2r\sin\theta = \frac{\ell\sin\theta}{\theta}.\]
+	This expression achieves $0$ at $\theta = \pi/2$ and is equal to $\ell$
+	as $\theta$ approaches $0$, meaning $\frac{\ell\sin\theta}{\theta}$
+	achieves every value between $[0,\ell)$ as $\theta$ varies
+	over $[0,\pi/2]$; the fact that $AB < \ell$ then
+	guarantees the existence of a solution by the intermediate value theorem.
+	
+	This means that if $C'$ is the arc centered at $O$
+	with endpoints $A$ and $B$ lying on the opposite side of $AB$ as $C$,
+	then the closed curve $\gamma$ composed of $C$ and $C'$
+	is a piecewise regular curve with fixed arc length $2\pi r$.
+	Since the area of the region bounded by $C'$ and segment $AB$ is fixed,
+	maximizing the area of $R$ is equivalent to maximizing the area
+	of the region bounded by $\gamma$. By the isoperimetric inequality,
+	the area is maximized when $\gamma$ is the circle centered at $O$
+	with radius $r$. which exactly implies that $C$ is an arc of a circle
+	passing through $A$ and $B$ (an arc of $\gamma$ to be precise).
+\end{soln}
+
+(what is the nice way to do this problem? it caused me too much pain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

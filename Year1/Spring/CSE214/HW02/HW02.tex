@@ -1,0 +1,826 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\usepackage{listings}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={CSE 214 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[
+	style=basehead,
+	thmbox={style=M,bodystyle=\normalfont,headstyle=\normalfont \textbf{Algorithm \thealgo}},
+	name=Algorithm,
+	within=section
+] {algo}
+\renewcommand{\thealgo}{\thesection(\roman{algo})}
+
+\newenvironment{alg}[1]{\begin{algo}[#1]
+		\setlist{nolistsep}
+		\begin{enumerate}[\footnotesize{\arabic*.}\enspace, noitemsep]}{\end{enumerate}\end{algo}}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize CSE 214 HW02}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}CSE 214 HW02}
+\author{\large Aditya Pahuja}
+\date{\vspace{-2em}}
+\begin{document}
+\maketitle
+
+\section{Problem 1}
+
+If an element $x$ in $A$ has the property that $-(2x + 17)$ is also in $A$,
+then say that $x$ is \vocab{valid}.
+
+\begin{alg}{\textsc{FindX-Naive($A[1\dots n]$)}}
+	\ii valuefound $\gets$ false
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad for $j\gets 1$ to $n$ do
+	\ii \qquad\qquad if $A[j] = -(2\cdot A[i] + 17)$ then
+	\ii \qquad\qquad\qquad print($A[i]$)
+	\ii \qquad\qquad\qquad valuefound $\gets$ true
+	\ii \qquad\qquad\qquad break
+	\ii if not valuefound then
+	\ii \qquad print(``no valid value found'')
+\end{alg}
+
+This algorithm is a brute force algorithm: for each $x := A[i]$,
+it checks each element of $A$ to see if it is equal to $(-2x + 17)$.
+It then prints out the first such $A[i]$ and terminates,
+or, if no such $A[i]$ is found, prints that no valid value was found.
+
+This is thus an $\mathcal O(n^2)$ algorithm, since in the worst case,
+if our desired value doesn't exist, the algorithm iterates through
+all pairs $(i, j)$ with $1\le i,j\le n$ (and processing such a pair
+takes $\Theta (1)$ time). Also, the extra space is $\Theta(1)$
+because the only extra space used is for the valuefound variable.
+
+\begin{alg}{\textsc{FindX-Better($A[1\dots n]$)}}
+	\ii valuefound $\gets$ false
+	\ii create array $B[1\dots n]$
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad $B[n+1-i]\gets -(2\cdot A[i] + 17)$
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad $x\gets A[i]$
+	\ii \qquad if $\textsc{BinarySearch($B[1\dots n]$, $-(2x + 17)$)}
+	> 0$ then
+	\ii \qquad \qquad print($x$)
+	\ii \qquad \qquad valuefound $\gets$ true
+	\ii \qquad \qquad break
+	\ii if not valuefound then
+	\ii \qquad print(``no valid value found'')
+\end{alg}
+
+The way that $B$ is defined is that the last ($n$th) element of $B$ is
+$-(2\cdot A[1] + 17)$, the second-to-last ($(n-1)$th) element
+is $-(2\cdot A[2] + 17)$ and so on up to the first element $-(2\cdot A[n] + 17)$
+--- in particular, $B$ contains $-(2x + 17)$ for every $x$ in $A$.
+Since $A$ is sorted, the sequence
+$-(2\cdot A[1]+17)$, $-(2\cdot A[2]+17)$, \dots, $-(2\cdot A[n]+17)$
+is decreasing ($x\mapsto -(2x+17)$ is clearly decreasing in $x$),
+so $B$, whose elements are this sequence in reverse order,
+must be a sorted array.
+
+What the algorithm does then is check whether any of the elements of $A$
+are also in $B$ (via binary search on each element of $A$,
+since $B$ is sorted!).
+This is equivalent to the existence of a valid value existing as,
+if some number $y$ were in both $A$ and $B$,
+then $y$ being in $B$ by definition means that $y = -(2x + 17)$
+for some $x$ in $A$, so $x$ and $-(2x + 17)$ are both in $A$,
+hence $x$ is a valid value. Conversely, if a valid $x$ exists,
+then $-(2x + 17)$ is in $A$ by the validity of $x$ and in $B$ by definition.
+
+The time complexity of this algorithm is $\mathcal O(n\log n)$.
+Indeed, in the worst case where no valid value is found,
+we iterate through binary search $n$ times, and each application
+of binary search takes $\mathcal O(\log n)$ operations
+because, by assumption, the binary search is being applied
+to the $n$-element array $B$ in the worst case where it won't find the key.
+Additionally, \textsc{FindX-Better} takes $\Theta(n)$ extra space
+due to generating the $n$-element array $B$.
+
+\begin{alg}{\textsc{FindX-Best($A[1\dots n]$)}}
+	\ii valuefound $\gets$ false
+	\ii left $\gets 1$
+	\ii right $\gets n$
+	\ii while right $>$ 0 and left $\le n$ and not valuefound do
+	\ii \qquad if $A[\text{left}] = -(2\cdot A[\text{right}] + 17)$ then
+	\ii \qquad \qquad print($A[\text{right}]$)
+	\ii \qquad \qquad valuefound $\gets$ true
+	\ii \qquad \qquad break
+	\ii \qquad else if $A[\text{left}] > -(2\cdot A[\text{right}] + 17)$ then
+	\ii \qquad \qquad right $\gets \text{right} - 1$
+	\ii \qquad else left $\gets \text{left} + 1$
+	\ii if not valuefound then
+	\ii \qquad print(``no valid value found'')
+\end{alg}
+
+To argue that this algorithm works we show that
+the algorithm will always print out the largest
+valid value (if it exists) in $A$.
+Clearly if no valid value exists
+then eventually either right will equal $0$ or left will equal $n+1$
+and the algorithm will print ``no valid value found.''
+
+Now suppose that $x$ is a valid value whose index in $A$ is $a$
+(if $x$ appears more than once in $A$, pick $m$ to be as large as possible),
+and suppose that the index of the first occurrence of $-(2x + 17)$ in $A$
+is $b$. Eventually, right will equal $a$; the algorithm can't halt
+before this point because there are no indices larger than $a$
+corresponding to valid values. Then, left cannot be larger than $b$.
+To see this, suppose left were larger than $b$.
+left must have then previously equaled $b$, at which point
+right would be greater than $a$ (if it equaled $a$ then
+$A[a]$ would be detected as a valid value).
+Observe the inequality
+\[A[b] = -(2\cdot A[a] + 17) > -(2\cdot A[c] + 17)\]
+for all $c > a$, since $A[c]$ would be strictly greater than $A[a]$
+(recall that $a$ is the largest index giving value $A[a]$).
+Thus, when $\text{left} = b$ and $\text{right} > a$,
+the algorithm would repeatedly decrease right by $1$ until it equals $a$
+rather than increasing left.
+Now we've concluded that when right equals $a$, left is at most $b$.
+Symmetric to the above logic, if left is equal to $b$ then we're done;
+and, for every $c < b$,
+\[A[c] < A[b] = -(2\cdot A[a] + 17)\]
+(recalling $b$ is the smallest index giving value $A[b]$),
+so when left is smaller than $b$ and right equals $a$,
+the algorithm keeps incrementing left until left equals $b$
+at which point $A[a]$ is found as a valid value.
+
+The while loop takes at most $2n-1$ steps to terminate,
+since right is allowed to be decremented at most $n-1$ times and
+left is allowed to be incremented at most $n-1$ times.
+The body of the while loop runs in constant time,
+which means that this algorithm is $\mathcal O(n)$.
+Furthermore, the only extra space is taken by the variables
+valuefound, left, and right, amounting to $\Theta(1)$ extra space.
+
+\pagebreak
+
+\section{Problem 2}
+
+If $A = [1,2,3,4,5]$,
+then these are the states the array passes through.
+Here, $i$ is increasing top to bottom
+and $j$ from left to right; the cell with index $i$ is colored red
+while the cell with index $j$ is colored green (except when $i = j$,
+which gets blue).
+\begin{center}
+	\begin{asy}
+		unitsize(0.5cm);
+		int[] A = {1, 2, 3, 4, 5};
+		pair s = (0,0);
+		draw((s+(0,0))--(s+(5,0))--(s+(5,1))--(s+(0,1))--cycle);
+		for (int i = 1; i < 5; ++i) draw((s+(i,0))--(s+(i,1)));
+		for (int i = 0; i < 5; ++i) label(string(A[i]), s+(i+0.5,0.5));
+		label("initial array", s + (2.5,-0.5));
+		
+		for (int i = 0; i < 5; ++i) {
+			for (int j = 0; j < 5; ++j) {
+				pair s = (6*(j-2),-2.4*(i+1));
+				if (i == j) {
+					fill((s+(i,0))--(s+(i+1,0))--(s+(i+1,1))--(s+(i,1))--cycle,blue+opacity(0.3));
+				}
+				else {
+					fill((s+(i,0))--(s+(i+1,0))--(s+(i+1,1))--(s+(i,1))--cycle,red+opacity(0.3));
+					fill((s+(j,0))--(s+(j+1,0))--(s+(j+1,1))--(s+(j,1))--cycle,heavygreen+opacity(0.3));
+				}
+				if (A[i] < A[j]) { // swap
+					int tmp = A[i];
+					A[i] = A[j];
+					A[j] = tmp;
+				}
+				draw((s+(0,0))--(s+(5,0))--(s+(5,1))--(s+(0,1))--cycle);
+				for (int i = 1; i < 5; ++i) draw((s+(i,0))--(s+(i,1)));
+				for (int i = 0; i < 5; ++i) label(string(A[i]), s+(i+0.5,0.5));
+				label("("+string(i+1)+","+string(j+1)+")", s + (2.5,-0.5));
+			}
+		}
+	\end{asy}
+\end{center}
+
+If $A = [1,2,4,3,2]$:
+\begin{center}
+	\begin{asy}
+		unitsize(0.5cm);
+		int[] A = {1, 2, 4, 3, 2};
+		pair s = (0,0);
+		draw((s+(0,0))--(s+(5,0))--(s+(5,1))--(s+(0,1))--cycle);
+		for (int i = 1; i < 5; ++i) draw((s+(i,0))--(s+(i,1)));
+		for (int i = 0; i < 5; ++i) label(string(A[i]), s+(i+0.5,0.5));
+		label("initial array", s + (2.5,-0.5));
+				
+		for (int i = 0; i < 5; ++i) {
+			for (int j = 0; j < 5; ++j) {
+				if (A[i] < A[j]) { // swap
+					int tmp = A[i];
+					A[i] = A[j];
+					A[j] = tmp;
+				}
+				pair s = (6*(j-2),-2.4*(i+1));
+				if (i == j) {
+				fill((s+(i,0))--(s+(i+1,0))--(s+(i+1,1))--(s+(i,1))--cycle,blue+opacity(0.3));
+				}
+				else {
+				fill((s+(i,0))--(s+(i+1,0))--(s+(i+1,1))--(s+(i,1))--cycle,red+opacity(0.3));
+				fill((s+(j,0))--(s+(j+1,0))--(s+(j+1,1))--(s+(j,1))--cycle,heavygreen+opacity(0.3));
+				}
+				draw((s+(0,0))--(s+(5,0))--(s+(5,1))--(s+(0,1))--cycle);
+				for (int i = 1; i < 5; ++i) draw((s+(i,0))--(s+(i,1)));
+				for (int i = 0; i < 5; ++i) label(string(A[i]), s+(i+0.5,0.5));
+				label("("+string(i+1)+","+string(j+1)+")", s + (2.5,-0.5));
+			}
+		}
+	\end{asy}
+\end{center}
+
+This algorithm always results in a sorted array.
+To prove this, we will prove the stronger statement that
+the $k$th iteration of the outer loop (i.e. after the pairs
+$(k, 1)$, $(k, 2)$, \dots, $(k, n)$ are all processed),
+the subarray $A[1\dots k]$ is sorted and
+$A[k]$ is the maximal value in the array.
+
+We shall prove this by induction, starting with the base case of $k=1$.
+In this case, whenever $j$ reaches the first index for which $A[j]$ is maximal,
+$A[1] < A[j]$ must hold, so the values at indices $1$ and $j$ swap;
+after this point there are no further swaps because
+there are no larger values than $A[j]$ in the array.
+Of course, the $1$-element array $A[1\dots 1]$ is trivially sorted.
+
+Now suppose that $A[1\dots k]$ is sorted and $A[k] = n$,
+and we are on the $(k+1)$th iteration of the loop (i.e. $i = k+1$).
+``Weaken'' the swapping condition to say $A[i]$ and $A[j]$ are swapped
+if $A[i]< A[j]$ or $A[i]=A[j]$ and $i>j$;
+obviously swapping the identical numbers doesn't affect anything,
+so this is just a cosmetic change.
+Then, let $j\in\{1, \dots, k\}$ be the first index for which $A[k+1] \le A[j]$.
+The first swap performed is between $A[k+1]$ and $A[j]$.
+If $j\le k$, the new value $A[j]$ at index $k+1$ is now at most $A[j+1]$,
+so the next operation will be swapping the new $A[k+1]$ (which is $A[j]$)
+and $A[j+1]$; then the new new $A[k+1]$ (equals to the initial $A[j+1]$)
+swaps with $A[j+2]$; and this will keep going until reaching $k+1$.
+The sequence of swaps thus results in the following situation:
+\begin{center}
+	\begin{tabular}{c|c|c|c|c|c}
+		$j$ & $j+1$ & $j+2$ & \dots & $k$ & $k+1$\\
+		\hline
+		$A[k+1]$ & $A[j]$ & $A[j+1]$ & \dots & $A[k-1]$ & $A[k]$
+	\end{tabular}
+\end{center}
+Here the array values $A[t]$ are the values of the array
+prior to all of the swaps listed out above.
+After this point no other swaps are made because $A[k]$ is maximal
+and the index is larger than $k+1$.
+By assumption $A[1] \le A[2]\le \cdots \le A[k+1]\le A[j]\le\cdots\le A[k]$
+so the new $A[1\dots (k+1)]$ is sorted and the new $A[k+1]$
+(equal to $A[k]$ in the old array) is maximal.
+
+\section{Problem 3}
+\begin{alg}{\textsc{CountInversions-NonRecursive($A[1\dots n]$)}}
+	\ii count $\gets 0$
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad for $j\gets i+1$ to $n$ do
+	\ii \qquad\qquad if $A[i] > A[j]$ then count $\gets \text{count} + 1$
+	\ii return count 
+\end{alg}
+
+This algorithm iterates through all pairs of indices
+$(i, j)$ with $1 \le i<j\le n$ and checks whether each pair is an inversion,
+incrementing the count whenever it finds one.
+
+The algorithm has a time complexity of $\Theta(n^2)$ since it always
+processes $\binom n2 = \frac{n^2 - n}{2}$ pairs of indices,
+and it uses $\Theta(1)$ extra space for the count variable.
+
+\begin{alg}{\textsc{CountInversions-Recursive($A[1\dots n]$)}}
+	\ii if $n = 1$ then
+	\ii \qquad return $0$
+	\ii else
+	\ii \qquad terminalcontrib $\gets 0$
+	\ii \qquad for $i\gets 1$ to $n-1$ do
+	\ii \qquad\qquad if $A[i] > A[n]$ then terminalcontrib
+	$\gets\text{terminalcontrib} +1$
+	\ii \qquad return \textsc{CountInversions-Recursive($A[1\dots (n-1)]$)}
+	+ terminalcontrib
+\end{alg}
+
+This recursive algorithm computes the number of inversions
+by counting the number of inversions among the first $n-1$ elements of $A$
+and adding this to the number of inversions formed by the terminal element;
+for the base case of $n=1$, there are of course trivially zero inversions.
+
+The time complexity is
+\[T(n) = \begin{cases}
+	\Theta(1) & n=1\\
+	T(n-1) + \Theta(n) & n>1
+\end{cases}\]
+which amounts to $T(n) \in \Theta(n^2)$,
+where the $+\Theta(n)$ comes from the for loop that computes terminalcontrib.
+The space complexity is
+\[S(n)=\begin{cases}
+	\mathcal O(1) & n=1\\
+	S(n-1) + \Theta(1) & n>1
+\end{cases}\]
+with the $+\Theta(1)$ coming from keeping track of terminalcontrib,
+which means $S(n)\in\Theta(n)$.
+
+\pagebreak
+\section{Problem 4}
+\begin{alg}{\textsc{PrefixSum-NonRecursive($A[1\dots n]$)}}
+	\ii create array $P[1\dots n]$
+	\ii $P[1]\gets A[1]$
+	\ii for $i\gets 2$ to $n$ do
+	\ii \qquad $P[i]\gets P[i-1]+A[i]$
+\end{alg}
+
+This algorithm computes the prefix sums iteratively
+by initializing $P[1] = A[1]$ and using the identity
+\[P[i-1] + A[i] = (A[1] + A[2] + \cdots + A[i-1]) + A[i] = P[i].\]
+
+The time complexity is $\Theta (n)$, since the loop runs $n$ times
+and each run of the loop takes constant time.
+The space complexity is $\Theta(n)$, coming from the space taken up by
+the prefix array $P[1\dots n]$.
+
+
+\begin{alg}{\textsc{PrefixSum-Recursive($A[1\dots n]$)}}
+	\ii if $n = 1$ then
+	\ii \qquad return $A[1\dots 1]$
+	\ii else
+	\ii \qquad create array $P[1\dots n]$
+	\ii \qquad $P[1\dots(n-1)] \gets
+	\textsc{PrefixSum-Recursive($A[1\dots (n-1)]$)}$
+	\ii \qquad $P[n]\gets P[n-1] + A[n]$
+	\ii \qquad return $P[1\dots n]$
+\end{alg}
+
+This algorithm computes the prefix sums by first calling
+\textsc{PrefixSum-Recursive} to compute the prefix sums for
+the first $n-1$ elements of the array, and then computes
+the $n$th prefix sum with the aforementioned identity $P[i-1] + A[i] = P[i]$.
+
+The time complexity is
+\[T(n) =\begin{cases}
+	T(1) & n=1\\
+	T(n-1) + \Theta(1) & n > 1
+\end{cases}\]
+which implies that $T(n)\in \Theta(n)$.
+The space complexity is
+\[S(n)=\begin{cases}
+	S(1) & n=1\\
+	S(n-1) + \Theta(n) & n>1
+\end{cases}\]
+where the $\Theta(n)$ comes from creating a new array
+every time \textsc{PrefixSum-Recursive} is called,
+so the overall space complexity is $S(n)\in\Theta(n^2)$.
+
+
+\pagebreak
+\section{Problem 5}
+\begin{alg}{\textsc{IsValidString($S[1\dots 2n]$)}}
+	\ii // returns true if $S$ is valid and false otherwise
+	\ii isvalid $\gets$ true
+	\ii lcount $\gets 0$
+	\ii rcount $\gets 0$
+	\ii for $i\gets 1$ to $2n$ do
+	\ii \qquad if $S[i] = \text{`('}$ then lcount $\gets\text{lcount} + 1$
+	\ii \qquad if $S[i] = \text{`)'}$ then rcount $\gets\text{rcount} + 1$
+	\ii \qquad if lcount $<$ rcount then isvalid $\gets$ false
+	\ii return isvalid
+\end{alg}
+
+The main idea of this algorithm is that a string is valid
+if and only if, as one reads the string from left to right,
+the number of left parentheses (lcount) is always at least as large as
+the number of right parentheses (rcount). Clearly this is a necessary condition;
+to see that it is sufficient, one can use induction on $n$:
+the base case $n=1$ is trivial (the only valid string is ()),
+and in general if one deletes a matching pair of adjacent parentheses
+then one gets a string of length $2(n-1)$ satisfying the same condition,
+which by hypothesis is valid and remains valid
+upon reintroduction of the deleted pair.
+
+The time complexity here is $\Theta(n)$, as the loop runs exactly $2n$ times
+and the body of the loop runs in constant time.
+The space complexity is $\Theta(1)$ because the only extra space used
+is to store the variables isvalid, lcount, and rcount.
+
+\section{Problem 6}
+\begin{alg}{\textsc{GCD-NonRecursive($a,b$)}}
+	\ii $g\gets 1$
+	\ii for $i\gets 1$ to $\min(a, b)$ do
+	\ii \qquad if $a\%i = 0$ and $b\%i = 0$ then
+	\ii \qquad\qquad $g\gets i$
+	\ii return $g$
+\end{alg}
+
+This algorithm just manually checks all numbers
+not larger than both $a$ and $b$ for whether they are common divisors
+of $a$ and $b$.
+
+The time complexity is $\Theta(\min(a,b))$ because the for loop
+always runs $\min(a,b)$ times (and the body of the for loop
+runs in constant time). The space complexity is $\Theta(1)$,
+with the only extra space used being $g$.
+
+\begin{alg}{\textsc{GCD-Recursive($a,b$)}}
+	\ii for $i\gets 2$ to $\min(a, b)$ do
+	\ii \qquad if $a\%i = 0$ and $b\%i = 0$ then
+	\ii \qquad\qquad return $i\cdot\textsc{GCD-Recursive}(a/i,b/i)$
+	\ii return 1
+\end{alg}
+
+This algorithm is a twist on the non-recursive edition:
+it checks for a divisor larger than $1$ and, upon finding such a divisor $d$,
+computes $d\cdot \gcd(a/d, b/d)$. However, this is not much of an improvement
+to the time complexity, since the case where $\gcd(a, b) = 1$
+still requires $\min(a, b)$ operations (and it's easy to see that
+the time complexity is bounded above by $\mathcal O(\min(a,b))$),
+so the algorithm is still $\mathcal O(\min(a,b))$.
+
+In terms of space complexity the algorithm has a different worst case,
+namely when the number of recursive calls made is as large as possible.
+This necessitates that $a$ and $b$ share a lot of small prime factors,
+so the worst case is when $b = 2^n$ and $b$ divides $a$,
+in which case the extra space is on the order of $\log n$, so in general
+the space complexity of the algorithm is $\mathcal O(\log n)$.
+
+\pagebreak
+\section{Problem 7}
+\begin{alg}{\textsc{EvaluatePoly-Naive($A[0\dots n],x$)}}
+	\ii value $\gets 0$
+	\ii for $i\gets 0$ to $n$ do
+	\ii \qquad powofx $\gets1$
+	\ii \qquad for $j\gets 1$ to $i$ do
+	\ii \qquad \qquad powofx $\gets\text{powofx}\cdot x$
+	\ii \qquad value $\gets\text{value} + \text{powofx}\cdot A[i]$
+	\ii return value
+\end{alg}
+
+This algorithm just computes each term of the polynomial
+by calculating $x^i$ in $\mathcal O(i)$ fashion and then
+adds everything together.
+The time complexity is $\mathcal O(n^2)$ because of the nested for loops,
+and the space complexity is just $\Theta(1)$.
+
+\begin{alg}{\textsc{EvaluatePoly-Better($A[0\dots n],x$)}}
+	\ii value $\gets 0$
+	\ii for $i\gets 0$ to $n$ do
+	\ii \qquad powofx $\gets1$
+	\ii \qquad exp $\gets i$
+	\ii \qquad $y\gets x$
+	\ii \qquad while $\text{exp}>0$ do
+	\ii \qquad\qquad if $\text{exp}\%2=1$ then
+	$\text{powofx}\gets\text{powofx}\cdot y$
+	\ii \qquad\qquad $y \gets y\cdot y$
+	\ii \qquad\qquad exp $\gets\text{exp}/2$
+	\ii \qquad value $\gets\text{value} + \text{powofx}\cdot A[i]$
+	\ii return value
+\end{alg}
+
+This algorithm runs almost identically to the previous one,
+but with an improvement on the computation of $x^i$
+by using binary exponentiation instead of linear exponentiation.
+The binary exponentiation improves the complexity to
+$\mathcal O(n\log n)$, and the space complexity remains as $\Theta(1)$.
+
+\begin{alg}{\textsc{EvaluatePoly-Best($A[0\dots n],x$)}}
+	\ii value $\gets 0$
+	\ii powofx $\gets 1$
+	\ii for $i\gets 0$ to $n$ do
+	\ii \qquad value $\gets\text{value} + \text{powofx}\cdot A[i]$
+	\ii \qquad powofx $\gets\text{powofx}\cdot x$
+	\ii return value
+\end{alg}
+
+This algorithm directly improves on the naive one
+by not throwing away power of $x$ calculated in the preceding iteration,
+so that in a given run of the loop $x^i$ can be computed as
+$x\cdot x^{i-1}$ where we've held on to the value of $x^{i-1}$ from earlier.
+This makes the algorithm $\mathcal O(n)$ now, since the body of the for loop
+now runs in constant time.
+The space complexity is still $\Theta(1)$, like the
+two previous iterations of this algorithm.
+
+\pagebreak
+\section{Problem 8}
+\begin{alg}{\textsc{PairSum-Naive($A[1\dots n],k$)}}
+	\ii // returns $(i, j)$ if $i<j$ and $A[i] + A[j] = k$,
+	or $(-1, -1)$ if no such $(i, j)$ exists
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad for $j\gets i+1$ to $n$ do
+	\ii \qquad\qquad if $A[i] + A[j] = k$ return $(i, j)$
+	\ii return $(-1,-1)$
+\end{alg}
+
+This is a brute force algorithm that checks each pair $(i, j)$
+with $1\le i<j\le n$ to see if $A[i] + A[j] = n$;
+there are $\binom n2\in\mathcal O(n^2)$ such pairs
+and each pair is processed in constant time, so the time complexity is
+$\mathcal O(n^2)$. The space complexity is $\Theta(1)$;
+nothing interesting happening here.
+
+\begin{alg}{\textsc{PairSum-Better($A[1\dots n],k$)}}
+	\ii // returns $(i, j)$ if $i<j$ and $A[i] + A[j] = k$,
+	or $(-1, -1)$ if no such $(i, j)$ exists
+	\ii create array $B[1\dots n]$
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad $B[n+1-i] = k - A[i]$
+	\ii for $i\gets 1$ to $n$ do
+	\ii \qquad $j\gets n+1-\textsc{BinarySearch}(B[1\dots (n-i)],A[i])$
+	\ii \qquad if $j > 0$ then return $(i, j)$
+	\ii return $(-1, -1)$
+\end{alg}
+
+The idea here is that for each $A[i]$, we are searching among
+all the elements appearing after $A[i]$ to look for $k-A[i]$;
+the way this is done mechanically is via the array $B$,
+which stores all the $k-A[i]$s in reverse order (reverse to ensure
+that $B[1\dots n]$ is sorted instead of reverse-sorted).
+
+The time complexity of this algorithm is $\mathcal O(n\log n)$
+due to the binary search being called $n$ times;
+this asymptotic bound is sharp in the worst case where
+there is no $(i, j)$ pair with $i<j$ and $A[i]+A[j]=k$.
+The space complexity is $\Theta(n)$ because the algorithm
+requires the production of the auxiliary array $B$ with length $n$.
+
+\begin{alg}{\textsc{PairSum-Best($A[1\dots n],k$)}}
+	\ii // returns $(i, j)$ if $i<j$ and $A[i] + A[j] = k$,
+	or $(-1, -1)$ if no such $(i, j)$ exists
+	\ii $\ell\gets 1$
+	\ii $r\gets n$
+	\ii while $\ell < r$ do
+	\ii \qquad if $A[\ell] + A[r] = k$ then return $(\ell, r)$
+	\ii \qquad else if $A[\ell] + A[r] > k$ then $r\gets r-1$
+	\ii \qquad else $\ell\gets \ell + 1$
+	\ii return $(-1, -1)$
+\end{alg}
+
+This algorithm is in very similar spirit to the solution to Problem 1(iii).
+The idea is that increasing $\ell$ will increase
+the sum $A[\ell] + A[r]$, while decreasing $r$ will decrease the sum
+because of the sorted nature of $A$. If an $(i,j)$ pair with
+the desired properties doesn't exist, then it's clear that the algorithm
+will work because eventually $\ell$ will exceed $r$ (after at most $n$ steps,
+since $r-\ell$ strictly decreases after each iteration of the loop).
+
+Otherwise, suppose that an $(i, j)$ pair exists,
+and take $i$ to be the smallest $i$ appearing among all these pairs,
+so that $j$ can be taken as the largest $j$ among all these pairs
+(indeed, if there were a pair $(i', j')$ with $j' > j$ then either
+$A[j'] = A[j]$, so we can just replace $j\gets j'$, or $A[j'] > A[j]$
+in which case $A[i'] < A[i]$ implies $i' < i$, contradiction).
+Then, by a similar argument to the one made in Problem 1(iii)
+(here with $k-x$ instead of the $-(2x+17)$ expression),
+we can argue that eventually either $\ell$ will equal $i$
+or $r$ will equal $j$, and then in the first case
+we must have $r$ repeatedly decrease until it equals $j$,
+or in the second case we must have $\ell$ repeatedly incremented
+until it equals $i$, so the algorithm stops
+once it finds the valid pair $(\ell, r) = (i, j)$.
+
+The time complexity is $\mathcal O(n)$, since the while loop runs
+at most $n$ times, as remarked in the first paragraph,
+and the body of the while loop runs in constant time.
+The space complexity is $\Theta(1)$, as there are only some
+extra auxiliary variables ($\ell$ and $r$).
+
+\pagebreak
+\section{Problem 9}
+
+\begin{alg}{\textsc{CountFrequency-Naive($A[1\dots n],k$)}}
+	\ii count $\gets 0$
+	\ii for $i\gets 1$ to $n$ do
+	\ii \quad if $A[i] = k$ then count $\gets\text{count} + 1$
+	\ii return count
+\end{alg}
+
+This just checks every element of $A$ for whether it equals $k$
+and increments the count when appropriate.
+The time complexity is clearly $\mathcal O(n)$
+and the space complexity clearly $\Theta(1)$.
+
+\begin{alg}{\textsc{CountFrequency-Best($A[1\dots n], k$)}}
+	\ii first $\gets 0$; last $\gets -1$
+	\ii if $A[1] = k$ then first $\gets 1$
+	\ii else
+	\ii \qquad $\ell\gets 1$; $r\gets n$
+	\ii \qquad while $\ell\le r$ do
+	\ii \qquad\qquad $m\gets (\ell + r)/2$
+	\ii \qquad\qquad if $A[m] = k$ and $A[m-1] \ne k$ then
+	\ii \qquad\qquad\qquad first $\gets m$
+	\ii \qquad\qquad\qquad break
+	\ii \qquad\qquad else if $A[m] < k$ then $\ell\gets m+1$
+	\ii \qquad\qquad else $r\gets m-1$
+	\ii if $A[n] = k$ then last $\gets n$
+	\ii else
+	\ii \qquad $\ell\gets 1$; $r\gets n$
+	\ii \qquad while $\ell\le r$ do
+	\ii \qquad\qquad $m\gets (\ell + r)/2$
+	\ii \qquad\qquad if $A[m] = k$ and $A[m+1] \ne k$ then
+	\ii \qquad\qquad\qquad last $\gets m$
+	\ii \qquad\qquad\qquad break
+	\ii \qquad\qquad else if $A[m] > k$ then $r\gets m-1$
+	\ii \qquad\qquad else $\ell\gets m+1$
+	\ii return $\text{last} - \text{first} + 1$
+\end{alg}
+
+This algorithm finds the first instance of $k$ in the array
+and the last instance of $k$ in the array, and then uses these indices
+to compute the number of times $k$ appears (since every number
+between the first and last $k$ is equal to $k$ because $A$ is sorted).
+
+The time complexity of this algorithm is $\mathcal O(\log n)$
+because in both while loops, $r - \ell$ gets halved
+in each iteration of the loop, so the loops run $\mathcal O(\log n)$ times
+with constant time each iteration.
+The space complexity is obviously $\Theta(1)$.
+
+\pagebreak
+\section{Problem 10}
+
+To implement stacks using queues, we will treat
+the back of the queue as the top of the stack.
+\begin{alg}{\textsc{PushWithQueue}}
+	\ii // given queue $Q$ behaving like a stack, push $e$ to the stack
+	\ii $Q$.enqueue($e$)
+\end{alg}
+Since the back of the queue is the top of the stack, adding to the top
+means just enqueuing $e$. Constant time, constant space.
+
+\setcounter{algo}{0}
+\begin{alg}{\textsc{PopWithQueue}}
+	\ii // given queue $Q$ behaving like a stack, pop the top of the stack
+	\ii if $Q$.size() = 0 then return null
+	\ii create queue $R$
+	\ii for $i\gets 1$ to $Q.\text{size}() - 1$ do
+	\ii \qquad $R$.enqueue($Q$.dequeue())
+	\ii popped $\gets$ $Q$.dequeue()
+	\ii $Q\gets R$
+	\ii return popped
+\end{alg}
+
+Here, we need to remove the element at the back of $Q$ and return it.
+To do this we must dequeue $Q$.size() times, the latter of which
+will be the popped value that we need to return.
+The remaining values are kept in a second queue $R$,
+which, because of how queues work, has its elements
+in the same order that they appeared in $Q$.
+Therefore we can simply relabel $R$ as $Q$ and then return the popped value.
+This is linear in both time and space complexity,
+owing to the creation of the extra queue.\\
+
+For stacks, we will treat the top of the stack as the back of the queue
+and the bottom of the stack as the tail.
+\begin{alg}{\textsc{EnqueueWithStack}}
+	\ii // given stack $S$ behaving like a queue, enqueue $e$ to the queue
+	\ii $S$.push($e$)
+\end{alg}
+
+Symmetric to pushing with the queue, in order to enqueue $e$
+we just push $e$ to the top of the stack (which is the back of the queue).
+Again, constant time and space.
+
+\setcounter{algo}{1}
+\begin{alg}{\textsc{DequeueWithStack}}
+	\ii // given stack $S$ behaving like a queue, dequeue the front of the queue
+	\ii if $S$.size() = 0 then return null
+	\ii create stack $T$
+	\ii for $i\gets 1$ to $S.\text{size}() - 1$ do
+	\ii \qquad $T$.push($S$.pop())
+	\ii dequeued $\gets$ $S$.pop()
+	\ii for $i\gets 1$ to $T.\text{size}()$ do
+	\ii \qquad $S$.push($T$.pop())
+	\ii return dequeued
+\end{alg}
+
+Here we have to do similar shenanigans with making a copy of the stack
+and popping every element to dequeue the one at the bottom.
+However, in this case, the storage unit $T$, being a stack,
+has its elements in the opposite order that they appeared in $S$
+(so the top of $T$ was the second element from the bottom of $S$,
+while the bottom of $T$ was the top of $S$).
+Thus we need to move the elements of $T$ back into $S$ as well.
+This again ends up having linear time and space complexities.
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

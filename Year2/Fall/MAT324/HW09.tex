@@ -1,0 +1,421 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 324 HW09}
+\author{\large Aditya Pahuja}
+\date{\large Due 11/13}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $(X,\mathcal S,\mu)$ be a measure space, $p,q,r\in(0,\infty]$,
+    and $f,g\colon X\to\RR$ be $\mathcal S$-measurable functions.
+    \begin{enumerate}[(a)]
+        \ii Suppose $r\le p,q$ and $1/p + 1/q = 1/r$. Show that
+	$\norm{fg}_r \le \norm{f}_p\norm{g}_q$.
+	\ii Suppose $p\le r\le q$ and $\alpha,\beta\in[0,1]$ such that
+	$\alpha+\beta=1$ and $\alpha/p + \beta/q = 1/r$. Show that
+	\begin{equation*}
+	    \norm{f}_r \le \norm{f}_p^\alpha\norm{f}_q^\beta.
+	\end{equation*}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $r = \infty$ then $p=q=\infty$ as well, in which case
+    $\abs f \le \norm{f}_\infty$ and $\abs g \le \norm{g}_\infty$
+    almost everywhere, so $\abs{fg}\le\norm{f}_\infty\norm{g}_\infty$
+    almost everywhere, which implies $\norm{fg}_\infty\le\norm f_\infty\norm g_\infty$.
+    Otherwise, if $r$ is finite,
+    apply H\"older's inequality on the functions $\abs f^r$, $\abs g^r$
+    with exponents $p/r$ and $q/r$ to get
+    \begin{equation*}
+	\norm{fg}_r = \norm{\abs f^r\abs g^r}_1^{1/r} \le
+	\norm{\abs f^r}_{p/r}^{1/r}\norm{\abs g^r}_{q/r}^{1/r}
+	= \norm{f}_p\norm{g}_q.
+    \end{equation*}
+
+    (b) If $r = \infty$ then $p=q=\infty$ as well, so the inequality is trivial.
+    Also, if $\alpha = 0$ or $\beta = 0$, then respectively
+    $q = r$ or $p = r$, and in each case the inequality is trivial.
+    Suppose now that $\alpha,\beta\in(0,1)$ and $r$ is finite;
+    then, apply H\"older's inequality on the functions
+    $\abs f^{\alpha r}$, $\abs f^{\beta r}$
+    with exponents $p/(\alpha r)$ and $q/(\beta r)$ to get
+    \begin{equation*}
+	\norm{f}_r = \norm{\abs f^{r}}_{1}^{1/r}
+	\le \norm{\abs f^{\alpha r}}_{p/(\alpha r)}^{1/r}
+	\|\abs f^{\beta r}\|_{q/(\beta r)}^{1/r}
+	= \norm{f}_p^{\alpha} \norm{f}_q^{\beta}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    Find a continuous function $f\colon\RR^+\to\RR^+$
+    which is in $\mathcal L^2(\RR^+)$, but not in $\mathcal L^p(\RR^+)$
+    for any $p\in(0,\infty] - \{2\}$. Justify your answer.
+\end{problem}
+
+\begin{soln}
+    Let $f(x) = x^{-1/2}(\ln(x)^2 + 1)^{-1}$.
+    We can bound
+    \begin{align*}
+	\int_{(0,1/2)} f^2\dd\lambda \le
+	\int_{(0,1/2)} \frac{1}{x\ln(x)^4}\dd\lambda(x)
+	&= \lim_{a\to 0} \frac 13(\ln(a)^{-3} - \ln(1/2)^{-3})
+	= -\frac{\ln(1/2)^{-3}}3 < \infty,\\
+	\int_{(2,\infty)} f^2\dd\lambda \le
+	\int_{(0,1/2)} \frac{1}{x\ln(x)^4}\dd\lambda(x)
+	&= \lim_{b\to \infty} \frac 13(\ln(2)^{-3} - \ln(b)^{-3})
+	= \frac{\ln(2)^{-3}}3 < \infty,
+    \end{align*}
+    and $f$ is bounded over $[1/2,2]$, so the sum of the integrals of $f$
+    over $(0,1/2)$, $[1/2,2]$, and $(2,\infty)$,
+    which equals the integral of $f$ over $\RR^+$, is finite;
+    thus, $f\in \mathcal L^2(\RR^+)$.
+
+    Let $p < 2$. For any $\eps>0$,
+    there exists $C_\eps>0$ such that $x>C_\eps$ implies
+    $\ln(x)^2 + 1 < x^\eps$, so if $\eps>0$ is such that $p/2 + \eps < 1$,
+    then $x > C_\eps$ implies $f^p \ge x^{-p/2 - \eps}$, meaning
+    \begin{equation*}
+	\int_{(0,\infty)}f^p\dd\lambda
+	\ge \int_{(C_\eps,\infty)} \frac 1{x^{p/2+\eps}}\dd\lambda(x)
+	\ge \lim_{b\to\infty}\frac{1}{1 - p/2 - \eps}
+	(b^{-p/2-\eps+1} - C_\eps^{-p/2-\eps+1}) = \infty,
+    \end{equation*}
+    hence $f$ is not in $\mathcal L^p$ in this case.
+
+    Let $p > 2$. For any $\eps>0$,
+    there exists $c_\eps>0$ such that $x < c_\eps$ implies
+    $\ln(x)^2 + 1 < x^{-\eps}$, so if $\eps>0$ is such that $p/2 - \eps > 1$,
+    then $x < c_\eps$ implies $f^p \ge x^{-p/2+\eps}$, meaning
+    \begin{equation*}
+	\int_{(0,\infty)}f^p\dd\lambda
+	\ge \int_{(0,c_\eps)} \frac 1{x^{p/2-\eps}}\dd\lambda(x)
+	\ge \lim_{a\to0}\frac{1}{p/2-\eps-1}
+	(a^{-p/2+\eps+1} - c_\eps^{-p/2+\eps+1}) = \infty,
+    \end{equation*}
+    hence $f$ is not in $\mathcal L^p$ in this case.
+\end{soln}
+
+\begin{problem}
+    For each of the following sequences of measurable functions
+    $f_1,f_2,\ldots\colon\RR^+\to\RR$, determine whether
+    the sequence lies in $L^1(\RR^+)$, $L^2(\RR^+)$, and if so,
+    whether it is Cauchy in there. Justify your answers.
+    \begin{equation*}
+	\text{(a) }f_n = \ind_{(0,n)}/\sqrt x,\qquad\qquad
+	\text{(b) }f_n = \ind_{(0,n)}/(x+1).
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    (a) $f_n\in L^1(R^+)$ because
+    \begin{equation*}
+	\int_{(0,n)}\abs{f_n}\dd\lambda
+	= \lim_{c\to0}\int_c^n \frac 1{\sqrt x}\dd x
+	= \lim_{c\to0}\frac 23(n\sqrt n - c\sqrt c) = \frac{2n\sqrt n}3 < \infty.
+    \end{equation*}
+    However, the sequence is not Cauchy in $L^1(\RR^+)$ because
+    for any $m,n\in\NN$ with $m > n$,
+    \begin{equation*}
+	\norm{f_m-f_n}_1 = \int_n^m \frac 1{\sqrt x}\dd x
+	= \frac{2(m\sqrt m - n\sqrt n)}3,
+    \end{equation*}
+    which is unbounded as $m$ grows arbitrarily large.
+
+    Additionally, $f_n\notin L^2(\RR^+)$ because for all $n\in\NN$,
+    \begin{equation*}
+	\int_{(0,n)} f_n^2\dd\lambda
+	= \lim_{c\to 0}\int_c^n\frac 1x\dd x
+	= \lim_{c\to 0}(\ln n - \ln c) = \infty
+    \end{equation*}
+    
+    (b) $f_n\in L^1(R^+)$ because
+    \begin{equation*}
+	\norm{f_n}_1 = \int_0^n \frac 1{x+1}\dd\lambda
+	= \ln(n+1) - \ln(1) = \ln(n+1) < \infty,
+    \end{equation*}
+    but $f_n$ is not Cauchy in $L^1(R^+)$ because
+    for any $m,n\in\NN$ with $m > n$,
+    \begin{equation*}
+	\norm{f_m - f_n}_1 = \int_n^m \frac 1{x+1}\dd x
+	= \ln(m+1) - \ln(n+1),
+    \end{equation*}
+    which is unbounded as $m$ grows arbitrarily large.
+
+    Additionally, $f_n\in L^2(\RR^+)$ because $0\le f_n^2 < f_n$
+    for every $n$, so the integral of $f_n^2$ is finite
+    because the integral of $f_n$ is finite.
+    Moreover, the sequence is Cauchy in $L^2(\RR^+)$ because
+    given $\eps>0$, if $N$ is such that $1/\sqrt{N} < \eps$,
+    then for integers $m > n> N$,
+    \begin{equation*}
+	\norm{f_m-f_n}_2 = \left(\int_n^m \frac1{(x+1)^2}\right)^{1/2}
+	= \left(\frac 1n - \frac 1m\right)^{1/2}
+	< \sqrt{\frac 1n} < \sqrt{\frac 1N} < \eps.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    [Axler 7B \#12]
+    Show that there exists a sequence of functions
+    $f_1,f_2,\ldots\in\mathcal L^1([0,1])$ such that
+    $\lim_{k\to\infty}\norm{f_k}_1 = 0$ but
+    \begin{equation*}
+	\sup\{f_k(x) : k\in\NN\} = \infty
+    \end{equation*}
+    for every $x\in[0,1]$.
+\end{problem}
+
+\begin{soln}
+    Given $k\in\NN$, let $m,r\in\ZZ_{\ge0}$ be such that
+    $k = 2^m + r$ with $r$ as small as possible, and define
+    $f_k = m\cdot \ind_{[r/2^m, (r+1)/2^m]}$,
+    so for example $f_1 \equiv 0$ and $f_{10} = 3\cdot\ind_{[2/8, 3/8]}$.
+    Then, for each $k\in\NN$,
+    \begin{equation*}
+	\norm{f_k}_1 = \int_{[0,1]}\abs{f_k}\dd\lambda
+	= \int_{[0,1]} m\cdot \ind_{[r/2^m, (r+1)/2^m]}\dd\lambda
+	= \frac{m}{2^m},
+    \end{equation*}
+    which becomes arbitrarily small as $k$, and thus $m$, goes to infinity.
+    On the other hand, for every $m\in\ZZ_{\ge0}$,
+    \[
+	\bigcup_{r=0}^{2^m-1} [r/2^m, (r+1)/2^m] = [0,1]
+    \]
+    so given $x\in[0,1]$ and $m\in\ZZ_{\ge0}$, there exists a $k$
+    such that $f_k(x) = m$, hence $\sup\{f_k(x) : k\in\NN\} = \infty$.
+\end{soln}
+
+
+\pagebreak
+
+\begin{problem}
+    Let $p,q\in[1,\infty]$ with $1/p + 1/q = 1$.
+    For a differentiable function $f\colon\RR\to\RR$, define
+    \begin{equation*}
+	\norm{f}_{p,1} = \norm{f}_p + \norm{f'}_p.
+    \end{equation*}
+    \begin{enumerate}[(a)]
+        \ii Show that this defines a norm on the vector space
+	\begin{equation*}
+	    C^{1,p}(\RR)\coloneq\{f\in C^1(\RR) : \norm{f}_{p,1}<\infty\}.
+	\end{equation*}
+	Do not forget to justify why $C^{1,p}(\RR)$ is a vector space.
+	\ii Show that
+	\begin{equation*}
+	    \abs{f(x) - f(y)} \le \norm{f'}_p\abs{x-y}^{1/q},\quad
+	    \abs{f(x) - \half\int_{x-1}^{x+1}f(t)\dd t} \le \norm{f'}_p,\quad
+	    \norm{f}_\infty\le \norm f_{p,1}
+	\end{equation*}
+	for all $f\in C^{1,p}(\RR)$ and $x,y\in\RR$.
+	\ii Let $f_1,f_2,\ldots\in C^{1,p}(\RR)$ be a Cauchy sequence
+	with respect to the norm $\norm{\bullet}_{p,1}$.
+	Show that it converges uniformly to
+	a bounded continuous function $f\colon\RR\to\RR$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Suppose $f,g\colon\RR\to\RR\in C^{1,p}(\RR)$ and $c\in\RR$.
+    Since $p\ge 1$, Minkowski's inequality gives
+    \begin{align*}
+	\norm{f+g}_{p,1} = \norm{f+g}_p + \norm{f'+g'}_p
+	&\le \norm{f}_p + \norm{g}_p + \norm{f'}_p + \norm{g'}_p
+	= \norm{f}_{p,1} + \norm{g}_{p,1} < \infty,\\
+	\norm{cf}_{p,1} = \norm{cf}_p + \norm{cf'}_p
+	&= \abs{c}\norm{f}_p + \abs{c}\norm{f'}_p = \abs{c}\norm{f}_{p,1}
+	< \infty.
+    \end{align*}
+    This proves both that $f+g$ and $cf$ are in $C^{1,p}(\RR)$,
+    making it a vector space, and that $\norm{\bullet}_{p,1}$
+    satisfies two of the properties to be a norm.
+    Moreover, if $\norm{f}_{p,1} = 0$, then $\norm{f}_p = 0$,
+    so $f = 0$ almost everywhere;
+    that is, $f\inv(\RR\setminus\{0\})$ has measure zero.
+    By continuity, this set is an open subset of $\RR$, so it must be empty
+    because nonempty open subsets of $\RR$ have positive measure,
+    i.e. $f\equiv 0$.
+    Thus, $\norm{\bullet}_{p,1}$ is a norm on $C^{1,p}(\RR)$.
+    \\
+
+    (b) Suppose that $x \le y$ and apply H\"older's inequality
+    on the restriction of the Lebesgue measure to $[x,y]$
+    with functions $f'$, $1$ and exponents $p$, $q$ to get
+    via the fundamental theorem of calculus that
+    \begin{align*}
+	\abs{f(x) - f(y)} = \abs{\int_x^y f'(t)\dd t}
+	&\le \int_x^y \abs{f'(t)}\dd t\\
+	&\overset{\text{H\"older}}\le \norm{f'|_{[x,y]}}_p\norm{1|_{[x,y]}}_q
+	\le \norm{f'}_p\lambda([x,y])^{1/q}
+	= \norm{f'}_p\abs{x-y}^{1/q}.\stepcounter{equation}\tag{\theequation}
+    \end{align*}
+    Then, $\half\int_{x-1}^{x+1}f(t)\dd t = f(\xi)$
+    for some $\xi\in[x-1,x+1]$ by the mean value theorem
+    on $F(u) = \int_{-\infty}^u f(t)\dd t$.
+    In particular $\abs{x - \xi} \le 1$, so by the previous inequality,
+    \begin{equation}
+	\abs{f(x) - \half\int_{x-1}^{x+1}f(t)\dd t}
+	= \abs{f(x) - f(\xi)} \overset{\text{(1)}}\le
+	\norm{f'}_p\abs{x-\xi}^{1/q} \le \norm{f'}_p.
+    \end{equation}
+    Finally, for each $x\in\RR$,
+    \begin{align*}
+	\abs{f(x)}
+	&\le \abs{f(x) - \half\int_{x-1}^{x+1}f(t)\dd t}
+	+ \abs{\half\int_{x-1}^{x+1}f(t)\dd t}\\
+	&\overset{\text{H\"older,(2)}}\le
+	\norm{f'}_p + \half\norm{f|_{[x-1,x+1]}}_p\norm{1|_{[x-1,x+1]}}_q
+	\le \norm{f'}_p + \norm{f}_p\cdot 2^{1/q-1}
+	\le \norm{f'}_p + \norm{f}_p = \norm{f}_{p,1},
+    \end{align*}
+    noting that $1/q - 1 \le 0$ because $q\ge 1$;
+    taking the supremum over $x\in\RR$
+    yields $\norm{f}_\infty \le \sup_\RR\abs f \le \norm{f}_{p,1}$.\\
+
+    (c) First, note that if $g\in C^{1,p}(\RR)$ then
+    $\abs g^p$, hence $\abs g$, is bounded;
+    also, $\norm{g}_\infty = \sup_\RR\abs g$ because
+    if $M = \sup_\RR\abs g$ then
+    for any $\eps > 0$, the set $g\inv((M-\eps,\infty))$
+    has positive measure (being nonempty and open in $\RR$),
+    meaning one cannot modify $g$ on a set of measure zero
+    to reduce the upper bound.
+
+    Given $\eps>0$, there exists $N_\eps\in\NN$ such that
+    $m,n\ge N_\eps$ implies $\norm{f_m-f_n}_\infty
+    \le\norm{f_m-f_n}_{p,1} <\eps$; thus, $f_n$ is Cauchy with respect
+    to $\norm{\bullet}_\infty$ (i.e. the sup norm)
+    and that $\norm{f_n}_\infty$ is a Cauchy sequence.
+    The first statement tells us that $f_n$ is a uniformly converging sequence
+    of continuous functions, so its limit $f$ is continuous;
+    the second tells us that the $f_n$ are uniformly bounded, hence $f$ is bounded.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

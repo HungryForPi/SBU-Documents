@@ -1,0 +1,796 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 320 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 320 HW09}
+\ohead{\footnotesize November 8, 2024}
+
+\title{\vspace{-2em}MAT 320 HW09}
+\author{\large Aditya Pahuja}
+\date{\large Due 11/8}
+\begin{document}
+\maketitle
+
+\begin{problem}
+	Show that $f\colon(1,+\infty)\to\RR$ defined by $f(x) = \log x$
+	is uniformly continuous.
+\end{problem}
+
+\begin{soln}
+	We first prove the following inequality:
+	
+	\begin{claim}
+		For all $x\ge y > 1$,
+		\[\frac{e^y}{y} \le \frac{e^x}{x}.\]
+	\end{claim}
+	\begin{proof}
+		Since $\frac{1}{y} - \frac1x = \frac{x-y}{xy} \le x - y$,
+		\begin{align*}
+			\frac{1}{y} - \frac{1}{x} &\le x - y \le (e-1)(x - y)\\
+			&= \sum_{k=1}^\infty \frac{x-y}{k!}
+			= \sum_{k=2}^\infty \frac{(x - y)k}{k!}\\
+			&\le \sum_{k=2}^\infty
+			\frac{(x - y)(x^{k-2} + x^{k-3}y + \cdots + xy^{k-3} + y^{k-2})}{k!}
+			\\ &= \sum_{k=2}^\infty \frac{x^{k-1} - y^{k-1}}{k!}\\
+			&= \left(\frac{e^x}{x} - 1 - \frac 1x\right) -
+			\left(\frac{e^y}{y} - 1 - \frac 1y\right),
+		\end{align*}
+		which simplifies directly to the inequality we want.
+	\end{proof}
+	
+	Now, $\log$ is increasing
+	(because its inverse $\exp$ is also increasing),
+	so we can take logs to get
+	\[y - \log y \le x - \log x
+	\iff \log x - \log y \le x - y.\]
+	This implies uniform continuity,
+	since $x - y < \eps$ implies $\log x - \log y < \eps$
+	for all $\eps > 0$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Let $(X, d)$ be a metric space and $E$ be a subset of $X$. Define
+	\[f_E(x) = \inf_{y\in E} d(x, y).\]
+	Show that
+	\begin{enumerate}[(a)]
+		\ii $f_E$ is uniformly continuous.
+		\ii $f_E(x) = 0$ if and only if $x\in\ol E$.
+		\ii if $A$ and $B$ are disjoint closed sets then
+		\[f(x) = \frac{f_A(x)}{f_A(x) + f_B(x)}\]
+		is a continuous function such that $f = 0$
+		precisely on the set $A$ and $f = 1$ precisely on the set $B$.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	Let $a$, $b$ be in $X$ and let $\eps > 0$.
+	Suppose $d(a, b) < \eps$.
+	\begin{itemize}
+		\ii If one of $a$ and $b$ is in $E$ (say WLOG $b$), then
+		$f_E(b) = 0$ because it is nonnegative and bounded above by
+		$d(b, b) = 0$, so
+		\[|f_E(a) - f_E(b)| = f_E(a) =
+		\inf_{y\in E} d(a, y) \le d(a, b) < \eps,\]
+		where the first inequality comes from $b\in E$.
+		\ii If neither $a$ nor $b$ is in $E$, then let $\delta > 0$.
+		Then, we can pick $x$ such that
+		\[d(b, x) \le f_E(b) + \delta.\]
+		This lets us bound
+		\begin{align*}
+			f_E(a) - f_E(b) &= (f_E(a) + \delta) - (f_E(b) + \delta)\\
+			&\le d(a, x) - d(b, x) + \delta\\
+			&\le d(a, b) + \delta.
+		\end{align*}
+		This same bound holds for $f_E(b) - f_E(a)$ by symmetry,
+		so, taking $\delta$ arbitrarily small, we can conclude that
+		\[|f_E(a) - f_E(b)|\le d(a, b) < \eps.\]
+	\end{itemize}
+	Thus, for any $a$ and $b$,
+	\[d(a, b) < \eps \implies |f_E(a) - f_E(b)| < \eps,\]
+	so $f_E$ is uniformly continuous, proving part (a).\\
+	
+	For part (b), suppose first that $x$ is a limit point of $E$
+	(so it is in $\ol E$). Then, for each $\eps > 0$,
+	there is a $y\in E$ such that $d(x, y) < \eps$;
+	by definition of $\inf$, this means that
+	\[f_E(x) = \inf_{y\in E} d(x, y) = 0.\]
+	Conversely, if $x$ isn't a limit point of $E$, then
+	some open ball $B_X(x, \eps)$ contains no points of $E$;
+	that is, every point $y$ of $E$ satisfies
+	$d(x, y) \ge \eps$, hence
+	\[f_E(x) = \inf_{y\in E} d(x, y) \ge \eps > 0.\]
+	
+	For part (c), we note that $A$ and $B$ being closed
+	means $A = \ol A$ and $B = \ol B$.
+	Since the sets are disjoint, there is no point at which
+	$f_A(x) = f_B(x) = 0$, ensuring that $f$ is well-defined.
+	$f$ must then be continuous
+	because sums and quotients of continuous functions are continuous
+	as long as the divisor of the quotient is nonzero.	
+	Moreover, since $f_A$ and $f_B$ are always nonnegative,
+	\[0 \le \frac{f_A(x)}{f_A(x) + f_B(x)} \le 1.\]
+	The upper bound is achieved if and only if $f_B(x) = 0$,
+	i.e. when $x\in B$, and the lower bound is achieved
+	if and only if $f_A(x) = 0$, i.e. when $x\in A$.
+\end{soln}
+
+\begin{problem}
+	Let $(X, d)$ be a metric space and $D\subseteq X$ a dense subset.
+	Show that if $f\colon D\to \RR$ is uniformly continuous
+	then there exists a unique continuous function
+	$g\colon X\to\RR$ such that $g(x) = f(x)$ for all $x\in D$.
+\end{problem}
+
+\begin{soln}
+	First, we show that such a function $g$ exists.
+	\begin{claim}
+		Let $(x_n)$ be a sequence of points in $D$ that converges in $X$.
+		Then, the sequence $(f(x_n))$ converges in $\RR$.
+	\end{claim}
+	\begin{proof}
+		Note that $(x_n)$ being a convergent sequence means that it is Cauchy,
+		as shown in Problem 6.
+		By uniform continuity, we know that, for each $\eps > 0$,
+		there exists a $\delta > 0$ such that
+		\[d(x_m, x_n) < \delta\implies |f(x_m) - f(x_n)| < \eps.\]
+		Since $(x_n)$ is Cauchy, there exists $N$ such that
+		$m,\,n > N$ implies that $d(x_m, x_n) < \delta$, so
+		\[m,\,n > N \implies d(x_m, x_n) < \delta
+		\implies |f(x_m) - f(x_n)| < \eps,\]
+		which tells us that $(f(x_n))$ is a Cauchy sequence,
+		so it converges because $\RR$ is complete.
+	\end{proof}
+
+	\begin{claim}
+		Let $(Y, d_Y)$ be a metric space.
+		If $(a_n)$ is a sequence of points in $Y$ with limit $\ell$ and
+		$(b_n)$ is a sequence of points in $Y$ such that
+		$d_Y(a_n, b_n) \to 0$, then
+		\[\lim_{n\to\infty} b_n = \ell.\]
+	\end{claim}
+	\begin{proof}
+		For each $\eps > 0$, there exists $N$ such that
+		\[n > N \implies d_Y(\ell, a_n) < \frac\eps2,\quad
+		d_Y(a_n, b_n) < \frac\eps2,\]
+		so, for $n > N$,
+		\[d_Y(\ell, b_n) \le d_Y(\ell, a_n) + d_Y(a_n, b_n)
+		< \frac\eps2 + \frac\eps2 = \eps,\]
+		which is what it means for $b_n$ to converge to $\ell$.
+	\end{proof}
+	
+	\begin{claim}
+		Let $(x_n)$ and $(y_n)$ be two sequences of points in $D$
+		that converge to the same point $\ell\in X$.
+		Then,
+		\[\lim_{n\to\infty} f(x_n) = \lim_{n\to\infty} f(y_n).\]
+	\end{claim}
+	\begin{proof}
+		Let $\eps > 0$. We know that there exists $\delta > 0$ such that
+		\[d(x_n, y_n) < \delta \implies |f(x_n) - f(y_n)| < \eps\]
+		because $f$ is uniformly continuous.
+		Moreover, since $x_n\to \ell$ and $y_n\to\ell$,
+		\[d(x_n, \ell) < \frac\delta2,\qquad d(y_n,\ell) < \frac\delta2\]
+		are true eventually, say when $n > N$, so
+		\[d(x_n, y_n) < \delta\]
+		is true for all $n > N$. That is,
+		\[n > N \implies d(x_n, y_n) < \delta \implies
+		|f(x_n) - f(y_n)| < \eps.\]
+		Thus,
+		\[\lim_{n\to\infty} f(x_n) - f(y_n) = 0 \implies
+		\lim_{n\to\infty} f(x_n) = \lim_{n\to\infty} f(y_n)\]
+		with the implication coming from Claim 3.2
+		(the limits both exist by Claim 3.1).
+	\end{proof}
+	
+	Therefore, for any point $x\in X$, we can define
+	\[g(x) := \lim_{n\to\infty} f(x_n)\]
+	where $(x_n)$ is any sequence of points in $D$ that converges to $x$.
+	Such a sequence $(x_n)$ exists because we can take
+	$x_n$ to be any point in $D\cap B(x, \frac 1n)$, which is nonempty
+	because $D$ is dense in $X$.
+	Also, $g(x)$ well-defined because Claim 3.1 says that the limit exists
+	and Claim 3.3 says that the value of the limit is only dependent on $x$.
+	
+	We now have to show that $g(x) = f(x)$ for all $x\in D$
+	and $g$ is continuous. For the first part, we just observe that
+	if $x\in D$ then we can take $x_n = x$ for all $n$ so that
+	\[g(x) = \lim_{n\to\infty} f(x_n) = \lim_{n\to\infty} f(x) = f(x).\]
+	
+	To show that $g$ is continuous at any $c\in X$,
+	let $(x_n)$ be a sequence of points in $X$ converging to $c$.
+	By density we can pick a sequence $(y_n)$ of points in $D$
+	such that $d(x_n, y_n) < \frac 1n$.
+	Since
+	\[d(y_n, c) \le d(y_n, x_n) + d(x_n, c)\]
+	and the right-hand side has limit zero, we can say that
+	$d(y_n, c) \to 0$, implying $y_n\to c$.
+	Letting $\eps > 0$,
+	uniform continuity says that there exists a $\delta$ such that
+	\[d(x_n, y_n) < \delta \implies |f(x_n) - f(y_n)| < \eps,\]
+	so the bound on $|f(x_n) - f(y_n)|$ holds as long as $n > \frac 1\delta$.
+	That is, for any $\eps > 0$, we have $|f(x_n) - f(y_n)| < \eps$ eventually,
+	which lets us say that
+	\[\lim_{n\to\infty} f(x_n) - f(y_n) = 0
+	\implies \lim_{n\to\infty} f(x_n) = \lim_{n\to\infty} f(y_n) = g(c),\]
+	again using Claim 3.2 to deduce that the limits are equal.\\
+	
+	Now, we show that $g$ is unique. Indeed, suppose that $h\colon X\to\RR$
+	is another continuous function such that $h(x) = f(x)$ for all $x\in D$.
+	Then, $g - h$ is a continuous function that is zero
+	on all of $D$. Now, for any $x\in X$, let $x_n\in D$
+	be a point such that $d(x, x_n) < \frac 1n$;
+	these $x_n$ exist because $D$ is dense in $X$. By continuity,
+	\[g(x) - h(x) = \lim_{n\to\infty} g(x_n) - h(x_n)
+	= \lim_{n\to\infty} 0 = 0,\]
+	meaning $g(x) = h(x)$ for all $x$, i.e. $g$ and $h$ are the same function.
+\end{soln}
+
+\begin{problem}
+	Let $(X, d)$ be a metric space.
+	Show that if each closed and bounded subset of $X$ is compact,
+	then $(X, d)$ is complete.
+\end{problem}
+
+\begin{soln}
+	Let $(x_n)$ be an arbitrary Cauchy sequence in $X$.
+	We showed in class that $S = \{x_n\}$ is bounded,
+	so the closure of this set is bounded:
+	\begin{claim}
+		For a set $C$ with finite diameter,
+		$\operatorname{diam}C = \operatorname{diam}\ol C$.
+	\end{claim}
+	\begin{proof}
+		Since $C\subseteq\ol C$,
+		\[\operatorname{diam} C \le \operatorname{diam}\ol C.\]
+		
+		To show the opposite inequality, we prove equivalently that
+		\[\operatorname{diam}\ol C \le \operatorname{diam} C + \eps\]
+		for every $\eps > 0$.
+		Indeed, let $x,\,y\in\ol C$. Then, $x$ and $y$ are limit points of $C$,
+		so we can find $x',\,y'\in C$ such that
+		$d(x,x')$ and $d(y, y')$ are both less than $\frac\eps 2$.
+		The triangle inequality then says that
+		\[d(x, y) \le d(x, x') + d(x', y') + d(y', y)
+		< \frac\eps 2 + \operatorname{diam}C + \frac\eps2
+		= \operatorname{diam} C + \eps.\]
+		Thus $\operatorname{diam} C + \eps$ is an upper bound
+		for $d(x, y)$, meaning it is at least as large as
+		$\operatorname{diam} C$, as desired.
+	\end{proof}
+	
+	This means that $\ol S$ is compact because it is a closed and bounded
+	subset of $X$.
+	Now, $\ol S$ is sequentially compact, so
+	$(x_n)$ has a convergent subsequence $(x_{n_k})$ with limit $\ell$.
+	I claim that $(x_n)$ converges to $\ell$ as well.
+	Let $\eps > 0$ and pick $N$ so that
+	\begin{align*}
+		n_k > N &\implies |\ell - x_{n_k}| < \frac\eps2\\
+		m,\,n > N &\implies |x_m - x_n| < \frac\eps2,
+	\end{align*}
+	where the latter inequality comes from $(x_n)$ being Cauchy.
+	Then, if $n_k$ and $n$ are both bigger than $N$,
+	\[|\ell - x_n| \le |\ell - x_{n_k}| + |x_{n_k} - x_n|
+	< \frac\eps2 + \frac\eps2 = \eps,\]
+	proving that $x_n\to\ell$, i.e. every Cauchy sequence in $X$ converges.
+\end{soln}
+
+\begin{problem}
+	Let $(X, d)$ be a metric space. Show that
+	\begin{enumerate}[(a)]
+		\ii if $E\subseteq X$ is complete in the induced metric then
+		$E$ is a closed subset of $X$.
+		\ii if $X$ is complete, then a subset $E\subseteq X$ is closed
+		if and only if it is complete in the induced metric.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	For (a), let $\ell$ be a limit point of $E$.
+	For every positive integer $n$, there exists an $x_n$
+	such that $d(\ell, x_n) < \frac 1n$.
+	Then, the sequence $(x_n)$ converges to $\ell$ by construction,
+	so, by Problem 6, it is Cauchy. By completeness,
+	$(x_n)$ must therefore converge to a point in $E$,
+	so $\ell$, the limit of $x_n$, is in $E$.
+	Thus $E$ is closed because it contains all of its limit points.\\
+	
+	For (b), we already showed that complete implies closed.
+	Conversely, if $E$ is closed, consider a Cauchy sequence
+	$(x_n)$ of points in $E$. Since this sequence is also Cauchy in $X$,
+	it has a limit $\ell$. However, $\ell$ is then a limit point of $E$,
+	so $E$ being closed means that $\ell\in E$.
+	Hence, every Cauchy sequence of points in $E$
+	has a limit in $E$, i.e. $E$ is complete.
+\end{soln}
+
+\begin{problem}
+	Show that if $x_n\to\ell$ in a metric space $(X, d)$,
+	then $(x_n)$ is a Cauchy sequence.
+\end{problem}
+
+\begin{soln}
+	Let $\eps > 0$. Convergence to $\ell$ means that
+	there exists an $N$ such that
+	\[n > N \implies |x_n - \ell| < \frac\eps2.\]
+	Then,
+	\[m,\,n > N \implies |x_m - x_n| \le
+	|x_m - \ell| + |\ell - x_n| < \eps,\]
+	so the sequence is Cauchy.
+\end{soln}
+
+\begin{problem}
+	Let $(X, d_X)$ be a metric space and $S$ a set.
+	We say that a function $f\colon S\to X$ is bounded
+	if its image $f(S)\subseteq X$ has finite diameter.
+	Let
+	\[\mathcal B(S, X) = \{f\colon S\to X : f\text{ is bounded}\}.\]
+	Show that
+	\begin{enumerate}[(a)]
+		\ii if $f$ and $g$ are bounded then
+		\[\sup_{s\in S} d_X(f(s), g(s)) < +\infty.\]
+		\ii the function
+		\[d(f, g) = \sup_{s\in S} d_X(f(s), g(s))\]
+		is a metric on $\mathcal B(S, X)$.
+		\ii if $X$ is complete, then $(\mathcal B(S, X), d)$
+		is a complete metric space.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	(a) Fix $a\in S$. Then, for any $s$,
+	\begin{align*}
+		d_X(f(s), g(s)) &\le
+		d_X(f(s), f(a)) + d_X(f(a), g(a)) + d_X(g(a), g(s))\\
+		&\le d_X(f(a), g(a)) + \operatorname{diam}(f(S)) + \operatorname{diam}(g(S)),
+	\end{align*}
+	so $d_X(f(s), g(s))$ is bounded above by a constant,
+	hence its supremum over all $s$ is real.
+	
+	(b) Moreover, $d$ is a metric.
+	First, it is clearly nonnegative because it is the supremum of
+	a collection of nonnegative values.
+	Second, it is zero iff $f$ and $g$ are the same function because
+	\[\sup_{s\in S} d_X(f(s), g(s)) = 0 \implies
+	d_X(f(s), g(s)) \le 0 \text{ for all }s\in S\]
+	which implies $d_X(f(s), g(s))$ is identically zero
+	and so $f(s) = g(s)$ for all $s\in S$, and
+	\[d(f, f) = \sup_{s\in S} d_X(f(s), f(s)) = \sup_{s\in S} 0 = 0.\]
+	It is also trivial to see that $d(f, g) = d(g, f)$.
+	Finally, the triangle inequality holds because
+	\begin{align*}
+		d(f, h) + d(g, h) &=
+		\sup_{s\in S} d_X(f(s), h(s)) + \sup_{s\in S} d_X(g(s), h(s))\\
+		&= \sup_{s\in S} [d_X(f(s), h(s)) + d_X(g(s), h(s))]\\
+		&\ge \sup_{s\in S} d_X(f(s), g(s)) = d(f, g).
+	\end{align*}
+	
+	(c) Lastly, suppose $X$ is complete. Then, let
+	$(f_n)$ be a Cauchy sequence in $\mathcal B(S, X)$.
+	We see that, for each $s\in S$, the sequence
+	$(f_n(s))$ is Cauchy in $X$ because, for $\eps > 0$,
+	if $N$ is chosen such that $m,\,n > N$ implies
+	$d(f_m, f_n) < \eps$, then
+	\[d_X(f_m(s), f_n(s)) \le d(f_m, f_n) < \eps.\]
+	Thus $(f_n(s))$ converges in $X$ because $X$ is complete,
+	so $(f_n)$ has a pointwise limit $f$.
+	
+	I claim that $f$ is also the limit of $(f_n)$ with respect to $d$.
+	Let $\eps > 0$ and take $N$ such that $d(f_m, f_n) < \eps/2$
+	whenever $m$ and $n$ exceed $N$. Then, for any $s\in S$,
+	$m,\,n > N$ implies
+	\begin{align*}
+		d_X(f_n(s), f(s)) &\le d_X(f_n(s), f_m(s)) + d_X(f_m(s), f(s))\\
+		&\le d(f_n, f_m) + d_X(f_m(s), f(s))\\
+		& < \eps/2 + d_X(f_m(s), f(s)).
+	\end{align*}
+	Taking $m\to\infty$, this means that
+	\[d_X(f_n(s), f(s)) \le \eps/2 < \eps\]
+	for all $s\in S$, so for any $\eps > 0$ there is an $N$
+	such that $n > N$ implies that $d(f_n, f)<\eps$,
+	which is what it means for $f_n$ to converge to $f$
+	with respect to the metric $d$.
+\end{soln}
+
+\begin{problem}
+	Let $(K, d_K)$ and $(X, d_X)$ be two metric spaces
+	and $C^0(K, X)$ be the space of all continuous functions from $K$ to $X$.
+	Show that if $K$ is compact and $X$ is complete then
+	$C^0(K, X)$ is a complete metric space with metric
+	\[d(f, g) = \max_{x\in K} d_X(f(x), g(x)).\]
+\end{problem}
+
+\begin{soln}
+	First, we show that $d$ is well-defined; that is,
+	\[\max_{x\in K} d_X(f(x), g(x))\]
+	actually exists for each $f$ and $g$.
+	
+	\begin{claim}
+		For any continuous functions $f,g\colon K\to X$,
+		the function $\alpha\colon K\to\RR$ defined by
+		\[\alpha(x) = d_X(f(x), g(x))\]
+		is continuous.
+	\end{claim}
+	\begin{proof}
+		Let $c$ be an element of $X$ and let $\eps > 0$. Then,
+		\begin{align*}
+			\alpha(c) &\le d_X(f(c), f(x)) +
+			\alpha(x) + d_X(g(x), g(c)),\\
+			\alpha(x) &\le d_X(f(c), f(x)) +
+			\alpha(c) + d_X(g(x), g(c)).
+		\end{align*}
+		This means that we can bound
+		\[|\alpha(x) - \alpha(c)| \le d_X(f(c), f(x)) + d_X(g(c), g(x)).\]
+		By continuity of $f$ and $g$, we can pick $\delta> 0$ so that
+		\[d_K(x, c) < \delta \implies
+		d_X(f(x), f(c)) < \eps/3,\quad d_X(g(x), g(c)) < \eps/3.\]
+		This means that $d_K(x, c) < \delta$ implies
+		\[|\alpha(x) - \alpha(c)| \le \frac{2\eps}3 < \eps,\]
+		which is what it means for $\alpha$ to be continuous.
+	\end{proof}
+	
+	Now the Weierstrass theorem implies that $\alpha(K)\subseteq\RR$
+	is an interval, so it has a maximum.
+	
+	To show that $d$ is a metric, we observe the following facts:
+	\begin{itemize}
+		\ii $d(f, g)$ is nonnegative because it is the maximum
+		of a collection of nonnegative values.
+		\ii $d(f, g) = 0$ if $f = g$ because
+		\[d(f, f) = \max_{x\in K} d_X(f(x), g(x)) =
+		\max_{x\in K} 0 = 0,\]
+		and conversely, if $d(f, g) = 0$, then
+		\[0 \le d_X(f(x), g(x)) \le 0\]
+		for all $x\in K$, which forces $d_X(f(x), g(x)) = 0 \iff f(x) = g(x)$
+		on all of $K$.
+		\ii $d(f, g) = d(g, f)$ is trivial, as $\max(a, b) = \max(b, a)$.
+		\ii The triangle inequality holds because
+		\begin{align*}
+			d(f, h) + d(g, h) &=
+			\max_{x\in K} d_X(f(x), h(x)) + \max_{x\in K} d_X(g(x), h(x))\\
+			&= \max_{x\in K} [d_X(f(x), h(x)) + d_X(g(x), h(x))]\\
+			&\ge \max_{x\in K} d_X(f(x), g(x)) = d(f, g).
+		\end{align*}
+	\end{itemize}
+	
+	It remains to prove that $(C^0(K, X), d)$ is complete,
+	which can be done in the same way as 7(c).
+	Let $(f_n)$ be a Cauchy sequence in $\mathcal C^0(K, X)$.
+	We see that, for each $x\in K$, the sequence
+	$(f_n(x))$ is Cauchy in $X$ because, for $\eps > 0$,
+	if $N$ is chosen such that $m,\,n > N$ implies
+	$d(f_m, f_n) < \eps$, then
+	\[d_X(f_m(x), f_n(x)) \le d(f_m, f_n) < \eps.\]
+	Thus $(f_n(x))$ converges in $X$ because $X$ is complete,
+	so $(f_n)$ has a pointwise limit $f$.
+	
+	I claim that $f$ is also the limit of $(f_n)$ with respect to $d$.
+	Let $\eps > 0$ and take $N$ such that $d(f_m, f_n) < \eps/2$
+	whenever $m$ and $n$ exceed $N$. Then, for any $x\in K$,
+	$m,\,n > N$ implies
+	\begin{align*}
+		d_X(f_n(x), f(x)) &\le d_X(f_n(x), f_m(x)) + d_X(f_m(x), f(x))\\
+		&\le d(f_n, f_m) + d_X(f_m(x), f(x))\\
+		& < \eps/2 + d_X(f_m(x), f(x)).
+	\end{align*}
+	Taking $m\to\infty$, this means that
+	\[d_X(f_n(x), f(x)) \le \eps/2 < \eps\]
+	for all $x\in K$, so for any $\eps > 0$ there is an $N$
+	such that $n > N$ implies that $d(f_n, f)<\eps$,
+	which is what it means for $f_n$ to converge to $f$
+	with respect to the metric $d$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Prove that $\ell^1$ is a complete metric space.
+\end{problem}
+\begin{soln}
+	Let $(\mb x_n)$ be a Cauchy sequence in $\ell^1$.
+	Then, for each $\eps > 0$, there exists $N$ such that
+	$m,\,n > N$ implies
+	\[\sum_{k=1}^\infty |x_{m, k} - x_{n, k}| < \eps.\]
+	Since $|x_{m, k} - x_{n, k}| < \|\mb x_m - \mb x_n\|$
+	(where the norm is $\|\mb x\| = d(\mb x, \mb 0)$),
+	this means the sequence $(x_{n,k})_{n\in\NN}$
+	of the $k$th coordinates of each $\mb x_n$ is Cauchy,
+	so, since $\RR$ is complete, $(\mb x_n)$ converges coordinatewise
+	(i.e. $(x_{n,k})_n$ converges for every $k$).
+	Let $\ell_k$ be the limit of $x_{n,k}$ as $n\to\infty$.
+	
+	\begin{claim}
+		The vector
+		\[\mb x = (\ell_1, \ell_2, \ell_3, \dots)\]
+		is in $\ell^1$.
+	\end{claim}
+	\begin{proof}
+		We wish to show that
+		\[\sum_{i=1}^\infty |\ell_i|\]
+		converges. It suffices to show that
+		the partial sums are bounded because the numbers being summed
+		are all nonnegative.
+		
+		For each $i\le N$, there exists an $M_i$ such that
+		\[n > M_i\implies |\ell_i - x_{n,i}| < 2^{-i}.\]
+		Fix $n > \max\{M_1, \dots, M_N\}$.
+		The $N$th partial sum can be bounded above as follows:
+		\begin{align*}
+			\sum_{i=1}^N |\ell_i| &\le
+			\sum_{i=1}^N |\ell_i - x_{n,i}| + \sum_{i=1}^N |x_{n,i}|.\\
+			&< \sum_{i=1}^N 2^{-i} + \|\mb x_n\|\\
+			&< 1 + \|\mb x_n\|.
+		\end{align*}
+		Additionally, since Cauchy sequences are bounded,
+		we can bound $\|\mb x_n\|$ above by a constant $C$
+		for all $n$, as, for an arbitrary fixed $r$,
+		we can furnish a constant upper bound in the form
+		\[\|\mb x_n\| \le \|\mb x_n - \mb x_r\| + \|\mb x_r\|
+		\le \operatorname{diam}\{\mb x_n\} + \|\mb x_r\| =: C.\]
+		Therefore we have bounded the partial sums of the $|\ell_i|$
+		by the constant $1 + C$, so the infinite series converges.
+	\end{proof}
+	
+	Now, we just need to prove that $\mb x_n\to \ell$
+	in the metric of $\ell^1$. This is done with the same idea
+	of bounding partial sums. Let $\eps>0$ and $N\in\NN$.
+	For each $i\in\{1, 2, \dots, N\}$, we can find
+	thresholds $M_i$ for which
+	\[m > M_i \implies |\ell - x_{m,i}| < \eps\cdot 2^{-i - 1}.\]
+	This means that, if $m > \max\{M_1, \dots, M_N\}$, then
+	\[\sum_{i=1}^N |\ell_i - x_{m,i}| < \frac\eps2.\]
+	We also know that $(\mb x_n)$ being Cauchy means that
+	there is an $M$ such that
+	\[m,\,n > M \implies \|\mb x_m - \mb x_n\| < \frac\eps2.\]
+	Putting this together, we can fix
+	$m$ to be larger than $M$ and all of the $M_i$
+	and use the triangle inequality to say that
+	$n > M$ implies
+	\begin{align*}
+		\sum_{i=1}^N |\ell_i - x_{n,i}| &\le
+		\sum_{i=1}^N |\ell_i - x_{m,i}| + \sum_{i=1}^N |x_{m,i} - x_{n,i}|\\
+		&\le \sum_{i=1}^N \eps\cdot 2^{-i-1} +
+		\sum_{i=1}^\infty |x_{m,i} - x_{n,i}|\\
+		&< \frac\eps2 + \frac\eps2 < \eps.
+	\end{align*}
+	In other words, as long as $n > M$ (noting that $M$ only depends on $\eps$),
+	we can bound all the partial sums of $N$ below $\eps$,
+	so $n > M$ implies that
+	\[\|\mb x - \mb x_n\| < \eps,\]
+	which is what it means for $\mb x_n$ to converge to $\mb x$
+	in the metric of $\ell^1$, so we are done.
+\end{soln}
+
+\begin{problem}
+	Prove that $f_n\to f$ and $g_n\to g$ uniformly on a set $E\subseteq\RR$
+	then $f_n + g_n \to f + g$ uniformly on $E$.
+	Show an example where $f_n\to f$ and $g_n\to g$ on some set
+	$E\subseteq\RR$ but it is not true that
+	$f_n\cdot g_n\to f\cdot g$ on $E\subseteq\RR$.
+\end{problem}
+
+\begin{soln}
+	If $f_n\to f$ and $g_n\to g$ uniformly on $E\subseteq\RR$,
+	then we can say that for each $\eps > 0$, there exists an $N$ such that
+	$n > N$ implies
+	\[|f(x) - f_n(x)| < \frac\eps2,\qquad |g(x) - g_n(x)| < \frac\eps2\]
+	for all $x\in E$. For such $n$,
+	\[|f(x) + g(x) - f_n(x) - g_n(x)| \le |f(x) - f_n(x)| + |g(x) - g_n(x)|
+	< \eps.\]
+	Again, noting that this holds for all $x$, we can conclude that
+	$f_n + g_n\to f + g$ uniformly.\\
+	
+	For products:
+	let $E = \RR$ and $f_n(x) = g_n(x) = x + \frac 1n$ for all $x$.
+	Then, $f(x) = x$ and $g(x) = x$ are the uniform limits
+	of $f_n$ and $g_n$ respectively because
+	\[|f(x) - f_n(x)| = |g(x) - g_n(x)| = \frac 1n < \eps\]
+	whenever $n > \frac 1\eps$, and the threshold for $n$ is independent of $x$.
+	On the other hand,
+	\[f_n(x)\cdot g_n(x) = \left(x + \frac 1n\right)^2
+	= x^2 + \frac{2x}{n} + \frac{1}{n^2},\qquad
+	f(x)g(x) = x^2.\]
+	In this case, for a fixed $n$,
+	\[|f(x)g(x) - f_n(x)g_n(x)| =
+	\abs{\frac{2x}{n} + \frac{1}{n^2}}\]
+	can be arbitrarily large, so any constant upper bound $\eps$
+	cannot hold for all $x$; therefore, $f_ng_n$ does not
+	converge to $fg$ uniformly.
+\end{soln}
+
+\begin{problem}
+	Suppose that $f_n\to f$ uniformly on an interval $(a, b)$.
+	Prove that if the $f_n$ are uniformly continuous functions
+	then so is their uniform limit $f$.
+\end{problem}
+
+\begin{soln}
+	Let the codomain of the $f_n$ be the metric space $(X, d)$
+	and let $\eps > 0$.
+	Note that, for any $x,\,y\in(a,b)$,
+	\[d(f(x), f(y)) \le d(f(x), f_n(x)) + d(f_n(x), f_n(y)) + d(f_n(y), f(y)).\]
+	Since $f_n\to f$ uniformly, there exists an $N$ such that
+	$n > N$ implies
+	\[d(f(z), f_n(z)) < \frac\eps3\]
+	for all $z\in X$, so fix $n$ to be an integer greater than $N$.
+	Now, $f_n$ is uniformly continuous, there exists a $\delta > 0$ such that
+	\[|x - y| < \delta \implies d(f_n(x), f_n(y)) < \frac\eps3.\]
+	Thus, for each $\eps > 0$, there exists a $\delta > 0$ for which
+	\[|x - y| < \delta \implies d(f(x), f(y)) < \eps,\]
+	which is what it means for $f$ to be uniformly continuous.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,311 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage{quiver}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 534 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\quiv}{\equiv}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\aut}{\operatorname{Aut}}
+\providecommand{\ann}{\operatorname{Ann}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+\providecommand{\Ob}{\operatorname{Ob}}
+\providecommand{\Hom}{\operatorname{Hom}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\id}{\operatorname{id}}
+\newcommand{\doubleparen}[1]{(\!(#1)\!)}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 534 HW09}
+\author{\large Aditya Pahuja}
+\date{\large Due 11/12}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Describe all finitely generated subgroups of $(\QQ,+)$.
+    What are the possible values of the rank of such a subgroup?
+\end{problem}
+
+\begin{soln}
+    The rank of a finitely generated subgroup of $(\QQ,+)$
+    must be \framebox{0 or 1}; any finitely generated subgroup of $(\QQ,+)$
+    is either the trivial subgroup (rank $0$) or of the from $\{n/M : n\in\ZZ\}$
+    for some fixed positive integer $M$ (rank $1$).
+    The only thing we need to prove is that a nontrivial
+    finitely generated subgroup must be of the latter form.
+
+    Suppose that $H\le\QQ$ is generated by nonzero $r_1,\dots,r_k\in\QQ$
+    and let $M = \lcm(r_1,\dots,r_k)$.
+    Then $r_i = a_i/M$ for some integers $a_i$ such that
+    the ideal in $\ZZ$ generated by the $a_i$ is the unit ideal
+    (i.e. the $a_i$ have gcd $1$).
+    On one hand, expressing $r_i$ as $a_i/M$ implies that
+    the subgroup generated by the $r_i$ is contained in
+    the subgroup generated by $1/M$.
+    On the other hand, since $(a_1,\dots,a_k) = (1)$
+    as ideals in $\ZZ$, there is a $\ZZ$-linear combination of the $a_i/M$
+    that equals $1/M$, so $1/M\in\langle r_1,\dots,r_k\rangle$,
+    giving the reverse inclusion. Thus, $H = \langle 1/M\rangle$,
+    meaning every nontrivial finitely generated subgroup is of this form.
+\end{soln}
+
+\begin{problem}
+    Let $R$ be a principal ideal domain.
+    Show that every submodule of $R^d$
+    is isomorphic to $R^e$ for some $e\le d$.
+\end{problem}
+
+\begin{problem}
+    Let $R$ be an integral domain with fraction field $F$.
+    \begin{enumerate}[(a)]
+        \ii Show that an isomorphism of $R$-modules $R^d\cong R^e$
+	induces an isomorphism of $F$-vector spaces $F^d\cong F^e$.
+	\ii Conclude that $R^d\cong R^e$ implies $d=e$.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}
+    Let $R$ be a principal ideal domain,
+    and $M$ a nontrivial finitely generated torsion-free $R$-module.
+    \begin{enumerate}[(a)]
+        \ii Show that if $m_1,m_2\in M$ are such that
+	$\langle m_1\rangle\cap\langle m_2\rangle \ne \{0\}$,
+	then $\langle m_1\rangle + \langle m_2\rangle = \langle m\rangle$
+	for some $m\in M$.
+	\ii Show that $M/\langle m\rangle$ is torsion-free
+	if and only if $\langle m\rangle$ is maximal among submodules of this type.
+	\ii Show that there exists a nonzero element $m\in M$
+	such that the $R$-module $M/\langle m\rangle$ is torsion-free.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}
+    Let $T\colon V\to V$ be a linear transformation of
+    a finite-dimensional $F$-vector space.
+    After choosing a basis $v_1,\dots,v_n\in V$,
+    we can represent $T$ by an $n\times n$ matrix $A$.
+    Show that if $A'$ is the $n\times n$ matrix representing
+    $T$ with respect to another basis $v'_1,\dots,v'_n\in V$,
+    then $A'$ is conjugate to $A$, in the sense that
+    there exists $B\in GL_n(F)$ with $A' = B\inv AB$.
+\end{problem}
+
+\begin{soln}
+    \todo{ugh}
+\end{soln}
+
+\begin{problem}
+    Let $V$ be an $F$-vector space.
+    Denote by $V^* = \Hom(V,F)$ the \vocab{dual vector space} of $V$,
+    consisting of the linear functionals $\varphi\colon V\to F$.
+    \begin{enumerate}[(a)]
+	\ii Show that there is a natural linear transformation $V\to V^{**}$.
+	\ii If $V$ is finite-dimensional, show that $V\cong V^{**}$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $f\colon V\to V^{**}$ be the map sending
+    $v\in V$ to the functional $f_v\in V^{**}$
+    such that $f_v(\varphi) = \varphi(v)$ for $\varphi\in V^*$.
+    \todo{a}
+    \\
+
+    (b) 
+\end{soln}
+
+\begin{problem}
+    Let $V$ be an $F$-vector space.
+    For $\varphi\in V^*$ and $v\in V$, let $\langle\varphi,v\rangle = \varphi(v)$.
+    \begin{enumerate}[(a)]
+        \ii Show that a linear transformation $T\colon V\to V$
+	induces a linear transformation $T^*\colon V^*\to V^*$,
+	called the \vocab{adjoint} of $T$,
+	such that $\langle T^*\varphi,v\rangle = \langle \varphi,Tv\rangle$
+	for all $v\in V$ and $\varphi\in V^*$.
+	\ii Suppose $V$ is finite-dimensional and choose a basis $v_1,\dots,v_n\in V$.
+	Show that $V^*$ has a unique basis $\varphi_1,\dots,\varphi_n$
+	with the property that
+	\begin{equation*}
+	    \varphi_i(v_j) = \begin{cases}
+		1 & \text{if }i = j,\\
+		0 & \text{if }i \ne j.
+	    \end{cases}
+	\end{equation*}
+	\ii Let $A$ be the matrix representing $T$
+	with respect to $v_1$, \dots, $v_n$.
+	Show that the matrix representing $T^*$
+	with respect to $\varphi_1$, \dots, $\varphi_n$
+	is the transpose of the matrix $A$.
+	\ii Show that $T^{**} = T$ under the isomorphism in Problem 6.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) In general, if $T\colon V\to W$ is a morphism of $F$-vector spaces,
+    there is an induced transformation of dual spaces
+    $T^* \colon W^*\to V^*$ which sends
+    $\varphi\colon W\to F$ to $\varphi\circ T\colon V\to F$.
+    By construction, $(T^*\varphi)(v) = (\varphi\circ T)(v) = \varphi(Tv)$
+    for all $\varphi\in V^*$ and $v\in V$.
+    \\
+
+    (b) The $\varphi_i$ are uniquely determined by their values on the $v_j$,
+    so this is only one possible basis $\varphi_1$, \dots, $\varphi_n$.
+    \\
+
+    (c)
+    \\
+
+    (d) 
+\end{soln}
+
+\begin{problem}
+    Let $q(x)\in\RR[x]$ be an irreducible quadratic polynomial and $e\ge1$.
+    Find a basis for the $\RR$-vector space $\RR[x]/(q(x)^e)$
+    such that the linear transformation corresponding to $x$
+    is given by the following matrix:
+    \begin{equation*}
+        \begin{pmatrix}
+	    a&b\\
+	    -b&a&1/b\\
+	      & & a&b\\
+	      & &-b&a&1/b\\
+	      & &  & &\ddots\\
+	      & & & & & a&b\\
+	      & & & & & -b&a&1/b\\
+        \end{pmatrix}
+    \end{equation*}
+\end{problem}
+
+\begin{problem}
+    Let $V$ be a finite-dimensional $F$-vector space.
+    Suppose that the minimal polynomial of a linear transformation
+    $T\colon V\to V$ can be factored as
+    $(x-\lambda_1)^{e_1}\cdots(x-\lambda_n)^{e_n}$
+    for distinct elements $\lambda_1,\dots,\lambda_n\in F$.
+    We proved in class that, as $F[x]$-modules,
+    \begin{equation*}
+        V\cong V_1\oplus\cdots\oplus V_n,
+    \end{equation*}
+    where $V_i\subseteq V$ is the submodule annihilated by $(x-\lambda_i)^{e_i}$.
+    Show that the resulting coordinate projections $\pi_i\colon V\to V_i$
+    can be written in the form $\pi_i(v) = f_i(T)v$
+    for polynomials $f_i(x)\in F[x]$.
+\end{problem}
+
+
+
+
+
+
+
+
+
+
+\end{document}

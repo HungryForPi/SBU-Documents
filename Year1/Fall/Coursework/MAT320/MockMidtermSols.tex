@@ -1,0 +1,730 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={5.5in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={MAT 320}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=small]{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\reversemarginpar
+\setlength{\marginparwidth}{3cm}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+
+\declaretheorem[style=basehead,name=Problem,numberwithin=section]{problem}
+
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=example]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\ord}{\operatorname{ord}}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\ihead{\footnotesize\textbf{MAT 320 Mock Tests}}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2.0cm} MAT 320 Mock Midterm Solutions}
+\author{\large Aditya Pahuja}
+\date{\large \today}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Mock Test 1}
+\begin{problem}
+	Find the pointwise limit of the sequence of functions
+	$f_n\colon[0,1]\to\RR$ defined by
+	\[f_n(x) = \left(x - \frac 1n\right)^2.\]
+	Does the sequence converge uniformly to its pointwise limit?
+\end{problem}
+
+\begin{soln}
+	The pointwise limit of $f_n$ is the function
+	\[\boxed{f\colon[0,1]\to\RR,\quad f(x) = x^2}.\]
+	This is because, for each $x\in[0,1]$, we see that
+	\[\lim_{n\to\infty} \left(x - \frac 1n\right)^2 =
+	\lim_{n\to\infty} x^2 - \frac{2x}{n} + \frac{1}{n^2}
+	= x^2 - 2x\lim_{n\to\infty} \frac 1n + \lim_{n\to\infty} \frac{1}{n^2}
+	= x^2.\]
+	
+	Moreover, this convergence is uniform.
+	Indeed, since $\frac2n$ and $\frac{1}{n^2}$ both have limit $0$
+	as $n$ goes to infinity,
+	for any $\eps > 0$ we can pick $N$ such that
+	\[\abs{\frac 2n} + \abs{\frac{1}{n^2}} < \eps\]
+	(say by picking $N$ large enough so that each term is less than $\eps/2$).
+	Thus, for any $x$, $n > N$ implies
+	\begin{align*}
+		|f(x) - f_n(x)| &= \abs{x^2 - \left(x - \frac 1n\right)^2}\\
+		&= \abs{\frac{2x}{n} - \frac{1}{n^2}}\\
+		&\le \abs{\frac {2x}n} + \abs{\frac1{n^2}}\\
+		&\le \abs{\frac 2n} + \abs{\frac{1}{n^2}} < \eps,
+	\end{align*}
+	which is what it means for $f_n$ to converge to $f$ uniformly
+	(notably, the threshold $N$ is independent of $x$.)
+\end{soln}
+
+\pagebreak 
+\begin{problem}
+	Show that $\ZZ\subseteq\RR$ is closed.
+\end{problem}
+
+\begin{soln}
+	We show that the complement of $\ZZ$ in $\RR$ is open.
+	The complement of $\ZZ$ can be expressed as
+	\[\RR\setdiff\ZZ = \bigcup_{n\in\ZZ}(n, n+1),\]
+	since any non-integer $x$ is in the interval
+	$(\lfloor x\rfloor, \lfloor x\rfloor + 1)$,
+	where $\lfloor r\rfloor$ is the largest integer $k$
+	such that $k\le r$,
+	and obviously no integers are in any of the $(n, n+1)$.
+	Then, $\RR\setdiff\ZZ$ is the union of a collection of open intervals,
+	so it is open, thus its complement $\ZZ$ is a closed set.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Let $(X, d)$ be a metric space. Show that if $X$ is connected
+	then any continuous function $f\colon X\to\QQ$ is constant.
+\end{problem}
+
+\begin{soln}
+	The main idea of this problem is the following claim:
+	\begin{claim}
+		If a nonempty subset of $\QQ$ is connected, then it contains
+		exactly one element.
+	\end{claim}
+	\begin{soln}
+		Suppose otherwise for the sake of contradiction;
+		that is, $E\subseteq\QQ$ is connected and contains
+		two numbers $a < b$. Then, we have shown in a previous homework that
+		there exists an irrational number $r\in(a, b)$.
+		Consider the sets
+		\[A = (-\infty, r)\cap E,\qquad
+		B = (r,\infty)\cap E.\]
+		$A$ and $B$ are open in $E$ because they are intersections
+		of open sets in $\RR$ with $E$.
+		They are also clearly disjoint,
+		and they are nonempty because $a\in A$ and $b\in B$.
+		Also, their union is
+		\[A\cup B = E\cap((-\infty,r)\cup(r,\infty))
+		= E\cap(\RR\setdiff\{r\})
+		= E\cap\RR \setdiff E\cap\{r\}
+		= E\]
+		because $E\subseteq\QQ$ does not contain the irrational number $r$.
+	\end{soln}
+
+	Now, if $X$ is connected, then its image $f(X)$ is also connected
+	and nonempty, so $f(X)$ contains exactly one number by the claim,
+	i.e. $f$ is a constant function.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Show that the set
+	\[K = \left\{1 - 2^{-n} : n\in\NN\right\}
+	\cup\{1\}\cup \left\{\frac{n}{1+n} : n\in\NN\right\}\]
+	is a compact subset of $\RR$.
+\end{problem}
+
+\begin{soln}
+	We can do this with just the definition of compactness.
+	Let $\mathcal U$ be an open cover of $K$.
+	Then, some $U\in \mathcal U$ contains $1$, which means that
+	there is an open interval $I = (1-\eps,1+\eps)\subseteq U$. Since
+	\[\lim_{n\to\infty} 1 - 2^{-n} = \lim_{n\to\infty} \frac{n}{1 + n} = 1,\]
+	eventually $1 - 2^{-n}$ and $\frac{n}{1 + n}$ will be in $I$
+	(i.e. they will be a distance less than $\eps$ away from $1$),
+	say when $n > N$.
+	That is, all but finitely many elements of $K$ are in $U$.
+	
+	For $n \le N$, let $A_n\in\mathcal U$ be an open set containing $1 - 2^{-n}$
+	and let $B_n\in\mathcal U$ be an open set containing $\frac{n}{1+n}$.
+	Then, we have found a finite subcover of $\mathcal U$ in the form
+	\[K \subseteq U \cup \bigcup_{n=1}^N A_n \cup\bigcup_{n=1}^N B_n,\]
+	since, to reiterate, $U$ contains $1$ as well as
+	$1 - 2^{-n}$ and $\frac{n}{1+n}$ for $n > N$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Let $I = (a, b)$ be an interval.
+	A function $f\colon I\to\RR$ is called \vocab{convex} if
+	\[f(\lambda x + (1-\lambda) y) \le \lambda f(x) + (1-\lambda) f(y)\]
+	for all $x,y\in I$ and $0\le\lambda\le 1$. Show that
+	\begin{enumerate}[(a)]
+		\ii if $f\colon I\to\RR$ and $g\colon\RR\to\RR$ are convex,
+		and $g$ is increasing, then their composition $h\colon I\to\RR$,
+		$h(x) = g(f(x))$, is also convex;
+		\ii the function $f$ is convex if and only if
+		\[\frac{f(y) - f(x)}{y - x} \le \frac{f(z) - f(y)}{z - y}\]
+		for all $x < y < z$ in $I$;
+		\ii if $f$ is of class $C^2$ and $f''(x) \ge 0$ at every $x\in I$
+		then $f$ is convex.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	For (a), let $\lambda\in[0,1]$ and $x,y\in I$. Then
+	\begin{align*}
+		h(\lambda x + (1-\lambda)y) &=
+		g(f(\lambda x + (1-\lambda)y))\\
+		&\le g(\lambda f(x) + (1-\lambda)f(y))\\
+		&\le \lambda g(f(x)) + (1-\lambda)g(f(y))\\
+		&= \lambda h(x) + (1-\lambda)h(y),
+	\end{align*}
+	with the second line using the fact that $f$ is convex
+	and $g$ is increasing in the form
+	\begin{align*}
+		f(\lambda x + (1-\lambda) y) &\le \lambda f(x) + (1-\lambda) f(y)\\
+		\implies g(f(\lambda x + (1-\lambda) y)) &\le
+		g(\lambda f(x) + (1-\lambda) f(y))
+	\end{align*}
+	and the third line using the fact that $g$ is convex.\\
+	
+	To prove (b), assume first that $f$ is convex.
+	Then, suppose $x < y < z$ are elements of $I$. We can write
+	\[\lambda = \frac{z - y}{z - x}\]
+	(which is in $(0,1)$ because $0 < z-y < z-x < 1$) so that
+	$\lambda x + (1-\lambda)z = y$. Thus, convexity says that
+	\[f(y) \le \lambda f(x) + (1-\lambda) f(z)
+	= \frac{z-y}{z-x}\cdot f(x) + \frac{y-x}{z-x} \cdot f(z).\]
+	This can be rearranged to
+	\[\frac{z-y}{z-x}(f(y) - f(x)) \le \frac{y-x}{z-x}(f(z) - f(y)),\]
+	which is equivalent to
+	\[\frac{f(y) - f(x)}{y-x} \le \frac{f(z) - f(y)}{z - y}\]
+	after multiplying both sides by $\frac{z-x}{(z-y)(y-x)}$.
+	
+	To prove the converse, we can reverse the algebraic manipulation to get
+	\[\frac{f(y) - f(x)}{y-x} \le \frac{f(z) - f(y)}{z - y} \implies
+	f(y) \le \frac{z-y}{z-x}\cdot f(x) + \frac{y-x}{z-x} \cdot f(z)\]
+	whenever $x < y < z$.
+	For any $x < z$ in $I$ and $\lambda\in[0,1]$, we can then let
+	$y = \lambda x + (1-\lambda)z$, which is between $x$ and $z$.
+	Solving for $\lambda$ lets us recover
+	\[\lambda = \frac{z-y}{z-x},\]
+	so the given inequality implies that
+	\[f(\lambda x + (1-\lambda)y) = f(y)
+	\le \frac{z-y}{z-x}\cdot f(x) + \frac{y-x}{z-x} \cdot f(z)
+	= \lambda f(x) + (1-\lambda) f(z).\]
+	
+	Finally, for (c), let $x < y < z$ be in $I$.
+	Since $f$ is class $C^1$,
+	the mean value theorem says that there exist
+	$x < \alpha < y$ and $y < \beta < z$ such that
+	\[\frac{f(y) - f(x)}{y - x} = f'(\alpha),\quad
+	\frac{f(z) - f(y)}{z - y} = f'(\beta).\]
+	Since $f'' \ge 0$, the function $f'$ is increasing, so
+	$\alpha < y < \beta$ implies $f'(\alpha) \le f'(\beta)$. Thus,
+	\[\frac{f(y) - f(x)}{y - x} = f'(\alpha)
+	\le f'(\beta) = \frac{f(z) - f(y)}{z - y}\]
+	for any $x < y < z$, which by part (b) implies that $f$ is convex.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	We construct an infinite sequence
+	$\RR\supset[0,1]\supset S_1\supset S_2\supset\cdots$ inductively. Let
+	\[S_1 = [0,1/3]\cup[2/3,1]\]
+	be obtained from $[0,1]$ be removing the middle third open interval
+	$(1/3,2/3)$. Repeat the process, removing the middle third open intervals
+	from $[0,1/3]$ and $[2/3,1]$ to obtain
+	\[S_2 = [0,1/9]\cup[2/9,1/3]\cup[2/3,7/9]\cup[8/9,1].\]
+	In general, $S_{n+1}$ is obtained from removing the middle third
+	of each interval in $S_n$. Define
+	\[C = \bigcap_{n=1}^\infty S_n,\]
+	which is known as the \vocab{Cantor set}. Prove that
+	\begin{enumerate}[(a)]
+		\ii $C$ is compact.
+		\ii there is no nonempty set $A\subseteq C$ that is open in $\RR$.
+		\ii $C$ has infinitely many points.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	The main fact that we will use about the structure of $S_n$ is:
+	\begin{claim}
+		The set $S_n$ can be expressed as
+		the union of $2^n$ pairwise disjoint closed intervals,
+		each with length $3^{-n}$
+		(where ``length'' is the absolute difference between the endpoints).
+	\end{claim}
+	\begin{proof}
+		This is a simple induction proof.
+		For $S_1$, we can verify manually that it is a union of
+		$2^1$ disjoint intervals $[0,1/3]$ and $[2/3,1]$ and that
+		both intervals have length $3^{-1}$.
+		
+		Now, if the claim holds for $S_n$, then write
+		\[S_n = \bigcup_{k=1}^{2^n} [a_k, a_k + 3^{-n}]\]
+		where the $2^n$ intervals $[a_k, a_k + 3^{-n}]$ are pairwise disjoint.
+		Then, after removing the middle third of each interval, we get
+		\[S_{n+1} = \bigcup_{k=1}^{2^n} [a_k, a_k + 3^{-n-1}]\cup
+		[a_k + 2\cdot 3^{-n-1}, a_k],\]
+		and each of these $2\cdot 2^n$ intervals has length $3^{-n-2}$
+		(it is easy to check that pairwise disjointness is preserved).
+	\end{proof}
+	
+	Now, all the parts fall pretty quickly.
+	\begin{enumerate}[(a)]
+		\ii For (a), we can see that $C$ is bounded because it is a subset
+		of the bounded set $[0,1]$, and it is closed because
+		it is the intersection of the $S_n$,
+		which are each closed because they are unions of finitely many ($2^n$)
+		closed intervals. Thus, $C$ is a closed and bounded subset of $\RR$,
+		so it is compact.
+		\ii For (b), suppose for the sake of contradiction that
+		$A\subseteq C$ is a nonempty open subset of $\RR$.
+		Then, let $x\in A$. There exists $\eps > 0$ such that
+		$(x-\eps, x+\eps)\subseteq C$, meaning that it is
+		a subset of all the $S_n$. Pick $N$ so that $3^{-N} < 2\eps$.
+		By the claim, we can write $S_N$ as a union of
+		pairwise disjoint open intervals of length $3^{-N}$,
+		one of which, say $I = [a, a + 3^{-N}]$, contains $x$.
+		Then, we can find a $\delta$ such that $(a-\delta,a)$ contains
+		no points of $C$, as otherwise, we could find
+		two disjoint closed intervals whose union is a closed interval,
+		which is impossible because all intervals are connected.
+		To finish, $(x-\eps, x+\eps)$ contains some points in
+		$(a-\delta, a)$, so it is not a subset of $C$,
+		hence $A$ cannot be a subset of $C$.
+		\ii Observe that if
+		\[S_n = \bigcup_{k=1}^{2^n} [a_k, a_k + 3^{-n}],\]
+		then each of the $a_k$ is also in $S_{n+1}$
+		because the endpoints of the intervals
+		are obviously not in the middle third of the respective interval.
+		Thus, each $S_n$ contains at least $2^n$ points,
+		so $C$ contains at least $2^n$ points for each $n$,
+		meaning it contains infinitely many points.
+	\end{enumerate}
+\end{soln}
+
+\pagebreak
+\section{Mock Test 2}
+\begin{problem}
+	Find the radius of convergence of the power series
+	\[f(x) = \sum_{n=1}^\infty \frac{n^3}{3^n} x^n.\]
+\end{problem}
+\begin{soln}
+	The radius of convergence of $f$ is equal to
+	\[\left(\limsup \left(\frac{n^3}{3^n}\right)^{1/n}\right)\inv
+	= \left(\limsup \frac{n^{3/n}}{3}\right)\inv
+	= \left(\lim_{n\to\infty} \frac{(n^{1/n})^3}{3}\right)\inv
+	= \left(\frac{1^3}3\right)\inv = \boxed 3.\qedhere\]
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Let $(X, d)$ be a metric space and $f\colon X\to\RR$ a continuous function.
+	Show that the set of points
+	\[P = \{x\in X : f(x) > 0\}\]
+	where the function $f$ is positive
+	is an open subset of $X$.
+\end{problem}
+\begin{proof}
+	The set of positive reals
+	\[\RR^+ =\{x\in\RR: x > 0\} = (0, \infty)\]
+	is open in $\RR$, so continuity of $f$ shows that
+	$f\inv(\RR^+) = P$ is open in $X$.
+\end{proof}
+
+\pagebreak
+\begin{problem}
+	Show that the set
+	\[K = \left\{x\in\RR : \abs{x - \frac 1n} \le \frac{1}{3n^2 + n}
+	\text{ for some }n\in\NN\right\}\cup\{0\}\]
+	is compact.
+\end{problem}
+
+\begin{soln}
+	We can rewrite $K$ as the union
+	\[K = \{0\}\cup\bigcup_{n=1}^\infty
+	\left[\frac1n - \frac{1}{3n^2+n}, \frac1n + \frac1{3n^2+n}\right].\]
+	Although this is a union of infinitely many open intervals,
+	we are lucky in that they are pairwise disjoint because
+	\begin{align*}
+		\frac{1}{n+1} + \frac{1}{3(n+1)^2 + (n+1)} &<
+		\frac{1}{n+1} + \frac{1}{3n^2 + n}\\
+		&= \frac{1}{n} - \frac{1}{n^2 + n} + \frac{1}{3n^2 + n}\\
+		&\le \frac1n - \frac{2}{3n^2 + n} + \frac{1}{3n^2 + n}\\
+		&= \frac{1}{n} - \frac{1}{3n^2 + n}
+	\end{align*}
+	for all positive integers $n$;
+	the second-to-last line follows from
+	\[\frac{1}{n^2 + n} > \frac{2}{3n^2 + n} \iff
+	3n + 1 \ge 2n + 2.\]
+	Also, we can easily see that each interval only contains positive numbers.
+	We can thus write $K$ as the complement of the open set
+	\[(-\infty, 0)\cup \left(\frac54, \infty\right)\cup
+	\bigcup_{n=1}^\infty \left(\frac{1}{n+1} + \frac{1}{3(n+1)^2 + (n+1)},
+	\frac1n - \frac{1}{3n^3 + n}\right),\]
+	so $K$ is closed.
+	$K$ is also clearly bounded as it is a subset of $[0,5/4]$,
+	so it is closed and bounded, hence compact.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Prove that the equation $xe^x = 2$ has a solution $x\in(0,1)$.
+\end{problem}
+\begin{soln}
+	We showed in class that
+	\[f(x) = xe^x = \sum_{k=0}^\infty \frac{x^{k+1}}{k!}\]
+	is continuous on its radius of convergence (which in this case is $\RR$).
+	Note also that
+	\[f(0) = 0 < 2 < 1 + 1 + \sum_{k=2}^\infty \frac{1}{k!} =
+	\sum_{k=0}^\infty \frac{1}{k!} = f(1),\]
+	so, by the intermediate value theorem, there is an $r\in(0,1)$
+	such that $2 = f(r) = re^r$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	We say that a function $u\colon[0,1]\to\RR$ is a \vocab{Lipschitz function}
+	if there is a constant $L > 0$ such that
+	\[|u(x) - u(y)| \le L|x - y|\]
+	for all $x,y\in[0,1]$. For a function $u\colon[0,1]\to\RR$ define
+	\[[u] = \sup\left\{\frac{|u(x) - u(y)|}{|x - y|} :
+	x, y\in[0,1]\text{ with }x\ne y\right\},\]
+	and
+	\[\|u\| = \sup\{|u(x)| : x\in[0,1]\}.\]
+	Let $X = \{u\colon[0,1]\to\RR : [u] < \infty\}$.
+	Perform the following tasks:
+	\begin{enumerate}[(a)]
+		\ii Show that a function $u\colon[0,1]\to\RR$ is Lipschitz
+		if and only if $[u] < \infty$, and explain why
+		all class $C^1$ functions belong to $X$.
+		\ii Show that
+		\[d'(u, v) = [u-v],\quad u,v\in X\]
+		satisfies the triangle inequality.
+		Is $(X, d')$ a metric space?
+		\ii Show that $\|u\| + \|v\| < \infty$ for all Lipschitz functions
+		and that
+		\[d(u, v) = [u - v] + \|u - v\|\]
+		is a distance function on $X$.
+		\ii Show that $(X, d)$ is a complete metric space.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	For (a), observe that if $u$ is Lipschitz then there exists an $L$ such that
+	\[|u(x) - u(y)| \le L|x - y|\]
+	for all $x,y\in[0,1]$. This always holds trivially when $x = y$,
+	so it suffices to loosen this to all $x\ne y$ in $[0,1]$.
+	That is, we can safely say that $u$ is Lipschitz iff
+	\[\frac{|u(x) - u(y)|}{|x - y|} \le L\]
+	for all $x\ne y$ in $[0,1]$; that is, if $u$ is Lipschitz, the supremum
+	of the difference quotient (which is $[u]$) over all
+	pairs of distinct reals in $(0,1)$ is at most $L$, i.e. less than $\infty$.
+	Conversely, if the supremum is a real number, say $L$, then
+	\[\frac{|u(x) - u(y)|}{|x - y|} \le L\]
+	for all $x,y\in[0,1]$ with $x\ne y$ by definition of supremum.
+	
+	Additionally, if $u$ is class $C^1$, then its derivative is
+	always at most $L$ (because the difference quotient is at most $L$),
+	so $u'$ is bounded. Then, for any $x < y$, we can find
+	$\xi$ between $x$ and $y$ such that
+	\[\frac{u(x) - u(y)}{x - y} = u'(\xi),\]
+	which means that the difference quotient is bounded
+	as long as $u'$ is bounded, and we established above that $u'$ is bounded,
+	thus $u\in X$.\\
+	
+	For (b), we just observe that, for each $x\ne y$,
+	\[\frac{|(u-v)(x) - (u-v)(y)|}{|x-y|} +
+	\frac{|(v-w)(x) - (v-w)(y)|}{|x-y|} \ge
+	\frac{|(u-w)(x) - (u-w)(y)|}{|x - y|}\]
+	by the triangle inequality, so
+	\begin{align*}
+		[u-v] + [v-w] &\ge
+		\sup_{0\le x<y\le1}\frac{|(u-v)(x) - (u-v)(y)|}{|x-y|} +
+		\frac{|(v-w)(x) - (v-w)(y)|}{|x-y|}\\
+		&\ge \sup_{0\le x<y\le 1} \frac{|(u-w)(x) - (u-w)(y)|}{|x - y|}\\
+		&= [u-w].
+	\end{align*}
+	
+	However, $d'$ is not a metric on $X$. For example, consider the functions
+	$u(x) = 1$ and $v(x) = 2$, both of which are in $X$
+	(because they're class $C^1$). We get
+	\[[u-v] = \sup_{0\le x<y\le 1} \abs{\frac{(2-1) - (2-1)}{x - y}} = 0,\]
+	even though $u\ne v$.\\
+	
+	For (c), suppose that $u$ is Lipschitz. Then, $[u]$ is a real number
+	by part (a), and $\|u\|$ is a real number because
+	$u$ being Lipschitz means that there exists an $L$ such that
+	\[|u(x)| - |u(0)| \le |u(x) - u(0)| \le L\cdot|x - 0| \le L
+	\implies |u(x)| \le L + |u(0)|\]
+	for all $x$. Now we check that $d$ is a metric on $X$.
+	\begin{itemize}
+		\ii We can check easily that $\|u\|$ satisfies
+		the triangle inequality (in much the same way as the previous part),
+		so the sum $[u] + \|u\|$ also satisfies the triangle inequality.
+		\ii Moreover, it is trivial to check that $d(u, v) = d(v, u)$,
+		as the absolute values within the suprema
+		mean that $[u-v] + \|u-v\| = [v-u] + \|v-u\|$.
+		\ii Since $[u]$ and $\|u\|$ are always nonnegative,
+		we only need to check when $[u] + \|u\| = 0$.
+		We can see that $d(u, v) = 0$ implies that $\|u-v\| = 0$,
+		which then forces $|(u-v)(x)| \le 0$ for all $x$, i.e.
+		$u - v\equiv 0\iff u = v$. It is trivial to check that
+		$u = v$ implies $d(u, v) = 0$, so $d$ is positive definite.
+	\end{itemize}
+
+	Finally, for (d), we need to show that $(X, d)$ is a complete metric space.
+	Let $(u_n)$ be a Cauchy sequence in $X$; we need to show that
+	it converges in $X$. The sequence being Cauchy means that,
+	for each $\eps > 0$, there exists $N$ such that $m,n > N$ implies
+	$d(u_m, u_n) < \eps$. For such $m$ and $n$, we can bound
+	\[\eps > d(u_m, u_n) = [u_m - u_n] + \|u_m - u_n\| \ge |u_m(x) - u_n(x)|,\]
+	so in fact for any fixed $x$ the sequence $(u_n(x))$ is a Cauchy sequence
+	of real numbers; thus $(u_n)$ has a pointwise limit $u$.
+	In fact, this convergence is uniform
+	because $(u_m)$ being Cauchy with respect to $d$
+	means that it is Cauchy with respect to the standard
+	\[\|u - v\| = \sup_{x\in [0,1]} |u(x) - v(x)|\]
+	metric on bounded functions.
+	
+	I claim that $u$ is the limit of $(u_n)$ in $(X, d)$.
+	First, we show that $u\in X$. For $m,n > N$, we can say that
+	\[\eps > d(u_m, u_n) = [u_m - u_n] + \|u_m - u_n\|
+	\ge [u_m - u_n] \ge |[u_m] - [u_n]|\]
+	by triangle inequality. That is, $([u_n])$ is a Cauchy sequence,
+	so in particular the constants $L_n$ such that
+	\[|u_n(x) - u_n(y)| \le L_n\cdot|x - y|\]
+	have a limit $L$. Thus, we can see that
+	\[|u(x) - u(y)| \le |u(x) - u_n(x)| + |u_n(x) - u_n(y)|	+ |u_n(y) - u(y)|,\]
+	so the left-hand side is less than $L|x - y|$ by taking $n\to\infty$,
+	i.e. $u$ is Lipschitz, thus in $X$.
+	Now, for conciseness, define
+	\[[v]_{x,y} = \frac{|v(x) - v(y)|}{|x - y|}\]
+	where $x\ne y$ and $v\in X$.
+	We wish to bound
+	\[d(u, u_n) = [u - u_n] + \|u - u_n\|.\]
+	Since $u_n\to u$ uniformly, we can bound the second term by $\eps/2$.
+	For the first term, we bound pointwise: take any $x\ne y$, and then observe
+	\[[u - u_n]_{x,y} \le [u - u_m]_{x,y} + [u_m - u_n]_{x,y}.\]
+	For $m,n > M$, the second addend on the RHS can be
+	bounded by say $\frac\eps4$, and, for $m > M'$, the first addend
+	can be bounded by $\frac\eps4$ because $u_m\to u$ pointwise.
+	More explicitly,
+	\[\frac{|u(x) - u_m(x) - u(y) + u_m(y)|}{|x - y|}
+	\le \frac{|u(x) - u_m(x)| + |u(y) - u_m(y)|}{|x - y|},\]
+	and we can bound the numerator terms by any positive real
+	as long as we make $n$ large enough, so we can bound both by
+	$\frac{\eps|x - y|}{8}$. Thus,
+	\[[u - u_n]_{x,y} \le \frac\eps2\]
+	for all $x\ne y$ in $[0,1]$, and now $\frac\eps2$ is a constant bound
+	so we can just take the supremum, which gives us $[u - u_n] \le \frac\eps2$,
+	which finishes.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+	Let $f\colon\RR\to\RR$ be a differentiable function such that
+	\[\lim_{x\to\infty} f(x) = 10,\qquad \lim_{x\to-\infty} = -10.\]
+	Let $Z = \{z\in\RR : f(z) = 0\}$ denote the zero set of $f$.
+	We say that $z\in Z$ an \vocab{isolated zero} if there is an open set $U$
+	containing $z$ such that $f(x)\ne 0$ for all $x\in U\setdiff\{z\}$.
+	Perform the following tasks.
+	\begin{enumerate}[(a)]
+		\ii Show that $Z$ is a compact set.
+		\ii Assuming that $f$ only has isolated zeroes show that $Z$ is finite.
+		\ii Assuming there is no point $z\in\RR$ such that $f(z) = f'(z) = 0$
+		show that $Z$ is finite.
+	\end{enumerate}
+\end{problem}
+
+\begin{soln}
+	To prove (a), we prove that $Z$ is closed and bounded.
+	Since $f$ is differentiable, it is continuous, so
+	the pre-image $Z = f\inv(\{0\})$ of the closed set $\{0\}$
+	is also closed. To see that it is bounded, we see that the
+	limit conditions say that for each $\eps > 0$,
+	there exist $N_1 > N_2$ such that
+	\[x > N_1\implies |f(x) - 10| < \eps,\quad
+	x < N_2\implies |f(x) + 10| < \eps.\]
+	Picking $\eps = 1$, this means that $f(x)$ is nonzero
+	when $x > N_1$ or $x < N_2$; 
+	thus, $Z\subseteq[N_2, N_1]$, so it is bounded.\\
+	
+	For (b), the definition of isolated zeroes means that
+	for each $r\in Z$, we can find a $U_z$ such that
+	$f(x)\ne 0$ for all $x\in U_z\setdiff \{r\}$.
+	That is, $U_r\cap Z = \{r\}$ for all $r\in Z$.
+	Now, consider the open cover $\mathcal U = \{U_r : r\in Z\}$.
+	Any proper subset of this open cover
+	no longer covers $Z$, since for each $r\in Z$
+	there is exactly one set in $\mathcal U$ that contains $r$;
+	thus, the only subcover of $\mathcal U$ is $\mathcal U$.
+	On the other hand, $\mathcal U$ has a finite subcover
+	because $Z$ is compact, so $\mathcal U$ is finite,
+	hence so is $Z$ (because we have a bijection $\mathcal U\to Z$
+	given by $U_r \mapsto r$).\\
+	
+	Finally, for (c), we show that $f$ only has isolated zeroes.
+	Let $z\in Z$. Then,
+	\[\lim_{x\to z} \frac{f(z) - f(x)}{z - x} = f'(z)\]
+	is nonzero, so the difference quotient is nonzero within some
+	deleted neighborhood $(z-\eps,z+\eps)\setdiff\{z\}$ of $z$. But then
+	\[\frac{f(z) - f(x)}{z - x} = \frac{-f(x)}{z - x} \ne 0\]
+	whenever $0 < |x - z| < \eps$, which means that we have found
+	an open set $U = (z-\eps, z+\eps)$ such that
+	$f(x)\ne 0$ whenever $x\in U\setdiff\{z\}$, hence $z$ is an isolated zero.
+	We can then conclude by (b) that $Z$ is finite!
+\end{soln}
+
+
+
+
+
+% ----------- awa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,374 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 344 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+\providecommand{\im}{\operatorname{im}}
+\providecommand{\paren}[1]{\left(#1\right)}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 344 HW08}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/14}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [p.178\#2]
+    Show that the series
+    \begin{equation*}
+	\zeta(z) = \sum_{n=1}^\infty n^{-z}
+    \end{equation*}
+    converges for $\operatorname{Re} z > 1$,
+    and represent its derivative in series form.
+\end{problem}
+
+\begin{proof}
+    For any $c > 1$, if $\operatorname{Re} z \ge c$, then
+    $\smabs{n^{-z}} \le n^{-c}$.
+    Since $\sum_{n=1}^\infty n^{-c} < \infty$,
+    the Weierstrass $M$-test implies that $\zeta(z)$ converges
+    uniformly on $\mathbb H_c = \{z\in\CC : \operatorname{Re} z\ge c\}$.
+    Since any compact subset of this domain of convergence
+    is contained in $\mathbb H_c$ for some $c$,
+    Theorem 1 on p.176 implies that the derivative of $\zeta$
+    can be taken termwise, so
+    \begin{equation*}
+	\boxed{\zeta'(z) = \sum_{n=1}^\infty -n^{-z}\log n.}\qedhere
+    \end{equation*}
+\end{proof}
+
+\begin{problem}
+    [p.190\#1]
+    Comparing coefficients in the Laurent developments of $\cot(\pi z)$
+    and of its expression as a sum of partial fractions,
+    find the values of
+    \begin{equation*}
+	\sum_{n=1}^\infty \frac 1{n^2},\qquad
+	\sum_{n=1}^\infty \frac 1{n^4},\qquad
+	\sum_{n=1}^\infty \frac 1{n^6}.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Equation (10) on p.189 says that
+    \begin{equation*}
+	\pi\cot(\pi z)
+	= \frac 1z + \sum_{n=1}^\infty \frac{2z}{z^2 - n^2}
+	= \frac 1z - \sum_{n=1}^\infty
+	\frac 1{n^2}\cdot \frac{2z}{1 - (\frac zn)^2}
+	= \frac 1z - \sum_{n=1}^\infty \sum_{k=0}^\infty
+	\frac{2z}{n^2}\cdot \frac{z^{2k}}{n^{2k}}
+	= \frac 1z - \sum_{k=1}^\infty 2\zeta(2k)z^{2k-1}.
+    \end{equation*}
+
+    On the other hand, $\pi\cot(\pi z) = \frac{\pi\cos(\pi z)}{\sin(\pi z)}$,
+    so the Laurent series for $\pi\cot(\pi z)$ around zero is given by
+    \begin{align*}
+	\pi\cdot
+	\frac{1 - \frac{(\pi z)^2}{2!} + \frac{(\pi z)^4}{4!} - \cdots}
+	{\pi z - \frac{(\pi z)^3}{3!} + \frac{(\pi z)^5}{5!} - \cdots}
+	&= \frac 1z\cdot
+	\frac{1 - \frac{(\pi z)^2}{2!} + \frac{(\pi z)^4}{4!} - \cdots}
+	{1 - \frac{(\pi z)^2}{3!} + \frac{(\pi z)^4}{5!} - \cdots}\\
+	&= \frac 1z\paren{
+	    1 - \frac{(\pi z)^2}{2!} + \frac{(\pi z)^4}{4!} -
+	    \frac{(\pi z)^6}{6!}\cdots
+	}
+	\paren{
+	    1 + \frac{\pi^2 z^2}{6} + \frac{7\pi^4 z^4}{360} +
+	    \frac{31\pi^6z^6}{15120} + \cdots
+	}.
+    \end{align*}
+    Comparing coefficients between the the two equations tells us that
+    \begin{gather*}
+	-2\zeta(2) = \frac{-\pi^2}2 + \frac{\pi^2}6
+	= -\frac{\pi^2}3\implies = \boxed{\zeta(2) = \frac{\pi^2}6}\\
+	-2\zeta(4) = -\frac{\pi^4}{12} + \frac{7\pi^4}{360}
+	+ \frac{\pi^4}{24} = -\frac{\pi^4}{45}
+	\implies \boxed{\zeta(4) = \frac{\pi^4}{90}}\\
+	-2\zeta(6) = \frac{31\pi^6}{15120}
+	- \frac{-7}{720} + \frac 1{144} - \frac 1{720}
+	= -\frac{2\pi^6}{945}
+	\implies \boxed{\zeta(6) = \frac{\pi^6}{945}}\qedhere
+    \end{gather*}
+\end{soln}
+
+\begin{problem}
+    [p.193\#1]
+    Show that
+    \begin{equation*}
+	\prod_{n=2}^\infty \paren{1 - \frac 1{n^2}} = \half.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    This follows from
+    \begin{equation*}
+	\lim_{N\to\infty}\prod_{n=2}^N \paren{1 - \frac 1{n^2}}
+	= \lim_{N\to\infty}\prod_{n=2}^N \frac{(n + 1)(n - 1)}{n^2}
+	= \lim_{N\to\infty} \half\cdot \frac{N+1}N = \boxed\half
+    \end{equation*}
+    where the second-to-last equality is true because for $2 < n < N$,
+    the $n^2$ term in the denominator is canceled by
+    the two $n$s in the numerators
+    of the previous and next terms of the product.
+\end{soln}
+
+\begin{problem}
+    [p.193\#2]
+    Prove that for $\abs z < 1$,
+    \begin{equation*}
+	(1 + z)(1 + z^2)(1 + z^4)(1 + z^8)\cdots = \frac 1{1-z}.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Observe that the product of the first $N$ terms on the left-hand side
+    are equal to $\frac{1 - z^{2^N}}{1-z}$ by difference of squares;
+    clearly this is true for $N = 1$, and
+    \begin{equation*}
+	\frac{1 - z^{2^N}}{1-z}\cdot (1 + z^{2^N})
+	= \frac{1 - z^{2^{N+1}}}{1 - z},
+    \end{equation*}
+    so the claim is true for all $N$. Then $z^{2^{N+1}}$ goes to zero
+    when $N$ grows arbitrarily large because $\abs z < 1$, so
+    \begin{equation*}
+	\prod_{n=0}^\infty(1 + z^{2^n})
+	= \lim_{N\to\infty}\prod_{n=0}^N (1 + z^{2^n})
+	= \lim_{N\to\infty} \frac{1 - z^{2^{N+1}}}{1 - z}
+	= \boxed{\frac 1{1-z}}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    [p.193\#3]
+    Prove that
+    \begin{equation*}
+	\prod_{n=1}^\infty \paren{1 + \frac zn} e^{-z/n}
+    \end{equation*}
+    converges absolutely and uniformly on every compact set.
+\end{problem}
+
+\begin{soln}
+    Expanding $e^{-z/n}$ as a power series and multiplying, we get
+    \begin{equation*}
+	\prod_{n=1}^\infty \paren{
+	    1 + \sum_{k=2}^\infty (-1)^k\paren{\frac 1{(k-1)!} - \frac 1{k!}}
+	    \paren{\frac zn}^k
+	},
+    \end{equation*}
+    which converges absolutely and uniformly on a given compact set $K$
+    if and only if the sum
+    \begin{equation*}
+	\sum_{n=1}^\infty
+	\paren{\sum_{k=2}^\infty (-1)^k\paren{\frac 1{(k-1)!}
+	- \frac 1{k!}} \paren{\frac zn}^k}
+    \end{equation*}
+    also converges absolutely and uniformly on $K$.
+
+    Since $K$ is compact, it is bounded,
+    say $\abs z < N$ for some integer $N$ whenever $z\in K$.
+    Discarding finitely many terms in the series under consideration
+    does not affect the nature of its convergence, so we consider
+    the sum starting at $n = N$ instead. Then,
+    we get both absolute and uniform convergence
+    by the following chain of inequalities:
+    \begin{align*}
+	\sum_{n=1}^\infty
+	\abs{\sum_{k=2}^\infty (-1)^k\paren{\frac 1{(k-1)!}
+	- \frac 1{k!}} \paren{\frac zn}^k}
+	&\le \sum_{n=N}^\infty\sum_{k=2}^\infty
+	\paren{\frac 1{(k-1)!} - \frac 1{k!}}
+	\frac{\abs z^k}{n^k}\\
+	&\le \sum_{n=N}^\infty\sum_{k=2}^\infty
+	\paren{\frac 1{(k-1)!} - \frac 1{k!}} \frac{N^2}{n^2}
+	= \sum_{n=N}^\infty \frac{N^2}{n^2} < \infty.\qedhere
+    \end{align*}
+\end{soln}
+
+\begin{problem}
+    [p.197\#1]
+    Suppose that $a_n\to\infty$ and that the $A_n$
+    are arbitrary complex numbers. Show that there exists
+    an entire function $f(z)$ which satisfies $f(a_n) = A_n$.
+\end{problem}
+
+\begin{soln}
+    Let $g(z)$ have simple zeroes at each $a_n$ and consider
+    \begin{equation*}
+	f(z) = \sum_{n=1}^\infty
+	g(z)\frac{e^{\gamma_n(z-a_n)}}{z-a_n}\cdot \frac{A_n}{g'(a_n)}.
+    \end{equation*}
+    for some constants $\gamma_n$ yet to be determined.
+    Certainly if the sum converges locally uniformly
+    then $\lim_{z\to a_n} f(z)$ is $A_n$, since
+    \begin{equation*}
+	\lim_{z\to a_n}\frac{g(z)}{(z-a_n)g'(a_n)}\cdot e^{\gamma_n(z-a_n)}
+	= \lim_{z\to a_n}\frac{g(z) - g(a_n)}{(z-a_n)g'(a_n)}
+	\cdot e^{\gamma_n(z-a_n)}= 1
+    \end{equation*}
+    while all the other addends go to zero
+    because the factors excluding $g(z)$ would be bounded
+    (using uniform convergence to swap sum and limit).
+
+    not sure how to pick $\gamma_n$ :(
+\end{soln}
+
+\begin{problem}
+    [p.198\#3]
+    What is the genus of $\cos(\sqrt z)$?
+\end{problem}
+
+\begin{soln}
+    Since $\cos(z)$ is a translate of $\sin(z)$,
+    it has the same genus as $\sin(z)$, so
+    \begin{equation*}
+	\cos(z) = e^{g(z)}
+	\prod_{n\in\ZZ}\paren{1 - \frac{2z}{\pi(2n-1)}}e^{2z/(\pi(2n-1))}.
+    \end{equation*}
+    The same strategy as the one employed by Ahlfors
+    to conclude that the product converges uniformly
+    and that $g(z)$ is a constant in the product expansion for
+    $\sin(z)$ also can be used here to show that $g(z)$ is constant here.
+    Pairing factors of the product with positive and negative coefficients
+    shows that
+    \begin{equation*}
+	\cos(z) = C\cdot\prod_{n=1}^\infty
+	\paren{1 - \frac{4z^2}{\pi^2(2n-1)^2}}
+    \end{equation*}
+    where the $e^\bullet$ terms cancel each other in each pairing.
+    This implies that
+    \begin{equation*}
+	\cos(\sqrt z) = C\cdot \prod_{n=1}^\infty
+	\paren{1 - \frac{4z}{\pi^2(2n-1)^2}},
+    \end{equation*}
+    which has the shape of the canonical product for the sequence
+    $\{\frac 4{\pi^2(2n-1)^2}\}_{n\in\NN}$, hence has genus \framebox{0}.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

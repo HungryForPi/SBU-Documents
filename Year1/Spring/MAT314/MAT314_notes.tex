@@ -1,0 +1,1604 @@
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={5.5in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={MAT 314 Notes}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=small]{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\mf}[1]{\mathfrak{#1}}
+\providecommand{\abs}[1]{\left|{#1}\right|}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+\setlength{\marginparwidth}{3cm}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+
+\declaretheorem[style=thmredbox,name=Problem,numberwithin=section]{problem}
+
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=example]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\ord}{\operatorname{ord}}
+\providecommand{\tensor}{\otimes}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\ihead{\footnotesize\textbf{MAT 314 Spring 2025 Notes}}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2.0cm} MAT 314 Spring 2025}
+\author{\large Aditya Pahuja}
+\date{\large \today}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Week 1: 1/28 and 1/30}
+
+\href{https://www.math.stonybrook.edu/~rdhough/mat314_spring25/math314.html}
+{Course website link}.
+
+\subsection{The classical groups}
+\begin{definition}
+	Let $F$ be a ring or field.
+	The \vocab{matrix group} $GL_n(F)$ is the set of
+	invertible $n\times n$ matrices with entries in $F$
+	under composition.
+	The subgroup $SL_n(F)$ is the set of matrices with determinant $1$.
+\end{definition}
+
+\begin{prop}
+	If $F$ is a ring, then $M\in GL_n(F)$ iff $\det M$ is a unit.
+\end{prop}
+
+\begin{proof}
+	Recall that $\opname{adj}(M)\cdot M$ is the diagonal matrix
+	whose diagonal is filled with $\det M$,
+	so $\det M$ is a unit iff the diagonal matrix is invertible.
+	\todo{what is the adjoint\dots?}
+\end{proof}
+
+Some groups fix a particular form:
+\begin{definition}
+	The \vocab{orthogonal group} $O_n(\RR)$ preserves inner product:
+	\[O_n(\RR) = \{P\in GL_n(\RR) : P^tP = I_n\}.\]
+\end{definition}
+
+A variation of this is
+\[O_{p,q}(\RR) = \{P\in GL_n(\RR) : P^t\}\]
+\todo{text}
+
+\begin{definition}
+	The \vocab{unitary group} $U_n$ preserves a complex inner product
+	$\mb x\cdot\mb y = x_1\ol{y_1} + \cdots + x_n\ol{y_n}$.
+	\[U_n = \{P\in GL_n(\CC) : \}\]
+\end{definition}
+
+In particular, one can then show that the rows (and columns) of this matrix
+are pairwise orthogonal. Let $P\in U_n$.
+If $v$ is an eigenvector, so that $Pv = \lambda v$ for $\lambda\in\CC$, then
+\[\|v\|^2 = \langle v,v\rangle = \langle Pv, Pv\rangle =
+\ol v^t \ol P^t Pv = \ol v^t\ol\lambda \lambda v = |\lambda|^2\|v\|^2,\]
+so $|\lambda| = 1$; therefore we can write any eigenvalue $\lambda$ as
+$e^{i\theta}$.
+
+If $v$ is an eigenvector and $w\perp v$, then
+\[0 = \langle w,v\rangle = \langle Pw, Pv\rangle =
+\ol\lambda\langle Pw,v\rangle,\]
+so the space of vectors orthogonal to $v$ is $P$-invariant.
+
+Note that every square matrix over $\CC$ has an eigenvalue
+since $\det(P - \lambda I) = 0$ always has a solution $\lambda$
+(because $\CC$ is algebraically closed).
+Repeat this with orthogonal space (?) to get that any $P\in U_n$
+can be diagonalized (in particular each $P\in U_n$ has an eigenbasis).
+
+\begin{theorem}
+	Every $P\in U_n$ is conjucate to a diagonal matrix of rotations;
+	these are the conjugacy classes of $U_n$.
+\end{theorem}
+
+In $SU_2$, the conjugacy classes are just determined by
+\[\begin{pmatrix}
+	e^{i\theta} &0\\
+	0&e^{-\theta}
+\end{pmatrix}\]
+
+\[SU_2 = \left\{\begin{pmatrix}
+	a&b\\
+	-\ol b&\ol a
+\end{pmatrix} : a,b\in\CC, |a|^2 + |b|^2 = 1\right\}.\]
+expanding the real and imaginary parts here gives a group law
+on the $3$-sphere, analogous to the circle group for $S_1$
+(an analogous result is impossible for $S_2$ because of
+hairy ball theorem, or something)
+
+\begin{definition}
+	The \vocab{symplectic group} $SP_{2n}(\RR)$ preserves the
+	symplectic form
+	\[x_1\wedge y_1 + \cdots + x_n\wedge y_n =
+	x_1\otimes y_1 - y_1\otimes x_1 + \cdots + x_n\otimes y_n - y_n\otimes x_n\]
+\end{definition}
+
+\todo{texing matrices is hard}
+
+In general, when the name of one of these groups is prepended with an $S$,
+it means we are restricting to the subgroup with det $1$
+(and the adjective ``special'' is added to the front, so e.g.
+$SO_n(\RR)$ is the special orthogonal group).
+
+The matrix groups have dimensions, which are the number of
+real parameters describing the group as a real manifold.
+For example, $GL_n(\RR)$ has dimension $n^2$.
+
+\begin{example}[1 dimensional group]
+	The group $U_1/ SO_2(\RR)$ is the circle group,
+	isomorphic to $\RR/\ZZ$, consisting of the rotation matrices
+	\[\left\{\begin{pmatrix}
+		\cos(2\pi\theta) & -\sin(2\pi\theta)\\
+		\sin(2\pi\theta) & \cos(2\pi\theta)
+	\end{pmatrix}\right\}.\]
+\end{example}
+
+\begin{example}[3 dimensional groups]
+	The special linear group $SL_2(\RR)$ of $2\times 2$ matrices with det 1
+	is a non-compact 3 dimensional group,
+	while $SO_3(\RR)$ is a compact 3d group.
+\end{example}
+
+\begin{definition}[Quaternions]
+	The group of unit quaternions is the subgroup of $SU^2$
+	generated by
+	\[i = \begin{pmatrix}
+		i&0\\
+		0&-i
+	\end{pmatrix},\quad
+	j = \begin{pmatrix}
+		0&1\\
+		-1&0
+	\end{pmatrix},\quad
+	k = \begin{pmatrix}
+		0&i\\
+		i&0
+	\end{pmatrix}\]
+\end{definition}
+
+Just like $e^{i\theta} = \cos\theta + i\sin\theta$,
+we have $e^{j\theta} = \cos\theta + j\sin\theta$
+and $e^{k\theta} = \cos\theta + k\sin\theta$
+by the power series for $e^x$.
+
+We can compute that conjugating by $e^{i\theta}$ fixes $i$ and rotates
+the $jk$-plane by $2\theta$.
+
+unitary groups $\leftrightarrow$ unit quaternions
+
+For a quaternion $\alpha = x_1 + x_2i + x_3j + x_4k$
+The trace of a quaternion is $\opname{Tr}(\alpha) = \alpha + \ol\alpha = 2x_1$.
+The norm of a quaternion is $N(\alpha) = \alpha\ol\alpha
+= x_1^2 + x_2^2 + x_3^2 + x_4^2$, which is real
+(and you can check this by showing that it's equal to its conjugate).
+
+We can also show that $\ol{\alpha\beta} = \ol\beta\cdot\ol\alpha$,
+so conjugation is an antihomomorphism (it flips the order of multiplication).
+
+Recall from linear algebra that 
+\[\opname{Tr}(U\inv X U) = \opname{Tr}(X),\]
+i.e. similar matrices have the same trace.
+This means the equator, being the set of imaginary quaternions,
+is the set of matrices with trace zero.
+The equator is preserved by conjugation (in the sense of groups or..?).
+$SU_2$ acts on 2-sphere/equator/imaginary quaternions by conjugation.
+
+This makes $SU_2$ a ``double cover'' of $SO_3$
+in that there is a surjective homomorphism $SU_2\to SO_3$
+with a kernel of size 2.
+
+\subsection{1-parameter groups}
+\begin{definition}
+	The \vocab{1-parameter subgroups} of $GL_n(\RR)$ or $GL_n(\CC)$
+	(which we will just denote by $GL_n$)
+	are images of differentiable homomorphisms $\RR\to GL_n$.
+\end{definition}
+
+These are nice in that we can completely classify them:
+\begin{theorem}
+	(a) Let $A$ be an $n\times n$ real or complex matrix.
+	Then, $\varphi\colon\RR\to GL_n$, given by
+	$\varphi(t) = e^{tA}$, (defined in the expected way
+	with the Taylor series) is a group homomorphism.
+	
+	(b) Conversely, if $\varphi\colon\RR\to GL_n$ is a differentiable
+	group homomorphism and $\varphi'(0) = A$, then $\varphi(t) = e^{tA}$.
+\end{theorem}
+
+\begin{remark}[Convergence of $e^{tA}$]
+	One can show that the series defining $e^{tA}$ converges
+	under the norm $\|A\|_2 = (\sum_{i,j} A_{i,j}^2)^{1/2}$
+	by proving that $\|AB\| \le \|A\| \|B\|$ and noting that
+	the triangle inequality holds (because this is just the
+	Euclidean norm if we treat $GL_n$ as $\RR^{n^2}$).
+\end{remark}
+
+\begin{proof}
+	(a) Recall that we can prove $e^{x+y} = e^xe^y$ for $x,y\in\RR$ via
+	a series argument:
+	\begin{align*}
+		e^{x+y} &= \sum_{n=0}^\infty \frac{(x+y)^n}{n!}\\
+		&= \sum_{n=0}^\infty \frac1{n!}\sum_{k=0}^n \binom nk x^k y^{n-k}\\
+		&= \sum_{n=0}^\infty \sum_{k-0}^n
+		\frac{x^k}{k!}\cdot\frac{y^{n-k}}{(n-k)!}\\
+		&= \sum_{j=0}^\infty \frac{x^j}{j!}\cdot
+		\sum_{k=0}^\infty \frac{y^k}{k!}.
+	\end{align*}
+	The same argument holds with matrices because
+	$rA$ and $sA$ commute for any real $r,s$. Thus
+	\[\varphi(r+s) = e^{rA+sA} = e^{rA}e^{sA} = \varphi(r)\varphi(s),\]
+	proving that $\varphi$ is a homomorphism,
+	and differentiability is not too hard to show.
+	
+	(b) Conversely let $\varphi$ be a differentiable homomorphism.
+	Then, $\varphi(0) = I$. Moreover, for reals $t$, $\eps$,
+	\[\varphi(t + \eps) = \varphi(t)\varphi(\eps),\]
+	so we can write
+	\[\varphi'(t) = \lim_{\eps\to0} \frac{\varphi(t+\eps) - \varphi(t)}{\eps}
+	= \lim_{\eps\to 0} \frac{\varphi(t)\varphi(\eps) - \varphi(t)}{\eps}
+	= \varphi(t)\cdot\lim_{\eps\to0} \frac{\varphi(\eps) - I}{\eps}
+	= \varphi(t)A.\]
+	We will take for granted that the matrix exponential
+	is the complete set of solutions to this differential equation.
+\end{proof}
+
+\begin{example}
+	If $A = \begin{pmatrix}
+		0&1\\0&0
+	\end{pmatrix}$, then $A^2 = 0$, so
+	\[e^{At} = I + tA = \begin{pmatrix}
+		1&t\\0&1
+	\end{pmatrix}.\]
+\end{example}
+
+\begin{exercise}
+	What does $e^{tA}$ look like for
+	\[A = \begin{pmatrix}
+		0&1&0&\cdots&0\\
+		0&0&1&\cdots&0\\
+		\vdots&\vdots&\vdots&\ddots&\vdots\\
+		0&0&0&\cdots&1\\
+		0&0&0&\cdots&0
+	\end{pmatrix}?\]
+	(The next example uses this result.)
+\end{exercise}
+
+\begin{example}
+	Recall that a Jordan block looks like a matrix $A$ from the above exercise
+	plus $\lambda I$ for some real $I$. We can compute
+	\[e^{\lambda I + A} = e^{\lambda I} e^A = e^\lambda I\begin{pmatrix}
+		1&t&\cdots&\frac{t^n}{n!}\\
+		\vdots&\vdots&\ddots&\vdots\\
+		0&0&\cdots&t\\
+		0&0&\cdots&1
+	\end{pmatrix}\]
+	using the result of the exercise.
+	We can also show that $e^{B\inv AB} = B\inv e^AB$,
+	so this should let us compute the exponential of an $A\in GL_n(\CC)$
+	pretty easily maybe?
+\end{example}
+
+\begin{example}
+	If $A$ is the $\pi/2$ rotation matrix ($j$ from the quaternions)
+	then $e^{tA}$ is the $t$-radian rotation matrix.
+\end{example}
+
+\begin{prop}
+	(a) If $A^t = -A$ for a real matrix $A$ then $e^A$ is orthogonal,
+	and if $\ol{A^t} = -A$ for a complex matrix $A$ then $e^A$ is unitary.
+	
+	The other two parts here say that the converses hold:
+	
+	(b) The 1-parameter subgroups of $O_n$ are $t\mapsto e^{tA}$
+	for a skew-symmetric $A$.
+	
+	(c) The 1-parameter subgroups of $U_n$ are $t\mapsto e^{tA}$
+	for a skew-Hermitian $A$.
+\end{prop}
+
+\begin{proof}
+	We just show the parts about complex matrices; the results for real matrices
+	follow because Hermitian and symmetric mean the same thing for reals
+	and unitary and orthogonal mean the same thing for reals.
+	
+	If $\ol{A^t} = -A$, then we can show by expanding the series that
+	\[\ol{e^{A^t}} = e^{\ol{A^t}} = e^{-A}\]
+	so that
+	\[(\ol{e^{A}})^t e^A = I\]
+	which implies $e^A$ s unitary. For the other direction,
+	if $\varphi\colon\RR\to GL_n(\CC)$ is a differentiable homomorphism,
+	\[\frac{d}{dt}(\ol{\varphi(t)})\varphi(t) = \ol{\varphi'(t)^t}\varphi(t)
+	+ \ol{\varphi(t)^t\varphi'(t)}\]
+	(after checking that the product rule holds, which we can do by
+	just expanding the matrix product).
+	This tells us that
+	\[\ol{\varphi'(0)}^t + \varphi'(0) = 0\]
+	so that $A := \varphi'(0)$ is skew-Hermitian, and we already know that
+	$\varphi$ has to look like $e^{t\varphi'(0)}$ from
+	the structure theorem we proved about one-parameter groups.
+\end{proof}
+
+\begin{lemma}
+	$e^{\opname{tr}A} = \det e^A$.
+\end{lemma}
+
+\begin{proof}
+	We know that $A$ is similar to $C = B\inv AB$,
+	a direct sum of Jordan blocks, and the determinant
+	and trace are preserved under similarity,
+	so it suffices to check this for a Jordan block;
+	but this is just a simple computation,
+	looking at the example from earlier.
+\end{proof}
+
+\begin{prop}
+	The one-parameter subgroups of $SL_n(\RR)$ are $e^{tA}$
+	where $A$ is a real matrix with a trace of zero.
+\end{prop}
+
+\begin{proof}
+	$e^{tA}$ has determinant $1$ if and only if the trace of $tA$ is zero.
+\end{proof}
+
+\subsection{Lie algebras}
+
+\begin{definition}
+	The \vocab{Lie algebra} of a matrix group is the set of
+	tangent vectors to the group at the identity.
+\end{definition}
+
+Concretely, these tangent vectors manifest as derivatives at zero
+of differentiable functions (not necessarily homomorphisms)
+$\varphi\colon\RR\to G$ such that $\varphi(0) = I$.
+
+\begin{prop}
+	The Lie algebra of $O_n$ is skew-symmetric real matrices.
+\end{prop}
+
+\begin{proof}
+	The one-parameter subgroup characterization above shows that
+	skew-symmetric matrices are all tangent vectors.
+	In the other direction, we have that if $\varphi\colon\RR\to O_n$
+	is differentiable then
+	\[\varphi(t)^t\varphi(t) = I
+	\implies \frac{d}{dt}[\varphi(t)^t \varphi(t)]_{t=0} = 0,\]
+	and expanding with the product rule and using $\varphi(0) = I$
+	shows that $\varphi'(0)$ is skew-symmetric.
+\end{proof}
+
+\begin{lemma}
+	If $\varphi\colon\RR\to GL_n$ is a differentiable function,
+	$\varphi(0) = I$, and $\varphi'(0) = A$,
+	then $\frac{d}{dt} [\det\varphi]_{t=0} = \opname{tr}A$.
+\end{lemma}
+
+\begin{proof}[Proof Sketch]
+	Write $\varphi(t) = \left(\varphi_{ij}(t)\right)_{i,j}$
+	and then expand $\det\varphi(t)$ in terms of these coordinate functions;
+	$\varphi_{i,\sigma(i)}(0)$ is equal to $1$ if $i = \sigma(i)$
+	and zero otherwise.
+\end{proof}
+
+\begin{prop}
+	The Lie algebra of $SL_n(\RR)$ is real matrices with trace zero.
+\end{prop}
+
+\begin{proof}
+	Use the one-parameter group characterization and the preceding lemma.
+\end{proof}
+
+\begin{definition}
+	The \vocab{bracket} of a Lie algebra is $[A,B] = AB - BA$.
+\end{definition}
+
+The bracket maps pairs of elements of the lie algebra
+to an element of the Lie algebra and satisfies the \vocab{Jacobi identity},
+\[[A,[B,C]] + [B,[C,A]] + [C,[A,B]] = 0\]
+(which is sort of a proxy for associativity); this is easy to show
+by just expanding (all orderings of $A$, $B$, $C$ appear twice
+with different signs).
+
+\begin{definition}
+	More abstractly, a Lie algebra in its full generality is
+	a real vector space $V$ with a bracket
+	$[\bullet,\bullet]\colon V\times V\to V$.
+	The bracket satisfies the following properties:
+	\begin{enumerate}[(1)]
+		\ii Bilinearity,
+		\[[cv_1 + v_2, w] = c[v_1, w] + [v_2, w],\qquad
+		[v, cw_1 + w_2] = c[v, w_1] + [v, w_2].\]
+		\ii Skew symmetry,
+		\[[v,w] = -[w,v]\]
+		(so in particular $[v,w] = 0$).
+		\ii Jacobi identity,
+		\[[u,[v,w]] + [v,[w,u]] + [w,[u,v]] = 0.\]
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}
+	Baker-Campbell-Hausdorff identity --- non-convergent infinite expansion
+	$e^Ae^B = e^C$ for $C$ in terms of nested brackets
+\end{remark}
+
+\begin{definition}
+	Define \vocab{left translation} by a matirx $P$
+	by $m_P\colon G\to G$, $x\mapsto Px$.
+	(This is just the standard left multiplication group action
+	of $GL_n$ on $G$).
+\end{definition}
+
+\begin{definition}
+	A \vocab{manifold of dimension $d$} is a topological space
+	in which every point has a neighborhood homeomorphic to
+	(an open ball in) $\RR^d$.
+\end{definition}
+
+\begin{lemma}
+	The map $A\mapsto e^A$ is a homeomorphism from
+	a neighborhood of $0\in\RR^{n\times n}$ to a neighborhood of
+	$I\in GL_n(\RR)$.
+\end{lemma}
+
+\begin{proof}
+	It's easy to show that the function is continuous.
+	If $\|B\| < 1$ (where the norm is the one defined earlier,
+	essentially just the Euclidean norm), then the series
+	\[\log(I + B) = B - \frac{B^2}{2} + \frac{B^3}{3} - \frac{B^4}{4} +\cdots\]
+	is convergent. Then,
+	\[\|e^A - I\| \le \sum_{k=1}^\infty \frac{\|A^k\|}{k!}
+	\le \sum_{k=1}^\infty \frac{\|A\|^k}{k!} = e^{\|A\|}-1,\]
+	so the image of a neighborhood is a neighborhood,
+	and if we just choose $\|A\|$ small enough that $\log(e^A)$ converges
+	then we get a continuous inverse on the neighborhood.
+\end{proof}
+
+\begin{prop}
+	$O_n$ is a manifold of dimension $1 + 2 + \cdots + (n-1)$.
+\end{prop}
+
+\pagebreak
+\section{Week 3: 2/4 and 2/6}
+\subsection{Normal subgroups of matrix groups}
+Recall the following definition:
+\begin{definition}
+	A space $X$ with a topology $\mathcal T$ is \vocab{path-connected}
+	if, given $x,y\in X$, there is a continuous function $\varphi\colon[0,1]\to X$
+	such that $\varphi(0) = x$ and $\varphi(1) = y$.
+\end{definition}
+
+This also implies connectedness in the standard topological sense:
+\begin{prop}
+	A path-connected space $X$ is also connected,
+	meaning it is not the disjoint union of two non-empty open sets.
+\end{prop}
+\begin{proof}
+	If $X = U\sqcup V$ for non-empty open $U,V\subseteq X$,
+	take $x\in U$ and $y\in V$, and then take a path $\varphi$
+	from $x$ to $y$. Then the image of $\varphi$ is connected
+	because $[0,1]$ is connected, but this clashes with the fact that
+	$\varphi([0,1])\cap U$ and $\varphi([0,1])\cap V$ are disjoint
+	non-empty open in the subspace $\varphi([0,1])$.
+\end{proof}
+
+\begin{prop}
+	Let $G$ be a path-connected matrix group.
+	Let $H < G$ contain a non-empty open $U\subseteq G$.
+	Then, $H = G$.
+\end{prop}
+
+\begin{proof}
+	Recall that if $U$ is open then translation in the group is continuous.
+	Moreover,
+	\[G = \bigcup_{g\in G} gU.\]
+	If $C$ is a coset of $H$, then
+	\[C = \bigcup_{g\in gU\subseteq C} gU.\]
+	If there were more than one coset, the cosets are pairwise disjoint
+	and, by the expression above, open, contradicting the fact that $G$
+	is path-connected.
+\end{proof}
+
+\begin{theorem}
+	The only proper normal subgroup of $SU_2$ is $\{\pm I\}$,
+	and $SO(3)$ is simple.
+\end{theorem}
+
+\begin{proof}
+	The second part follows from the first because of the double cover thing.
+	
+	$SU_2$ is path-connected because it's topologically the same as $S^3$.
+	\todo{review}
+	Suppose $N\trianglelefteq SU_2$ and let $P\in N$ not be $\pm I$.
+	Then $N$ contains the conjugacy class of $P$.
+	We showed a while ago that each conjugacy class in $SU_2$
+	is represented by exactly one matrix of the form
+	\[\begin{pmatrix}
+		e^{i\theta} & 0\\
+		0 & e^{-i\theta}
+	\end{pmatrix},\]
+	so $C$, the conjugacy class of $P$, contains all matrices of a given trace
+	$t\in[-2,2]$.
+	Choose $P_1\ne P_2\in C$. Then $N$ contains $P_1\inv P_1 = I$
+	and $P_1\inv P_2 = Q$ ($\ne I$?).
+	The conjugacy class contains a path connecting $P_1$ to $P_2$,
+	so $N$ contains a path connecting $I$ to $Q$.
+	Now the trace of $Q$ is less thna $2$ and the trace of $I$ is $2$,
+	so $N$ contains all matrices of trace between $\opname{Tr}(Q)$ and $2$,
+	which implies $N$ contains an open set about the origin,
+	implying $N = SU_2$.\todo{what?}
+\end{proof}
+
+\begin{theorem}
+	Let $F$ be a field with finitely many elements such that $|F| > 5$.
+	\begin{enumerate}[(a)]
+		\ii $SL_2(F)$ has $\{\pm I\}$ as its only normal subgroup.
+		\ii $PSL_2(F) = SL_2(F)/\{\pm I\}$ is a simple group.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Obviously the two parts of the theorem are equivalent.
+	
+	\begin{claim}
+		If $F$ is a finite field with $|F| > 5$, then
+		there is $r\in F$ such that $r^2 = s\notin\{0, \pm 1\}$.
+	\end{claim}
+	\begin{proof}
+		The map $x\mapsto x^2$ maps $0$ to $0$ and collapses pairs
+		of elements of $F$ onto one element; if $|F| > 5$,
+		then the image is therefore just too big.
+		\todo{this feels off for parity reasons?}
+	\end{proof}
+
+	Let $V = F^2$ be a $2$-D vector space over $F$ and let
+	$N\trianglelefteq SL_2(F)$. Moreover, let $A\ne I$ be in $N$.
+	Also, let $r^2 = s\notin\{0,\pm1\}$. We will construct a matrix
+	\[B = A(PA\inv P\inv)\in N\]
+	with eigenvalues $s$ and $\frac1s$.
+	
+	Let $v_1\in V$ be not an eigenvector (possible because $A$ is not
+	a multiple of $I$?). Then if $v_2 = Av_1$, $v_1,v_2$ form a basis of $V$.
+	Now define
+	\[P = \begin{pmatrix}
+		v_1&v_2
+	\end{pmatrix}\begin{pmatrix}
+		r&0\\
+		0&1/r
+	\end{pmatrix}\begin{pmatrix}
+		v_1&v_2
+	\end{pmatrix}\inv,\]
+	then we can compute that the eigenvalues are indeed $s$ and $\frac1s$.
+	
+	\begin{claim}
+		The matrices in $SL_2(F)$ with $s$, $\frac1s$ as eigenvalues
+		form a conjugacy class.
+	\end{claim}
+	\begin{proof}
+		If $M$ has eigenvalues $s$, $\frac1s$, then in $GL_2(F)$
+		it is diagonalizable via a matrix $L$ (i.e. $L\inv ML$
+		is diagonal with eigenvalues along diagonal);
+		we can multiply $L$ by $\begin{pmatrix}
+			x&0\\0&1
+		\end{pmatrix}$ to force determinant to be $1$,
+		meaning the diagonalized matrix is in $N$.
+	\end{proof}
+	
+	$N$ thus contains
+	$\begin{pmatrix}
+		1&x\\0&1
+	\end{pmatrix}$ and its transpose for arbitrary $x$, since
+	\[\begin{pmatrix}
+		\frac1s & 0\\0 & s
+	\end{pmatrix}
+	\begin{pmatrix}
+		s & sx\\0 & \frac1s
+	\end{pmatrix} =\begin{pmatrix}
+		1&x\\0&1
+	\end{pmatrix}\]
+	and similar computation for the transpose.
+	
+	Now we show that
+	\[\left\{\begin{pmatrix}
+		1&x\\0&1
+	\end{pmatrix},
+	\begin{pmatrix}
+		1&x\\0&1
+	\end{pmatrix} : x,y\in F\right\}\]
+	generates $SL_2(F)$. The point is that these two matrices
+	let you do the ``add multiple of one row to another''
+	row operation, and that's enough to get all of $SL_2$.
+	Yay!\dots?
+\end{proof}
+
+\subsection{Representations of finite groups}
+\begin{definition}
+	Let $GL_n = GL_n(\CC)$. A \vocab{matrix representation}
+	of a finite group $G$ is a group homomorphism $R\colon G\to GL_n$
+	such that $R_g\cdot R_h = R_{gh}$.
+	The \vocab{dimension} of the representation is $n$.
+\end{definition}
+
+\begin{example}
+	The diherdal group $D_3$ is generated by $\frac{2\pi}3$ rotation, $a$,
+	and by reflection in the $x$-axis, $b$, so
+	\[D_3 = \{I, a, a^2, b, ab, a^2b\},\]
+	giving an obvious $2$-dimensional representation by setting
+	$R_a$ and $R_b$ to be the corresponding $2\times 2$ matrices.
+\end{example}
+
+\begin{example}
+	The symmetric group $S_n$ has an obvious $n$-dimensional representation
+	via permutation matrices, called the permutation representation.
+	It also has a $1$-dimensional representation via
+	$\sigma\mapsto\opname{sgn}(\sigma)$;
+	this can be computed as the determinant of the corresponding
+	permutation matrix (because switching rows flips sign of determinant).
+\end{example}
+
+\begin{definition}
+	Given a matrix representation $R\colon G\to GL_n$,
+	the \vocab{character} $\chi$ is defined as $\chi(g) = \opname{Tr} R_g$.
+	This character is constant on conjugacy classes.
+\end{definition}
+
+Slightly generalizang the previous definition:
+\begin{definition}
+	A \vocab{representation} of a group $G$ in a complex vector space
+	$V$ is a group homomorphism $\rho\colon G\to GL(V)$
+	satisfying $\rho_g\cdot \rho_h = \rho_{gh}$.
+\end{definition}
+Of course, anchoring yourself to a basis gives a matrix representation.
+This should be thought of as the natural action of $G$ on $V$.
+
+\begin{definition}
+	Given representations $\rho_1\colon G\to GL(V_1)$ and
+	$\rho_2\colon G\to GL(V_2)$ and an invertible linear map
+	$T\colon V_1\to V_2$, we say that $\rho_1$ and $\rho_2$
+	are \vocab{equivalent} representations if
+	\[T(gv) = gT(v),\]
+	abbreviating $\rho(g)\cdot v$ as simply $gv$
+	to align with the intuition of group actions.
+\end{definition}
+
+\begin{definition}
+	A vector $v\in V$ is $G$-invariant if $gv = v$ for all $g\in G$,
+	and a subspace $W\subseteq V$ is $G$-invariant if
+	$gW\subseteq W$ for all $g\in G$.
+\end{definition}
+
+\begin{example}
+	It is apparently an important fact that the vector
+	\[\tilde{v} = \frac{1}{|G|}\sum_{g\in G} gv\]
+	is always $G$-invariant.
+\end{example}
+
+The idea of $G$-invariant subspaces is important because it means that,
+given a representation $\rho\colon G\to GL(V)$,
+$\rho$ restricts to a representation $W$.
+
+\begin{lemma}
+	Let $W$ be $G$-invariant. Then $gW = W$ for all $g$.
+\end{lemma}
+
+\begin{proof}
+	Elements of $GL(V)$ are invertible by definition,
+	so they preserve dimension, hence $gW$ is a subspace of $W$
+	whose dimension matches that of $W$.
+\end{proof}
+
+Recall that we can combine two vector spaces by taking their direct sum:
+specifically $V = W_1\oplus W_2$ if $W_1\cap W_2 = \{0\}$ and
+$W_1 + W_2 = V$; in this case each $v\in V$ can uniquely be written as
+$w_1 + w_2$ for some $w_1\in W_1$, $w_2\in W_2$.
+This extends to vector spaces:
+
+\begin{definition}
+	Let $\rho\colon G\to GL(V)$ be a group representation
+	and suppose that $V = W_1\oplus W_2$ where $W_1$, $W_2$ are $G$-invariant.
+	Then $\alpha = \rho|_{W_1}$ and $\beta = \rho|_{W_2}$ are representations
+	and we write $\rho = \alpha\oplus\beta$.
+\end{definition}
+
+If you choose a basis of $V$ which is made of bases of $W_1$ and $W_2$
+then the matrix of $\rho$ has form
+\[R_g = \begin{pmatrix}
+	A_g & 0\\
+	0 & B_g
+\end{pmatrix},\]
+and in this case we say $\rho$ is reducible.
+\todo{this is same as indecomposable here ?}
+
+\begin{definition}
+	A representation $\rho\colon G\to GL(V)$ is \vocab{irreducible}
+	if the only $G$-invariant subspaces of $V$ are $0$ and $V$.
+\end{definition}
+
+\subsection{Unitary representations}
+
+\begin{definition}
+	$V$ is a \vocab{Hermitian} vector space if it is a vector space over $\CC$
+	carrying a \vocab{sesquilinear form}, meaning a function
+	$\langle\bullet,\bullet\rangle\colon V\times V\to\CC$ such that
+	\begin{itemize}
+		\ii $\langle av_1 + v_2,w\rangle = a\langle v_1,w\rangle +
+		\langle v_r,w\rangle$
+		\ii $\langle v,w\rangle = \ol{\langle w,v\rangle}$
+		\ii $\langle v,v\rangle\ge 0$ with equality iff $v=0$.
+	\end{itemize}
+	We write $\|v\|^2 = \langle v,v\rangle$.
+	A linear operator on $V$ is \vocab{unitary} if
+	$\langle Tv,TW\rangle = \langle v,w\rangle$.
+\end{definition}
+
+Given an orthogonal basis of a Hermitian space, the matrix of
+a unitary operator satisfies $A^* = A\inv$ where
+$A^*$ is the transpose of the conjugate.
+
+\begin{definition}
+	If $V$ is Hermitian and $\rho\colon G\to GL(V)$ a representation of $G$,
+	then we say that $\rho$ is \vocab{unitary} if $\rho(g)$
+	is a unitary operator on $V$ for all $g\in G$, meaning
+	$\langle gv,gw\rangle = \langle v,w\rangle$ for all $g\in G$, $v,w\in V$.
+	A matrix representation $R$ is unitary if $R_g\in U_n$
+	is a unitary matrix for all $g\in G$.
+\end{definition}
+
+This following lemma is important in addressing a subtlety of
+how we defined reducibility/irreducibility:
+we don't know as of yet that having a nontrivial $G$-invariant subspace
+is the same thing as having a decomposition of $V$ as a direct sum
+of $G$-invariant subspaces.
+\begin{lemma}
+	If $V$ is a Hermitian space, $\rho\colon G\to GL(V)$ is a
+	unitary representation, and $W<V$ is $G$-invariant,
+	then $W^\perp$, the set of vectors in $V$ orthogonal to $W$,
+	is also $G$-invariant.
+\end{lemma}
+
+\begin{proof}
+	If $w\in W$ and $u\in W^\perp$,
+	\[\langle u,w\rangle = 0 = \langle gu, gw\rangle.\]
+	Since this holds for all $w\in W$ because $\rho(g)\colon W\to W$ is onto,
+	$gu\in W^\perp$ as well.
+\end{proof}
+
+\begin{corollary}
+	A unitary representation $\rho$ on a Hermitian space $V$
+	is the direct sum of irreducible representations.
+\end{corollary}
+
+\begin{proof}
+	If $\rho$ is irreducible then we're done.
+	
+	Otherwise, let $W$ be an irreducible subrepresentation of $\rho$.
+	We then get $V = W\oplus W^\perp$ by the lemma,
+	and we can apply induction on $W^\perp$ since its dimension
+	is strictly smaller than that of $V$.
+\end{proof}
+
+The big thing, though, is that ``unitary representation on a Hermitian space''
+isn't actually that big of a request to make!
+\begin{theorem}
+	Let $\rho\colon G\to GL(V)$ be a representation if a complex
+	vector space $V$. Then there is an inner product on $V$
+	(making $V$ Hermitian) such that $\rho$ is unitary
+	with respect to this inner product.
+\end{theorem}
+
+\begin{proof}
+	First we need an inner product to work with.
+	Fix $v_1$, \dots, $v_n$ to be a basis. Then we can just sort of steal
+	the $\CC^n$ inner product:
+	\[\langle x_1v_1+\cdots+x_nv_n,y_1v_1+\cdots+y_nv_n\rangle
+	= x_1\ol{y_1} + \cdots + x_n\ol{y_n}.\]
+	To make $\rho$ unitary, we do an averaging trick.
+	Define a new inner product by
+	\[\langle v,w\rangle_1 = \frac{1}{|G|}\sum_{g\in G}\langle gv,gw\rangle.\]
+	(The sum behaves well with sesquilinearity so this is indeed
+	an inner product).
+	Now $\rho$ is unitary with respect to this inner product
+	because multiplying by $G$ will just permute the things
+	inside the summation!
+\end{proof}
+
+Collating everything:
+\begin{corollary}[Maschke's theorem]
+	Let $G$ be a finite group and $\rho\colon G\to GL(V)$ a representation
+	over a complex vector space $V$.
+	\begin{enumerate}[(a)]
+		\item $\rho$ can be expressed as a direct sum
+		of irreducible subrepresentations.
+		\ii There is a basis of $V$ that makes the matrix representation
+		unitary.
+		\ii If $R\colon G\to GL_n$ is a matrix representation,
+		there is an invertible $P\in GL_n$ such that $P\inv R_g P$
+		is unitary for all $g\in G$.
+		\ii Every finite subgroup of $GL_n$ is conjugate to
+		a subgroup of $U_n$.
+	\end{enumerate}
+\end{corollary}
+
+\begin{corollary}
+	Let $A\in GL_n$ and suppose that $A^k = I$ for some $k$.
+	Then, $A$ is diagonalizable.
+\end{corollary}
+
+\begin{proof}
+	The group generated by $A$ is a finite (cyclic) group,
+	so is conjugate to a subgroup of $U_n$, and unitary matrices
+	are all diagonalizable.
+\end{proof}
+
+\subsection{Characters}
+\begin{definition}
+	Let $\rho\colon G\to GL(V)$ be a representation.
+	The \vocab{character} of $\rho$ is $\chi\colon G\to\CC$, defined by
+	$\chi(g) = \opname{Tr}\rho(g)$; the trace can be computed
+	in any basis. We say $\chi$ is irreducible iff $\rho$ is.
+\end{definition}
+
+\begin{prop}
+	Let $\chi$ be the character of any representation $\rho$.
+	\begin{enumerate}[(a)]
+		\ii $\chi(1) = \dim\rho$.
+		\ii $\chi(h\inv gh) = \chi(g)$.
+		\ii If $\ord(g) = k$, then $\chi$ is the sum of $\dim\rho$ powers
+		of $\zeta_k = e^{2\pi i/k}$.
+		\ii $\chi(g\inv) = \ol{\chi(g)}$.
+		\ii $\rho\oplus\rho'$ has $\chi + \chi'$ as its character.
+		\ii If $\rho\cong\rho'$, then $\chi = \chi'$.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	(a) The matrix of $R_1$ is just $I_d$ in any basis
+	since $\rho(1)$ is the identity.
+	
+	(b) $\opname{Tr}(h\inv gh) = \opname{Tr}(ghh\inv) = \opname{Tr}(g)$.
+	
+	(c) dont understand this one
+	
+	(d) Make the matrix $R_g$ unitary and then use the fact that
+	its inverse is the conjugate transpose (and the transpose
+	doesn't touch the trace).
+	
+	(e) Choose a basis so that the matrix looks like
+	two blocks; then the two blocks each contribute
+	their own trace, meaning the character of the direct sum
+	is just the sum of the traces.
+	
+	(f) 
+\end{proof}
+
+\begin{definition}
+	There is a Hermitian inner product on $\mathcal H$, the space of
+	\vocab{class functions} $G\to\CC$ that are invariant under conjugation.
+	Specifically
+	\[\langle f_1,f_2\rangle = \frac{1}{|G|}\sum_{g\in G}\ol{f_1(g)}f_2(g)\]
+	(note that the \emph{first} term in the product is conjugated,
+	not the second).
+\end{definition}
+
+If $C_1$, \dots, $C_r$ are the conjugacy classes and $c_i\in C_i$ are chosen,
+\[\langle f_1, f_2 = \frac{1}{|G|}\sum_{i=1}^r |C_i|\ol{f_1(c_i)}f_2(c_i)\]
+because the $f_i$ are constant on conjugacy classes.
+Thus we can identify $\mathcal H$ with $\CC^r$
+with the inner product scaled by $|C_i|/|G|$ (so just a weighted sum).
+
+The big theorem is the following:
+\begin{theorem}
+	Let $G$ be a finite group.
+	\begin{enumerate}[(a)]
+		\ii The irreducible characters are an
+		orthonormal basis for $\mathcal H$.
+		\ii In particular, the number of irreducible representations of $G$
+		is equal to the number of conjugacy classes (up to equivalence).
+		\ii If $\rho_1$, \dots, $\rho_r$ are the irreducible representations
+		with $d_i = \dim\rho_i$, then $d_i\mid |G|$ and
+		$d_1^2 + \cdots + d_r^2 = |G|$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+	Two representations are isomorphic if and only if
+	their characters are equal. (WTF)
+\end{corollary}
+
+\begin{proof}
+	Write $\rho = \bigoplus_{i=1}^r n_i\rho_i$ and
+	$\rho'$ similarly. Then being isomorphic follows from only having
+	$r$ characters (one per conjugacy class).
+\end{proof}
+
+\begin{corollary}
+	If $\chi$, $\chi'$ are character,s their inner product is
+	a positive integer.
+\end{corollary}
+
+\begin{proof}
+	It's just gonna be $n_1n'_1 + \cdots + n_rn'_r$.
+\end{proof}
+
+If $r$ is the number of conjugacy classes, a \vocab{character table}
+of $G$ is the $r\times r$ matrix listing the character value
+of each irreducible representation at each conjugacy class.
+Scaling properly, this is an orthogonal (orthonormal?) matrix.
+
+\begin{definition}
+	A 1-dimensional character of a group $G$ is a
+	homomorphism of $G$ in a 1-dimensional vector space,
+	i.e. a homomorphism $G\to C^\times$.
+\end{definition}
+
+This means $\chi(g) = \rho_g = R_g$ and $\chi(g\cdot h) = \chi(g)\chi(h)$.
+The image of $\chi$ is in $\CC^\times$, which is abelian, so
+$\chi$ maps commutators to $1$. Thus $\chi$ descends to a homomorphism
+from the abelianization $G^{\mathrm{ab}} = G/[G,G]\to \CC^\times$.
+
+An important special case: if $G$ is a finite abelian group,
+then all irreducible representations are $1$-dimensional
+(the underlying algebra is commutative?)
+and the number of such representations is the size of $|G|$
+(because that's the number of conjugacy classes).
+These are all $1$-dimensional characters.
+
+\section{Week 3: 2/11 and 2/13}
+We can make a representation for any arbitrary finite group
+in analogy with the permutation representation for $S_n$.
+If $G$ acts on a set $S$, then $s\mapsto g\cdot s$ is bijective\todo{wait why},
+so we can associate a permutation $\sigma_g$ of $S$ to each $g\in G$.
+Then we can make a $|S|$-dimensional vector space with standard basis
+$\{e_s\}_{s\in S}$ such that $R_ge_s = e_{g\cdot s}$,
+which gives us a representation.
+
+\begin{lemma}
+	The character $\chi(g)$ of this permutation representation is
+	\[\chi(g) = \#\{s\in S< g\cdot s = s\},\]
+	the number of fixed points of the action of $g$ on $S$.
+\end{lemma}
+
+This implies the following:
+\begin{lemma}
+	Let $R$ be  a permutation representation of $G$ acting on a finite set $S$.
+	Also, let $\chi_1$ be the character of the trivial representation.
+	Then, $\langle x, x_1\rangle > 0$ always, so $R$ contains
+	the trivial representation as a subrepresentation.
+\end{lemma}
+\begin{proof}
+	A direct computation:
+	\begin{align*}
+		\langle \chi,\chi_1\rangle = \frac{1}{|G|} = \sum_{g\in G}\ol{\chi(g)}\chi_1(g) \ge \frac{|S|}{|G|} > 0
+	\end{align*}
+	since $\chi(e)$ contributes $|S|$ to the sum and $\chi_1$ is always $1$.
+\end{proof}
+\todo{estoy confused}
+
+\begin{definition}
+	The regular representation of a group $G$ is the permutation representation
+	when $G$ acts on itself by left multiplication.
+\end{definition}
+The character of the regular representation is
+\[\chi_{reg}(g) = \begin{cases}
+	|G| & g=e\\
+	0 & g\ne e
+\end{cases}\]
+noting that $g\cdot h\ne h$ if $g\ne e$ (so no fixed points).
+The dimension of $\rho_{reg}$ is $|G|$.
+
+For any character $\chi$,
+\[\langle\chi_{reg}, \chi\rangle = \frac{1}{|G|}\sum_{g\in G}\ol{\chi_{reg}(g)}\chi(g) = \chi(e) = \dim\rho\]
+
+\begin{corollary}
+	If $\chi_1$, \dots, $\chi_r$ are the characters of the irreducible
+	representations of $G$ then $\chi_{reg} = d_1\chi_1 + \cdots + d_r\chi_r$
+	and the regular representation is the corresponding
+	direct sum of the irreducible subrepresentations.
+	This exactly gives us $|G| = d_1^2 + \cdots + d_r^2$.
+\end{corollary}
+
+\begin{definition}
+	Let $\rho\colon G\to GL(V)$ and $\rho'\colon G\to GL(V)$ be representations.
+	A linear transformation $T\colon V\to V'$ is $G$-invariant if
+	\[Tgv = gTv\]
+	for all $v\in V$, $g\in G$.
+	Equivalently
+	\[\rho'(g)\inv T\rho(g) = T\]
+	or that [diagram] commutes.
+\end{definition}
+
+In this language a bijective $G$-invariant transformation is
+an isomorphism of representations.
+
+In matrix form, after choosing bases $B$, $B'$ for $V$, $V'$,
+if $M$ is the matrix for $T$, then
+\[MR_g = R'_gM\]
+is the same thing as $G$-invariance. In particular $R_g$ and $R'_g$
+are similar matrices.
+
+\begin{lemma}
+	The kernel and image of a $G$-invariant transformation are
+	$G$-invariant subspaces.
+\end{lemma}
+
+\begin{proof}
+	Suppose $T\colon V\to V'$ is $G$-invariant.
+	If $Tv = 0$ then $Tgv = gTv = 0$, so $gv\in\ker T$ implies $G$-invariance.
+	If $Tv = w$, $Tgv = g\cdot w$, which implies that
+	if $w$ is in the image of $T$ then $gw$ is also in the image of $T$,
+	so the image is also $G$-invariant.
+\end{proof}
+
+\begin{lemma}[Schur]
+	(a) Let $\rho$, $\rho'$ be irreducible representations of $G$
+	over spaces $V$, $V'$ respectively. If $T\colon V\to V'$
+	is $G$-invariant then $T$ is either an isomorphism or the zero map.s
+	
+	(b) If $\rho$ is an irreducible representation of $G$ over $V$,
+	then $T\colon V\to V$ being $G$-invariant implies that
+	$T = c\cdot I$ is a map multiplying every vector by a scalar.
+\end{lemma}
+
+\begin{proof}
+	If $T$ is $G$-invariant then its kernel is a subrepresentation of $\rho$,
+	so the kernel is either zero or $V$. In the first case,
+	we know that the image is a nonzero subrepresentation of $\rho'$
+	(because $T$ isn't the zero map) so the image is $V'$,
+	implying bijection hence isomorphism.
+	The second case trivially implies $T$ is the zero map.
+	
+	(b) Let $\lambda\in\CC$ be an eigenvalue of $T$.
+	Then $T-\lambda I$ is $G$-invariant and has nontrivial kernel,
+	which implies that $T-\lambda I$ is the zero map and so $T = \lambda I$.
+\end{proof}
+
+Given any linear map $T\colon V\to V'$, form the $G$-average
+\[\tilde T = \frac1{|G|}\sum_{g\in G}\rho'(g)\inv T\rho(g)\]
+We can compute directly that this map is $G$-invariant. \todo{write out}
+We define $\tilde M$ analogously for a matrix $M$
+and matrix representations $R$, $R'$.
+
+\begin{prop}
+	Let $\rho$ be an irreducible representation of $G$ in $V$
+	and $T\colon V\to V$ a linear map. Then $T$ and $\tilde T$
+	have the same trace. If the trace of $T$ is nonzero then $\tilde T$
+	is not the zero map.
+\end{prop}
+
+\begin{proof}
+	The addends in the expression for $\tilde T$ are conjugates of $T$,
+	so they all have the same trace as $T$.
+\end{proof}
+
+\subsection{Orthogonality}
+Let $\mathcal M = \CC^{m\times n}$ be the $m\times n$ matrices
+with entries in $\CC$. Consider the map $F\colon \mathcal M\to\mathcal M$
+given by
+\[F(M) = AMB\]
+for $A\in\CC^{m\times m}$, $B\in\CC^{n\times n}$.
+Clearly $F$ is a linear map.
+
+\begin{prop}
+	The trace of $F$ is $(\opname{Tr}A)\cdot (\opname{Tr}B)$.
+\end{prop}
+
+\begin{proof}
+	The standard basis vectors in $\CC^{m\times n}$ are the matrices
+	whose entries are all zero except for a single $1$, say
+	row $i$, column $j$; we will call the basis element $e_{i,j}$. Then
+	\[\opname{Tr}F = \sum_{i,j}\langle F(e_{i,j}) e_{i,j}\rangle.\]
+	Each addend is the $i,j$ entry in $Ae_{i,j}B$
+\end{proof}
+
+\todo{what the fuck happened for the second half of Tuesday's lecture}
+
+\subsection{Tensor interlude: tensor products of vec spaces and reps}
+\begin{definition}[Tensor product of vector spaces]
+	The \vocab{tensor product} of two vector spaces $V_1$, $V_2$,
+	denoted $V_1\otimes V_2$, is the span of
+	\[\{v_1\otimes v_2 : v_1\in V_1,v_2\in V_2\}\]
+	where the product is multi-linear; namely,
+	\begin{align*}
+		(cv_1 + v_1')\otimes v_2 &= c(v_1\otimes v_2) + v_1'\otimes v_2\\
+		v_1\otimes (cv_2 + v_2') &= c(v_1\otimes v_2) + v_1\otimes v_2'.
+	\end{align*}
+	In particular, if $e_1$, \dots, $e_m$ is a basis for $V_1$
+	and $f_1$, \dots, $f_n$ is a basis for $V_2$, then the set of
+	$e_i\oplus f_j$ is a basis for $V_2\otimes V_2$.
+\end{definition}
+
+We can then tensor together representations:
+\begin{definition}[Tensor product of representations]
+	Given representations $\rho_1\colon G\to GL(V_1)$
+	and $\rho_2\colon G\to GL(V_2)$ of $G$, the tensor product of
+	the representations is $\rho_1\otimes \rho_2\colon G\to GL(V_1)
+	\otimes GL(V_2)$ where the action of $(\rho_1\otimes\rho_2)(g)$
+	on a basis element is
+	\[(\rho_1\otimes\rho_2)(g) (e_i\otimes f_j) =
+	(\rho_1(g)e_i)\otimes(\rho_2(g)f_j).\]
+\end{definition}
+
+\begin{prop}
+	The character $\chi_1\otimes\chi_2$ of the representation
+	$\rho_1\otimes\rho_2$ is just $\chi_1\cdot\chi_2$.
+\end{prop}
+
+\begin{proof}
+	We need to calculate
+	\[\chi_1\otimes\chi_2(g) =\sum_{i,j}
+	\langle \rho_1(g)e_i\otimes\rho_2(g)f_j, e_i\otimes f_j\rangle,\]
+	and the idea is that we can split up the summand as
+	\[\langle \rho_1(g)e_i\otimes\rho_2(g)f_j, e_i\otimes f_j\rangle
+	= \langle \rho_1(g)e_i, e_i\rangle\cdot\langle\rho_2(g)f_j,f_j\rangle.\]
+	Apparently you prove this by looking at the matrix representations
+	\todo{why?}
+\end{proof}
+
+\begin{definition}
+	Given a unitary representation $\rho$ with matrix $R$,
+	the \vocab{contragredient} representation $\rho^\ast$ has matrix
+	$\ol R$ (complex conjugate all the entries).
+\end{definition}
+
+We can also take multiple tensor products; this gives the tensor power
+representation.
+
+\subsection{Tensor interlude: Alternating and symmetric tensors}
+Given a vector space $V$, the alternating tensor is
+\[\wedge^k V = \opname{span}\{e_{i_1}\wedge\cdots\wedge e_{i_k}\}_{i_1<\cdots<i_k},\]
+where the wedge is defined as
+\[x_1\wedge\cdots\wedge x_k = \sum_{\sigma\in \opname{Sym}(\{i_1,\dots,i_k\})}
+\opname{sgn}(\sigma) x_{\sigma(1)}\otimes\cdots\otimes x_{\sigma(k)}.\]
+The set $\opname{Sym}(S)$ is the set of all permutations of $S$.
+The symmetric tensor $\vee^k V$ is the same thing but without
+the $\opname{sgn}(\sigma)$ multiplier in the summand.
+
+We have
+\[V\tensor V = \wedge^2 V\oplus \vee^2 V,\]
+noting that
+\[e_i\tensor e_j = \half(e_i\tensor e_j + e_j\tensor e_i) +
+\half(e_i\tensor e_j - e_j\tensor e_i)\]
+
+In general the representations $\rho\tensor \rho$ splits
+into invariant subspaces $\rho\wedge\rho\oplus\rho\vee\rho$,
+and people study the symmetric and alternating power representations.
+
+\subsection{Back to rep theory}
+Recall that if $\rho$, $\rho'$ are representations of $G$ over spaces
+$V$, $V'$ respectively, then given a $T\colon V\to V'$,
+we can ``average'' out a homomorphism between the representations:
+\[\widetilde T = \frac 1{|G|} \sum_{g\in G} (\rho'_g)\inv T\rho_g\]
+
+\begin{exercise}
+	What does this average look like if $V = V'$ and $\rho = \rho'$?
+\end{exercise}
+
+ok i died
+
+------
+\pagebreak
+\setcounter{section}{5}
+\section{Week 6 lmao}
+
+\begin{theorem}
+	Let $L/\QQ$ be a finite extension and let $B$ be
+	the integral closure of $A$ in $L$.
+	Then, in $B$, ideals have a unique factorization into prime ideals.
+\end{theorem}
+
+\begin{itemize}
+	\ii Module -- ``vector space over a ring''
+	\ii Noetherian module -- all submodules are of finite type,
+	i.e. spanned by finitely many elements.
+\end{itemize}
+
+``Last time'' we proved that if $A$ is a ring and $E$ a module over $A$,
+then $E$ is Noetherian iff $E'$ and $E/E'$ are Noetherian
+for some submodule $E'\subseteq E$.
+\begin{remark}
+	A version of this theorem is in Artin for quadratic fields.
+\end{remark}
+
+\begin{corollary}
+	Let $A$ be a ring and $E_1$, \dots, $E_n$ Noetherian $A$-modules.
+	Then $E_1\times\cdots\times E_n$ is also Noetherian.
+\end{corollary}
+
+\begin{proof}
+	For $n = 2$, we have $E_1\times E_2$ is Noetherian by taking
+	$E' = E_1\times\{0\}\cong E_1$,
+	then $E'\cong E_1$ and $E/E'\cong E_2$ are Noetherian.
+	For bigger $n$ we induct.
+\end{proof}
+
+\begin{corollary}
+	Let $A$ be a Noetherian ring and $E$ and $A$-module of finite type.
+	Then $E$ is Noetherian.
+\end{corollary}
+
+\begin{proof}
+	Let $y_1$, \dots, $y_n$ span $E$ so that
+	$E = Ay_1 + \cdots + Ay_n$. There is a map $\phi\colon A^n\to E$ given by
+	\[\phi(a_1, \dots, a_n) = a_1y_1 + \cdots + a_ny_n\]
+	that is surjective. Let $\ker\phi = R$
+	(called the \vocab{module of relations}); then $E\cong A^n/R$.
+	$A$ is Noetherian, hence $A^n$ is Noetherian, hence
+	$A^n/R\cong E$ is Noetherian, as desired.
+\end{proof}
+
+\begin{prop}
+	Let $A$ be a Noetherian integrally closed ring and $K$
+	its field of fractions. Let $L/K$ be a finite extension
+	and let $B$ be the integral closure of $A$ in $L$.
+	Assuming $K$ has characteristic zero, $B$ is an $A$-module of finite type
+	and a Noetherian ring.
+\end{prop}
+
+\begin{proof}
+	$B$ is a submodule of a free $A$-module.\todo{hm?}
+	This implies that $B$ is finite type since $A$ is Noetherian.
+	The ideals of $B$ are all $A$-submodules of $B$,
+	so any family of ideals has a maximal element
+	because $B$ is a Noetherian $A$-module, hence a Noetherian ring.
+	This means the rings of integers of number fields are all Noetherian rings.
+\end{proof}
+
+Recall that an ideal $\mathfrak p$ of a ring $A$ is \vocab{prime} if
+$xy\in\mathfrak p$ implies $x\in\mathfrak p$ or $y\in\mathfrak p$.
+Inclusion is the ideal generalization of divisibility (cf. PIDs).
+Recall also that $\mathfrak p$ is prime iff $A/\mathfrak p$ is integral.
+Thus note that maximal ideals are obviously prime
+(since quotienting by a maximal ideal yields a field).
+One should think of the maximal ideals as analogous to irreducible elements.
+
+\begin{lemma}
+	Let $\mathfrak p$ be a prime ideal of a ring $A$ and let $A'\subseteq A$
+	be a subring. Then $A'\cap\mathfrak p$ is a prime ideal of $A'$.
+\end{lemma}
+\begin{proof}
+	Literally write down the definition:
+	If $x,y\in A'$ and $xy\in A'\cap\mathfrak p$,
+	then either $x\in A'\cap\mathfrak p$ or $y\in A'\cap \mathfrak p$.
+\end{proof}
+
+\begin{definition}
+	If $\mathfrak a$, $\mathfrak b$ are ideals, then we define their product as
+	\[\mathfrak a\cdot \mathfrak b :=\left\{\sum_{i=1}^k a_ib_i :
+	a_i\in\mathfrak a,\;b_i\in\mathfrak b\right\}.\]
+\end{definition}
+\begin{exercise}
+	Check that this is actually an ideal.
+\end{exercise}
+
+\begin{lemma}
+	Let $\mathfrak p\subseteq A$ be an ideal and suppose that
+	$\mathfrak p\supseteq \mathfrak a_1\mathfrak a_2\cdots\mathfrak a_n$
+	where $\mathfrak a_1$, \dots, $\mathfrak a_n$ are ideals.
+	Then $\mathfrak p\supseteq \mathfrak a_i$ for some $i$.
+\end{lemma}
+(Keep in mind the ``contains $\leftrightarrow$ divisibility'' conflation.)
+\begin{proof}
+	Suppose otherwise and let $a_i\in \mathfrak a_i\setdiff\mathfrak p$
+	for each $i$. Then $a_1a_2\cdots a_n$ is in the product of the ideals,
+	hence in $\mathfrak p$, by assumption, which is a contradiction.
+\end{proof}
+
+\begin{lemma}
+	Let $A$ be a Noetherian integral domain.
+	Every nonzero ideal of $A$ contains a product of prime ideals.
+\end{lemma}
+\begin{proof}
+	Let $\Phi$ be the set of nonzero ideals not containing
+	any product of prime ideals, and suppose for contradiction that
+	this set is nonempty. Then the set has a maximal element $\mathfrak b$,
+	which by the definition of $\Phi$ cannot be prime.
+	Choose $x,y\in A\setdiff\mathfrak b$ so that $xy\in\mathfrak b$.
+	Then $\mathfrak b + Ax$ and $\mathfrak b + Ay$ are ideals that are
+	larger than $\mathfrak b$, so $\mathfrak b + Ax$ contains
+	a product of prime ideals $\mathfrak p_1\cdots\mathfrak p_k$
+	and $\mathfrak b + Ay$ contains a product of prime ideals
+	$\mathfrak q_1\cdots\mathfrak q_\ell$. Then
+	\[\mathfrak b\supseteq
+	(\mathfrak b + Ax)(\mathfrak b + Ay)\supseteq
+	\mathfrak p_1\cdots \mathfrak p_k\mathfrak q_1\cdots\mathfrak q_\ell,\]
+	so $\mathfrak b$ contains a product of prime ideals.
+\end{proof}
+
+\begin{definition}
+	Let $A$ be an integral domain and $K$ its field of fractions.
+	An $A$-submodule $I$ of $K$ is called a \vocab{fractional ideal}
+	if there exists $d\in A$ such that $dI\subseteq A$
+	(so $d$ is a ``common denominator of $I$'').
+\end{definition}
+
+If $A$ is Noetherian, then all fractional ideals are finite type, since
+$I\cong dI$. As a module, $dI\subseteq A$.
+
+\begin{example}
+	Some examples of fractional ideals:
+	\begin{itemize}
+		\ii Note that ideals of $A$ are fractional ideals with $d = 1$.
+	
+		\ii A submodule of $K$ of finite type is fractional, as,
+		given generators $y_1$, \dots, $y_m$, one can clear their denominators.
+	
+		\ii If $I$, $I'$ are fractional ideals, then so are
+		$I+I'$, $I\cap I'$, and $I\cdot I'$, where $I+I'$ and $I\cdot I'$
+		are defined analogously to vanilla ideals.
+	\end{itemize}
+\end{example}
+
+\begin{definition}
+	Let $A$ be an integral domain. $A$ is a \vocab{Dedekind ring}
+	if it is Noetherian, integrally closed, and all nonzero prime ideals
+	are maximal. (For example, $\ZZ\subseteq\QQ$ is a Dedekind ring.)
+\end{definition}
+
+\begin{theorem}
+	Let $A$ be a Dedekind ring, $K$ its field of fractions,
+	$L$ a finite extension of $K$, $B$ the integral closure of $A$ in $L$.
+	Suppose $K$ has characteristic zero. Then $B$ is a Dedekind ring
+	and an $A$-module of finite type.
+\end{theorem}
+
+\begin{proof}
+	We checked ``last class'' that the integral closure of $A$
+	is integrally closed. We have already proven that $B$ is Noetherian
+	and an $A$-module of finite type. To check the condition on prime ideals,
+	let $\mathfrak p\ne 0$ be a prime ideal of $B$. Let $x$ be
+	a nonzero element of $\mathfrak p$. Then $x$ is integral over $A$,
+	so let $a_i\in A$ such that $x^n + \cdots + a_1x + a_0 = 0$
+	is a polynomial of minimial degree of which $x$ is a root.
+	Then $-x(x^{n-1} + a_{n-1}x^{n-2} + \cdots + a_1) = a_0\ne 0$
+	and $a_0\in Bx\subseteq\mathfrak p$, hence $a_0\in\mathfrak p\cap A$,
+	a nonzero prime ideal of $A$. This must be maximal because $A$ is Dedekind.
+	
+	Let $\phi\colon A\to B/\mathfrak p$ be the map $x\mapsto x+\mathfrak p$,
+	whose kernel is $A\cap\mathfrak p$.
+	Thus $A/A\cap\mathfrak p\hookleftarrow B/\mathfrak p$ is a field
+	that is a subring of $B/\mathfrak p$. Since $B/\mathfrak p$ is integral
+	over $A/A\cap\mathfrak p$, any $b\in B$ is a root
+	of a monic polynomial with coefficients in $A$, which means that
+	the projection $\ol b$ of $b$ to $B/\mathfrak p$ can also be written as
+	a monic polynomial with coefficients in $A/A\cap\mathfrak p$.
+	If we say that
+	\[\ol {b^m} + \ol {a_{m-1}}{\ol b^{m-1}} + \cdots + \ol {a_0} = 0\]
+	with $\ol{a_0}\ne\ol 0$, then we can subtract $\ol{a_0}$,
+	factor out $\ol b$, and divide the other factor by $\ol{-a_0}$
+	to procure a multiplicative inverse of $\ol b$, hence $B/\mathfrak p$
+	is a field.
+\end{proof}
+
+\begin{theorem}
+	Let $A$ be a Dedekind ring that is not a field.
+	Then, every maximal ideal is invertible in fractional ideals;
+	that is, if $\mathfrak m$ is maximal, there exists
+	a fractional $\mathfrak m'$ such that $\mathfrak m\cdot\mf m' = A$.
+\end{theorem}
+
+\begin{proof}
+	Let $\mf m\subset A$ be a nonzero maximal ideal
+	(which exists because $A$ isn't a field).
+	Let $\mf m'=\{x\in K : x\mf m\subseteq A\}$.
+	We can check that $\mf m'$ is an $A$-submodule of $K$.
+	Any $y\in\mf m$ serves as a denominator, so $\mf m'$ is a fractional ideal.
+	
+	We need to show that $\mf m\cdot\mf m' = A$. We know that
+	$\mf m\cdot\mf m'$ is a subset of $A$ and, since $\mf m$ is an ideal,
+	$\mf m = A\mf m\subseteq \mf m'\mf m$, so
+	$\mf m\subseteq\mf m'\mf m\subseteq A$.
+	Since $m$ is maximal, this implies that $\mf m'\mf m$ must be
+	either $\mf m$ or $A$.
+	
+	If $\mf m\mf m' = \mf m$, then if $x\in\mf m'$, $x\mf m\subseteq \mf m$
+	and in general $x^n\mf m\subseteq \mf m$ for all $n$.
+	This means any $d\in M$ is a common denominator for the set of all $x^n$,
+	so $A[x]$ is a fractional ideal. Since $A$ is Noetherian,
+	$A[x]$ is an $A$-module of finite type, implying that
+	$x$ is integral over $A$, implying $x\in A$.
+	Thus $\mf m\mf m' = \mf m$ implies that $\mf m' = A$.
+	
+	We now need to rule of $\mf m' = A$.
+	Let $a\in \mf m$. Then $A\mf a\subseteq\mf m$ contains a product of primes
+	$\mf p_1\cdots\mf p_n$, so $\mf m$ contains one of the $\mf p_i$
+	(WLOG $\mf p_1$). But $\mf p_1$ is prime hence maximal,
+	so $\mf m = \mf p_1$. Let $\mf b = \mf p_2\cdots\mf p_n$.
+	Then $Aa\supseteq\mf{mb}$ and $Aa$ doesn't contain $\mf b$.\todo{why}
+	There exists $b\in\mathfrak b$ such that
+	$b\notin Aa$, $\mf{m}b\subseteq Aa$, implying $ba\inv\in\mf m'$
+	but $ba\inv\notin A$, so $\mf m'\ne A$.
+\end{proof}
+
+\begin{theorem}
+	Let $A$ be a Dedekind domain.
+	Every nonzero fractional ideal $\mf b$ has a unique expression
+	\[\mf b = \prod_{\mf p\text{ maximal}}\mf p^{\nu_{\mf p}(\mf b)}.\]
+	with only finitely many of the $\nu_{\mf p}(\mf b)$ being nonzero.
+\end{theorem}
+
+\begin{proof}
+	For existence, pick $d\in A\setdiff\{0\}$.
+	Then $d\cdot\mf b\subseteq A$. We have that $\mf b = (d\mf b)\cdot(dA)\inv$
+	so it is sufficient to prove the theorem for ideals.
+	Let $\Phi$ be the collection of nonzero ideals that are not
+	products of prime ideals and suppose for contradiction that
+	$\Phi$ is nonempty.
+	Pick a maximal element of $\mf a\in\Phi$ (not maximal ideal).
+	Then $\mf a$ is properly contained in some maximal ideal $\mf p$.
+	Let $\mf p' = \mf p\inv$. We have
+	\[\mf a\subseteq\mf p\implies \mf {ap}'\subseteq \mf{pp}' = A\]
+	and also that $\mf p'$ properly contains $A$ and $\mf ap'\supseteq\mf a$.
+	
+	\begin{claim*}
+		$\mf {ap}'\ne\mf a$.
+	\end{claim*}
+	\begin{proof}
+		Otherwise, if $x\in\mf p'$, $x\mf a\subseteq \mf a$ implies that
+		$x^n\mf a\subseteq\mf a$, which implies that $x$ is integral over $A$
+		hence $x\in A$.
+	\end{proof}
+	Not all elements of $\mf p'$ are in $A$,
+	thus $\mf {ap}'\notin\Phi$ by maximality.
+	Thus $\mf{ap}'$ is a product of primes, and then we multiply by $\mf p$
+	on the right to get $\mf a$ as a product of primes.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

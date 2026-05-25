@@ -1,0 +1,220 @@
+\documentclass[10pt]{article}
+
+\usepackage[a4paper, total={6in, 9.5in}]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+%\usepackage{draftwatermark}
+%\SetWatermarkScale{7}
+%\SetWatermarkColor[gray]{0.9}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={Aditya Pahuja's CV}
+}
+
+\usepackage[textsize=scriptsize]{todonotes}
+\usepackage{nopageno}
+
+\setlist[itemize]{label={$\circ$},itemsep=0pt,topsep=2pt}
+
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\setminus}{\!-\!}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\HH}{\mathbb H}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\RP}{\mathbb RP}
+\providecommand{\CP}{\mathbb CP}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\supp}{\opname{supp}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\abs}[1]{\left\lvert{#1}\right\rvert}
+\providecommand{\norm}[1]{\left\|{#1}\right\|}
+\providecommand{\dif}{\;d}
+\providecommand{\id}{\operatorname{id}}
+
+\setlength{\parindent}{0pt}
+
+\title{Aditya Pahuja\vspace{-1em}}
+%\author{\normalsize aditya.pahuja@stonybrook.edu
+%$\spadesuit$ \url{https://hungryforpi.github.io/}}
+\date{\normalsize Last updated \today}
+
+\makeatletter
+\renewcommand{\@maketitle}{
+    \newpage
+    \begin{center}
+    \vspace*{0em} % This removes the initial vertical space
+    {\LARGE \@title \par}
+    \vspace{0.5em} % Space between title and author
+    {\large
+      \lineskip .5em
+      \begin{tabular}[t]{c}\@author\end{tabular}\par}
+    \vspace{0.5em} % Space between author and date
+    {\large \@date\par}
+    \end{center}
+    \par
+}
+\makeatother
+
+\begin{document}
+\maketitle
+
+\vspace{-3mm}\section*{Education}
+\textbf{Stony Brook University, B.S.\ in Mathematics}
+\hfill{}August 2024 -- May 2027
+
+GPA: 3.96/4.00; Major GPA: 4.00/4.00
+\vspace{1mm}
+
+Relevant coursework:
+\begin{itemize}
+    \small
+    % don't include too many undergrad ones
+    \ii Undergraduate-level:
+    multivariable calculus and linear algebra;
+    real analysis;
+    analysis in several variables;
+    differential geometry of curves and surfaces;
+    abstract algebra II
+    % reorder these? e.g. alphabetically
+    \ii Graduate-level:
+    foundations of topology;
+    algebra I;
+    geometry/topology II;
+    algebra II;
+    complex analysis
+\end{itemize}
+
+\textbf{Stuyvesant High School}
+\hfill{}September 2020 -- June 2024
+
+\vspace{-3mm}\section*{Research Experience}
+%\textbf{REU at University of Chicago}
+%\hfill{}June 2026 -- August 2026
+%\begin{itemize}
+%    \ii[*] But nobody came.
+%\end{itemize}
+
+\textbf{Directed Reading Program Participant}
+\hfill{}January 2026 -- May 2026
+\begin{itemize}
+    \ii Read about differential topology independently
+    and discussed it weekly with a graduate student mentor.
+    \ii Gave a short presentation at the end of the semester
+    about vector fields on the sphere and wrote an expository paper
+    on constructing characteristic classes via obstruction theory.
+    % TODO do and link
+\end{itemize}
+
+\textbf{REU on machine learning in computational algebra}
+\hfill{}June 2025 -- December 2025
+\begin{itemize}
+    \ii Used SageMath and PyTorch to generate data for and train neural networks
+    to predict runtime for Gröbner basis computation of a given polynomial ideal
+    and term ordering.
+\end{itemize}
+
+\vspace{-3mm}\section*{Work Experience}
+\textbf{NYC Interscholastic Math League}
+
+\emph{Coordinator and Systems Administrator}
+\hfill{} June 2025 -- present
+\begin{itemize}
+    \ii Supervised and guided the Soph-Frosh and Senior A
+    contest writing teams during the fall and spring semesters
+    to ensure quality and appropriate difficulty of
+    three Soph-Frosh and five Senior A contests
+    throughout the school year.
+    \ii Restructured the \LaTeX{} files used to generate contests
+    in order to organize them more modularly,
+    making collaborative editing more convenient
+    and reducing the chance of human error.
+\end{itemize}
+
+\emph{Senior A Problem Writer}
+\hfill{}June 2024 -- May 2025
+
+\begin{itemize}
+    \ii Collaborated to write 10 high-quality math contests for
+    high school seniors throughout NYC.
+\end{itemize}
+
+\textbf{Teaching Assistant, MAT 125}
+\hfill{} August 2025 -- December 2025
+\begin{itemize}
+    \ii Planned and taught a weekly 50-minute recitation section
+    for 28 students in an introductory calculus course
+    to supplement the lectures.
+    \ii Helped students from various math courses,
+    including calculus, intro to proofs, and real analysis,
+    in the Math Learning Center for three hours a week.
+\end{itemize}
+
+\vspace{-3mm}\section*{Volunteering}
+\textbf{New York City Math Team}
+\hfill{}September 2024 -- present
+
+\begin{itemize}
+    \ii Supervised Saturday math team practices during the spring
+    and wrote a mock contest to provide the team with practice materials
+    for the ARML math competition.
+    \ii Represented NYC as a coach at NYSML 2025 and 2026,
+    where I respectively proctored a team and helped grade the power round.
+    %\ii Occasional guest lecturer for Stuyvesant High School’s senior math team.
+\end{itemize}
+
+\vspace{-3mm}\section*{Honors and Awards}
+\textbf{Kuga-Sah Memorial Award}
+\hfill{}received May 2025, May 2026
+\begin{itemize}
+    \ii Award given to two students in each grade level
+    at Stony Brook University for excellence in mathematics.
+\end{itemize}
+\textbf{Honorable Mention, Putnam Mathematics Competition}
+\hfill{}received February 2025
+\begin{itemize}
+    \ii Scored 48/120 on the 2024 Putnam math contest, achieving rank 100
+    among 3988 participants.
+\end{itemize}
+
+%\vspace{-3mm}\section*{Skills and Miscellanea}
+%% TODO organize
+%Languages: English, French, Hindi % TODO include level of skillz
+%
+%Programming languages: Python, HTML, \LaTeX{}
+%
+%% google sheets?
+
+
+
+
+
+
+
+
+
+
+\end{document}

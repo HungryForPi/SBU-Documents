@@ -1,0 +1,568 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 534 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 534 HW01}
+\ohead{\footnotesize September 10, 2025}
+
+\title{\vspace{-2em}MAT 534 HW01}
+\author{\large Aditya Pahuja}
+\date{\large Due 09/10}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Suppose that $G$ is a set with an associative operation,
+    written as multiplication. Show that $G$ is a group if and only if,
+    for every $a$ and $b$ in $G$, the equations
+    $xa = b$ and $ay = b$ have solutions $x,y\in G$.
+\end{problem}
+
+\begin{soln}
+    If $G$ is a group, then $xa = b$ has the solution $x = ba\inv$
+    and $ay = b$ has the solution $y = a\inv b$.
+
+    Conversely suppose that $xa = b$ and $ay = b$
+    have solutions for all $a,b\in G$.
+    Fixing $a\in G$, let $e$ be an element of $G$ such that $ea = a$.
+    Given $b\in G$, pick $y$ so that $ay = b$. Then,
+    \begin{equation*}
+	eb = e(ay) = (ea)y = ay = b
+    \end{equation*}
+    so multiplication on the left by $e$ fixes all elements of $G$.
+    Similarly, there exists an $e'\in G$ such that $ae' = a$,
+    and then, given an arbitrary $b$ in $G$, if $xa = b$, we get
+    \begin{equation*}
+        be' = (xa)e' = x(ae') = xa = b
+    \end{equation*}
+    so multiplication on the right by $e'$ fixes all elements of $G$.
+    This implies that
+    \begin{equation*}
+        e = ee' = e'
+    \end{equation*}
+    so in fact $e$ is the identity element for the operation on $G$.
+
+    It remains to check the existence of inverses in $G$.
+    For some $a\in G$, we are given that there exists a left inverse
+    $x$ (so $xa = e$) and a right inverse $y$ (so $ay = e$);
+    we need to check that $x = y$. This follows from
+    \begin{equation*}
+        x = x(ay) = (xa)y = y,
+    \end{equation*}
+    so for any $a\in G$ there exists $x$ such that $ax = xa = e$.
+\end{soln}
+
+\begin{problem}
+    Suppose $G$ is a group in which $x^2 = 1$ for every $x\in G$.
+    Show that $G$ is abelian.
+\end{problem}
+
+\begin{soln}
+    Since $x^2 = 1$ for all $x$, each element of $G$ is its own inverse.
+    This means that for any $a,b\in G$,
+    \begin{equation*}
+	ab = (ab)\inv = b\inv a\inv = ba
+    \end{equation*}
+    so the operation of $G$ is commutative.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $G$ be a group and $o$ be any element of $G$.
+    Define a new operation $*$ on $G$ by the formula $x*y = xoy$.
+    \begin{enumerate}[(a)]
+        \ii Show that $G$ is a group under the new operation $*$.
+	What is the identity of $G$ for the new operation?
+	If $x\in G$, what is the inverse of $x$ for the new operation?
+	\ii If $G$ is a group and $o\in G$,
+	let $G_o$ denote the group defined in (a).
+	Show that $G\cong G_o$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) First, $*$ is associative because
+    \begin{equation*}
+	(x*y)*z = (xoy)oz = xo(yoz) = x*(y*z),
+    \end{equation*}
+    using the fact that the operation of $G$ is of course associative.
+    Second, the identity element for the operation $*$ is $o\inv$,
+    since for any $x\in G$,
+    \begin{equation*}
+        x*o\inv = xoo\inv = x,\quad o\inv*x = o\inv ox = x.
+    \end{equation*}
+    Finally, given $x\in G$, the inverse of $x$ for $*$ is
+    $(oxo)\inv = o\inv x\inv o\inv$, as it is easy to see that
+    \begin{equation*}
+        xo(oxo)\inv = (oxo)\inv xo = o\inv.
+    \end{equation*}
+    Thus $(G,*)$ satisfies the axioms of a group.
+
+    (b) Define $\varphi\colon G\to G_o$ by $\varphi(x) = o\inv x$
+    (where the inverse $o\inv$ is with respect to the operation of $G$).
+    This is a bijective function because it is invertible via the map
+    $y\mapsto oy$, and it is a homomorphism because
+    \begin{equation*}
+        \varphi(xy) = o\inv (xy) = (o\inv x)o(o\inv y) =
+	\varphi(x)*\varphi(y),
+    \end{equation*}
+    so $\varphi$ is an isomorphism $G\to G_o$.
+\end{soln}
+
+\begin{problem}
+    \begin{enumerate}[(a)]
+        \ii Let $G$ be the set of linear polynomials $f(x) = ax+b$,
+	where $a,b\in\RR$ and $a\ne0$. Show that $G$ is a group
+	under composition of functions.
+	\ii Let
+	\begin{equation*}
+	    H = \left\{ \begin{pmatrix}
+		    a&b\\0&1
+	    \end{pmatrix} : a,b\in\RR,\, a\ne 0\right\}.
+	\end{equation*}
+	Show that $H$ is a group under matrix multiplication.
+	\ii Show that $G$ and $H$ are isomorphic.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Composing two linear polynomials gives another linear polynomial:
+    if $f(x) = ax+b$ and $g(x) = cx+d$, then
+    \begin{equation*}
+	(g\circ f)(x) = c(ax + b) + d = acx + (bc+d),
+    \end{equation*}
+    so $G$ is closed under composition.
+    Function composition is of course associative,
+    with identity being the identity function $e(x) = x$ for all $x$.
+    Finally, the inverse of $f(x) = ax + b$ is
+    \begin{equation*}
+	f\inv(x) = \frac xa - \frac ba,
+    \end{equation*}
+    since
+    \begin{align*}
+	(f\inv\circ f)(x) &= \frac{ax+b}a - \frac ba = x + \frac ba - \frac ba = x \\
+	(f\circ f\inv)(x) &= a\left(\frac xa - \frac ba\right) + b
+	= x - b + b = x.
+    \end{align*}
+
+    (b) To see that $H$ is closed under matrix multiplication, we compute
+    \begin{equation*}
+        \begin{pmatrix}
+	    c&d\\ 0&1
+        \end{pmatrix}
+        \begin{pmatrix}
+	    a&b\\ 0&1
+        \end{pmatrix} =
+        \begin{pmatrix}
+	    ac&bc+d\\ 0&1
+        \end{pmatrix}.
+    \end{equation*}
+    Matrix multiplication is of course associative,
+    with identity given by the identity matrix.
+    Finally,
+    \begin{equation*}
+        \begin{pmatrix}
+	    a&b\\0&1
+	\end{pmatrix}\inv =
+	\begin{pmatrix}
+	    1/a & -b/a\\0&1
+	\end{pmatrix},
+    \end{equation*}
+    which can be verified easily.
+    (Less directly, we can also just note that the inverse in
+    $GL_2(\RR)$ of an element of $G$ has $(0\; 1)$ as its bottom row
+    due to how the row reduction algorithm works.)
+
+    (c) $G$ and $H$ are isomorphic with isomorphism $\varphi\colon G\to H$ given by
+    \begin{equation*}
+        \varphi(x\mapsto ax+b) = \begin{pmatrix}
+	    a&b\\0&1
+        \end{pmatrix}.
+    \end{equation*}
+    This is clearly invertible hence bijective, as the first row of the matrix
+    exactly encodes the coefficients of the corresponding linear polynomial in $G$.
+    To check that this is a homomorphism, if $f(x) = ax+b$
+    and $g(x) = cx+d$ with $a,c\ne0$, then
+    \begin{equation*}
+        \varphi(g)\varphi(f) = \begin{pmatrix}
+	    c&d\\0&1
+        \end{pmatrix}
+	\begin{pmatrix}
+	    a&b\\0&1
+	\end{pmatrix} =
+	\begin{pmatrix}
+	    ac & bc+d \\ 0&1
+	\end{pmatrix} =
+	\varphi(g\circ f),
+    \end{equation*}
+    recalling from part (a) that $(g\circ f)(x) = acx + (bc + d)$.
+\end{soln}
+
+\begin{problem}
+    Let $\CC^\times$ be the multiplicative group of the complex numbers,
+    i.e. the non-zero elements of $\CC$, under multiplication.
+    Show that $\CC^\times$ is isomorphic to the direct product
+    of the two additive groups $\RR$ and $\RR/\ZZ$.
+\end{problem}
+
+\begin{soln}
+    Consider the map
+    \begin{align*}
+        \varphi\colon \RR\times\RR &\to \CC^\times \\
+	(r,\theta) &\mapsto e^{r + 2\pi i\theta} =
+	e^r(\cos(2\pi\theta) + i\sin(2\pi\theta)).
+    \end{align*}
+    This is clearly a homomorphism, as
+    \begin{equation*}
+	\varphi(r+s,\theta+\psi) = e^{r+s + 2\pi i(\theta + \psi)}
+	= e^{r + 2\pi i\theta} e^{s+2\pi i\theta}
+	= \varphi(r,\theta)\varphi(s,\psi).
+    \end{equation*}
+    Furthermore, the kernel of this homomorphism is the set of $(r,\theta)$ such that
+    \begin{equation*}
+	e^{r + 2\pi\theta} = 1 \iff e^r = 1,\; 2\pi\theta\in 2\pi\ZZ
+    \end{equation*}
+    which is equivalent to $\theta\in\ZZ$ and $r = 0$, so
+    \begin{equation*}
+	\CC^\times\cong\frac{\RR\times\RR}{\langle (0,1)\rangle}.
+    \end{equation*}
+    In turn, by the homomorphism $\RR\times\RR\to\RR\times(\RR/\ZZ)$
+    defined by $(a,b)\mapsto (a,b\bmod 1)$, whose kernel is
+    $\langle (0,1)\rangle$, we get
+    \begin{equation*}
+	\CC^\times\cong\frac{\RR\times\RR}{\langle (0,1)\rangle}
+	\cong \RR\times(\RR/\ZZ),
+    \end{equation*}
+    which is what we wanted to show.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $n\ge 2$ be an integer. Determine the center
+    of the dihedral group $D_{2n}$.
+\end{problem}
+
+\begin{soln}
+    Recall that
+    \begin{equation*}
+        D_{2n} = \langle r,d \mid r^n = d^2 = 1,\, rd = dr\inv\rangle
+	= \{1, r,\dots, r^{n-1}, d, rd, \dots, r^{n-1}d\}.
+    \end{equation*}
+    When $n = 2$, it is easy to check that the group is abelian,
+    hence $Z(D_{2n}) = D_{2n}$. Assume henceforth that $n > 2$.
+
+    First, note that $r^kd$ is always not in the center of $D_{2n}$,
+    seeing as $r\cdot r^kd = r^kd\cdot r\inv \ne r^kd\cdot r$ because $r\ne r\inv$
+    (since $r^2=1$ would imply $n=2$).
+
+    Thus $Z(D_{2n})$ is a subgroup of $\{1, r, \dots, r^{n-1}\}$.
+    Obviously the powers of $r$ all commute with each other,
+    so we need to check which powers of $r$ commute with the $r^kd$.
+    Take $0 \le m < n$. Then
+    \begin{equation*}
+	r^kd\cdot r^m = r^m\cdot r^kd = r^kd\cdot r^{-m}
+    \end{equation*}
+    if and only if $r^{2m} = 1$. This requires $n\mid 2m$,
+    which, along with the bound $0\le 2m < 2n$, implies
+    $2m = 0$ or $2m = n$. The former case tells us that $1$ is in the center (shocking),
+    while the latter tells us that, if $n$ is even, then $r^{n/2}$ is in the center.
+    Therefore
+    \begin{equation*}
+	Z(D_{2n}) = \begin{cases}
+	    D_4 & n = 2\\
+	    \{1\} & n\text{ is odd}\\
+	    \{1, r^{n/2}\} & n\text{ is even}.
+	\end{cases}
+    \end{equation*}
+\end{soln}
+
+\begin{problem}
+    Let $H$ and $K$ be subgroups of $G$, with $K$ normal in $G$.
+    \begin{enumerate}[(a)]
+	\ii Show that $HK = \{hk : h\in H,\, k\in G\}$
+	is a subgroup of $G$.
+	\ii Suppose that $H$ is also normal.
+	Show that $HK$ is a normal subgroup of $G$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) To show that $HK$ is a subgroup of $G$,
+    we need to show that if $g$ and $g'$ are in $HK$,
+    then so is $g(g')\inv$.
+    In this spirit, let $h_1k_1$ and $h_2k_2$ be elements of $HK$,
+    with $h_1,h_2\in H$ and $k_1,k_2\in K$. Then,
+    \begin{equation*}
+        h_1k_1(h_2k_2)\inv = h_1k_1k_2\inv h_2\inv =
+	h_1 h_2\inv (h_2 k_1k_2\inv h_2\inv).
+    \end{equation*}
+    Since $K$ is normal in $G$, $k_1k_2\inv\in K$ implies that the conjugate
+    $h_2 k_1k_2\inv h_2\inv$ is also in $K$,
+    so we have expressed $h_1k_1(h_2k_2)\inv$ as the product of
+    an element $h_1h_2\inv$ of $H$ and an element
+    $h_2k_1k_2\inv h_2\inv$ of $K$, hence it is in $HK$ as desired.
+
+    (b) If $H$ is also normal, then for any $hk\in HK$
+    with $h\in H$, $k\in K$ and any $g\in G$, we get
+    \begin{equation*}
+	g hk g\inv = \underbrace{(ghg\inv)}_{\in H}
+	\underbrace{(gkg\inv)}_{\in K}\in HK,
+    \end{equation*}
+    so $HK$ is closed under conjugation, hence normal.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    The \vocab{commutator subgroup} of a group $G$ is
+    the group $G'$ generated by the elements $[x,y] = x\inv y\inv xy$,
+    where $x$ and $y$ vary through the elements of $G$.
+    \begin{enumerate}[(a)]
+        \ii Show that $G'$ is normal in $G$.
+	\ii Show that $G/G'$ is an abelian group.
+	\ii Let $H$ be a subgroup of $G$ containing $G'$.
+	Show that $H$ is normal in $G$, and that $G/H$ is abelian.
+	\ii Suppose that $N$ is a normal subgroup of $G$
+	such that $G/N$ is abelian. Show that $G'\subseteq N$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) First, observe that the conjugate $h\inv[x,y]h$ of a commutator
+    is also a commutator $[h\inv xh, h\inv yh]$.
+    Then, an element $g$ of $G'$ is a product of finitely many commutators, say
+    \begin{equation*}
+	g = [x_1,y_1][x_2,y_2]\cdots[x_n,y_n].
+    \end{equation*}
+    For any $h\in G$,
+    \begin{equation*}
+	h\inv gh = (h\inv [x_1,y_1]h)(h\inv[x_2,y_2]h)\cdots(h\inv[x_n,y_n]h)
+	= \prod_{i=1}^n [h\inv x_ih, h\inv y_ih]
+    \end{equation*}
+    is thus a product of commutators, so $G'$ is closed under conjugation,
+    hence is normal.
+
+    (b) Let $\varphi\colon G\to G/G'$ be the projection homomorphism,
+    i.e. $\varphi(x)$ gets sent to the coset of $G'$ containing $x$;
+    this is a surjective homomorphism with kernel $G'$.
+    Then, given $g,h\in G/G'$, let $x$ and $y$ be elements of
+    the cosets $g$, $h$; we have
+    \begin{equation*}
+        gh = \varphi(x)\varphi(y) = \varphi(xy)
+	= \varphi([x\inv, y\inv]yx) = \varphi([x\inv, y\inv])\varphi(xy)
+	= \varphi(xy) = hg
+    \end{equation*}
+    because the commutator $[x\inv, y\inv]$ is in $G'$, so $G/G'$ is abelian.
+
+    (c) If $h\in H$, then $h\inv\in H$ as well. Thus for any $g\in G$,
+    \begin{equation*}
+	g\inv hg\in H \iff h\inv (g\inv hg) = [h,g]\in H,
+    \end{equation*}
+    but we know that $[h,g]\in H$ because $H$ contains all the commutators in $G$.
+    Thus, $H$ is closed under conjugation, hence normal.
+
+    It is straightforward to show that $G/H$ is abelian,
+    with the exact same logic as part (b).
+    Let $\varphi\colon G\to G/H$ be the projection homomorphism,
+    Then, given $g,h\in G/H$, let $x$ and $y$ be elements of
+    the cosets $g$, $h$; we have
+    \begin{equation*}
+        gh = \varphi(x)\varphi(y) = \varphi(xy)
+	= \varphi([x\inv, y\inv]yx) = \varphi([x\inv, y\inv])\varphi(xy)
+	= \varphi(xy) = hg
+    \end{equation*}
+    because the commutator $[x\inv, y\inv]$ is in $G'\subseteq H$,
+    so $G/H$ is abelian.
+
+    (d) If $G/N$ is abelian, let $\varphi\colon G\to G/N$ be
+    the projection homomorphism. Then, for any $x,y\in G$, we have
+    \begin{equation*}
+        \varphi(x)\varphi(y) = \varphi(y)\varphi(x)
+	\iff \varphi(x\inv y\inv xy) = 1,
+    \end{equation*}
+    so every commutator is in $N$, hence the subgroup generated by the commutators,
+    $G'$, is contained in $N$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

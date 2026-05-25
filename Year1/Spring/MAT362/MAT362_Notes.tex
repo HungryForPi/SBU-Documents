@@ -1,0 +1,913 @@
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={5.5in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={MAT 362}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=small]{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\EE}{\mathbb E}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\abs}[1]{\left|{#1}\right|}
+\providecommand{\symdiff}{\Delta}
+\providecommand{\jim}{m_{*,(J)}}
+\providecommand{\jom}{m^{*,(J)}}
+\providecommand{\pcint}{\mathrm{p.c.}\int}
+\providecommand{\dif}{\;d}
+\providecommand{\dist}{\operatorname{dist}}
+\providecommand{\diam}{\operatorname{diam}}
+\renewcommand{\hat}{\widehat}
+\providecommand{\norm}[1]{\| #1 \|}
+
+\reversemarginpar
+\setlength{\marginparwidth}{3cm}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+
+\declaretheorem[style=thmredbox,name=Problem,numberwithin=section]{problem}
+
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=theorem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\ord}{\operatorname{ord}}
+\providecommand{\ex}{\opname{ex}}
+\providecommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\providecommand{\ceil}[1]{\left\lceil #1\right\rceil}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\ihead{\footnotesize\textbf{MAT 362}}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2.0cm} MAT 362 Spring 2024 Notes}
+\author{\large Aditya Pahuja}
+\date{\large Test on 3/11!}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Curves}
+\renewcommand{\thesubsection}{\S}
+\subsection{1.2, 1.3 Parametrized curves and regular curves}
+We start with rehashing a some of the ideas
+from basic multivariable calculus.
+
+\begin{definition}[Parametrized differentiable curve]
+	A \vocab{parametrized differentiable curve}
+	is a differentiable map $\alpha\colon I\to\RR^3$
+	from an open interval $(a,b)$ to $\RR^3$.
+	Note that we will be using ``differentiable'' to mean that
+	at all points in $I$, $\alpha$ has partials of all orders.
+\end{definition}
+
+We choose to think of a curve with respect to its parametrization
+rather than just a subset of $\RR^3$; the set $\alpha(I)$ is the
+\vocab{trace} of $\alpha$.
+The derivative of a differentiable curve $\alpha$ at $t$
+is the tangent vector/velocity vector at $t$.
+
+\begin{exercise}
+	If $u(t)$, $v(t)$ are parametrized differentiable curves on $I$,
+	show that $(u\cdot v)' = u\cdot v' + u'\cdot v$, where $\cdot$
+	is the dot product.
+\end{exercise}
+
+\begin{definition}[Regular curve]
+	A parametrized differentiable curve $\alpha\colon I\to\RR^3$
+	is \vocab{regular} if $\alpha'(t)\ne 0$ for all $t\in I$.
+	If $\alpha'(t) = 0$ then we call $t$ a \vocab{singular point}
+	of $\alpha$.
+\end{definition}
+
+The arc length of a regular curve from times $t_0$ to $t$ is 
+\[s(t) := \int_{t_0}^t |\alpha'(x)|\dif x.\]
+By the fundamental theorem of calculus, $s$ is differentiable
+and $s'(t) = |\alpha'(t)|$
+(note that we require $\alpha'(t)\ne 0$ to conclude differentiability
+of all orders here because absolute value isn't differentiable at zero).
+
+In the event that $s(t) = t$ for all $t$ (i.e. the parameter $t$
+is equal to the arc length measured off of $t_0$), we thus have
+$ds/dt = 1 = |\alpha'(t)|$, so the tangent vector has constant velocity.
+Conversely if $|\alpha'(t)| = 1$ then
+\[s = \int_{t_0}^t \dif x = t - t_0.\]
+That is, $|\alpha'(t)| = 1$ for all $t$ is equivalent to $t$
+measuring the arc length off a given point.
+We are very interested in this case of the curve
+being parametrized by arc length, since it makes our computations much nicer.
+
+\subsection{1.4 Vector product}
+The vector product is just the cross product:
+\begin{definition}
+	The \vocab{vector product} $u\wedge v$ of vectors $u,v\in\RR^3$ is
+	an anticommutative, nonassociative bilinear operation on $\RR^3\times\RR^3$
+	defined as the unique vector such that
+	\[(u\wedge v)\cdot w = \det(u, v, w)\]
+	for all $w\in\RR$.
+\end{definition}
+
+\begin{exercise}[Hope you remember how cross product works]
+	(i) When is $u\wedge v$ zero?
+	
+	(ii) Given $u$ and $v$ with $u\wedge v\ne 0$,
+	describe the set of all $w$ such that $(u\wedge v)\cdot w = 0$.
+	
+	(iii) Give an example to show that the vector product
+	is not associative.
+\end{exercise}
+
+One can show that
+\[(u\wedge v)\cdot (x\wedge y) = \begin{vmatrix}
+	u\cdot x&v\cdot x\\ u\cdot y&v\cdot y
+\end{vmatrix},\]
+so that $|u\wedge v|^2 = (u\wedge v)\cdot(u\wedge v)$ is the area
+of the parrallelogram spanned by $u$ and $v$ (check this ---
+recall that $|u\cdot v| = |u||v||\cos\theta|$ where $u,v$ make angle $\theta$).
+
+There is a nice differentiation rule for the vector product,
+in analogy to the product rule for the dot product (check it!):
+\[(u\wedge v)' = u\wedge v' + u'\wedge v.\]
+
+\subsection{1.5 Curvature and shit}
+Throughout this section let $\alpha\colon I\to\RR^3$ be a regular curve
+parametrized by arc length.
+
+\begin{definition}[Curvature]
+	The \vocab{curvature} of $\alpha$ is $\kappa(s) := |\alpha''(s)|$.
+\end{definition}
+
+Since $\alpha'$ has constant length, one can show (exercise!)
+that $\alpha''$ is normal to $\alpha'$, so $\kappa$ is a measure of
+how quickly the curve is pulling away from its tangent vector,
+i.e. how sharply the curve is turning at $s$.
+
+\begin{exercise}
+	Show that $\alpha$ has curvature zero everywhere
+	if and only if it is a straight line.
+\end{exercise}
+
+The \vocab{normal vector} $n(s) = \alpha''(s)/\kappa(s)$ to $\alpha$
+at $s$ is a unit vector normal to $t(s) := \alpha'(s)$
+(so $t$ is the unit tangent vector at $s$).
+The plane determined by $\alpha'$ and $n$ at a point $s$
+is the \vocab{osculating plane} of $\alpha$ at $s$;
+intuitively, this is the plane that $\alpha$ ``most closely'' hugs
+as $s$ varies.
+Note that the osculating plane doesn't exist if the curvature at $s$ is zero
+(intuitively, there are infinitely many candidates for the osculating plane).
+From this point on we shall restrict ourselves to assuming that
+$\alpha''$ is everywhere nonzero (i.e. there are no
+``singular points of order $1$'').
+
+The unit vector $b(s) = t(s)\wedge n(s)$ is the \vocab{binormal vector}
+at $s$; it is a unit vector normal to the osculating plane.
+The quantity $|b'(s)|$, then, measures how quickly
+the curve pulls away from its osculating plane at $s$.
+Note that $b' = t'\wedge n + t\wedge n' = t\wedge n'$ is normal to $t$ because
+because $t' = \kappa n$ and that $b'$ is normal to $b$ because $|b|$ is fixed.
+Therefore $b'$ is parallel to $n$; we write $b'(s) = \tau(s)n(s)$,
+where $\tau(s)$ is called the \vocab{torsion} at $s$.
+
+\begin{exercise}
+	Under the assumption $\kappa\ne 0$ everywhere, show that
+	$\alpha(I)$ is contained in a plane if and only if the torsion
+	is zero everywhere.
+\end{exercise}
+
+To sum up, we have three pairwise orthogonal unit vectors $t$, $n$, $b$,
+which form the so-called ``Frenet trihedron,'' which
+satisfy the ``Frenet formulas''
+\begin{align*}
+	t' &= \kappa n\\
+	n' &= -\kappa t-\tau b\\
+	b' &= \tau n
+\end{align*}
+where the second equation comes from differentiating $n=b\wedge t$.
+A small amount of terminology:
+The $tn$-plane is the osculating plane,
+the $nb$-plane is the \vocab{normal plane}, and
+the $tb$-plane is the \vocab{rectifying plane}.
+Also, the \vocab{radius of curvature} at $s$ is defined as $1/\kappa$,
+which one can think of intuitively as
+the radius of the circle that ``best approximates'' the curve near $s$.
+
+The extremely nice thing about all this theory is the following fact,
+which roughly says that curvature and torsion uniquely
+determine a curve up to rigid motion:
+\begin{theorem}[Fundamental theorem of the local theory of curves]
+	Given differentiable functions $\kappa(s)>0$ and $\tau(s)$,
+	where $s$ varies over an interval $I$, there is a
+	regular parametrized curve $\alpha\colon I\to\RR^3$ such that
+	$s$ is the arc length, $\kappa(s)$ is its curvature,
+	and $\tau(s)$ is its torsion.
+	Moreover, if $\ol\alpha$ is another such curve, then
+	there exists an orthogonal linear map $\rho$ on $\RR^3$
+	with positive determinant and a vector $c$
+	such that $\ol\alpha=\rho\circ \alpha + c$.
+\end{theorem}
+
+\subsection{1.7 Isoperimetric inequality}
+I will not reproduce the proof of the isoperimetric inequality here.
+
+A \vocab{closed plane curve} is a parametrized differentiable curve
+$\alpha\colon[a,b]\to\RR^2$ such that $\alpha(a)=\alpha(b)$
+and $\alpha^{(n)}(a) = \alpha^{(n)}(b)$ for all integers $n$,
+i.e. the derivatives of all orders agree at $a$ and $b$.
+A closed plane curve is \vocab{simple} if it is injective on $[a,b)$,
+so its only self intersection is at the endpoints.
+The Jordan curve theorem says that every simple closed curve
+partitions the plane into a bounded ``inside'' region
+and an unbounded ``outside'' region.
+\begin{theorem}[Isoperimetric inequality]
+	Let $C$ be a simple closed curve with length $\ell$
+	and let $A$ be the area of the region bounded by $C$. Then
+	\[\ell^2-4\pi A\ge 0,\]
+	with equality if and only if $C$ is a circle.
+\end{theorem}
+
+\section{Regular surfaces}
+\subsection{2.2 What's a regular surface?}
+We want to now develop some tools that help us understand
+the properties of surfaces. First, we need to do some work
+to more rigorously describe what a surface is,
+or at least to define a class of ``sufficiently nice'' surfaces.
+One way to look at this is to consider sets that locally look like $\RR^2$,
+in the following sense:
+\begin{definition}[Regular surface]
+	A subset $S\subseteq\RR^3$ is a \vocab{regular surface}
+	if, for each $p\in S$, there exists a neighborhood
+	$V\subseteq \RR^3$ of $p$ and an open set $U\subseteq\RR^2$
+	for which there is a map $\mb x\colon U\to V\cap S$ satisfying
+	\begin{enumerate}[(i)]
+		\ii $\mb x$ is differentiable, meaning $\mb x$
+		has partials of all orders.
+		\ii $\mb x$ is a homeomorphism between $U$ and $V\cap S$,
+		meaning $\mb x$ has a continuous inverse; it is continuous already
+		due to condition (i).
+		\ii For each $q\in U$, the differential $d\mb x_q\colon\RR^2\to\RR^3$
+		is injective.
+	\end{enumerate}
+	We say that $\mb x$ is a \vocab{parametrization} of $S$
+	in a neighborhood of $p$, and we call the neighborhood
+	$V\cap S$ of $p$ in $S$ a \vocab{coordinate neighborhood}.
+\end{definition}
+
+We will show later that this is more naturally interpreted as
+saying that $S$ is ``locally diffeomorphic'' to (an open subset of) $\RR^2$.
+The third condition can be reinterpreted as saying that
+the columns of the Jacobian matrix of $\mb x(u, v)$ are independent;
+recall that the Jacobian matrix is
+\[d\mb x_q = \begin{pmatrix}
+	\partial x/\partial u(q) & \partial x/\partial v(q)\\
+	\partial y/\partial u(q)&\partial y/\partial v(q)\\
+	\partial z/\partial u(q)&\partial z/\partial v(q)
+\end{pmatrix}\]
+
+\begin{example}[Sphere is regular surface]
+	The unit sphere $S^2$ is a regular surface. There are many ways to exhibit
+	a covering of coordinate neighborhoods of a sphere;
+	perhaps the most natural way is to note that the intersection of
+	$S^2$ with each of the half-spaces determined by one of
+	the coordinate planes (e.g. $S^2\cap \{(x,y,z)\in\RR^3 : z>0\}$)
+	is a coordinate neighborhood; for example,
+	$S^2\cap \{(x,y,z)\in\RR^3 : z>0\}$ admits a parametrization as
+	\[\mb x(u, v) = (u, v,\sqrt{1-u^2-v^2})\]
+	while $S^2\cap \{(x,y,z)\in\RR^3 : y<0\}$ can be parametrized as
+	\[\mb x(u, v) = (u, -\sqrt{1-u^2-v^2},v).\]
+	It is not too hard to check that these satisfy
+	the conditions of the definition of a regular surface
+	and that the six coordinate neighborhoods shown
+	cover the entire sphere.
+\end{example}
+
+\begin{exercise}
+	Check that a cylinder, the locus of points satisfying $x^2 + y^2 = 1$,
+	is a regular surface.
+\end{exercise}
+
+The parametrizations of the coordinate neighborhoods in the example of $S^2$
+generalize in an obvious way:
+\begin{prop}
+	If $f\colon U\to \RR$ is differentiable on an open subset of $\RR^2$,
+	then the set $\{(x,y,f(x,y))\in\RR^3 : (x,y)\in U\}$
+	is a regular surface.
+\end{prop}
+
+\begin{exercise}
+	Prove this.
+\end{exercise}
+
+However, there is some sense in which the sphere or the cylinder
+are ``obviously'' regular that makes the amount of work necessary
+to check their regularity unsatisfying.
+It turns out that there is a nice condition for when
+the set of points satisfying $F(x, y, z) = c$ for some
+differentiable $F$ and constant $c$ forms a regular surface.
+
+\begin{definition}
+	Let $F\colon U\subseteq\RR^n\to\RR^m$ be a differentiable map
+	defined on an open subset $U$ of $\RR^n$.
+	We say that $p\in U$ is a \vocab{critical point} of $F$
+	if $dF_p\colon\RR^n\to\RR^m$ is not surjective.
+	The image $F(p)\in\RR^m$ is a \vocab{critical value} of $F$.
+	A point of $\RR^m$ which is not a critical value
+	is called a \vocab{regular value} of $F$.
+\end{definition}
+
+\begin{prop}[Regular values generate regular surfaces]
+	If $f\colon U\subseteq\RR^3\to\RR$ is differentiable
+	and $a\in f(U)$ is a regular value of $f$, then $f\inv(a)$
+	is a regular surface.
+\end{prop}
+
+Note that $a$ is a regular value of $f$ if and only if
+$f_x$, $f_y$, and $f_z$ are not all simultaneously zero
+at some point in the set $f\inv(a)$.
+
+\begin{proof}[Proof]
+	For some point $p=(x_0,y_0,z_0)\in f\inv(a)$,
+	suppose WLOG that $f_z(p)\ne 0$.
+	Then, by the implicit function theorem, there is a neighborhood
+	$U\subseteq\RR^2$ of $(x_0,y_0)$ and a neighborhood $V\subseteq\RR$ of $z_0$
+	for which there is a unique differentiable $g\colon U\to V$
+	such that $g(x_0,y_0) = z_0$ and $f(x, y, g(x,y)) = a$
+	for all $(x,y)\in U$.
+	
+	Now the map $\mb x\colon U\to\RR^3$
+	given by $\mb x(u,v) = (u,v,g(u,v))$ is a parametrization
+	of a neighborhood of $p$ in $f\inv(a)$
+	because it is the graph of a differentiable function $g$
+	on the open set $U$, so we are done
+	for we have found a coordinate neighborhood $\mb x(U)\subseteq f\inv(a)$
+	of each $p\in f\inv(a)$.
+\end{proof}
+
+(The book does a different proof with the inverse function theorem,
+so maybe also read that if you want.)
+
+\begin{example}
+	The cylinder and sphere are now very clearly regular surfaces,
+	as is the ellipsoid
+	\[\frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1\]
+	and the hyperboloid of two sheets
+	\[-x^2-y^2+z^2=1\]
+	and the torus
+	\[z^2 = r^2 - (\sqrt{x^2+y^2} - a)^2\]
+	for $a > r > 0$
+	(exercise: show that this actually defines a torus!).
+\end{example}
+
+The following is a nice shortcut for determining when a map $U\to S$
+is a parametrization if we already know a priori that $S$ is regular.
+\begin{prop}
+	Let $p\in S$ be a point of a regular surface $S$.
+	Suppose that $\mb x\colon U\subseteq\RR^2\to\RR^3$
+	is an injective differentiable map with injective differential
+	such that $p\in\mb x(U)\subseteq S$.
+	Then $\mb x\inv\colon \mb x(U)\to U$ is continuous.
+\end{prop}
+
+\begin{exercise}
+	Prove this; I do not feel like writing down a proof rn
+\end{exercise}
+
+\subsection{2.3 Differentiable functions}
+The point of all of the data carried by a regular surface
+is that it very strongly respects a lot of the structure
+of differential calculus, which is key if we are going to
+try working with differential calculus in a more general context.
+
+A differentiable function $f\colon S\to\RR$
+for some regular surface $S$ can be defined very naturally:
+\begin{definition}
+	Let $S$ be a regular surface. Then $f\colon S\to\RR$ is differentiable
+	at a point $p$ if, given a parametrization
+	$\mb x\colon U\subseteq\RR^2\to\RR^3$ of a neighborhood of $p$,
+	the function $f\circ\mb x\colon U\to\RR$ is differentiable
+	at $\mb x\inv(p)$.
+\end{definition}
+
+There is an important technical note that we have to
+resolve immediately, though: we need to ensure that
+differentiability is independent of the choice of $\mb x$.
+
+\begin{prop}[Change of parameters]
+	Let $p$ be a point of a regular surface $S$ and let
+	$\mb x\colon U\subseteq\RR^2\to S$,
+	$\mb y\colon V\subseteq\RR^2\to S$
+	be two parametrizations of $S$ such that $p\in\mb x(U)\cap\mb y(V)=W$.
+	Then, the ``change of coordinates''
+	$h = \mb x\inv\circ y\colon \mb y\inv(W)\to\mb x\inv(W)$
+	is a diffeomorphism.
+\end{prop}
+
+\begin{exercise}
+	Prove this; I'm lazy
+	(if I had to guess, ya gotta use implicit function theorem.)
+\end{exercise}
+
+We can also talk about maps between surfaces being differentiable:
+\begin{definition}[Differentiable map between surfaces]
+	Let $S_1$ and $S_2$ be regular surfaces.
+	Then, a continuous map $\varphi\colon V_1\subseteq S_1\to S_2$
+	on an open subset $V_1$ of $S_1$ is differentiable at $p\in V_1$
+	if, given parametrizations $\mb x_1\colon U_1\subseteq\RR^2\to S_1$
+	and $\mb x_2\colon U_2\subseteq\RR^2\to S_2$ with $p\in\mb x_1(U_1)$ and
+	$\varphi(p)\in\mb x_2(U_2)$, the map
+	\[\mb x_2\inv\circ\varphi\circ\mb x_1\colon U_1\to U_2\]
+	is differentiable at $\mb x_1\inv(p)$.
+\end{definition}
+
+The change of parameters proposition lets one easily show
+that this definition is independent of the choice of parametrizations.
+
+\begin{exercise}
+	Let $S_1$ and $S_2$ be regular surfaces
+	and assume that $S_1\subseteq V\subseteq\RR^3$
+	where $V$ is open in $\RR^3$.
+	Suppose that $\varphi\colon V\to\RR^3$ is differentiable
+	and that $\varphi(S_1)\subseteq S_2$.
+	Then, the restriction $\varphi|_{S_1}\colon S_1\to S_2$
+	is a differentiable map.
+\end{exercise}
+
+Now, we can say that two surfaces $S_1$ and $S_2$ are
+diffeomorphic if there is a differentiable function $S_1\to S_2$
+with differentiable inverse.
+One can show easily that $U$ and $\mb x(U)$ are diffeomorphic
+for every parametrization $\mb x$ of a coordinate neighborhood
+of a regular surface $S$. This is the true geometric intuition
+behind what a regular surface looks like --- locally, its properties
+relating to differentiability are the same as those of $\RR^2$.
+Indeed, we could replace the definition of regular surface
+with the more abstract ``a set that is locally diffeomorphic to $\RR^2$''
+and recover all of this theory.
+
+\subsection{2.3 Regular curves}
+We can define regular curves in analogy to regular surfaces,
+as subsets of $\RR^3$ that can be covered with coordinate neighborhoods
+from $\RR$.
+
+We can sometimes generate regular surfaces by displacing regular curves
+in a certain way. For example, if $C$ is a regular connected plane curve
+lying in the $xz$-plane, then parametrize $C$ as
+$x=f(v)$, $z=g(v)$ for $a<v<b$, $f(v)>0$. Then the surface of revolution $S$
+\[\mb x(u,v) = (f(v)\cos u, f(v)\sin u, u)\]
+obtained by rotating the generating curve $C$ around the $z$-axis can be shown
+to be a regular surface (exercise, check this).
+The circles traced by fixed points of $C$ are \vocab{parallels} of $S$
+(i.e. fixing $v$), while the images of $C$ under the rotations
+are the \vocab{meridians} of $C$ (i.e. fixing $u$).
+\pagebreak
+\subsection{2.3 Regular parametrized surfaces}
+We can instead define regular parametrized surfaces
+in analogy with regular parametrized curves.
+\begin{definition}
+	A \vocab{parametrized surface} $\mb x\colon U\subseteq\RR^2\to\RR^3$
+	is a differentiable map $\mb x$ on an open set $U$.
+	We say that $\mb x$ is \vocab{regular} if $d\mb x_q\colon\RR^2\to\RR^3$
+	is injective for all $q\in U$.
+	A point where $d\mb x_q$ is not injective is a
+	\vocab{singular point} of $\mb x$.
+\end{definition}
+
+\begin{example}
+	Let $\alpha\colon I\to\RR^3$ be a nonplanar regular parametrized curve
+	whose curvature is everywhere nonzero. Then we define the
+	\vocab{tangent surface} of $\alpha$ to be the parametrized surface
+	$\mb x\colon U\to\RR^3$ with $U=I\times(\RR\setdiff\{0\})$ given by
+	\[\mb x(t,v) = \alpha(t) + v\alpha'(t).\]
+	We have $\partial\mb x/\partial t = \alpha'(t)+v\alpha''(t)$
+	and $\partial\mb x/\partial v = \alpha'(t)$, so
+	\[\frac{\partial\mb x}{\partial t}\wedge\frac{\partial \mb x}{\partial v}
+	= v\alpha''(t)\wedge \alpha'(t)\ne 0\]
+	because the curvature of $\alpha$ at $t$ is $\kappa(t) =
+	\frac{|\alpha'(t)\wedge\alpha''(t)|}{|\alpha'(t)|^3}\ne 0$.
+	Thus $\mb x\colon U\to\RR^3$ is a regular parametrized surface
+	whose trace consists of two connected pieces
+	with common boundary $\alpha(I)$.
+\end{example}
+
+Observe also that a regular parametrized surface can intersect itself,
+just like a regular curve can intersect itself
+(exercise, find one such surface).
+
+\begin{prop}
+	Let $\mb x\colon U\subseteq\RR^2\to\RR^3$ be a regular parametrized surface.
+	Then, for each $q\in U$, there is a neighborhood $V\subseteq\RR^2$ of $q$
+	such that $\mb x(V)$ is a regular surface.
+\end{prop}
+
+\begin{exercise}
+	\emph{Say the line, Bart!} (``Implicit function theorem.'')
+\end{exercise}
+
+\subsection{2.4 The tangent plane and the differential of a map}
+Although we have defined what it means for a map to be differentiable,
+we haven't actually defined a notion of derivative yet.
+
+To start, we show that at every point of a regular surface $S$,
+there is a well-defined tangent plane.
+By a \vocab{tangent vector} to $S$ at a point $p$,
+we mean the vector $\alpha'(0)$, where $\alpha\colon(-\eps,\eps)\to S$
+is a differentiable parametrized curve such that $\alpha(0) = p$.
+
+\begin{prop}
+	Let $\mb x\colon U\subseteq\RR^2\to S$ be a parametrization
+	of a neighborhood of a point $p$ in a regular surface $S$
+	and let $q = \mb x\inv(p)$. Then the subspace
+	\[d\mb x_q(\RR^2)\subseteq\RR^3\]
+	coincides with the set of tangent vectors to $S$ at $p$.
+\end{prop}
+
+\begin{proof}
+	On one hand, let $w$ be a tangent vector at $p$
+	and let $\alpha\colon(-\eps,\eps)\to S$ be a corresponding
+	differentiable parametrized curve with $\alpha(0)=p$, $\alpha'(0)=w$.
+	Then $\beta = \mb x\inv\circ\alpha\colon(-\eps,\eps)\to U$
+	is differentiable, so, by the chain rule,
+	\[w = \alpha'(0) = (\mb x\circ \beta)'(0)
+	= d\mb x_{\beta(0)}\cdot \beta'(0) = d\mb x_q(\beta'(0))
+	\in d\mb x_q(\RR^2).\]
+	
+	On the other hand, let $w = d\mb x_q(v)$ for some $v\in\RR^2$.
+	Then we obviously have $v = \gamma'(0)$ where
+	$\gamma\colon (-\eps,\eps)\to U$ is given by $\gamma(t) = vt+q$,
+	but then $w = \alpha'(0)$ where $\alpha = \mb x\circ\gamma$,
+	so $w$ is a tangent vector (noting that $\alpha(0) = \mb x(\gamma(0))
+	= \mb x(q) = p$).
+\end{proof}
+
+We will denote the tangent plane $d\mb x_q(\RR^2)$
+to $S$ at $p$ by $T_p(S)$; note that the above proof implies that
+$T_p(S)$ is invariant of the choice of $\mb x$, as the notation indicates.
+The choice of parametrization determines a basis for $T_p(S)$,
+specifically $\{\mb x_u(q), \mb x_v(q)\}$.
+Then, if $w\in T_p(S)$ is the velocity vector $\alpha'(0)$
+of a curve $\alpha = \mb x\circ\beta$ where $\beta\colon(-\eps,\eps)\to U$
+is given by $\beta(t) = (u(t), v(t))$ and $\beta(0) = q = \mb x\inv(p)$, then
+\[\alpha'(0) = (\mb x\circ \beta)'(0) = \mb x'(\beta(0))\beta'(0)
+= \mb x_u(q)u'(0) + \mb x_v(q)v'(0) = w,\]
+so the coordinates of $w$ in this basis are $(u'(0), v'(0))$.
+
+Now we can talk bout the differential of a differentiable map between surfaces.
+Let $S_1$ and $S_2$ be regular surfaces and
+$\varphi\colon V\subseteq S_1\to S_2$ a differentiable map on
+an open set $V$ in $S_1$. If $p\in V$, then $w\in T_p(S_1)$
+is equal to $\alpha'(0)$ for some differentiable parametrized
+$\alpha\colon(-\eps,\eps)\to V$ with $\alpha(0) = p$.
+Then $\beta = \varphi\circ\alpha$ is a map with $\beta(0) = \varphi(p)$,
+so $\beta'(0)$ is a vector in $T_{\varphi(p)}(S_2)$.
+
+\begin{prop}
+	Given $w$ in the situation above, the vector $\beta'(0)$
+	is independent of $\alpha$.
+	The map $d\varphi_p\colon T_p(S_1)\to T_{\varphi(p)}(S_2)$
+	defined by $d\varphi_p(w) = \beta'(0)$ is linear.
+\end{prop}
+
+\begin{proof}
+	Let $\mb x(u,v)$ and $\ol{\mb x}(\ol u,\ol v)$ be parametrizations
+	in neighborhoods of $p$ and $\varphi(p)$ respectively.
+	Then if $\varphi(u,v) = (\varphi_1(u,v), \varphi_2(u,v))$
+	and $\alpha(t) = (u(t),v(t))$, we can calculate
+	\[\beta'(0) = \left(\frac{\partial\varphi_1}{\partial u}u'(0)
+	+ \frac{\partial\varphi_1}{\partial v}v'(0),
+	\frac{\partial\varphi_2}{\partial u}u'(0)
+	+ \frac{\partial\varphi_2}{\partial v}v'(0)\right),\]
+	which are dependent only on $\varphi$ and the coordinates of $w$
+	with respect to the basis induced by $\mb x$. Furthermore
+	\[\beta'(0) = d\varphi_p(w) =\begin{pmatrix}
+		\partial\varphi_1/\partial u&
+		\partial\varphi_1/\partial v\\
+		\partial\varphi_1/\partial u&
+		\partial\varphi_1/\partial v
+	\end{pmatrix}\begin{pmatrix}
+		u'(0)\\v'(0)
+	\end{pmatrix}\]
+	shows that $d\varphi_p$ is clearly a linear map from
+	$T_p(S_1)$ to $T_{\varphi(p)}(S_2)$.
+\end{proof}
+
+The map $d\varphi_p$ is the differential of $\varphi$ at $p\in S_1$.
+We can similarly define the differential of a differentiable function
+$f\colon U\subseteq S_1\to\RR$ at a point $p\in U$
+as a linear map $df_p\colon T_p(S)\to\RR$.
+
+We can also generalize the inverse function theorem.
+\begin{definition}
+	A mapping $\varphi\colon U\subseteq S_1\to S_2$ is
+	a \vocab{local diffeomorphism} at $p\in U$
+	if there exists a neighborhood $V\subseteq U$ of $p$
+	such that $\varphi|_V$ is a diffeomorphism onto
+	an open set $\varphi(V)\subseteq S_2$.
+\end{definition}
+
+\begin{prop}[Inverse function theorem]
+	If $S_1$ and $S_2$ are regular surfaces and
+	$\varphi\colon U\subseteq S_1\to S_2$ a differentiable map
+	on an open set $U$ and $p\in U$ is a point
+	such that $d\varphi_p$ is invertible,
+	then $\varphi$ is a local diffeomorphism at $p$.
+\end{prop}
+
+We end this section by observing that
+given parametrization $\mb x\colon U\subseteq\RR^2\to S$,
+we can compute the normal vector at a given $q\in\mb x(U)$ by
+\[N(q) = \frac{\mb x_u\wedge\mb x_v}{|\mb x_u\wedge\mb x_v|}(q).\]
+
+\pagebreak
+\subsection{2.5 The first fundamental form}
+The inner product of $\RR^3$ induces an inner product
+on each tangent space $T_p(S)$ in a natural way:
+for $w_1,w_2\in T_p(S)$, $\langle w_1,w_2\rangle_p = w_1\cdot w_2$.
+Then, we define the \vocab{first fundamental form} on $T_p(s)$
+to be the quadratic form
+\[I_p(w) = \langle w,w\rangle_p = |w|^2 > 0.\]
+Given a parametrization $\mb x(u,v)$ at $p$,
+we can express $I_p$ in terms of $\mb x$:
+given $w\in T_p(S)$ and $\alpha$ a curve corresponding to $w$,
+\begin{align*}
+	I_p(\alpha'(0)) &= \langle\alpha'(0),\alpha'(0)\rangle_p\\
+	&= \langle \mb x_uu'+\mb x_vv', \mb x_uu'+\mb x_vv'\rangle\\
+	&= \langle\mb x_u,\mb x_u\rangle_p(u')^2
+	+ 2\langle \mb x_u,\mb x_v\rangle_p u'v'
+	+ \langle\mb x_v,\mb x_v\rangle_p(v')^2\\
+	&= E(u')^2 + 2Fu'v' + G(v')^2
+\end{align*}
+where
+\[E(u_0,v_0):=\langle \mb x_u,\mb x_u\rangle_p,\quad
+F(u_0,v_0):=\langle \mb x_u,\mb x_v\rangle_p,\quad
+G(u_0,v_0):=\langle \mb x_v,\mb x_v\rangle_p.\]
+
+\begin{example}
+	If $S$ is a plane passing through $p_0$ and containing orthonormal vectors
+	$w_1$, $w_2$, then the plane can be parametrized
+	\[\mb x(u,v) = p_0 + uw_1 + vw_2,\]
+	so we can compute $(E,F,G) = (1,0,1)$ everywhere.
+\end{example}
+
+\begin{example}
+	Given the right cylinder $x^2+y^2=1$, we have the parametrization
+	$\mb x\colon(0,2\pi)\times\RR\to\RR^3$ everywhere except for the line
+	$(1,0,0)+(0,0,1)t$ given by
+	\[\mb x(u,v) = (\cos u,\sin u,v),\]
+	so we can compute $(E,F,G) = 1$ again.
+\end{example}
+
+\begin{exercise}
+	Compute $E$, $F$, and $G$ for the parametrization of the helicoid
+	given by $(v\cos u,v\sin u,au)$ for $0<v<2\pi$, $-\infty<v<\infty$.
+\end{exercise}
+
+The first fundamental form is so important because, abstractly,
+knowing how $I$ behaves lets you understand the metric properties of $S$
+without talking about the ambient space $\RR^3$.
+Of course, it's still important that we can compute things
+by using a parametrization and writing expressions in $E$, $F$, $G$.
+
+\begin{exercise}
+	Let $\alpha(t) = \mb x(u(t),v(t))$ be a curve contained in
+	a coordinate neighborhood corresponding to the parametrization $\mb x$.
+	Show that the arc length of $\alpha$ between $0$ and $t$ is
+	\[s(t) = \int_0^t\sqrt{E(u')^2 + 2Fu'v' + G(v')^2}\dif x.\]
+\end{exercise}
+
+\begin{exercise}
+	Show that the angle $\varphi$ between the coordinate curves of
+	a parametrization $\mb x\colon U\to S$ at $q\in U$ satisfies
+	\[\cos\varphi = \frac{\langle\mb x_u,\mb x_v\rangle}{|\mb x_u||\mb x_v|}(q)
+	= \frac{F}{\sqrt{EG}}.\]
+\end{exercise}
+
+We can also deal with area: for a compact subset of $\RR^2$ contained
+in a coordinate neighborhood $\mb x\colon U\to S$
+(so $R := \mb x(Q)$ is a bounded region in $S$),
+the quantity
+\[\iint_Q |\mb x_u\wedge\mb x_v|\dif u\dif v\]
+can be shown to be independent of $\mb x$ via the change of variables formula.
+We thus take as a definition that the area of $R$ is
+\[A(R) := \iint_Q |\mb x_u\wedge\mb x_v|\dif u\dif v.\]
+\begin{exercise}
+	Show that $|\mb x_u\wedge\mb x_v| = \sqrt{EG - F^2}$.
+	Then, parametrizing a torus as
+	\[\mb x(u,v) = ((a+r\cos u)\cos v,(a+r\cos u)\sin v,r\sin u)\]
+	for $(u,v)\in(0,2\pi)\times(0,2\pi)$ everywhere except for
+	a single meridian and a single parallel, show that
+	the surface area of the torus is $4\pi^2 ra$.
+	Here $r$ is the radius on which the vertical cross-sectional
+	circles' centers vary, and $a$ is the radius of
+	the vertical cross-sectional circles.
+\end{exercise}
+
+\begin{exercise}
+	Parametrize a sphere with spherical coordinates and then
+	show that a sphere's surface area is $4\pi r^2$.
+\end{exercise}
+
+\section{The Geometry of the Gauss Map}
+\subsection{3.2 The Gauss Map}
+Given a coordinate neighborhood $\mb x(U)$, recall that
+the unit normal vector $N\colon \mb x(U)\to S^2$ at a point $q$ is given by
+the differentiable function
+\[N(q) = \frac{\mb x_u\wedge \mb x_v}{|\mb x_u\wedge\mb x_v|}.\]
+Note that this may not necessarily be able to be extended to the entire surface
+(consider for example the M\"obius strip).
+If the map is able to be extended to all of $S$, then we say that
+$S$ is \vocab{orientable}, and we call the vector field $N$
+an \vocab{orientation} of $S$.
+An orientation on $S$ then induces an orientation on the tangent space
+at some point $p\in S$ in that a basis $\{v,w\}\subseteq T_p(S)$
+can be called \vocab{positive} if $\langle v\wedge w,N\rangle$ is positive.
+
+From this point on let $S$ be a regular orientable surface
+with an orientation $N$; we will frequently omit
+the adjectives ``regular orientable'' for brevity.
+
+\begin{definition}[Gauss map]
+	Let $S$ be a surface with orientation $N$.
+	The map $N\colon S\to S^2$ is called the \vocab{Gauss map} of $S$.
+\end{definition}
+
+We can easily verify that the Gauss map is differentiable,
+and its differential is a linear map from $T_p(S)$ to $T_{N(p)}(S^2)$,
+but these two vector spaces are the same (since the normal to $S$ at $p$
+is also a normal to $S^2$ at $N(p)$), so we can think of $dN_p$
+as an endomorphism of $T_p(S)$.
+Moreover, the differential measures the rate
+at which $N$ is pulling away from $N(p)$ in a neighborhood of $p$ ---
+this is the analog of the curvature for surfaces.
+
+\begin{prop}
+	The differential $dN_p\colon T_p(S)\to T_p(S)$ of the Gauss map
+	is a self-adjoint linear map.
+\end{prop}
+
+\begin{proof}
+	To show this we need to show that for any $w_1,w_2\in T_p(S)$,
+	\[\langle dN_p(w_1),w_2\rangle = \langle w_1,dN_p(w_2)\rangle\]
+	so in particular it suffices to show this for some basis $w_1$, $w_2$.
+	If $\mb x$ is a parametrization around $p$, then this reduces to showing
+	\[\langle N_u,\mb x_v\rangle = \langle \mb x_u, N_v\rangle.\]
+	This follows from e.g. writing down the derivative of
+	$\langle N,\mb x_u\rangle = 0$ with respect to $v$ and the derivative of
+	$\langle N,\mb x_v\rangle = 0$ with respect to $u$.
+\end{proof}
+
+\begin{definition}
+	The \vocab{second fundamental form} of $S$ at $p$ is
+	the quadratic form $II_p(v)$ on $T_p(S)$ defined as
+	\[II_p(v) = -\langle dN_p(v),v\rangle.\]
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

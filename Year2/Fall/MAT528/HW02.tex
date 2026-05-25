@@ -1,0 +1,331 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 528 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 528 HW02}
+\author{\large Aditya Pahuja}
+\date{\large Due 09/11}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [Munkres 17.6b]
+    Let $A$ and $B$ denote subsets of a space $X$.
+    Prove that $\ol{A\cup B} = \ol A\cup \ol B$.
+\end{problem}
+
+\begin{soln}
+    First, $\ol{A\cup B}$ is a closed set containing $A$ and $B$,
+    so it contains both $\ol A$ and $\ol B$,
+    hence $\ol A\cup\ol B\subseteq\ol{A\cup B}$.
+    Second, $\ol{A}\cup\ol B$ is a closed set containing
+    both $A$ and $B$, so it contains $A\cup B$ and thus contains its closure,
+    i.e. $\ol{A\cup B}\subseteq\ol A\cup\ol B$.
+
+    We have shown that $\ol{A\cup B}$ and $\ol A\cup\ol B$ contain each other,
+    so the two sets are equal.
+\end{soln}
+
+\begin{problem}
+    [Munkres 17.11]
+    Show that the product of two Hausdorff spaces is Hausdorff.
+\end{problem}
+
+\begin{soln}
+    Let $X$ and $Y$ be Hausdorff spaces and let
+    $(x_1,y_1)$ and $(x_2,y_2)$ be two distinct points
+    in the product space $X\times Y$.
+    Then, at least one of $x_1\ne x_2$ and $y_1\ne y_2$ holds.
+
+    If the former holds, then since $X$ is Hausdorff
+    we can pick disjoint open sets
+    $U_1\ni x_1$ and $U_2\ni x_2$ in $X$;
+    then $U_1\times Y$ and $U_2\times Y$ are two
+    disjoint open sets in $X\times Y$ (because they are products of open sets)
+    that respectively contain $(x_1,y_1)$ and $(x_2,y_2)$.
+
+    On the other hand, if the latter holds, then since $Y$ is Hausdorff
+    we can pick disjoint open sets
+    $V_1\ni y_1$ and $V_2\ni y_2$ in $Y$;
+    then $X\times V_1$ and $X\times V_2$ are two
+    disjoint open sets in $X\times Y$ (because they are products of open sets)
+    that respectively contain $(x_1,y_1)$ and $(x_2,y_2)$.
+
+    Therefore, regardless of which two points $(x_1,y_1)$ and $(x_2,y_2)$
+    in $X\times Y$ are chosen, we can find disjoint open sets in $X\times Y$
+    separating the two points.
+\end{soln}
+
+\begin{problem}
+    [Munkres 17.19a]
+    If $A\subseteq X$, we define the \vocab{boundary} of $A$ by the equation
+    \begin{equation*}
+	\partial A = \ol A\cap\ol{(X\setminus A)}.
+    \end{equation*}
+    Show that $\operatorname{Int}(A)$ and $\partial A$ are disjoint,
+    and $\ol A = \operatorname{Int}(A)\cup\partial A$.
+\end{problem}
+
+\begin{soln}
+    We claim that $\operatorname{Int}(A)$ is the complement of
+    $\ol{(X\setminus A)}$. 
+
+    If $x\in\operatorname{Int}(A)$, then there is an open subset
+    $U\subseteq X$ such that $x\in U\subseteq A$.
+    This means that $U$ does not intersect $X\setminus A$,
+    so $x$ cannot be in $\ol{(X\setminus A)}$, i.e.
+    $\operatorname{Int}(A)$ is a subset of the complement of
+    $\ol{(X\setminus A)}$.
+
+    Conversely, if $x$ is in the complement of $\ol{(X\setminus A)}$,
+    then $x\in A$ and there exists an open set $U$ containing $x$
+    which does not intersect $X\setminus A$, so $U\subseteq A$;
+    the existence of such a $U$ is what it means for $x$ to be in
+    $\operatorname{Int}(A)$, hence the complement of $\ol{(X\setminus A)}$
+    is a subset of the interior of $A$.
+
+    We have shown inclusion in both directions, so the claim is proven.
+
+    Now, $\operatorname{Int}(A)$ and $\partial A$ must be disjoint
+    because the latter is a subset of the complement
+    $X\setminus \operatorname{Int}(A) = \ol{(X\setminus A)}$,
+    and furthermore
+    \begin{equation*}
+	\ol A = (\ol A \cap\ol{(X\setminus A)})
+	\cup (\ol A \cap(X\setminus \ol{(X\setminus A)}))
+	= \partial A \cup (\ol A \cap \operatorname{Int}(A))
+	= \partial A \cup \operatorname{Int}(A)
+    \end{equation*}
+    where the last equality is a result of
+    $\operatorname{Int}(A)\subseteq A\subseteq \ol A$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    [Munkres 17.20e]
+    Find the boundary and interior of the set
+    \begin{equation*}
+	E = \{(x,y) : 0 < x^2-y^2 \le 1\}\subseteq\RR^2.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Define $f\colon\RR^2\to\RR$ by $f(x,y) = x^2 - y^2$,
+    which is continuous.
+    Then, I claim that $F = f\inv([0,1])$ (which is a closed set containing $E$
+    by continuity) is the closure of $E$.
+    The only thing to check is that the points in $f\inv(0)$
+    are all limit points of $E$, since the rest of the points
+    in $F$ are in $E$ already. If $x^2-y^2=0$
+    and $U$ is an open set containing $(x,y)$, then $U$ contains
+    some open ball $B_\eps((x,y))$ centered at $(x,y)$ with $0 < \eps < 1$.
+    Let $r = \min(\eps/(1000x), \eps/1000)$. Then, if $x$ is positive,
+    \begin{equation*}
+	0 < (x+r)^2 - y^2 = (x+r)^2 - x^2 = 2rx + r^2
+	\le \frac{\eps}{500} + \frac{\eps^2}{1000^2} < \eps < 1,
+    \end{equation*}
+    and if $x$ is negative we instead bound $(x-r)^2 - y^2$ in the same way,
+    so this ball centered at $(x,y)$ intersects $E$ at a point besides $(x,y)$
+    (either $(x-r,y)$ or $(x+r,y)$) making $(x,y)$ a limit point of $E$.
+
+    By similar reasoning we can conclude that the points in $f\inv(1)$
+    are also limit points of $\RR^2\setminus E$, meaning any open ball
+    around one of these points will contain a point outside $E$.
+    Hence $f\inv((0,1))$ is the largest open set contained in $E$,
+    so it is the interior of $E$; thus the boundary of $E$ is
+    $f\inv([0,1])\setminus f\inv((0,1)) = f\inv(\{0,1\})$.
+\end{soln}
+
+\begin{problem}
+    [Munkres 18.2]
+    Suppose $f\colon X\to Y$ is continuous. If $x$ is a limit point of
+    the subset $A$ of $X$, is it necessarily true that
+    $f(x)$ is a limit point of $f(A)$?
+\end{problem}
+
+\begin{soln}
+    No, this statement may not hold; for example,
+    consider $f\colon\RR\to\RR$ given by $f(x) = 17$ for all $x$.
+    This is continuous because the pre-image of an open set in $\RR$
+    is either empty (if the set doesn't contain $17$)
+    or all of $\RR$ (if the set does contain $17$).
+    Every point of $\RR$ is a limit point of $\RR$ essentially trivially,
+    but no point of $\RR$ is a limit point of $f(\RR) = \{1\}$:
+    since $\{1\}$ is closed, the only possible limit point is $1$,
+    and no ball centered at $1$ intersects $\{1\}$ at a point other than $1$.
+\end{soln}
+
+\begin{problem}
+    [Munkres 18.5]
+    Show that the subspace $(a,b)$ of $\RR$ is homeomorphic with $(0,1)$
+    and the subspace $[a,b]$ of $\RR$ is homeomorphic with $[0,1]$.
+\end{problem}
+
+\begin{soln}
+    Take $f\colon(a,b)\to(0,1)$ defined by $f(x) = \frac{x-a}{b-a}$.
+    This is clearly continuous, and we can compute that its inverse is
+    $f\inv(y) = (b-a)y + a$, which is also continuous,
+    so $f$ is a homeomorphism between $(a,b)$ and $(0,1)$.
+
+    We can define $g\colon[a,b]\to[0,1]$ in the same way
+    as $g(x) = \frac{x-a}{b-a}$; the inverse is again
+    the continuous map $g\inv(g) = (b-a)y + a$, so $g$ is also a homeomorphism
+    between $[a,b]$ and $[0,1]$.
+\end{soln}
+
+\begin{problem}
+    [Munkres 18.12]
+    Let $F\colon\RR^2\to\RR$ be defined by the equation
+    \begin{equation*}
+        F(x,y) = \begin{cases}
+	    xy/(x^2+y^2) & (x,y)\ne(0,0)\\
+	    0 & (x,y) = (0,0).
+        \end{cases}
+    \end{equation*}
+    \begin{enumerate}[(a)]
+        \ii Show that $F$ is continuous in each variable separately.
+	\ii Compute the function $g\colon\RR\to\RR$
+	defined by $g(x) = F(x,x)$.
+	\ii Show that $F$ is not continuous.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) The function is symmetric in $x$ and $y$,
+    so we only need to prove this for $x$. If we fix $y=y_0\ne 0$, then
+    $f_{y_0}(x) = F(x,y_0) = \frac{xy_0}{x^2+y_0^2}$ is obviously continuous
+    on $\RR$ because its denominator never vanishes.
+    If $y_0=0$ on the other hand, then $f_{y_0}(x)=0$ for all $x$,
+    which is trivially continuous.
+
+    (b) $g(x) = F(x,x) = \frac{x^2}{x^2+x^2} = \half$.
+
+    (c) The set $f\inv(\{\half\})$ is the pre-image of a closed set,
+    so it should be closed. However, $f(x,y) = \half$ if and only if
+    $(x,y)\ne0$ and $x^2+y^2 = 2xy\iff (x-y)^2 = 0\iff x=y$, which
+    means that the pre-image is the set $\{(x,x) : x\in\RR,\; x\ne 0\}$,
+    which isn't closed because it has $(0,0)$ as a limit point
+    (since $B_\eps((0,0))$ contains $(\eps/2,\eps/2)$ for all $\eps>0$)
+    but it doesn't contain $0$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

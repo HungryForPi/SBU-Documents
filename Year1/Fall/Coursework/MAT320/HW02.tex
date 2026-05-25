@@ -1,0 +1,537 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{setspace}
+\setstretch{1.05}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 319 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+
+\reversemarginpar
+
+\theoremstyle{remark}
+\newtheorem{innercustomthm}{Problem}
+\newenvironment{problem}[1]
+{\renewcommand\theinnercustomthm{\textit{#1}}\innercustomthm}
+{\endinnercustomthm}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 319 HW02}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2em}MAT 319 HW02}
+\author{\large Aditya Pahuja}
+\date{\large Due 9/11}
+\begin{document}
+	\maketitle
+	
+	\section{Textbook Problems}
+	\begin{problem}{7.1}
+		Write out the first five terms of the following sequences.
+		\begin{enumerate}[\textbf{(\alph*)}]
+			\ii $s_n = \frac{1}{3n + 1}$
+			\ii $b_n = \frac{3n + 1}{4n - 1}$
+			\ii $c_n = \frac{n}{3^n}$
+			\ii $\sin(\frac{n\pi}{4})$
+		\end{enumerate}
+	\end{problem}
+	\begin{soln}
+		Part (a):
+		$\frac{1}{4},\;\frac{1}{7},\;\frac{1}{10},\;\frac{1}{13},\;\frac{1}{16}$
+		
+		Part (b):
+		$\frac{4}{3},\;\frac{7}{7},\;\frac{10}{11},\;\frac{13}{15},
+		\;\frac{16}{19}$
+		
+		Part (c):
+		$\frac{1}{3},\;\frac{2}{9},\;\frac{3}{27},\;\frac{4}{81},
+		\;\frac{5}{243}$
+		
+		Part (d):
+		$\frac{\sqrt2}{2},\;1,\;\frac{\sqrt2}{2},\;0,\;-\frac{\sqrt2}{2}$
+	\end{soln}
+	
+	\begin{problem}{7.3}
+		For each sequence below, determine whether it converges and,
+		if it converges, give its limit. No proofs are required.
+		
+		\begin{tabularx}{\linewidth}{XX}
+			\textbf{(a)} $a_n = \frac{n}{n + 1}$& \textbf{(b)} $b_n = \frac{n^2 + 3}{n^2 - 3}$\\
+			\textbf{(c)} $c_n = 2^{-n}$ & \textbf{(d)} $t_n = 1 + \frac 2n$\\
+			\textbf{(e)} $x_n = 73 + (-1)^n$ & \textbf{(f)} $s_n = 2^{1/n}$\\
+			\textbf{(g)} $y_n = n!$& \textbf{(h)} $d_n = (-1)^nn$\\
+			\textbf{(i)} $\frac{(-1)^n}{n}$& \textbf{(j)} $\frac{7n^3 + 8n}{2n^3 - 3}$\\
+			\textbf{(k)} $\frac{9n^2 - 18}{6n + 18}$& \textbf{(l)} $\sin(\frac{n\pi}{2})$\\
+			\textbf{(m)} $\sin(n\pi)$& \textbf{(n)} $\sin(\frac{2n\pi}{3})$\\
+			\textbf{(o)} $\frac{\sin n}{n}$& \textbf{(p)} $\frac{2^{n+1} + 5}{2^n - 7}$\\
+			\textbf{(q)} $\frac{3^n}{n!}$& \textbf{(r)} $(1 + \frac 1n)^2$\\
+			\textbf{(s)} $\frac{4n^2 + 3}{3n^2 - 2}$& \textbf{(t)} $\frac{6n + 4}{9n^2 + 7}$
+		\end{tabularx}
+	\end{problem}
+	
+	\begin{soln}\phantom{buh}
+		
+		\begin{tabularx}{\linewidth}{XX}
+			\textbf{(a)} Converges to $1$. & \textbf{(b)} Converges to $1$.\\
+			\textbf{(c)} Converges to $0$. & \textbf{(d)} Converges to $1$.\\
+			\textbf{(e)} Does not converge.& \textbf{(f)} Converges to $1$.\\
+			\textbf{(g)} Does not converge (diverges to $+\infty$).& \textbf{(h)} Does not converge.\\
+			\textbf{(i)} Converges to $0$.& \textbf{(j)} Converges to $\frac 72$.\\
+			\textbf{(k)} Does not converge (diverges to $+\infty$).& \textbf{(l)} Does not converge.\\
+			\textbf{(m)} Converges to $0$.& \textbf{(n)} Does not converge.\\
+			\textbf{(o)} Converges to $0$.& \textbf{(p)} Converges to $2$.\\
+			\textbf{(q)} Converges to $0$.& \textbf{(r)} Converges to $1$.\\
+			\textbf{(s)} Converges to $\frac43$.& \textbf{(t)} Converges to $0$.
+		\end{tabularx}
+	\end{soln}
+	
+	\begin{problem}{8.1}
+		Prove the following:
+		\begin{enumerate}[\textbf{(\alph*)}]
+			\ii $\lim \frac{(-1)^n}{n} = 0$
+			\ii $\lim \frac{1}{n^{1/3}} = 0$
+			\ii $\lim \frac{2n - 1}{3n + 2} = \frac23$
+		\end{enumerate}
+	\end{problem}
+	
+	\begin{soln}
+		For part $(a)$, we want to show that, for every $\eps > 0$,
+		\[\abs{\frac{(-1)^n}{n} - 0} < \eps\]
+		is eventually true. We show that as long as $n > \frac1\eps$,
+		the inequality holds; indeed,
+		\[\abs{\frac{(-1)^n}{n} - 0} = \abs{\frac{(-1)^n}{n}} = \frac 1n
+		< \frac{1}{1/\eps} = \eps,\]
+		so the inequality is eventually true and the limit of the sequence is $0$.
+		
+		For part $(b)$, we want to show that, for every $\eps > 0$,
+		\[\abs{\frac{1}{n^{1/3}} - 0} < \eps\]
+		is eventually true. We show that as long as $n > \frac1{\eps^3}$,
+		the inequality holds; indeed,
+		\[\abs{\frac{1}{n^{1/3}} - 0} = \abs{\frac{1}{n^{1/3}}} = \frac 1{n^{1/3}}
+		< \frac{1}{(1/\eps^3)^{1/3}} = \frac{1}{1/\eps} = \eps,\]
+		so the inequality is eventually true and the limit of the sequence is $0$.
+		
+		For part $(c)$, we want to show that, for every $\eps > 0$,
+		\[\abs{\frac{2n-1}{3n+2} - \frac23} < \eps\]
+		% (2n - 1)/(3n + 2) - 2/3 = [(6n - 3) - (6n + 4)]/(9n + 6) = 7/(9n + 6) < eps
+		% 7/eps - 6 < n
+		is eventually true. We show that as long as $n > \frac{7}{9\eps} - \frac23$,
+		the inequality holds; indeed,
+		\begin{align*}
+			\abs{\frac{2n-1}{3n+2} - \frac23} &=
+			\abs{\frac{3(2n - 1) - 2(3n + 2)}{3(3n + 2)}}\\ &=
+			\abs{\frac{-7}{9n + 6}} = \frac{7}{9n + 6}\\ &<
+			\frac{7}{9\left(\frac{7}{9\eps} - \frac23\right) + 6}\\
+			&= \frac{7}{7/\eps - 6 + 6} = \eps,
+		\end{align*}
+		so the inequality is eventually true and the limit of the sequence is
+		$\frac23$.
+	\end{soln}
+	
+	\begin{problem}{8.2}
+		Determine, with proof, the limits of the following sequences.
+		\begin{enumerate}[\textbf{(\alph*)}]
+			\ii $a_n = \frac{n}{n^2 + 1}$
+			\ii $b_n = \frac{7n - 19}{3n + 7}$
+			\ii $c_n = \frac{4n + 3}{7n - 5}$
+		\end{enumerate}
+	\end{problem}
+	\begin{soln}
+		The limit of $a_n$ is $\boxed 0$.
+		To prove this, we want to show that, for all $\eps > 0$,
+		\[|a_n - 0| < \eps\]
+		is eventually true. I claim the inequality holds whenever $n > \frac1\eps$.
+		Indeed, the condition implies
+		\[\abs{\frac{n}{n^2 + 1} - 0} = \frac{n}{n^2 + 1} < \frac{n}{n^2}
+		= \frac{1}{n} < \frac{1}{1/\eps} = \eps,\]
+		so the inequality is eventually true and thus the limit is $0$.
+		
+		The limit of $b_n$ is \framebox{$\frac73$}.
+		To prove this, we want to show that, for all $\eps > 0$,
+		\[\abs{b_n - \frac73} < \eps\]
+		is eventually true. I claim the inequality holds whenever
+		$n > \frac{106}{9\eps} - \frac{7}{3}$.
+		Indeed, the condition implies
+		\begin{align*}
+			\abs{\frac{7n - 19}{3n + 7} - \frac73} &=
+			\abs{\frac{3(7n - 19) - 7(3n + 7)}{3(3n + 7)}}\\
+			&= \abs{\frac{-106}{9n + 21}} = \frac{106}{9n + 21}\\
+			&< \frac{106}{9\left(\frac{106}{9\eps} - \frac{7}{3}\right) + 21}\\
+			&= \frac{106}{106/\eps - 21 + 21} = \eps,
+		\end{align*}
+		so the inequality is eventually true and thus the limit is $\frac73$.
+		
+		The limit of $c_n$ is \framebox{$\frac47$}.
+		To prove this, we want to show that, for all $\eps > 0$,
+		\[\abs{c_n - \frac47} < \eps\]
+		is eventually true. I claim the inequality holds whenever
+		$n > \frac{43}{49\eps} + \frac{5}{7}$.
+		Indeed, the condition implies
+		\begin{align*}
+			\abs{\frac{4n + 3}{7n - 5} - \frac47} &=
+			\abs{\frac{7(4n + 3) - 4(7n - 5)}{7(7n-5)}}\\
+			&= \abs{\frac{43}{49n - 35}} = \frac{43}{49n - 35}\\
+			&< \frac{43}{49\left(\frac{43}{49\eps} + \frac{5}{7}\right) - 35}\\
+			&= \frac{43}{43/\eps + 35 - 35} = \eps,
+		\end{align*}
+		so the inequality is eventually true and thus the limit is $\frac47$.
+	\end{soln}
+	
+	\begin{problem}{9.13}
+		Show that
+		\[\lim_{n\to\infty} a^n =\begin{cases}
+			0 & \text{if }|a| < 1\\
+			1 & \text{if }a = 1\\
+			+\infty & \text{if }a > 1\\
+			\text{does not exist} & \text{if }a\le -1.
+		\end{cases}\]
+	\end{problem}
+	\begin{soln}
+		Clearly if $a = 1$ then $a^n = 1^n = 1$ for all $n$,
+		so that case is obvious.
+		
+		If $a > 1$, then we want to show that $\lim_{n\to\infty} a^n = +\infty$,
+		which means that, for each $M\in\RR$, $a^n$ is eventually always greater
+		than $M$. To show this, write $a = 1 + x$ for a positive real $x$. Then,
+		\[a^n =
+		(1 + x)^n = 1 + nx + \binom n2 x^2 + \binom n3 x^3 + \cdots + x^n > 1 + nx\]
+		by the binomial theorem. This means that, if $n > \frac{M - 1}{x}$,
+		\[a^n > 1 + nx = M,\]
+		so $a^n$ is eventually greater than $M$, meaning $(a, a^2, a^3, \dots)$
+		diverges to $+\infty$.
+		
+		Now, we treat the case of $|a| < 1$ by splitting it into the three cases
+		$a = 0$, $0 < a < 1$, and $-1 < a < 0$.
+		\begin{itemize}
+			\ii If $a = 0$, then $a^n = 0$ for all $n$, so the limit is $0$
+			(because $\eps > 0$ means that $\eps > 0 = \abs{a^n - 0}$).
+			\ii If $0 < a < 1$, suppose for the sake of contradiction
+			that $\lim_{n\to\infty} a^n$ is nonzero, say equal to some
+			positive real $c$ ($c$ must be positive because $a^n > 0$ for all $n$).
+			Then, for all $\eps > 0$, the inequality $|a^n - c| < \eps$
+			is eventually true, say for all $n > N$. This means that for $n > N$,
+			$a^n < c + \eps$ because
+			\[c + \eps > |c| + |a^n - c| \ge |a^n| = a^n,\]
+			so, for all such $n$,
+			\[\abs{\frac{1}{a^n} - \frac{1}{c}} =
+			\abs{\frac{c - a^n}{ca^n}} < \frac{\eps}{c(c + \eps)}
+			< \frac{\eps}{c^2}\]
+			where the first inequality comes from $|c - a^n| < \eps$
+			and $\frac{1}{c + \eps} < \frac{1}{a^n}$.
+			I claim that this means
+			\[\lim_{n\to\infty} \frac{1}{a^n} = \frac{1}{c}.\]
+			To show this, we want to prove that for all $\eps' > 0$,
+			\[\abs{\frac{1}{a^n} - c} < \eps'.\]
+			We showed above that, for any $\eps > 0$,
+			\[\abs{\frac{1}{a^n} - \frac1c} > \frac{\eps}{c^2},\]
+			so picking $\eps = c^2\eps'$ shows that there is an $N'$
+			such that $n > N'$ implies
+			\[\abs{\frac{1}{a^n} - c} < \eps',\]
+			which is enough to show that the limit of $\frac{1}{a^n}$
+			as $n$ goes to infinity is $\frac1c$.
+			This, finally, is our contradiction:
+			we have shown that the limit of $(\frac1a)^n$ is $\frac1c$,
+			which means the sequence given by $(\frac1a)^n$ should converge;
+			however, we showed earlier that, since $\frac1a > 1$,
+			this sequence diverges to $+\infty$! Thus, $\lim_{n\to\infty} a^n = 0$,
+			as desired.
+			\ii For the last case, $-1 < a < 0$, we want to show that,
+			for each $\eps > 0$,
+			\[\abs{a^n - 0} = \abs{a^n} = |a|^n < \eps\]
+			is eventually true.
+			This is equivalent to showing that
+			\[\abs{|a|^n - 0} < \eps\]
+			is eventually true --- that is, it suffices to show that
+			the limit as $n$ goes to infinity of $|a|^n$ is zero.
+			This follows directly from the case where $0 < a < 1$
+			because $|a|$ is between $0$ and $1$, so we are done!
+		\end{itemize}
+		
+		Finally, we need to show that $a < -1$ implies that
+		$\lim_{n\to\infty} a^n$ doesn't exist. Suppose for the sake of contradiction
+		that the limit does exist. Then, the limit is either a real number
+		or $\pm\infty$.
+		In the former case, let the limit be $L$.
+		This means that for all $\eps > 0$,
+		\[|a^n - L| < \eps\]
+		is eventually true, so it must be true for $\eps = \frac12$.
+		We find by the triangle inequality that
+		\[1 = 2\eps > |a^n - L| + |a^{n+1} - L| = |a^n - L| + |L - a^{n+1}| \ge
+		|a^n - a^{n+1}| = |a|^n + |a|^{n+1}\]
+		with the last equality following from $a < 0$, since $a^n$
+		and $a^{n+1}$ have different signs.
+		Then, since $|a| > 1$, $|a|^m > 1$ for all $m$, which means
+		\[1 = 2\eps > |a|^n + |a|^{n+1} > 1 + 1 = 2,\]
+		which is a contradiction.
+		
+		Therefore, if the limit exists,
+		it must be one of $+\infty$ and $-\infty$. This means either
+		for all real $M$, $a^n > M$ eventually, or for all real $M$,
+		$a^n < M$ eventually. Taking $M = 0$ shows that statement is false,
+		since $a^n < M$ if $n$ is odd and $a^n > M$ if $n$ is even,
+		so $a^n < M$ and $a^n > M$ are both frequently true
+		and thus both are also frequently false
+		(meaning neither is eventually true).
+		This shows that the limit doesn't exist if $a < -1$.
+	\end{soln}
+	
+	\pagebreak
+	\begin{problem}{9.18}\phantom{buh}
+		\begin{enumerate}[\textbf{(\alph*)}]
+			\ii Verify $1 + a + a^2 + \cdots + a^n = \frac{a^{n+1} - 1}{a - 1}$
+			for all $a\ne 1$.
+			\ii Find $\lim_{n\to\infty} (1 + a + a^2 + \cdots + a^n)$ for $|a| < 1$.
+			\ii Calculate
+			$\lim_{n\to\infty}(1 + \frac13 + \frac19 + \cdots + \frac{1}{3^n})$.
+			\ii What is $\lim_{n\to\infty} (1 + a + a^2 + \cdots + a^n)$
+			for $a\ge1$?
+		\end{enumerate}
+	\end{problem}
+	\begin{soln}
+		For part (a), we can see that
+		\begin{align*}
+			(a - 1)(1 + a + a^2 + \cdots + a^n) &=
+			a(1 + a + a^2 + \cdots + a^n) - (1 + a + a^2 + \cdots + a^n)\\
+			&= (a + a^2 + a^3 + \cdots + a^{n+1}) - (1 + a + a^2 + \cdots + a^n)
+		\end{align*}
+		and then $a$, $a^2$, \dots, $a^n$ all cancel out,
+		leaving behind just $a^{n+1} - 1$; dividing by $a - 1$
+		shows the desired equality.
+		(Alternatively, induction also works nicely.)
+		
+		For part (b), I claim that
+		\[\lim_{n\to\infty} (1 + a + a^2 + \cdots + a^n) = \boxed{\frac{1}{1 - a}}\]
+		for $|a| < 1$. To see this, we simplify the expression in the limit
+		via part (a), at which point it suffices by the definition of limit
+		to prove that, for all $\eps > 0$,
+		\[\abs{\frac{a^{n + 1} - 1}{a - 1} - \frac{1}{1 - a}} < \eps\]
+		is eventually true. This is fairly easy to prove:
+		it ends up being equivalent to show that
+		\[\eps > \abs{\frac{a^{n + 1} - 1}{a - 1} - \frac{1}{1 - a}}
+		= \abs{\frac{a^{n+1}}{a - 1}}
+		\iff |a - 1|\eps > |a^{n+1}| = a^{n+1}\]
+		is eventually true. We know from Problem 9.13 that the limit of $a^n$
+		as $n$ goes to infinity is $0$ when $|a| < 1$, so, for each $\eps' > 0$,
+		there exists an $N$ such that $n > N$ implies $|a^n - 0| = a^n > \eps'$.
+		Taking $\eps' = |a - 1|\eps$ shows that
+		\[|a - 1|\eps > a^{n+1}\]
+		is true for $n > N$ (noting that $n + 1 > n > N$),
+		i.e. the desired inequality is eventually true.
+		Therefore, the limit is indeed $\frac{1}{1 - a}$.
+		
+		Part (c) is just part (b) in the case where $a = \frac13$
+		(note that $|\frac13| < 1$, which is the necessary condition for
+		the expression in part (b) to work), so the desired limit is just
+		\[\frac{1}{1 - \frac13} = \boxed{\frac32}.\]
+		
+		Finally, for part (d), the answer is $+\infty$. We see that $a \ge 1$
+		implies $a^n\ge 1$ for all $a$ --- this is easy to show by e.g. induction,
+		since $a^n \ge 1$ implies $a^{n+1} = a^n\cdot a \ge 1$. Therefore,
+		\[1 + a + a^2 + \cdots + a^n \ge n\]
+		for all $n$. This means that, for each real $M$, if $N$ is the smallest
+		natural number greater than $M$, then $n > N$ implies
+		\[1 + a + a^2 + \cdots + a^n \ge n > N > M,\]
+		which is exactly what it means for the limit to be $+\infty$.
+	\end{soln}
+	
+	\section{The Other Problems}
+	\begin{problem}{1}
+		Say if the following statements are true or false.
+		Carefully justify your answer.
+		\begin{enumerate}[(1)]
+			\ii A statement $P(n)$, $n\in\NN$, is true frequently if and only if
+			it is true for infinitely many values of $n$.
+			\ii $\sqrt n\in\NN$ frequently.
+			\ii $\sqrt n\in\QQ$ frequently.
+		\end{enumerate}
+	\end{problem}
+	\begin{soln}
+		(1) is true. We prove the equivalent statement that
+		$P(n)$ is not true frequently (i.e. is eventually false)
+		if and only if $P(n)$ is true for finitely many $n$.
+		
+		First, if $P(n)$ is eventually false, then by definition there is an $N$
+		such that $n > N$ implies $P(n)$ is false. This means that if $P(n)$ is true
+		then $n \le N$, but, since there are only finitely many natural numbers
+		less than $N$, $P(n)$ can only be true for finitely many $n$.
+		
+		Conversely, if $P(n)$ is true for finitely many $n$,
+		then the set of $n$ for which $P(n)$ is true has some largest value $N$.
+		In particular, $n > N$ implies $P(n)$ is false, i.e. $P(n)$
+		is eventually false as desired.
+		
+		(2) and (3) are both true. We just prove (2), since
+		$\sqrt n\in \NN$ frequently implies $\sqrt n\in\QQ$ frequently
+		because $\NN\subseteq \QQ$. To prove (2), part (1) says that
+		we just need to find an infinite set of numbers
+		whose square roots are positive integers;
+		the obvious set $\{1^2, 2^2, 3^2, 4^2, \dots\}$ does the job.
+	\end{soln}
+	
+	\begin{problem}{2}
+		For $a_n = n(n + 1)$, say if the following statements are true or false.
+		\begin{enumerate}[(1)]
+			\ii $a_n$ is eventually even,
+			\ii $a_n$ is eventually odd,
+			\ii $a_n$ is frequently even,
+			\ii $a_n$ is frequently odd.
+		\end{enumerate}
+	\end{problem}
+	\begin{soln}
+		\framebox{(1) and (3) are true, (2) and (4) are false}.
+		
+		We begin by observing that $n$ and $n + 1$ are consecutive integers,
+		so one of them must be odd and the other must be even
+		regardless of the value of $n$. This means that $n(n + 1)$
+		is a product of an odd and an even integer, so it is always even.
+		
+		Since $a_n$ is even for all $n \ge 1$, it is trivially
+		eventually even, which also means it is frequently even, so (1) and (3)
+		are true.
+		
+		Additionally, (2) and (4) are false because $a_n$ being
+		frequently odd would require there to be infinitely many odd terms
+		in $(a_n)$ (which there are obviously not), and $a_n$
+		not being frequently odd implies that it is not eventually odd, either.
+	\end{soln}
+	\pagebreak
+	\begin{problem}{3}
+		Let $a_n$ be some sequence.
+		Say if the following statements are true or false, and justify your answer.
+		\begin{enumerate}[(1)]
+			\ii If $a_n\to +\infty$ then $a_n$ must be eventually increasing.
+			\ii If $a_n > 0$ and $a_n$ is unbounded then $a_n$ must diverge to
+			$+\infty$.
+			\ii If $a_n\to 0$ then either $a_n\to 0^+$ or $a_n\to 0^-$.
+			\ii If $a_n\to 0^+$ then $a_n$ must be eventually decreasing.
+		\end{enumerate}
+	\end{problem}
+	
+	\begin{soln}
+		(1) is false: consider the sequence $(a_n)$ given by
+		$(2, 1, 4, 3, 6, 5, 8, 7, \dots)$, which alternates between
+		the smallest positive even number not currently in the sequence
+		and the smallest positive odd number not currently in the sequence.
+		This is clearly unbounded, since for any $M$, $n > 100!\cdot|M| + 10^{10}$
+		implies $a_n > M$ (in particular $a_n > n - 1$ for all $n$,
+		so the bound on $n$ is slightly overkill).
+		
+		(2) is false: take $b_n = 2^n$ if $n$ is even and $1$ if $n$ is odd.
+		Then, all terms of the sequence are positive and, since
+		$\lim_{k\to\infty} 2^k = +\infty$, $b_n$ must be unbounded (otherwise
+		the powers of two would have an upper bound).
+		However, this only means that, for each real $M$,
+		$b_n$ is \emph{frequently} greater than $M$;
+		for the sequence to diverge to $+\infty$, it would need to be
+		\emph{eventually} greater than $M$, which does not hold if, say, $M = \pi$
+		(any $M\ge 1$ works as a counterexample).
+		
+		(3) is false: take $c_n = \frac{(-1)^n}{n}$.
+		This alternates between being positive and negative,
+		but its limit is $0$, as shown in textbook problem 8.1(a).
+		
+		(4) is false: take $d_n = \frac 1{a_n}$
+		(where $(a_n)$ is the sequence $(2, 1, 4, 3, 6, 5, \dots)$
+		defined earlier). For each $\eps$, $|d_n - 0| = c_n = \frac{1}{a_n} < \eps$
+		is eventually true because it holds whenever $n > \frac{100!}{\eps} + 1000$,
+		since $a_n > n - 1$ implies
+		\[d_n < \frac{1}{n - 1} = \frac{1}{\frac{100!}{\eps} + 999}
+		< \frac{\eps}{100!} < \eps.\]
+		This means that $c_n\to 0^+$, but the sequence is not eventually
+		decreasing because
+		$\frac{1}{2k} < \frac{1}{2k-1}$ for all positive integers $k$.
+	\end{soln}
+	
+\end{document}

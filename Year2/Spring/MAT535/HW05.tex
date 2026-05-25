@@ -1,0 +1,316 @@
+% TODO make hw stylesheet
+
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 535 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\tensor}{\otimes}
+\renewcommand{\hom}{\operatorname{Hom}}
+\providecommand{\tor}{\operatorname{Tor}}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 535 HW05}
+\author{\large Aditya Pahuja}
+\date{\large Due 03/12}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [\S13.5\#5]
+    For any prime $p$ and any nonzero $a\in\FF_p$
+    prove that $x^p - x + a$ is irreducible and separable over $\FF_p$.
+\end{problem}
+
+\begin{soln}
+    Let $r$ be a root of $f(x) = x^p - x + a$
+    in some extension of $\FF_p$
+    (noting that $r\notin\FF_p$ because
+    elements of $\FF_p$ makes $x^p - x$ zero),
+    and consider the extension $\FF_p(r)$.
+    Observe that for any $k\in\FF_p$,
+    \begin{equation*}
+        f(r + k) = (r + k)^p - (r + k) + a
+	= r^p - r + a + k^p - k = 0.
+    \end{equation*}
+    If $m_r(x)$ is the minimal polynomial of $r$ over $\FF_p$,
+    then $m_{r+k}(x) = m_r(x - k)$ for $k\in\FF_p$,
+    and $m_{r+k}(x)$ divides $f(x)$.
+    For a given $k\in\FF_p$ let $S_k\subseteq\FF_p(r)$
+    be the roots of $m_{r+k}(x)$;
+    any two sets $S_k$ are either disjoint or equal,
+    by the minimality of the minimal polynomial,
+    and the $S_k$ are all equal in size because the $m_{r+k}(x)$
+    all have the same degree. Thus, after deleting repeats,
+    the sets $S_0$, \dots, $S_{p-1}$ partition $\{r,r+1,\dots,r+p-1\}$
+    into sets of equal size. This means $\abs{S_0} = \deg m_r(x)$
+    divides $p$, so it is either $p$ or $1$,
+    but we know that $r\notin\FF_p$, so it must be $p$,
+    i.e. $m_r(x) = f(x)$.
+
+    The work above also shows that $f(x)$ is separable
+    because its roots $r$, $r+1$, \dots, $r+p-1$ are pairwise distinct.
+\end{soln}
+
+\begin{problem}
+    [\S13.5\#7]
+    Suppose $K$ is a field of characteristic $p$
+    which is not a perfect field, i.e. $K\ne K^p$.
+    Prove that there exist irreducible inseparable polynomials over $K$.
+    Conclude that there exist inseparable finite extensions of $K$.
+\end{problem}
+
+\begin{soln}
+    Let $a\in K - K^p$ and consider the polynomial $f(x) = x^p - a$.
+    If $r$ is a root of $f$ in some extension $L/K$,
+    then $f(x)$ factors over $L$ as $f(x) = (x - r)^p$.
+    This tells us that $f$ does not factor over $K$
+    because any such factor would be of the form
+    $(x-r)^k$ for $0 < k < p$ and 
+    the coefficient of $x^{k-1}$, which is $-kr$, is not in $K$
+    beacuse $r$ isn't in $K$.
+    Thus $f$ is irreducible and its factorization
+    over $L$ has multiple roots, so it (and the extension $L$)
+    is inseparable.
+\end{soln}
+
+\begin{problem}
+    [\S14.1\#4]
+    Prove that $\QQ(\sqrt 2)$ and $\QQ(\sqrt 3)$ are not isomorphic.
+\end{problem}
+
+\begin{soln}
+    Any homomorphism $\varphi\colon\QQ(\sqrt 2)\to\QQ(\sqrt 3)$
+    needs to send $1$ to $1$, hence fixes $\QQ$.
+    Therefore the only leeway is in the image of $\sqrt 2$,
+    which satisfies $\varphi(\sqrt 2)^2 = \varphi(2) = 2$.
+    However, $2$ is not a square in $\QQ(\sqrt 3)$, since
+    for rational $a,b$,
+    \begin{equation*}
+	(a+b\sqrt 3)^2 = a^2 + 3b^2 + 2ab\sqrt 3 \in \QQ
+    \end{equation*}
+    if and only if at least one of $a,b$ is zero,
+    hence either $2 = a^2$ or $3b^2$, both of which we know
+    don't have rational solutions from the standard
+    elementary number theory argument.
+\end{soln}
+
+\begin{problem}
+    [\S14.1\#5]
+    Determine the automorphisms of the extension
+    $\QQ(\sqrt[4]2)/\QQ(\sqrt2)$ explicitly.
+\end{problem}
+
+\begin{soln}
+    Any automorphism $\varphi\colon\QQ(\sqrt[4]2)\to\QQ(\sqrt[4]2)$
+    fixes the prime subfield $\QQ$. In order to also fix $\sqrt 2$
+    we must have $\varphi(\sqrt[4]2)^2 = \varphi(\sqrt 2) = \sqrt 2$,
+    so $\sqrt[4]2$ maps to one of the two solutions to $x^2 = \sqrt 2$,
+    i.e. either $\varphi(\sqrt[4]2) = \sqrt[4]2$ or $-\sqrt[4]2$.
+    Since $\QQ(\sqrt[4]2)$ is generated as a $\QQ(\sqrt2)$-algebra
+    by $\QQ$ and $\sqrt[4]2$, this choice of $\varphi(\sqrt[4]2)$
+    uniquely determines the automorphism
+    (and we can check manually that both choices of $\varphi(\sqrt[4]2)$
+    do produce automorphisms fixing $\QQ(\sqrt2)$).
+    In other words, $\operatorname{Aut}(\QQ(\sqrt[4]2)/\QQ(\sqrt2))$
+    consists of the two automorphisms
+    \begin{gather*}
+	\varphi_1(a + b\sqrt[4]2) = a + b\sqrt[4]2\\
+	\varphi_2(a + b\sqrt[4]2) = a - b\sqrt[4]2\qedhere
+    \end{gather*}
+    where $a,b\in\QQ(\sqrt2)$.
+\end{soln}
+
+\begin{problem}
+    [\S14.1\#8]
+    Prove that the automorphisms of the rational fraction field $k(t)$
+    which fix $k$ are precisely the \vocab{fractional linear transformations}
+    determined by $t\mapsto\frac{at+b}{ct+d}$
+    for $a,b,c,d\in k$ and $ad-bc \ne 0$.
+\end{problem}
+
+\begin{soln}
+    Let $\varphi\colon k(t)\to k(t)$ be an automorphism
+    and $\varphi(t) = \frac{p(t)}{q(t)}$ for relatively prime polynomials
+    $p(t),q(t)\in k[t]$.
+    We can see that $k(t)$ is an extension of $k(y)$ where $y = \varphi(t)$,
+    and this extension is algebraic because $t$ is a root of the polynomial
+    \begin{equation*}
+	F(x) = y\cdot q(x) - p(x)\in k(y)[x].
+    \end{equation*}
+    To show that $F$ is irreducible over $k(y)$,
+    it suffices by Gauss's lemma to prove that it is irreducible over $k[y]$.
+    Then, if $F(x) = a(x)b(x)$ for $a(x),b(x)\in k[y][x]$,
+    one of $a(x)$, $b(x)$ has degree $1$ as a polynomial in $y$ over $k[x]$
+    and the other has $y$-degree $0$, i.e.
+    $F(x) = a(x)\cdot (c(x)y + d(x))$ for some $c(x),d(x)\in k[x]$.
+    This then implies that $a(x)\in k$ because $p(x)$ and $q(x)$ are coprime,
+    so $F(x)$ is irreducible over $k[y]$.
+
+    Observe now that the degree of $F(x)$ is $\max(\deg p,\deg q)$
+    because no two terms in the subtraction $yq(x) - p(x)$ can cancel
+    (since the terms with a $y$ in them can't cancel with
+    the terms with no $y$), so
+    \begin{equation*}
+	\max(\deg p,\deg q) = [k(t) : k(\varphi(t))].
+    \end{equation*}
+    On the other hand $k(t)$ should be equal to $k(\varphi(t))$
+    because $\varphi$ is an automorphism,
+    so $[k(t) : k(\varphi(t))] = 1$, hence
+    $\varphi(t) = \frac{at + b}{ct + d}$ for some $a,b,c,d\in k$
+    with $c$ and $d$ not both zero.
+    If $ad - bc = 0$, then if $c\ne 0$ we have
+    \begin{equation*}
+	\frac{at + b}{ct + d} = \frac{at + bc/c}{ct + d}
+	= \frac{at + ad/c}{ct+d}
+	= \frac{a(ct + d)}{c(ct + d)} = \frac ac
+    \end{equation*}
+    which means that $\varphi$ maps $k(t)$ into $k$,
+    so such $a,b,c,d$ make $\varphi$ not an automorphism.
+
+    On the other hand if $ad - bc \ne 0$ then
+    we can define an inverse to $\varphi$ by sending $t$ to
+    \begin{equation*}
+	\psi(t) = \frac{dt - b}{-ct + a}.
+    \end{equation*}
+    This is an inverse because
+    \begin{gather*}
+	\psi(\varphi(t)) = \psi\left(\frac{at + b}{ct + d}\right)
+	= \frac{d(at + b) - b(ct + d)}
+	{-c(at + b) + a(ct + d)}
+	= \frac{(ad-bc)t}{ad-bc} = t,\\
+	\varphi(\psi(t)) = \varphi\left(\frac{dt - b}{-ct + a}\right)
+	= \frac{a(dt - b) + b(-ct + a)}
+	{c(dt - b) + d(-ct + a)}
+	= \frac{(ad-bc)t}{ad-bc} = t.
+    \end{gather*}
+    Thus the fractional linear transformations
+    are the automorphisms of $k(t)$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,378 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 528 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\|#1\right\|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 528 HW11}
+\author{\large Aditya Pahuja}
+\date{\large Due 12/01}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [Munkres 53.3]
+    Let $p\colon E\to B$ be a covering map; let $B$ be connected.
+    Show that if $p\inv(b_0)$ has $k$ elements for some $b_0\in B$,
+    then $p\inv(b)$ has $k$ elements for every $b\in B$.
+\end{problem}
+
+\begin{soln}
+    Given $b\in B$, let $U\subseteq B$ be a neighborhood of $b$
+    that is evenly covered by $p$. The slices of $p\inv(U)$
+    are in bijection with $p\inv(b)$ by definition,
+    so, for each $b'\in U$, $p\inv(b')$ has the same cardinality
+    as $p\inv(b)$ (with bijection between the two
+    given by sending $x\in p\inv(b)$ to the $y\in p\inv(b')$
+    that is in the same sheet of $p\inv(U)$ as $x$).
+    This means that the cardinality of $p\inv(b)$
+    is a locally constant function of $b$.
+    Locally constant functions on connected spaces are constant,
+    so the cardinality of $p\inv(b)$ is equal to
+    that of $p\inv(b_0)$ for all $b\in B$,
+    thus $p\inv(b)$ has $k$ elements, too.
+\end{soln}
+
+\begin{problem}
+    [Munkres 53.5]
+    Show that the map $p\colon S^1\to S^1$ given by $p(z) = z^n$
+    is a covering map.
+\end{problem}
+
+\begin{soln}
+    Let $z = \cos\theta + i\sin\theta\in S^1$ for some real $\theta$. Then,
+    \[
+	p\inv(z) = \left\{
+	    \cos\left(\frac{\theta+2\pi k}n\right)
+	    + i\sin\left(\frac{\theta+2\pi k}n\right) : k=0,1,\dots,n-1
+	\right\}.
+    \]
+    If $\eps = \frac{\pi}{100}$, then the neighborhood
+    $U = \{\cos\alpha + i\sin\alpha : \abs{\theta-\alpha} < \eps\}$
+    has pre-image
+    \begin{equation*}
+        p\inv(U) =
+	\bigcup_{k=0}^{n-1} \left\{\cos\alpha + i\sin\alpha :
+	\abs{\frac\theta n - \alpha} < \frac\eps n\right\}.
+    \end{equation*}
+    Let the argument of the union be $U_k$;
+    since $\eps$ is sufficiently small, the $U_k$ are pairwise disjoint.
+    We show that $p|_{U_k}\colon U_k\to U$ is a homeomorphism.
+    By construction, this restricted map is bijective and continuous,
+    and its inverse is continuous because $p|_{U_k}$ is
+    an open map --- in fact, the unrestricted $p\colon S^1\to S^1$
+    is already an open map, since it sends
+    $\{\cos\alpha + i\sin\alpha : \alpha\in (a,b)\}$ for some $a,b\in\RR$
+    to the open set $\{\cos\alpha + i\sin\alpha : \alpha\in(na,nb)\}$,
+    and sets of this kind generate the topology of $S^1$.
+
+    The work above shows that $p$ is a local homeomorphism $S^1\to S^1$,
+    and of course $p$ is continuous and surjective
+    (the latter of which can be seen by e.g. noting that $p\inv(z)$,
+    which we described above, is nonempty for all $z\in S^1$).
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    [Munkres 54.5]
+    Consider the covering map $p\colon\RR\times\RR\to S^1\times S^1$
+    of Example 4 of \S53. Consider the path
+    $f(t) = (\cos2\pi t,\sin2\pi t)\times(\cos4\pi t,\sin4\pi t)$
+    in $S^1\times S^1$. Sketch what $f$ looks like
+    when $S^1\times S^1$ is identified with the donut surface $D$.
+    Find a lifting $\ol f$ of $f$ into $\RR\times\RR$,
+    and sketch it.
+\end{problem}
+
+\pagebreak
+
+\begin{problem}
+    [Munkres 54.6]
+    Consider the maps $g,h\colon S^1\to S^1$ given by
+    $g(z) = z^n$ and $h(z) = 1/z^n$.
+    Compute the induced homomorphisms $g_*$ and $h_*$
+    of the infinite cyclic group $\pi_1(S^1,b_0)$ into itself.
+\end{problem}
+
+\begin{soln}
+    Since $S^1$ is path connected, we can, without loss of generality,
+    fix $b_0 = 1$ (since the change-of-basepoint homomorphism
+    is an isomorphism).
+    Let $\alpha\colon[0,1]\to S^1$ be an arbitrary loop in $S^1$ based at $1$
+    and let $p\colon\RR\to S^1$ be the standard covering map.
+    Suppose $\alpha$ lifts to a path $\widetilde \alpha$ in $\RR$
+    starting at $0$; then, $g\circ\alpha$ lifts to
+    the path $n\cdot\widetilde\alpha$ because, for all $t\in[0,1]$,
+    \begin{equation*}
+        p(n\cdot\widetilde \alpha(t)) = \cos(n\cdot\widetilde\alpha(t))
+	+ i\sin(n\cdot\widetilde\alpha(t))
+	= (\cos(\widetilde\alpha(t)) + i\sin(\widetilde\alpha(t)))^n
+	= \alpha(t)^n = g(\alpha(t)),
+    \end{equation*}
+    where the second-to-last equality is by definition of
+    $\widetilde\alpha$ being a lift of $\alpha$.
+    Letting $\phi\colon\pi_1(S^1,b_0)\to\ZZ$ be the lifting correspondence
+    used in Munkres's Theorem 54.5 (which is an isomorphism), we see that
+    \begin{equation*}
+	\phi([g\circ\alpha]) = n\phi([\alpha]) = \phi(n[\alpha]),
+    \end{equation*}
+    pulling $n$ into $\phi$ because $\phi$ is a homomorphism;
+    and since $\phi$ is an isomorphism, applying its inverse
+    shows that $\boxed{g_*([\alpha]) = [g\circ\alpha] = n[\alpha]}$.
+
+    Similarly, $h(z) = 1/z^n = z^{-n}$ is pretty much the same map ---
+    using $-n$ in place of $n$ above shows that $\boxed{h_*([\alpha]) = -n[\alpha]}$
+    for all $[\alpha]\in\pi_1(S^1,b_0)$.
+\end{soln}
+
+\begin{problem}
+    Generalize the proof of Theorem 54.5 to show that
+    the fundamental group of the torus is isomorphic to the group $\ZZ\times\ZZ$.
+\end{problem}
+
+\begin{soln}
+    Let $p\colon\RR\times\RR\to S^1\times S^1$ be the covering map
+    in Munkres's \S53, Example 4, let $e_0 = (0,0)$,
+    and let $b_0 = p(e_0)$. Then $p\inv(b_0)$ is the set
+    $\ZZ\times\ZZ$ of ordered pairs of integers. Since $\RR^2$
+    is simply connected, the lifting correspondence
+    \begin{equation*}
+        \phi\colon\pi_1(S^1\times S^1, b_0)\to\ZZ\times\ZZ
+    \end{equation*}
+    is bijective. We show that $\phi$ is a homomorphism
+    (where $\ZZ^2$ has the componentwise additive structure),
+    and the theorem is proved.
+
+    Given $[f]$ and $[g]$ in $\pi_1(S^1\times S^1,b_0)$,
+    let $\widetilde f$ and $\widetilde g$ be their respective liftings
+    to paths in $\RR^2$ beginning at $(0,0)$.
+    Let $(a,b) = \widetilde f(1)$ and $(c,d) = \widetilde g(1)$;
+    then $\phi([f]) = (a,b)$ and $\phi([g]) = (c,d)$, by definition.
+    Let $\widetilde{\widetilde g}$ be the path
+    \begin{equation*}
+	\widetilde{\widetilde g}(s) = (a,b) + \widetilde g(s)
+    \end{equation*}
+    in $\RR^2$. Because $p((a,b) + x) = p(x)$ for all $x\in\RR$,
+    the path $\widetilde{\widetilde g}$ is a lifting of $g$;
+    it begins at $(a,b)$. Then the product $\widetilde f * \widetilde{\widetilde g}$
+    is defined, and it is the lifting of $f*g$ that begins at $(0,0)$.
+    The endpoint of this path is $\widetilde{\widetilde g} = (a,b)+(c,d)$, i.e.
+    \begin{equation*}
+	\phi([f][g]) = (a,b) + (c,d) = \phi([f]) + \phi([g]).\qedhere
+    \end{equation*}
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    [Munkres 55.4]
+    Suppose you are given the fact that for each $n$,
+    there is no retraction $r\colon B^{n+1}\to S^n$. Prove the following:
+    \begin{enumerate}[(a)]
+        \ii The identity map $i\colon S^n\to S^n$ is not nullhomotopic.
+	\ii The inclusion map $j\colon S^n\to\RR^{n+1} - \{\mb 0\}$
+	is not nullhomotopic.
+	\ii Every nonvanishing vector field on $B^{n+1}$
+	points directly outward at some point of $S^n$,
+	and directly inward at some point of $S^n$.
+	\ii Every continuous map $f\colon B^{n+1}\to B^{n+1}$
+	has a fixed point.
+	\ii Every $(n+1)\times(n+1)$ matrix with positive real entries
+	has a positive eigenvalue.
+	\ii If $h\colon S^n\to S^n$ is nullhomotopic, then
+	$h$ has a fixed point and $h$ maps some point $x$
+	to its antipode $-x$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Suppose $i$ is nullhomotopic, and let $H\colon S^n\times I\to S^n$
+    be a homotopy from $i$ to a constant map.
+    We prove a generalization of $(1)\implies(2)$ in Lemma 55.3.
+    Let $\pi\colon S^n\times I\to B^{n+1}$ be the map $\pi(x,t) = (1-t)x$.
+    This is continuous, closed, and surjective, so it is a quotient map,
+    collapsing $S^1\times\{1\}$ to the point $\mb 0$,
+    and is otherwise injective.
+    Since $H$ is constant on $S^1\times\{1\}$,
+    it induces an extension $B^{n+1}\to S^n$ of $i$ via the quotient map $\pi$;
+    this extension is exactly a retraction because
+    it must be constant on $S^n$, in accordance with $i$.
+    We are given that no retraction $B^{n+1}\to S^n$ exists,
+    which is a contradiction, so $i$ is not nullhomotopic.
+    \\
+
+    (b) Let $r\colon\RR^{n+1}-\{\mb0\}\to S^n$ be the retraction
+    $r(v) = v/\abs v$; then $i = r\circ j$ is the identity map,
+    so if $j$ is homotopic to some constant map $c\colon S^n\to\RR^{n+1}$,
+    then $i$ is homotopic to the constant map $r\circ c$,
+    which contracts part (a).
+    \\
+
+    (c) Associate to each $x\in B^{n+1}$ the vector $v(x)$.
+    Suppose first that $v(x)$ does not point directly inward at $x$
+    for any $x\in S^n$. Let $w$ be the restriction of $v$ to $S^n$.
+    Noting that $B^{n+1}$ is the quotient of $S^n\times I$
+    under the quotient map $\pi$ from part (a), we find that
+    $v\circ\pi\colon S^n\times I\to\RR^n$ is
+    a homotopy of the map $w$ to a constant map
+    since $v\circ\pi$ is constant on the fiber of the point $\mb 0\in B^{n+1}$.
+    That is, $w$ is nullhomotopic.
+
+    On the other hand, $w$ is homotopic to the inclusion map
+    $j\colon S^n\to\RR^{n+1}-\{\mb0\}$ via the homotopy
+    $F(x,t) = tx + (1-t)w(x)$; to verify that $F(x,t)$ is nowhere zero,
+    we note that $F(x,t) = 0$ is equivalent to $w(x)$ being
+    a negative scalar multiple of $x$, which we have assumed doesn't hold.
+    It follows that $j$ is nullhomotopic, which contradicts the result of (b).
+
+    The analogous result for an outward-pointing vector
+    follows from applying the work above to the vector field $(x,-v(x))$.
+    \\
+
+    (d) Suppose that $f(x)\ne x$ for every $x\in B^{n+1}$.
+    Then, defining $v(x) = f(x) - x$ gives us a nonvanishing vector field
+    $(x,v(x))$ on $B^{n+1}$. But the vector field
+    cannot point directly outward at any point $x$ of $S^1$,
+    as that would mean $f(x) - x = ax$ for some positive real $a$,
+    so that $f(x) = (1 + a)x$ would lie outside $B^{n+1}$.
+    We thus arrive at a contradiction.
+    \\
+
+    (e) Let $A$ be the subset of $S^n$ with all nonnegative coordinates;
+    $A$ is easily seen to be homeomorphic to the ball $B^n$.
+    Then, treating the given matrix as a linear transformation
+    $T$ with respect to the standard basis on $\RR^n$,
+    the map $x\mapsto T(x)/\abs{T(x)}$ has a fixed point $x_0$ by part (d),
+    implying $T(x_0) = \abs{T(x_0)}x_0$, so that $\abs{T(x_0)}$
+    is a positive eigenvalue for $T$.
+    \\
+
+    (f) As proven in part (a), since $h$ is nullhomotopic,
+    it has an extension $\widetilde h\colon B^{n+1}\to S^n$.
+    Since $\mb 0\notin S^n$, the vector field $(x,\widetilde h(x))$
+    on $B^{n+1}$ is nonvanishing,
+    so it points directly outward at some point of $S^n$
+    and directly inward at some point of $S^n$.
+    The former corresponds to a fixed point of $\widetilde h$
+    and the latter to a point $x$ that gets mapped by $\widetilde h$ to $-x$
+    because $\widetilde h$ takes on values in $S^n$ only.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
