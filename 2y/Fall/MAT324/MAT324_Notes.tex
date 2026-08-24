@@ -1,0 +1,1151 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[colorlinks]{hyperref}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 324 Notes},
+	hypertexnames=false
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=theorem]{thmlemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=theorem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\def\equationautorefname~#1\null{(#1)\null}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 324 Notes}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2em}MAT 324: Real Analysis}
+\author{\large Aditya Pahuja}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{August 26}\label{sec:aug26}
+
+The idea of measure is to measure the ``size'' of subsets of $\RR$
+(or of other spaces).
+
+\begin{exercise}
+    [Think about briefly before reading on]
+    What are some reasonable properties that a size function
+    $\abs{\bullet}\colon 2^\RR\to\RR_{\ge0}\cup\{\infty\}$ should satisfy?
+    (Henceforth in these notes, we will denote
+    $\RR_{\ge0}\cup\{\infty\}$ by $[0,\infty]$.)
+\end{exercise}
+
+The four properties that we will start by asking for
+in a size function on $\RR$ are
+\begin{enumerate}[(1)]
+    \setcounter{enumi}{-1}
+    \ii Intervals behave like they're supposed to:
+    if $I\subseteq\RR$ is an interval with endpoints $a\le b$,
+    then $|I| = b-a$.
+    \ii The size function preserves order:
+    if $A\subseteq B\subseteq\RR$, then $|A|\le |B|$.
+    \ii The size function satisfies countable subadditivity:
+    if $A_1,A_2,\ldots\subseteq\RR$ is a sequence of subsets of $\RR$, then
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} \le \sum_{n=1}^\infty \abs{A_n}.
+    \end{equation*}
+    This is the least natural one, in my opinion;
+    in particular, it's more natural to ask instead for
+    some form of additivity, like
+    \begin{equation*}
+	|A\cup B| = |A| + |B|
+    \end{equation*}
+    when $A$ and $B$ are disjoint.
+    However, it turns out this is too much to ask for
+    in conjunction with the properties in this list;
+    see \autoref{prop:additivity-fails}.
+    We ask about countably many sets instead of finitely many
+    because analysis is all about limiting behavior,
+    which is of course intimately related to infinite sums.
+    \ii Translation preserves size:
+    if $A\subseteq\RR$ and $t\in\RR$, then, defining
+    $t + A = \{t + a : a\in A\}$, we want $\abs{t+A} = \abs{A}$.
+\end{enumerate}
+
+A natural notion of such a size function arises
+from the idea of trying to cover $A\subseteq\RR$ with
+a countable collection of intervals and measuring their length:
+\begin{definition}[Outer measure]
+    \label{def:outermeasure}
+    Given interval $I$ with endpoints $a\le b$,
+    define its length $\ell(I)$ to be $b-a$.
+    Then, the \vocab{outer measure} of a subset $A\subseteq\RR$ is
+    \begin{equation*}
+        |A| \coloneq
+	\inf\left\{
+	    \sum_{n=1}^\infty \ell(I_n) :
+	    I_n\text{ are open intervals s.t. }
+	    A\subseteq \bigcup_{n=1}^\infty I_n
+	\right\}.
+    \end{equation*}
+    Let $\mathcal L_A$ be the set whose infimum is being taken.
+\end{definition}
+
+\begin{lemma}[HW01 Problem 4]
+    \label{lem:om-endpoints-irrelevant}
+    In the definition of $\mathcal L_A$,
+    one can freely remove the word ``open''
+    or replace it with ``closed'' or ``half-open''
+    without altering the resulting function $\abs{\bullet}\colon 2^\RR\to[0,\infty]$.
+\end{lemma}
+
+\begin{corollary}[From the 08/28 lecture]
+    \label{coro:om-countable-zero}
+    The outer measure of a countable set is zero.
+\end{corollary}
+
+\begin{proof}
+    The stupidest way to do this:
+    let $A = \{a_1, a_2, \dots\}$ be countable; then,
+    the sequence of intervals $I_n = [a_n, a_n] = \{a_n\}$ covers $A$, so
+    \begin{equation*}
+        0\le\abs{A}\le \sum_{n=1}^\infty \ell(I_n) = a_n-a_n = 0.\qedhere
+    \end{equation*}
+\end{proof}
+
+Now we show that our outer measure is a satisfactory size function
+in the sense of the desiderata detailed above.
+
+\begin{prop}
+    \label{prop:om-properties}
+    The outer measure satisfies properties (0)--(3).
+\end{prop}
+
+\begin{proof}
+    (0) Let $I$ be an interval. Using \autoref{lem:om-endpoints-irrelevant},
+    we immediately deduce that $|I|\le\ell(I)$,
+    since $I$ can be covered by the sequence $I$, $\varnothing$, $\varnothing$, \dots.
+
+    For the opposite inequality, we consider several cases.
+    If $I$ is a closed, bounded interval then for a sequence of
+    bounded open intervals $I_1$, $I_2$, \dots covering $I$,
+    we can use compactness to restrict to finitely many of these intervals
+    and ultimately show that
+    \begin{equation*}
+	\sum_{n=1}^\infty \ell(I_n) \ge \ell(I)
+    \end{equation*}
+    (see the solution to Problem 8a on the first day quiz).
+
+    If $I$ is a generic bounded interval with endpoints $a$ and $b$ then
+    \begin{equation*}
+	b-a+2\eps = \abs{[a+\eps,b-\eps]} \le \abs I
+    \end{equation*}
+    for all $\eps > 0$, using monotonicity (property (1)),
+    so $\abs I = b-a = \ell(I)$.
+
+    Finally, if $I$ is unbounded, then any sequence of intervals covering $I$
+    must cover an interval of length $n$ for all positive integers $n$;
+    for example, if $I = (0,\infty)$, then a cover of $I$ by intervals
+    must also cover $(0,n)$ for all $n$. Thus, by the logic for the previous cases,
+    the total length of all the intervals in the cover must be at least $n$
+    for all $n$, i.e. the total length is $\infty$, so $\abs I = \ell(I) = \infty$.
+
+    (1) If $A\subseteq B$ then $\mathcal L_B\subseteq\mathcal L_A$
+    because any sequence of intervals that covers $B$ also covers $A$, so
+    \begin{equation*}
+        |A| = \inf\mathcal L_A \le \inf\mathcal L_B = |B|.
+    \end{equation*}
+
+    (2) Let $A_1$, $A_2$, \dots be a sequence of subsets of $\RR$.
+    By definition of infimum, for each $\eps > 0$
+    and for each $n$ there is a sequence of intervals
+    $I^{(n)}_1$, $I^{(n)}_2$, \dots such that
+    \begin{equation*}
+	A_n\subseteq \bigcup_{m=1}^\infty I^{(n)}_m,\quad
+	\abs{A_n} + \frac{\eps}{2^n} \ge \sum_{m=1}^\infty \ell(I^{(n)}_m).
+    \end{equation*}
+    The union condition also means that $\bigcup_{n=1}^\infty A_n$
+    is contained in the union of the $I_m^{(n)}$, of which there are countably many
+    because $\NN\times\NN$ is countable, so
+    using the above inequality and the definition of outer measure again,
+    \begin{equation*}
+	\sum_{n=1}^\infty \left(\abs{A_n} + \frac\eps{2^n}\right)
+	= \left(\sum_{n=1}^\infty \abs{A_n}\right) + \eps
+	\ge \sum_{n=1}^\infty \sum_{m=1}^\infty \ell(I_m^{(n)})
+	\ge \abs{\bigcup_{n=1}^\infty A_n}.
+    \end{equation*}
+    This holds for all $\eps>0$, so
+    $\sum_{n=1}^\infty\abs{A_n}\ge\abs{\bigcup_{n=1}^\infty A_n}$.
+
+    (3) If $I_1$, $I_2$, \dots is a sequence of intervals covering $A$,
+    then $t+I_2$, $t+I_2$, \dots covers $t+A$, so
+    \begin{equation*}
+	\mathcal L_{t+A}\subseteq\mathcal L_A\implies |A|\le |t+A|.
+    \end{equation*}
+    The converse follows from $|t+A|\le \lvert-t + (t+A)\rvert = |A|$
+    because $-t + (t+A) = A$.
+\end{proof}
+
+\section{August 28}\label{sec:aug28}
+
+It would be nice if we had
+\begin{equation}\tag{\textasteriskcentered}
+    \label{eq:om-finite-additivity}
+    |A\cup B| = |A| + |B|
+\end{equation}
+whenever $A\cap B=\varnothing$; we shall explore the extent to which this holds,
+in terms of only the properties (0)--(3) (as opposed to appealing to
+the interval-covering definition).
+
+First, let's justify that additivity is a very strong and useful property.
+
+\begin{exercise}
+    Show that \autoref{eq:om-finite-additivity} implies (1)
+    and the finite version of (2), i.e. $\abs{A\cup B}\le \abs{A}+\abs{B}$.
+    Show also that it implies that $\abs{\varnothing}$ is $0$
+    unless the size of every subset of $\RR$ is $\infty$.
+\end{exercise}
+
+In fact, \autoref{eq:om-finite-additivity} lets us recover countable additivity.
+\begin{prop}
+    \label{prop:finadd-and-ctablesubadd-implies-ctableadd}
+    If $\abs\bullet\colon 2^\RR\to[0,\infty]$ is
+    such that \autoref{eq:om-finite-additivity} and property (2) hold, then
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} = \sum_{n=1}^\infty \abs{A_n}
+    \end{equation*}
+    for any sequence $A_1$, $A_2$, \dots of subsets of $\RR$
+    such that $A_i\cap A_j=\varnothing$ whenever $i\ne j$.
+\end{prop}
+
+\begin{proof}
+    Since the left-hand side is less than the right-hand side by (2),
+    we only need to prove the reverse inequality.
+    This is fairly quick: we have
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} \overset{(1)}\ge
+	\abs{\bigcup_{n=1}^N A_n} \overset{(*)}= \sum_{n=1}^N \abs{A_n}
+    \end{equation*}
+    (noting that \autoref{eq:om-finite-additivity} implies monotonicity),
+    and taking the limit as $N$ goes to infinity gives
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} \ge \sum_{n=1}^N \abs{A_n}.\qedhere
+    \end{equation*}
+\end{proof}
+
+This would be an incredible property to have,
+as we have upgraded countable subadditivity drastically.
+
+Let us now prove results in the other direction
+that clue us to the extent to which additivity holds in reality.
+\begin{prop}
+    \label{prop:om-zero-meas-addend}
+    Suppose $\abs\bullet\colon 2^\RR\to[0,\infty]$ is such that
+    (1) and (2) hold.
+    Then, if $A$ and $B$ are disjoint subsets of $\RR$
+    such that $\abs A = 0$ or $\abs B = 0$, we have
+    \begin{equation*}
+	\abs{A\cup B} = \abs A+\abs B.
+    \end{equation*}
+\end{prop}
+
+\begin{proof}
+    Suppose without loss of generality that $\abs B = 0$.
+    Then, the desired equation follows from the inequalities
+    \begin{equation*}
+	\abs A+\abs B \overset{(2)}\ge \abs{A\cup B}
+	\overset{(1)}\ge \abs A
+	= \abs A + \abs B.\qedhere
+    \end{equation*}
+\end{proof}
+
+This is a very basic case; in fact, the $A\cap B = \varnothing$
+condition is redundant.
+The next one is much more substantive:
+\begin{prop}
+    \label{prop:om-open-closed-addend}
+    Suppose $\abs\bullet\colon2^\RR\to[0,\infty]$ is the outer measure on $\RR$.
+    If $A$ and $B$ are disjoint subsets of $\RR$
+    such that either of $A$ and $B$ are open or closed, then
+    \begin{equation*}
+	\abs{A\cup B} = \abs A + \abs B.
+    \end{equation*}
+\end{prop}
+
+\begin{proof}
+    As has been done earlier, we only need to prove that
+    the left-hand side is at least as large as the right-hand side,
+    since the other direction is immediate from (2).
+
+    We will prove the case where (WLOG) $B$ is open first.
+    To start with, suppose that $B$ is an open interval $(a,b)$.
+    If $I_1$, $I_2$, \dots is a sequence of intervals
+    that covers $A\cup B$, define
+    \begin{align*}
+	I_k^- &\coloneq (-\infty, a]\cap I_k\\
+	I_k^0 &\coloneq (a,b)\cap I_k = B\cap I_k\\
+	I_k^+ &\coloneq [b, \infty)\cap I_k.
+    \end{align*}
+    Since $A$ lives in $\RR\setminus B$, we see that
+    $A$ is contained in $\bigcup_{k=1}^\infty I_k^-\cup\bigcup_{k=1}^\infty I_k^+$,
+    while $B$ is contained in (in fact, equal to) $\bigcup_{k=1}^\infty I_k^0$.
+    Thus,
+    \begin{equation*}
+	\abs A + \abs B \le \sum_{k=1}^\infty \ell(I_k^-) +
+	\sum_{k=1}^\infty \ell(I_k^+) + \sum_{k=1}^\infty\ell (I_k^0)
+	= \sum_{k=1}^\infty (\ell(I_k^-) + \ell(I_k^0) + \ell(I_k^+))
+	= \sum_{k=1}^\infty \ell(I_k).
+    \end{equation*}
+    Taking the infimum over all sequences of intervals that cover $A\cup B$,
+    we deduce that $\abs A + \abs B \le \abs{A\cup B}$ as desired.
+    This can be extended to the case where $B$ is a union of finitely many intervals
+    by a simple induction argument on the number of intervals in $B$.
+
+    To extend this to arbitrary open sets, we first prove the following:
+    \begin{claim}
+        \label{claim:open-set-into-intervals}
+        An open set $U\subseteq\RR$ can be written as
+	the union of countably many pairwise disjoint open intervals.
+    \end{claim}
+    \begin{proof}
+        The connected components of $U$ are open in $U$,
+	hence open in $\RR$, so they must be open intervals,
+	and of course they are pairwise disjoint
+	because they are the connected components of $U$.
+	To show that $U$ has countably many connected components,
+	we note that each connected component of $U$,
+	being an open interval, contains a rational number.
+	Consider a function sending each connected component
+	to a rational number within the component;
+	this is an injective function that maps the components into $\QQ$,
+	so the set of components must have cardinality
+	at most that of $\QQ$, hence is countable.
+    \end{proof}
+
+    Write $B$ as the union of countably many open intervals $I_1$, $I_2$, \dots.
+    For a positive integer $N$, we can use monotonicity
+    and the case where $B$ is a union of finitely many intervals to get
+    \begin{equation*}
+	\abs{A\cup B} = \abs{A\cup \bigcup_{n=1}^\infty I_n} \overset{(1)}\ge
+	\abs{A\cup \bigcup_{n=1}^N I_n} = \abs A + \sum_{n=1}^N \abs{I_n}.
+    \end{equation*}
+    Then, taking the limit as $N$ grows arbitrarily large gives
+    \begin{equation*}
+	\abs{A\cup B} \ge \abs A + \sum_{n=1}^\infty \abs{I_n}
+	\overset{(2)}\ge \abs A + \abs B.
+    \end{equation*}
+
+    Lastly, suppose $B$ is closed. Then, if $A\cup B$ is covered by
+    open intervals $I_1$, $I_2$, \dots, let $U = \bigcup_{n=1}^\infty I_n$.
+    Clearly, $U\setminus B$ is open, so $\abs U = \abs B + \abs{U\setminus B}$
+    since we have proven additivity when one of the sets is open. Then
+    \begin{equation*}
+	\sum_{n=1}^\infty \ell(I_n) \overset{(2)}\ge
+	\abs U = \abs B + \abs{U\setminus B} \overset{(1)}\ge \abs B + \abs A.
+    \end{equation*}
+    Taking the infimum over all coverings of $A\cup B$ by intervals
+    gives $\abs{A\cup B}\ge \abs B + \abs A$.
+\end{proof}
+
+This is pretty great; our size function is additive
+on a large collection of pretty reasonable sets.
+As alluded to, though, additivity does not hold in general:
+some sets are so incredibly messy that they do not allow for additivity.
+\begin{prop}
+    \label{prop:additivity-fails}
+    Let $\abs\bullet\colon2^\RR\to[0,\infty]$
+    satisfy properties (0)--(3).
+    There exist disjoint subsets $A$, $B$ of $\RR$
+    such that $\abs{A\cup B} < \abs A + \abs B$.
+\end{prop}
+
+\begin{proof}
+    Define the equivalence relation $\sim$ on $[-1,1]$ by
+    $x\sim y$ if and only if $x-y\in\QQ$ (check that it really is one!),
+    and let $[x]$ (which is a subset of $[-1,1]$)
+    be the equivalence class of $x$ with respect to $\sim$.
+    The centerpiece of our construction will be a set $S$
+    defined by adding to $S$ exactly one element of each equivalence class;
+    that is, $\#(S\cap [x]) = 1$ for all $x\in[-1,1]$.
+    Since $S$ has exactly one representative of each equivalence class,
+    if $q$ and $r$ are two distinct rational numbers
+    then $q+S$ and $r+S$ must be disjoint, since otherwise
+    $q+x = r+y \iff x-y = q-r \iff x\sim y$ for some distinct $x,y\in S$.
+
+    Note now that if $x\sim y$ for $x,y\in[-1,1]$, then $x-y\in[-2,2]$.
+    Letting $q_1$, $q_2$, \dots be an enumeration of
+    the countable set $[-2,2]\cap\QQ$, we thus have
+    \begin{equation*}
+	[-1,1]\subseteq\bigcup_{n=1}^\infty (q_n + S)
+	\implies \abs{[-1,1]} \overset{(0)} = 2
+	\overset{(1)}\le \abs{\bigcup_{n=1}^\infty (q_n + S)}
+	\overset{(2)}\le \sum_{n=1}^\infty\abs{q_n+S}
+	\overset{(3)}= \sum_{n=1}^\infty\abs{S}.
+    \end{equation*}
+    This implies that $\abs S\ne 0$, as otherwise the right-hand side
+    of the inequality would be zero.
+
+    On the other hand, the union $\bigcup_{n=1}^\infty (q_n + S)$
+    is contained in $[-3,3]$ because $q_n\in[-2,2]$
+    and each element of $S$ is in $[-1,1]$, so
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty (q_n + S)} \overset{(1)}\le
+	\abs{[-3,3]} \overset{(0)}= 6.
+    \end{equation*}
+    Since $\abs{\bigcup_{n=1}^N (q_n + S)}$ is bounded above by $6$ for all $N$
+    while $\sum_{n=1}^N \abs{q_n+S} = N\cdot\abs S$
+    grows arbitrarily large with $N$, there is some minimal $N_0$ for which
+    \begin{equation*}
+        \abs{\bigcup_{n=1}^{N_0} (q_n + S)} < N_0\cdot \abs S.
+    \end{equation*}
+    Of course $N_0 > 1$ (since equality holds trivially at $N=1$),
+    so by minimality of $N_0$, we have
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^{N_0-1}(q_n + S)} = (N_0-1)\cdot\abs S
+    \end{equation*}
+    which implies that
+    \begin{equation*}
+	\abs{(q_{N_0} + S)\cup \bigcup_{n=1}^{N_0-1}(q_n + S)}
+	< N_0\cdot\abs S =
+	\abs{q_{N_0} + S} + \abs{\bigcup_{n=1}^{N_0-1} (q_N + S)},
+    \end{equation*}
+    so $q_{N_0} + S$ and $\bigcup_{n=1}^{N_0-1}(q_N+S)$ are
+    the desired $A$ and $B$.
+\end{proof}
+
+In English, what happened was that if additivity were to hold, then
+$\abs{\bigcup_{n=1}^\infty (q_n+S)}$ should be either zero or $\infty$;
+but our construction somehow forced a middle ground because
+the translates of $S$ are somehow ``too interlocked with each other'';
+$S$ is simultaneously too big to have a size of zero
+while too small for its infinitely many disjoint translates
+to have infinite size together.
+
+\section{September 2}\label{sec:sep2}
+As we saw last time, some sets of $\RR$ are ``bad'' in that
+they don't allow for \autoref{eq:om-finite-additivity} to hold.
+In this lecture we will focus on finding a subcollection of $2^\RR$
+that consists of ``good'' sets. Such a subcollection should
+of course contain $\varnothing$ and $X$, as well as
+being closed under complements and countable unions.
+
+\begin{definition}[$\sigma$-algebra]
+    \label{def:sigma-algebra}
+    A \vocab{$\sigma$-algebra} (or $\sigma$-field) on a set $X$
+    is a subcollection $\mathcal S\subseteq 2^X$ such that
+    \begin{enumerate}[(1)]
+	\setcounter{enumi}{-1}
+        \ii $\varnothing \in\mathcal S$.
+	\ii if $A\in\mathcal S$, $X\setminus A\in\mathcal S$.
+	\ii if $A_1,A_2,\ldots\in\mathcal S$, then
+	$\bigcup_{k=1}^\infty A_k\in\mathcal S$.
+    \end{enumerate}
+    One could also replace (0) with $X\in\mathcal S$,
+    or (1) with closure under set difference
+    (so $A,B\in\mathcal S$ means $B\setminus A\in\mathcal S$),
+    or (2) with closure under countable intersections.
+\end{definition}
+
+\begin{example}
+    Let $X$ be any set. The following are $\sigma$-algebras on $X$:
+    \begin{enumerate}[(1)]
+	\ii $\mathcal S = \{\varnothing, X\}$
+	\ii $\mathcal S = 2^X$
+	\ii $\mathcal S = \{ A\subseteq X : A\text{ is countable or cocountable}\}$
+    \end{enumerate}
+\end{example}
+
+\begin{lemma}
+    \label{lem:intersect-sigma-algebras}
+    If $\{\mathcal S_\alpha\}_{\alpha\in A}$ is a collection
+    of $\sigma$-algebras on $X$, then
+    \begin{equation*}
+	\bigcap_{\alpha\in A}\mathcal S_\alpha
+    \end{equation*}
+    is also a $\sigma$-algebra on $X$.
+\end{lemma}
+
+\begin{corollary}
+    \label{coro:generated-sigma-algebra}
+    If $\mathcal S_0$ is a subset of $2^X$, then
+    \begin{equation*}
+	\sigma(\mathcal S_0)\coloneq
+	\bigcap_{\substack{\text{$\sigma$-algebra }\mathcal S\\
+	\mathcal S_0\subseteq\mathcal S}} \mathcal S
+    \end{equation*}
+    is the minimal $\sigma$-algebra on $X$ containing $\mathcal S_0$;
+    this is the $\sigma$-algebra \vocab{generated by $\mathcal S_0$}.
+\end{corollary}
+
+The primary example of this is
+\begin{definition}[Borel $\sigma$-algebra]
+    \label{def:borel-algebra}
+    The \vocab{Borel $\sigma$-algebra} on $\RR$ is the
+    $\sigma$-algebra generated by the collection of open intervals in $\RR$
+    (or, equivalently, the collection of open subsets of $\RR$).
+\end{definition}
+
+\begin{prop}
+    \label{prop:lebesgue-algebra}
+    Let $\mathcal M$ be the set
+    \begin{equation*}
+	\mathcal M = \{ A\subseteq\RR :
+	\text{for all }\eps > 0,\,\text{there exists }
+	A_\eps\overset{\text{closed}}\subseteq\RR\text{ s.t. }
+	A_\eps\subseteq A\text{ and }\abs{A\setminus A_\eps}<\eps
+        \}
+    \end{equation*}
+    Then:
+    \begin{enumerate}[(1)]
+        \ii $\mathcal M$ is a $\sigma$-algebra on $\RR$.
+	\ii If $A\subseteq\RR$ is closed, then $A\in\mathcal M$.
+	\ii If $A\subseteq\RR$ has $\abs A = 0$, then $A\in\mathcal M$.
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    (2) and (3) are obvious (take $A_\eps$ to be $A$ and $\varnothing$ respectively).
+
+    For (1), we need to check the properties of a $\sigma$-algebra.
+    First, obviously $\varnothing, X\in\mathcal M$.
+    
+    Next, we will show that $\mathcal M$ is closed under countable intersections.
+    Let $\eps>0$ and let $A_1$, $A_2$, \dots be a sequence of subsets of $\RR$.
+    Then, for each $k$, there is a set $A_{k;\eps/2^k}$ such that
+    \begin{equation*}
+	\abs{A_k\setminus A_{k;\eps/2^k}} < \frac\eps{2^k}.
+    \end{equation*}
+    Define $A = \bigcap_{k=1}^\infty A_k$ and
+    $A_\eps=\bigcap_{k=1}^\infty A_{k;\eps/2^k}$. Then,
+    \begin{equation*}
+	\abs{A\setminus A_\eps}
+	\le \abs{\bigcup_{k=1}^\infty (A_k\setminus A_{k;\eps/2^k})} \le
+	\sum_{k=1}^\infty\abs{A_k\setminus A_{k;\eps/2^k}}\le\eps.
+    \end{equation*}
+
+    Finally, we show that $\mathcal M$ is closed under complements.
+    Letting $\eps > 0$, we start with the case where $A\in\mathcal M$
+    and $\abs A < \infty$; this allows us to find an oepn set
+    $U_{\eps/2}$ such that $\abs{U_{\eps/2}} < \abs A + \eps/2$,
+    using the definition of outer measure.
+    We also have a closed set $A_{\eps/2}$ such that
+    $A_{\eps/2}\subseteq A$ and $\abs{A\setminus A_{\eps/2}} < \eps/2$
+    due to $A$ being in $\mathcal M$. We would like to show that
+    \begin{equation*}
+	\abs{(\RR\setminus A)\setminus(\RR\setminus U_{\eps/2})}
+	= \abs{U_{\eps/2}\setminus A} < \eps
+    \end{equation*}
+    because $\RR\setminus U_{\eps/2}$ is a closed subset of $\RR$
+    contained in the complement of $A$.
+    By monotonicity, \autoref{prop:om-open-closed-addend},
+    and subadditivity, we have
+    \begin{equation*}
+	\abs{U_{\eps/2}\setminus A} \le
+	\abs{U_{\eps/2}\setminus A_{\eps/2}} =
+	\abs{U_{\eps/2}}-\abs{A_{\eps/2}} <
+	\abs A + \eps/2 - \abs A + \abs{A\setminus A_{\eps/2}} < \eps
+    \end{equation*}
+    Now, let $A\in\mathcal M$ be arbitrary.
+    Since $\mathcal M$ contains the closed sets $X$ and $[-k,k]$
+    for any $k$, as well as being closed under countable intersections,
+    we have $A_k = A\cap[-k,k]\in\mathcal M$
+    (padding with copies of $X$ to fill
+    the finite intersection into a countale one),
+    which has bounded outer measure. Then,
+    \begin{equation*}
+	\RR\setminus A = \RR\setminus\left(\bigcup_{k=1}^\infty A_k\right) =
+    \bigcap_{k=1}^\infty(\RR\setminus A_k)
+    \end{equation*}
+    which by the $\abs A < \infty$ case and closure under countable intersections
+    implies $\RR\setminus A\in\mathcal M$.
+\end{proof}
+
+This set $\mathcal M$ contains $\mathcal B$
+(because it contains all closed, hence all open, subsets of $\RR$),
+and it is called the \vocab{Lebesgue $\sigma$-algebra} on $\RR$.
+
+\begin{prop}
+    [Criteria for Lebesgue sets]
+    \label{prop:lebesgue-criteria}
+    Let $A\subseteq\RR$. The following are equivalent:
+    \begin{enumerate}[(a)]
+        \ii $A\in\mathcal M$, i.e.\ for each $\eps>0$ there exists
+	$A^-_\eps\subseteq A$ that is closed in $\RR$
+	such that $\abs{A\setminus A_\eps^-} < \eps$.
+	\ii There exists a sequence $A_1,A_2,\ldots\subseteq\RR$ of closed sets
+	such that each $A_k$ is a subset of $A$ and
+	$\abs{A\setminus\bigcup_{k=1}^\infty A_k} = 0$.
+	\ii There exists $A^-\in\mathcal B$ such that $A^-\subseteq A$
+	and $\abs{A\setminus A^-} = 0$.
+	\ii For each $\eps>0$ there exists $A_\eps^+\supseteq A$
+	that is open in $\RR$ such that $\abs{A_\eps^+\setminus A}<\eps$.
+	\ii There exists a sequence $A_1,A_2,\ldots\subseteq\RR$
+	of open sets such that each $A_k$ contains $A$ and
+	$\abs{\bigcap_{k=1}^\infty A_k\setminus A} = 0$.
+	\ii There exists $A^+\in\mathcal B$ such that
+	$A^+\supseteq A$ and $\abs{A^+\setminus A} = 0$.
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    (a)$\implies$(b). Take $A_n$ to be a closed subset of $\RR$ contained in $A$
+    such that $\abs{A\setminus A_n} <1/n$. Then
+    \begin{equation*}
+	\abs{A\setminus\bigcup_{k=1}^\infty} \le \abs{A\setminus A_n}<\frac 1n
+    \end{equation*}
+    for all $n$, hence the left-hand side is zero.
+
+    (b)$\implies$(c). Take $A^-$ to be the set $\bigcup_{k=1}^\infty$ above.
+    
+    (c)$\implies$(a). We can write
+    \begin{equation*}
+        A = A^-\cup(A\setminus A^-).
+    \end{equation*}
+    Then $A^-\in\mathcal B\subseteq\mathcal M$ and $A\setminus A^-\in\mathcal M$
+    because it has measure zero, so $A$ is $\mathcal M$
+    because it is the union of two sets in $\mathcal M$.
+
+    (a)$\implies$(d). Since $A\in\mathcal M$, $\RR\setminus A\in\mathcal M$,
+    so there exists a closed subset $A_\eps^-\subseteq\RR$
+    contained in $\RR\setminus A$ such that
+    $\abs{(\RR\setminus A)\setminus A_\eps^-} < \eps$.
+    Letting $A_\eps^+ = \RR\setminus A_\eps^-$, we have
+    \begin{equation*}
+	\abs{A_\eps^+\setminus A}
+	= \abs{(\RR\setminus A)\setminus(\RR\setminus A_\eps^+)}
+	= \abs{(\RR\setminus A)\setminus A_\eps^-} < \eps.
+    \end{equation*}
+
+    (d)$\implies$(e) and (e)$\implies$(f) proceed
+    in an analogous fashion to (a)$\implies$(b) and (b)$\implies$(c).
+
+    (f)$\implies$(a). We can write $A = A^+\setminus(A^+\setminus A)$,
+    and the two sets in the difference are in $\mathcal M$,
+    so $A$ is also in $\mathcal M$.
+\end{proof}
+
+It turns out that this set $\mathcal M$ consists of ``good'' subsets of $\RR$:
+if $A,B\in\mathcal M$ are disjoint, then we will show next lecture that
+\begin{equation*}
+    \abs{A\cup B} = \abs A + \abs B.
+\end{equation*}
+
+\section{September 4}\label{sec:sep4}
+\begin{prop}
+    \label{prop:om-lebesgue-addend}
+    If $A,B\subseteq\RR$, $A\cap B = \varnothing$, and
+    at least one of $A$ and $B$ is in $\mathcal M$, then
+    $\abs{A\cup B} = \abs A + \abs B$.
+\end{prop}
+
+\begin{proof}
+    Suppose $A\in\mathcal M$. Let $\eps>0$ and
+    $A_\eps^-\overset{\text{closed}}\subseteq\RR$ such that
+    $A_\eps^-\subseteq A$ and $\abs{A\setminus A_\eps^-} < \eps$.
+    Then, $A_\eps^-\cap B = \varnothing$ and
+    \begin{equation*}
+	\abs{A\cup B}\ge \abs{A_\eps\cup B} =
+	\abs{A_\eps^-} + \abs B \ge
+	(\abs A - \abs{A\setminus A_\eps^-}) + \abs B
+	> \abs A + \abs B - \eps
+    \end{equation*}
+    for all $\eps>0$,
+    using \autoref{prop:om-open-closed-addend} for the equality.
+\end{proof}
+
+\begin{corollary}
+    \label{coro:lebesgue-countable-additivity}
+    If $A_1,A_2,\ldots\in\mathcal M$ are pairwise disjoint,
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} = \sum_{n=1}^\infty \abs{A_n}.
+    \end{equation*}
+\end{corollary}
+
+\begin{proof}
+    Noting that \autoref{prop:om-lebesgue-addend} holds
+    for finitely many pairwise disjoint sets in $\mathcal M$,
+    we have that for any positive integer $N$,
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} \ge
+	\abs{\bigcup_{n=1}^N A_n} =
+	\sum_{n=1}^N \abs{A_n}
+    \end{equation*}
+    so in the limit we get
+    \begin{equation*}
+	\abs{\bigcup_{n=1}^\infty A_n} = \sum_{n=1}^\infty \abs{A_n}.\qedhere
+    \end{equation*}
+\end{proof}
+
+\begin{definition}[Measure]
+    \label{def:measure}
+    Let $\mathcal S\subseteq 2^X$ be a $\sigma$-algebra on a set $X$.
+    A \vocab{measure} $\mu\colon\mathcal S\to[0,\infty]$
+    is a function such that
+    \begin{itemize}
+        \ii $\mu(\varnothing) = 0$
+	\ii if $A_1,A_2,\ldots\in\mathcal S$ are pairwise disjoint,
+	then $\mu(\bigcup_{n=1}^\infty A_n) = \sum_{n=1}^\infty \mu(A_n)$.
+    \end{itemize}
+    The triple $(X,\mathcal S, \mu)$ is called a \vocab{measure space}.
+\end{definition}
+
+For example, $(\RR, \mathcal M, \mu = \abs{\bullet}_{\mathcal M})$
+is a measure space, as is $(\RR, \mathcal S, \mu = \abs{\bullet}_{\mathcal S})$
+for any sub-$\sigma$-algebra $\mathcal S\subseteq\mathcal M$.
+We say that the former is a \vocab{complete measure space}
+because if $A\subseteq B\subseteq\RR$ with $B\in\mathcal M$ and $\abs B = 0$,
+then $A\in\mathcal M$ as well; it turns out that
+$(\RR, \mathcal B, \abs\bullet)$ is not a complete measure space
+(will be proven next time).
+
+In this vein, we can take a measure space $(X,\mathcal S_0,\mu_0)$
+and consider its \vocab{completion}, which is a measure space
+$(X,\mathcal S, \mu)$ such that $\mu|_{\mathcal S_0} = \mu_0$
+and $\mathcal S$ is as small as possible. More constructively:
+
+\pagebreak
+
+\begin{prop}
+    Suppose $(X,\mathcal S_0,\mu_0)$ is a measure space
+    and let
+    \begin{equation*}
+        \mathcal N = \{A\subseteq X : A\subseteq B\text{ for }B\in\mathcal S_0
+	\text{ s.t. }\mu_0(B) = 0\}.
+    \end{equation*}
+    Then, define $S = \{A\cup N : A\in\mathcal S_0, N\in\mathcal N\}$
+    and the function $\mu(A\cup N) \coloneq \mu_0(A)$
+    given $A\cup N\in\mathcal S$.
+    The tuple $(X,\mathcal S, \mu)$ is a measure space and the unique
+    completion of $(X,\mathcal S_0,\mu_0)$.
+\end{prop}
+
+\begin{proof}
+    A completion of $(X,\mathcal S_0,\mu_0)$ must contain
+    $\mathcal S_0$ and $\mathcal N$ by definition,
+    and then the definition of $\mu$ is the only plausible way
+    to extend $\mu_0$ to $\mathcal S$,
+    so it is clear that $(X,\mathcal S, \mu)$ is the unique completion
+    of $(X,\mathcal S_0,\mu_0)$ if the former is a measure space.
+
+    Say that $B\in\mathcal S_0$ is a \emph{null set} if $\mu_0(B) = 0$.
+    First, $\mathcal S$ is a $\sigma$-algebra because
+    \begin{itemize}
+        \ii it contains $\varnothing\in\mathcal S_0$;
+	\ii if $A\cup N\in\mathcal S$ then, letting $B\in\mathcal S$
+	be a set null set containing $N$, we have
+	\begin{equation*}
+	    (A\cup N)^c\setminus(A\cup B)^c
+	    = (A\cup B)\setminus (A\cup N)
+	    = B\setminus N
+	\end{equation*}
+	which is a subset of the null set $B$, hence
+	$(A\cup N)^c = (A\cup B)^c \cup (B\setminus N)$
+	is in $\mathcal S$;
+	\ii if $A_1\cup N_1, A_2\cup N_2,\ldots\in\mathcal S$ then
+	\begin{equation*}
+	    \bigcup_{n=1}^\infty A_n\cup N_n =
+	    \bigcup_{n=1}^\infty A_n\cup\bigcup_{n=1}^\infty N_n
+	    \subseteq \bigcup_{n=1}^\infty A_n\cup\bigcup_{n=1}^\infty B_n
+	\end{equation*}
+	where $B_n$ is a null set containing $N_n$,
+	and the union of the $B_n$ is also a null set because
+	its measure is bounded above by the sum of the $\mu_0(B_n)$
+	by subadditivity, so $\mathcal S$ is closed under
+	countable unions.
+    \end{itemize}
+    Then, to see that $\mu$ is a well-defined measure on $\mathcal S$,
+    if a set can be expressed in two ways as $A_1\cup N_1 = A_2\cup N_2$
+    where $A_1,A_2\in\mathcal S_0$ and $N_1$, $N_2$ are subsets of null sets
+    we must have $\mu_0(A_1) = \mu_0(A_2)$ because
+    \begin{equation*}
+	A_1\setminus A_2
+	= (N_2\setminus A_2)\setminus((N_1\setminus A_2)\setminus(A_1\setminus A_2))
+    \end{equation*}
+    and the right-hand side being a subset of a null set
+    implies $\mu_0(A_1\setminus A_2) = 0$.
+
+    Since $\mu(\varnothing) = \mu_0(\varnothing) = 0$
+    it remains to check countable additivity:
+    given sets $A_1\cup N_1,A_2\cup N_2,\ldots\in\mathcal S$
+    that are pairwise disjoint,
+    we can use the fact that $\bigcup_{n=1}^\infty N_n$
+    is a subset of a null set to get
+    \begin{equation*}
+	\mu\left(\bigcup_{n=1}^\infty A_n\cup N_n\right)
+	= \mu_0\left(\bigcup_{n=1}^\infty A_n\right)
+	= \sum_{n=1}^\infty \mu_0(A_n)
+	= \sum_{n=1}^\infty \mu(A_n\cup N_n).\qedhere
+    \end{equation*}
+\end{proof}
+
+The definition of a measure is fairly minimal;
+we now prove that this additivity condition subsumes
+many other useful properties that we'd like $\mu$ to satisfy.
+
+\pagebreak
+
+\begin{prop}
+    \label{prop:meas-space-props}
+    Let $(X,\mathcal S, \mu)$ be a measure space.
+    \begin{itemize}
+	\ii[(0)] If $A_1,\dots,A_n\in\mathcal S$ are pairwise disjoint,
+	then $\mu(\bigcup_{n=1}^N A_n) = \sum_{n=1}^N\mu(A_n)$.
+	\ii[(1)] If $A,B\in\mathcal S$ and $A\subseteq B$ then $\mu(A)\le\mu(B)$.
+	\ii[(1$'$)] If $\mu(A) < \infty$ then $\mu(A) = \mu(B) - \mu(B\setminus A)$.
+	\ii[(2)] If $A_1,A_2,\ldots\in\mathcal S$ then
+	$\mu(\bigcup_{n=1}^\infty A_n)\le \sum_{n=1}^\infty \mu(A_n)$.
+	\ii[($2^\subset$)]If also $A_1\subseteq A_2\subseteq\cdots$
+	then $\mu(\bigcup_{n=1}^\infty A_n) = \lim_{n\to\infty} \mu(A_n)$.
+	\ii[($2^\supset$)]If also $A_1\supseteq A_2\supseteq\cdots$
+	and $\mu(A_k) < \infty$ for some $k\in\NN$
+	then $\mu(\bigcap_{n=1}^\infty A_n) = \lim_{n\to\infty} \mu(A_n)$.
+    \end{itemize}
+\end{prop}
+
+\begin{proof}
+    (0) Just pad the union with copies of $\varnothing$.
+
+    (1) and (1$'$) By (0) we have
+    \begin{equation*}
+        \mu(A) + \mu(B\setminus A) = \mu(B)
+    \end{equation*}
+    so $\mu(B\setminus A) \ge 0$ proves (1);
+    if $\mu(A)$ is finite then we can subtract it to get (1$'$).
+
+    (2) Let $B_1 = A_1$ and $B_n = A_n\setminus\bigcup_{k=1}^{n-1}A_k$ for $n>1$.
+    Then, since $B_n\subseteq A_n$ for all $n$,
+    by countable additivity and (1) we get
+    \begin{equation*}
+	\mu\left(\bigcup_{n=1}^\infty A_n\right) =
+	\mu\left(\bigcup_{n=1}^\infty B_n\right) =
+	\sum_{n=1}^\infty \mu(B_n) \le \sum_{n=1}^\infty \mu(A_n).
+    \end{equation*}
+
+    ($2^\subset$) Define $B_n$ as in (2). Then for any $n\in\NN$,
+    \begin{equation*}
+	\mu(A_n) =
+	\mu\left(\bigcup_{k=1}^n A_k\right) = \mu\left(\bigcup_{k=1}^n B_k\right)
+	= \sum_{k=1}^n \mu(B_k),
+    \end{equation*}
+    so
+    \begin{equation*}
+	\lim_{n\to\infty}\mu(A_n) = \sum_{k=1}^\infty \mu(B_k)
+	= \mu\left(\bigcup_{k=1}^\infty B_k\right)
+	= \mu\left(\bigcup_{k=1}^\infty A_k\right).
+    \end{equation*}
+
+    ($2^\supset$) We can assume WLOG that $\mu(A_1) < \infty$,
+    since if $A_1$, \dots, $A_{k-1}$ aren't finite, then
+    we can simply discard them. Now define $B_n = A_1\setminus A_n$.
+    This is an increasing sequence of sets, so by ($2^\subset$),
+    \begin{equation*}
+	\mu\left(A_1\setminus \bigcap_{n=1}^\infty A_n\right) =
+	\mu\left(\bigcup_{n=1}^\infty A_1\setminus A_n\right) =
+	\lim_{n\to\infty} \mu(A_1\setminus A_n).
+    \end{equation*}
+    All the sets in the equation above are finite, so by $(1')$
+    \begin{equation*}
+	\mu(A_1) - \mu\left(\bigcap_{n=1}^\infty A_n\right)
+	= \mu(A_1) - \lim_{n\to\infty} \mu(A_n)
+    \end{equation*}
+    and then we can cancel out the $\mu(A_1)$ because it is finite.
+\end{proof}
+
+\section{September 9}\label{sec:sep9}
+In order to talk about integration we can't just talk about
+any old arbitrary function $f\colon X\to\RR$; we need to restrict
+to certain ``good'' functions.
+
+\begin{definition}[Measurable function]
+    \label{def:measurable-function}
+    Let $(X,\mathcal S)$ and $(Y,\mathcal T)$ be a measurable spaces
+    (i.e. sets equipped with $\sigma$-algebras).
+    A function $f\colon X\to Y$ is \vocab{$(\mathcal T,\mathcal S)$-measurable}
+    (or just \vocab{measurable}) if $f\inv(B)\in\mathcal S$
+    for all $B\in\mathcal T$.
+\end{definition}
+
+\begin{exercise}
+    Show that if $\mathcal S = 2^X$ or $\mathcal T = \{\varnothing,Y\}$,
+    then all functions $f\colon X\to Y$ are measurable.
+\end{exercise}
+
+\begin{lemma}
+    \label{lem:measurable-via-generators}
+    If $(X,\mathcal S)$ and $(Y,\mathcal T)$ are measurable spaces
+    and $\mathcal T_0\subseteq\mathcal T$ generates $\mathcal T$,
+    then $f\colon X\to Y$ is measurable if and only if
+    $f\inv(B)\in\mathcal S$ for all $B\in\mathcal T_0$.
+\end{lemma}
+
+\begin{proof}
+    If $f$ is measurable then the result is trivial;
+    the opposite direction is HW02\#1.
+\end{proof}
+
+When speaking about functions $f\colon X\to\RR$ or $X\to[-\infty,\infty]$,
+we will take for granted that the $\sigma$-algebra attached to the codomain
+is the Borel one. For $[-\infty,\infty]$, we topologize it first by
+decreeing intervals of the form $[-\infty, a)$ and $(b,\infty]$
+to be open for all $a,b\in\RR$; the corresponding Borel $\sigma$-algebra
+is the one generated by the open sets in this space. This $\sigma$-algebra
+will be denoted $B_\infty$.
+(We will shortly see why letting $\RR$ have the Lebesgue $\sigma$-algebra
+is not a good idea.)
+
+\begin{definition}[Lebesgue/Borel measurable]
+    \label{def:lebesgue-borel-meas-function}
+    A function $f\colon\RR\to\RR$ or to $[-\infty,\infty]$
+    is \vocab{Lebesgue measurable} (resp. \vocab{Borel measurable})
+    if the pre-image of a Borel set is Lebesgue (resp. Borel).
+\end{definition}
+
+Of course, by \autoref{lem:measurable-via-generators},
+it suffices to check the pre-images of only a generating set,
+\begin{exercise}
+    Show that the set of rays $(a,\infty)$ generates $\mathcal B$
+    and the set of rays $(a,\infty]$ generates $\mathcal B_\infty$.
+    Find other ``nice'' generating sets for these $\sigma$-algebras
+    (note also that as per their definitions, the $\sigma$-algebras
+    are generated by the open sets in their respective spaces).
+\end{exercise}
+
+\begin{corollary}
+    \label{coro:cont-monotone-meas}
+    If $f\inv\colon\RR\to\RR$ is continuous or monotone,
+    then $f$ is Borel (hence Lebesgue) measurable.
+\end{corollary}
+
+\begin{proof}
+    For continuous functions, the pre-image of an open set is
+    open hence Borel.
+
+    For monotone functions, assume WLOG that $f\colon\RR\to\RR$ is
+    non-decreasing. Then $f\inv((a,\infty))$ either looks like
+    $(a',\infty)$ or $[a,\infty)$, both of which are Borel.
+\end{proof}
+
+\begin{corollary}
+    \label{coro:contrapositive-measurable}
+    If $f\colon\RR\to\RR$ is continuous and $B\subseteq\RR$
+    is a subset such that $f\inv(B)\subseteq\RR$ is not Lebesgue,
+    then $B\subseteq\RR$ is not Borel.
+\end{corollary}
+
+\begin{proof}
+    This is just the contrapositive of the statement
+    ``if $B$ is Borel, then $f\inv(B)$ is Lebesgue''
+    that follows due to $f$ being Lebesgue measurable.
+\end{proof}
+
+\begin{prop}
+    \label{prop:lebesgue-not-borel-set}
+    Let $C$ be the Cantor set.
+    There exists a continuous function $f\colon\RR\to\RR$
+    and $C'\subseteq C$ such that $f\inv(C')$ is not Lebesgue.
+\end{prop}
+
+\begin{proof}
+    Recall that the Cantor function $\Lambda\colon[0,1]\to[0,1]$
+    is continuous, non-decreasing, and constant on
+    every interval contained in $[0,1]\setminus C$.
+
+    Define $g\colon\RR\to\RR$ by
+    \begin{equation*}
+        g(x) = \begin{cases}
+	    x & x\le 0\\
+	    x + \Lambda(x) & x\in[0,1]\\
+	    x + 1 & x\ge 1
+        \end{cases}
+    \end{equation*}
+    \todo{wtf am i doing}
+\end{proof}
+
+There are two main takeawaays of this:
+\begin{enumerate}[(1)]
+    \ii If we used the Lebesgue $\sigma$-algebra instead of the Borel one
+    when $\RR$ is the codomain, we would have continuous functions
+    that aren't measurable, which is horrific because of course
+    continuous functions are integrable.
+    \ii There exists $C'\subseteq\RR$ that is Lebesgue but not Borel,
+    so $\mathcal B\subset\mathcal M$ is a proper containment.
+\end{enumerate}
+
+The real nice thing about measurable functions is that
+they behave very well under convergence.
+\begin{prop}
+    \label{prop:inf-sup-measurable}
+    If $(X,\mathcal S)$ is a measurable space and
+    $f_1,f_2,\ldots\colon X\to[=\infty,\infty]$ are
+    $\mathcal S$-measurable, then the functions
+    $\inf f_k$, $\sup f_k$, $\liminf f_k$, $\limsup f_k$
+    are all $\mathcal S$-measurable.
+    In particular, if $f_1$, $f_2$, \dots converges pointwise
+    to $f\colon X\to[-\infty,\infty]$, then $f$ is measurable.
+\end{prop}
+\todo{define $\mathcal S$-measurable above}
+
+\begin{proof}
+    \todo{pf (shouldn't be hard)}
+\end{proof}
+
+\section{September 11}\label{sec:sep11}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

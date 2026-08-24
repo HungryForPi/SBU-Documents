@@ -1,0 +1,488 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 324 HW08}
+\author{\large Aditya Pahuja}
+\date{\large Due 11/06}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    For a set $X$, collections
+    $\mathcal S, \mathcal S_1,\mathcal S_2\subseteq 2^X$,
+    and $X'\subseteq X$, denote by $\sigma_X(\mathcal S)$
+    the $\sigma$-algebra on $X$ generated by $\mathcal S$ and define
+    \begin{equation*}
+	\mathcal S|_{X'} = \{A\in\mathcal S : A\subseteq X'\},\quad
+	\mathcal S\cap X' = \{A\cap X' : A\in\mathcal S\},\quad
+	\mathcal S_1+\mathcal S_2 =
+	\{A_1\cup A_2 : A_1\in\mathcal S_1,A_2\in\mathcal S_2\}.
+    \end{equation*}
+    Let $X$ be any set.
+    \begin{enumerate}[(a)]
+        \ii Suppose $\mathcal S\subseteq 2^X$ is a $\sigma$-algebra on $X$
+	and $X'\in\mathcal S$. Show that $\mathcal S|_{X'} = \mathcal S\cap X'$
+	and that this collection is a $\sigma$-algebra on $X'$.
+	\ii Suppose $X_1,X_2\subseteq X$ with $X = X_1\cup X_2$
+	and $\mathcal S_1$ and $\mathcal S_2$ are $\sigma$-algebras
+	on $X_1$ and $X_2$, respectively, such that
+	$A_1\cap X_2\in\mathcal S_1$ for all $A_1\in\mathcal S_1$
+	and $A_2\cap X_1\in\mathcal S_2$ for all $A_2\in\mathcal S_2$.
+	Show that $\mathcal S_1 + \mathcal S_2$ is a $\sigma$-algebra on $X$.
+	\ii Suppose $\mathcal S\subseteq 2^X$, $X_1,X_2\in\sigma_X(\mathcal S)$,
+	and $X = X_1\sqcup X_2$. Show that
+	\begin{equation*}
+	    \sigma_X(\mathcal S) = \sigma_{X_1}(\mathcal S\cap X_1)
+	    + \sigma_{X_2}(\mathcal S\cap X_2).
+	\end{equation*}
+	\ii Suppose $\mathcal S\subseteq 2^X$ and $X'\in\sigma_X(\mathcal S)$.
+	Show that $\sigma_{X'}(\mathcal S\cap X') = \sigma_X(\mathcal S)\cap X'$.
+	\ii Suppose $(X,\mathcal S)$ and $(Y,\mathcal T)$ are measurable spaces,
+	$X'\in\mathcal S$, and $Y'\in\mathcal T$.
+	Show that $(\mathcal S\otimes\mathcal T)|_{X'\times Y'}
+	= (\mathcal S|_{X'})\otimes(\mathcal T|_{Y'})$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $A\in\mathcal S|_{X'}$, then $A\in\mathcal S$,
+    and $A\cap X' = A\in\mathcal S\cap X'$, thus
+    $\mathcal S|_{X'}\subseteq\mathcal S\cap X'$.
+    On the other hand, if $A \in\mathcal S\cap X'$ then $A = B\cap X'$
+    for some $B\in\mathcal S$, hence $A\in\mathcal S$,
+    and of course $A\subseteq X'$, so $A\in S|_{X'}$,
+    implying the reverse inclusion $\mathcal S\cap X'\subseteq\mathcal S|_{X'}$.
+    \\
+
+    (b) Since $\mathcal S_1$, $\mathcal S_2$ are $\sigma$-algebras,
+    they contain $\varnothing$, so
+    $\varnothing = \varnothing\cup\varnothing\in\mathcal S_1 + \mathcal S_2$.
+
+    If $A_1,A_2,\dots\in\mathcal S_1 + \mathcal S_2$,
+    write $A_j = A_{j,1}\cup A_{j,2}$ where $A_{j,1}\in\mathcal S_1$
+    and $A_{j,2}\in\mathcal S_2$ for all $j\in\NN$. Then
+    \begin{equation*}
+	\bigcup_{j=1}^\infty A_j =
+	\underbrace{\bigcup_{j=1}^\infty A_{j,1}}_{\in\mathcal S_1}
+	\cup\underbrace{\bigcup_{j=1}^\infty A_{j,2}}_{\in\mathcal S_2}
+	\in\mathcal S_1 + \mathcal S_2,
+    \end{equation*}
+    so $\mathcal S_1 + \mathcal S_2$ is closed under countable unions.
+
+    Lastly, let $A = A_1\cup A_2\in\mathcal S_1+\mathcal S_2$
+    where $A_i\in\mathcal S_i$ for $i=1,2$.
+    Since $A_2\cap X_1\in\mathcal S_1$ by assumption,
+    \begin{equation*}
+        A'_1 = A\cap X_1 = A_1\cup(A_2\cap X_1)\in\mathcal S_1.
+    \end{equation*}
+    Similarly, $A'_2 = A\cap X_2\in\mathcal S_2$.
+    This implies
+    \begin{equation*}
+        X\setminus A = (X_1\setminus A)\cup(X_2\setminus A)
+	= (\underbrace{X_1\setminus A'_1}_{\in\mathcal S_1})
+	\cup (\underbrace{X_2\setminus A'_2}_{\in\mathcal S_2})
+	\in\mathcal S_1+\mathcal S_2,
+    \end{equation*}
+    so $\mathcal S_1+\mathcal S_2$ is closed under complements as well,
+    making it a $\sigma$-algebra.
+    \\
+
+    (c) Since $X_1$ and $X_2$ are disjoint,
+    $\sigma_{X_1}(\mathcal S\cap X_1)$ and $\sigma_{X_2}(\mathcal S\cap X_2)$
+    satisfy the hypotheses of (c), so
+    $\sigma_{X_1}(\mathcal S\cap X_1) + \sigma_{X_2}(\mathcal S\cap X_2)$
+    is a $\sigma$-algebra on $X$; it is contained in $\sigma_X(\mathcal S)$
+    because the two $\sigma$-algebras consist of sets in $\sigma_X(\mathcal S)$
+    and the summing procedure involves taking unions of sets
+    that in this case are in $\sigma_X(\mathcal S)$,
+    producing more sets in $\sigma_X(\mathcal S)$.
+
+    On the other hand, for each $A\in\mathcal S$,
+    $A\cap X_1\in\mathcal S\cap X_1\subseteq\sigma_{X_1}(\mathcal S\cap X_1)$ and
+    $A\cap X_2\in\mathcal S\cap X_2\subseteq\sigma_{X_2}(\mathcal S\cap X_2)$.
+    Thus $(A\cap X_1)\cup(A\cap X_2) = A\in
+    \sigma_{X_1}(\mathcal S\cap X_1) + \sigma_{X_2}(\mathcal S\cap X_2)$,
+    so $\mathcal S$ is contained in the sum of the two $\sigma$-algebras,
+    hence so is $\sigma_X(\mathcal S)$, proving the reverse inclusion;
+    thus $\sigma_X(\mathcal S) = \sigma_{X_1}(\mathcal S\cap X_1)
+    + \sigma_{X_2}(\mathcal S\cap X_2)$.
+    \\
+
+    (d) By part (c),
+    \begin{equation*}
+        \sigma_X(\mathcal S)\cap X' =
+	(\sigma_{X'}(\mathcal S\cap X') +
+	\sigma_{X\setminus X'}(\mathcal S\cap(X\setminus X')))\cap X'.
+    \end{equation*}
+    The only sets in the right-hand side that intersect $X'$
+    are those in $\sigma_{X'}(\mathcal S\cap X')$
+    because the sets in the other addend are contained in
+    $X\setminus X'$, which is disjoint from $X'$. Thus the right-hand side
+    is exactly $\sigma_{X'}(\mathcal S\cap X')$, which is what we wanted to show.
+    \\
+
+    (e) By (a) and (d),
+    \begin{align*}
+	(\mathcal S\otimes\mathcal T)|_{X'\times Y'}
+	\overset{\text{(a)}}= (\mathcal S\otimes\mathcal T)\cap(X'\times Y')
+	&= \sigma_{X\times Y}(\mathcal S\times\mathcal T)\cap(X'\times Y')
+	\overset{\text{(d)}}=
+	\sigma_{X\times Y}((\mathcal S\times\mathcal T)\cap(X'\times Y'))\\
+	&= \sigma_{X\times Y}((\mathcal S\cap X')\times(\mathcal T\cap Y'))
+	\overset{\text{(a)}}=
+	\sigma_{X\times Y}((\mathcal S|_{X'})\times(\mathcal T|_{Y'})).\qedhere
+    \end{align*}
+\end{soln}
+
+\begin{problem}
+    [Axler 5C \#12]
+    \begin{enumerate}[(a)]
+	\ii Prove that $\lim_{n\to\infty}\lambda_n(B_n) = 0$.
+	\ii Find the value of $n$ that maximizes $\lambda_n(B_n)$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    By Axler's 5.44,
+    \begin{equation*}
+        v_n \coloneq \lambda_n(B_n) =
+	\begin{dcases}
+	    \frac{\pi^{n/2}}{(n/2)!} & \text{ if }n\text{ is even}\\
+	    \frac{2^{(n+1)/2}\pi^{(n-1)/2}}{1\cdot 3\cdot\cdots\cdot n}
+				     & \text{ if }n\text{ is odd}
+	\end{dcases}
+    \end{equation*}
+    The subsequences $v_{2n}$ and $v_{2n-1}$ can be recursively defined as
+    \begin{equation*}
+	v_2 = \pi,\quad v_{2n} = v_{2(n-1)}\cdot \frac\pi n,\qquad\quad
+	v_1 = 2,\quad v_{2n - 1} = v_{2(n-1) - 1}\cdot \frac{2\pi}{2n-1}.
+    \end{equation*}
+
+    (a) It suffices to show that $v_{2n}$ and $v_{2n-1}$
+    both converge to zero. If $n > 3$, then $n\ge 4 > \pi$, so
+    \begin{equation*}
+	v_{2n} = v_6\cdot \frac\pi 4\cdot\cdots\cdot\frac\pi{n-1}\cdot\frac\pi n
+	< v_6\cdot \frac\pi n,
+    \end{equation*}
+    and the latter expression of course converges to zero.
+    Similarly, for $n > 3$, $2n - 1 \ge 7 > 2\pi$, so
+    \begin{equation*}
+	v_{2n-1} = v_5\cdot \frac{2\pi}{7}\cdot\cdots\cdot
+	\frac{2\pi}{2n-3}\cdot\frac{2\pi}{2n-1} < v_5\cdot\frac{2\pi}{2n-1}\to 0.
+    \end{equation*}
+
+    (b) By the inequalities in part (a),
+    $\{v_{2n}\}_{n\ge 3}$ and $\{v_{2n-1}\}_{n\ge3}$ are decreasing sequences,
+    so the largest $v_n$ is one of $v_1$, \dots, $v_6$.
+    Furthermore
+    \begin{equation*}
+        v_6 = \frac\pi 3 v_4 = \frac\pi 3 \cdot \frac\pi 2 v_2
+	= \frac{\pi^3}{6}
+	\qquad
+	v_5 = \frac{2\pi}5 v_3 = \frac{2\pi}5 \cdot\frac{2\pi}3 v_1
+	= \frac{8\pi^2}{15},
+    \end{equation*}
+    so $v_6$ is the largest of the $v_{2n}$
+    and $v_5$ is the largest of the $v_{2n+1}$;
+    also, $v_5 > v_6$ because $\pi < 3.2 = 6\cdot 8/15$, so
+    \begin{equation*}
+	\max_{n\in\NN}\lambda_n(B_n) = \boxed{\frac{8\pi^2}{15}}.\qedhere
+    \end{equation*}
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $m\in\NN$, $(\mathcal M_m,\lambda_m)$ be the completion of
+    the measure $(\mathcal M_1\otimes\cdots\otimes\mathcal M_m,
+    \lambda_1\times\cdots\times\lambda_1)$ on $\RR^m$,
+    and $f\in\mathcal L^1(\lambda_m)$.
+    For $x\in\RR^m$ and $r\in\RR^+$, denote by $B_r(x)$
+    the ball of radius $r$ centered at $x$ with respect to
+    the standard metric on $\RR^m$.
+    \begin{enumerate}[(a)]
+        \ii Show that for every $\eps>0$ there exists
+	a compactly supported continuous function $f_\eps\colon\RR^m\to\RR$
+	such that $\norm{f-f_\eps}_1 < \eps$.
+	\ii Define $f^*\colon\RR^m\to[-\infty,\infty]$ by
+	\begin{equation*}
+	    f^*(x) = \sup_{r > 0} \frac 1{\lambda_m(B_r(x))}\int_{B_r(x)}\abs f
+	    \dd\lambda_m.
+	\end{equation*}
+	Show that $f^*$ is Lebesgue measurable and that for all $c\in\RR^+$,
+	\begin{equation*}
+	    \lambda_m(\{x\in\RR^m\colon f^*(x) > c\}) \le \frac{3^m}c\norm f_1
+	\end{equation*}
+	\ii Suppose $f$ is continuous at $x_0\in\RR^m$. Show that
+	\begin{equation*}
+	    \lim_{r\to0^+}\frac 1{\lambda_m(B_r(x_0))}
+	    \int_{B_r(x_0)}\abs{f-f(x_0)}\dd\lambda_m = 0.
+	\end{equation*}
+	\ii Show that the equation in (c) holds for
+	$\lambda_m$-almost every $x_0\in\RR^m$.
+	\ii Show that for $\lambda_m$-almost every $x_0\in\RR^m$,
+	\begin{equation*}
+	    \lim_{r\to 0^+}\frac 1{\lambda_m(B_r(x_0))}\int_{B_r(x_0)}f\dd\lambda_m
+	    = f(x_0).
+	\end{equation*}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) First, the analogue of Axler's 3.47
+    follows immediately from replacing $\RR$ with $\RR^m$
+    and ``interval'' with ``product of intervals'' throughout,
+    as the preceding proposition 3.44 works in any measure space
+    and we provided an outline for a proof of
+    the analogue of Axler's 2.71 in class.
+
+    The generalization of Axler's 3.48, which is the statement of (a),
+    follows in a similar manner using the generalized 3.47;
+    the only detail that needs to be elaborated upon is the construction of
+    a continuous function that is arbitarily close (in the $L^1$ norm sense)
+    to $\ind_{B}$ where $B = [a_1,b_1]\times\cdots\times[a_m,b_m]$
+    is a product of closed intervals. To do this,
+    expand $B$ to an open box $B' = (a'_1, b'_1)\times\cdots\times(a'_m,b'_m)$
+    such that $(a_k,b_k)\subseteq(a'_k,b'_k)$ and $\lambda_m(B'\setminus B) < \eps$.
+    Then, if $g_k\colon\RR\to[0,1]$ is a continuous function
+    that agrees with $\ind_{[a_1,b_1]}$ on $[a_1,b_1]$
+    and has support contained in $(a'_1,b'_1)$
+    (defined as in the picture in the proof of Axler's 3.48), the function
+    \begin{equation*}
+	g\colon\RR\to[0,1],\qquad g(x_1,\dots,x_m) = g_1(x_1)\cdots g_m(x_m),
+    \end{equation*}
+    $g$ is continuous, agrees with $\ind_B$ on $B$,
+    and $0\le g - \ind_B \le \ind_{B'\setminus B}$, so
+    \begin{equation*}
+	\norm{g - \ind_B}_1 = \int_{\RR^m} g- \ind_B\dd\lambda_m
+	\le \int_{\RR^m}\ind_{B'\setminus B} = \lambda_m(B'\setminus B) < \eps
+    \end{equation*}
+    as desired.
+    \\
+
+    (b)  We show that $\{b\in\RR^m : f^*(b) > c\}$ is open in $\RR^m$
+    for every $c\in\RR$, implying Lebesgue (in fact Borel) measurability;
+    the proof is copied verbatim from Prof. Zinger's solution to 4A \#9,
+    with suitable changes for $\RR^m$ instead of $\RR$.
+    We can assume $f\ge 0$. Suppose $b\in\RR^m$ with $f^*(b)\in c$ and thus
+    \begin{equation*}
+	\int_{B_r(b)} f(\dd\lambda) > \lambda_m(B_{r+\eps}(b))\cdot c
+    \end{equation*}
+    for some $r,\eps\in\RR^+$. If $b'\in B_\eps(b)$, then
+    $B_r(b) \subseteq B_{r+\eps}(b')$ and
+    \begin{equation*}
+	f^*(b') \ge \frac1{\lambda_m(B_{r+\eps}(b'))}
+	\int_{B_{r+\eps}(b')}f\dd\lambda_m
+	\ge \frac 1{\lambda_m(B_{r+\eps}(b'))}\int_{B_r(b)} f\dd\lambda_m > c.
+    \end{equation*}
+
+    Recalling that we proved Axler's 4.4 for arbitrary metric spaces in class,
+    the inequality is proven identically to Axler's 4.8,
+    where $3^m$ replaces $3$ in the numerator because
+    $\lambda_m(3 * B) = 3^m \lambda_m(B)$ for any $B\in\mathcal M_m$.
+    \\
+
+    (c) For any $r > 0$,
+    \begin{equation*}
+	\frac 1{\lambda_m(B_r(x_0))}\int_{B_r(x_0)}\abs{f - f(x_0)}\dd\lambda_m
+	\le \sup_{x\in B_r(x_0)}\abs{f(x) - f(x_0)};
+    \end{equation*}
+    since $f$ is continuous, the right-hand side gets arbitrarily small
+    as $r$ goes to zero, so the limit of the left-hand size
+    as $r$ goes to zero is $0$.
+    \\
+
+    (d) The proof is essentially that of Axler's 4.10,
+    with Axler's 3.48 and 4.8 replaced by the results of (a) and (b) respectively,
+    $\RR$ replaced by $\RR^m$, and open intervals replaced with open balls throughout.
+    The only difference caused by these substitutions is that
+    the $3$ in equation 4.14 will be $3^m$, but this is still a constant,
+    so it makes no material change in the logic.
+    \\
+
+    (e) This is a direct corollary of (d):
+    for $\lambda_m$-almost every $x_0\in\RR^m$, we have the inequality
+    \begin{align*}
+	\abs{\lim_{r\to0^+}
+	\frac 1{\lambda_m(B_r(x_0))}\int_{B_r(x_0)} f \dd\lambda_m
+	- f(x_0)}
+	&= \lim_{r\to0^+}\frac 1{\lambda_m(B_r(x_0))}
+	\abs{\int_{B_r(x_0)}f - f(x_0)\dd\lambda_m}\\
+	&\le \lim_{r\to0^+}
+	\frac 1{\lambda_m(B_r(x_0))}\int_{B_r(x_0)}\abs{f - f(x_0)}\dd\lambda_m
+	\overset{\text{(d)}}= 0,
+    \end{align*}
+    so the limit is equal to $f(x_0)$ for all $x_0$ at which (d) holds.
+\end{soln}
+
+\begin{problem}
+    Let $m\in\NN$, $(\mathcal M_m,\lambda_m)$ be the completion of
+    the measure $(\mathcal M_1\otimes\cdots\otimes\mathcal M_m,
+    \lambda_1\times\cdots\times\lambda_1)$ on $\RR^m$,
+    and $A\in\mathcal M_m$.
+    \begin{enumerate}[(a)]
+        \ii Show that
+	\begin{equation*}
+	    \lim_{r\to0^+}\frac{\lambda_m(A\cap B_r(x))}{\lambda_m(B_r(x))}
+	\end{equation*}
+	equals $1$ for $\lambda_m$-almost every $x\in A$
+	and $0$ for $\lambda_m$-almost every $x\in\RR^m\setminus A$.
+	\ii Suppose $m = 2$ and $\lambda_2(A) > 0$. Show that
+	$A$ contains three distinct points that form an equilateral triangle.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $\delta_A(x)$ be the limit. We follow the proof of Axler's 4.24.
+    The case where $\lambda_m(A) < \infty$ follows from \#3(e) with $f = \ind_A$.
+    If $\lambda_m(A) = \infty$, then the argument from Axler's proof
+    applies directly with $(-k,k)$ replaced by the ball $B_k(0)$
+    to use the finite-measure case.
+    \\
+
+    (b) Suppose for the sake of contradiction that for some $A\in\mathcal M_2$
+    with $\lambda_2(A) > 0$ does not contain any three points
+    forming an equilateral triangle. For any $p\in A$,
+    let $f_p\colon\RR^2\to\RR^2$ be the map sending $x\in\RR^2$ to
+    its rotation about $p$ by $\pi/6$ (counterclockwise),
+    so that $x\ne p$, $p$, and $f_p(x)$ form an equilateral triangle.
+    Then, the only way that $A$ does not contain three points
+    forming an equilateral triangle is if
+    $A$ and $f_p(A)$ intersect only at $p$;
+    this implies that, for any $r > 0$,
+    \begin{equation*}
+	2\lambda_2(A\cap B_r(p))
+	= \lambda_2(A\cap B_r(p)) + \lambda_2(f_p(A)\cap B_r(p))
+	\le \lambda_2(B_r(p))
+	\implies \lim_{r\to0^+} \frac{\lambda_2(A\cap B_r(p))}{\lambda_2(B_r(p))}
+	\le\half.
+    \end{equation*}
+    However, this contradicts the result of (a), which says that
+    the limit above equals $1$ for $\lambda_2$-almost every $p\in A$,
+    hence cannot be at most $1/2$ for all $p\in A$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

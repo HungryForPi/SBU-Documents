@@ -1,0 +1,622 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{article}
+\usepackage[letterpaper]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{\vspace{-2em}MAT 324 HW01}
+\author{\large Aditya Pahuja}
+\date{\large Due 09/04}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $\mathcal A$ be a collection of closed subsets of $\RR^n$
+    such that $\bigcap_{F\in\mathcal A} F=\varnothing$.
+    \begin{enumerate}[(a)]
+        \ii Assume in addition that $\mathcal A$ contains a bounded subset $F_0$.
+	Show that $\mathcal A$ contains a finite subcollection $\mathcal A'$
+	so that $\bigcap_{F\in\mathcal A'} = \varnothing$.
+	\ii Give an example showing that the above conclusion need not hold
+	if $\mathcal A$ does not contain a bounded set.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since the intersection of the sets in $\mathcal A$ is empty,
+    we can deduce by de Morgan's law that
+    \begin{equation*}
+	\bigcup_{F\in\mathcal A}\RR^n\setminus F = \RR^n.
+    \end{equation*}
+    Since each $F$ in $\mathcal A$ is closed,
+    the complements $\RR^n\setminus F$ are open,
+    so $\{\RR^n\setminus F : F\in\mathcal A\}$ is an open cover of $F_0$,
+    which is compact because it is closed and bounded.
+    This means there is a finite subcollection $\{F_1,\cdots,F_n\}\subseteq\mathcal A$
+    such that
+    \begin{equation*}
+	F_0\subseteq \bigcup_{i=1}^n \RR^n\setminus F_i
+	\iff
+	\RR^n\setminus F_0\supseteq \bigcap_{i=1}^n F_i.
+    \end{equation*}
+    In particular, the intersection of the $F_i$ is disjoint from $F_0$, so
+    $\bigcap_{i=0}^n F_i = \varnothing$;
+    thus, $\{F_0,\dots, F_n\}$ is the desired subcollection of $\mathcal A$.
+
+    (b) Let $F_n = [n,\infty)$ be a closed subset of $\RR$
+    and let $\mathcal A = \{F_n : n\in\NN\}$; we show that $\mathcal A$
+    has the desired property.
+    The intersection of all the sets in $\mathcal A$ is empty
+    because given $x\in\RR$, we can find $n$ such that $x\notin F_n$,
+    namely any $n > x$. However, no finite subcollection of $\mathcal A$
+    has empty intersection because, given $a_1,\dots,a_k\in\NN$, we have
+    \begin{equation*}
+	\bigcap_{i=1}^k F_{a_k} =
+	\bigcap_{i=1}^k [a_k, \infty) =
+	[\max(a_1, \dots, a_k), \infty)\ne\varnothing.\qedhere
+    \end{equation*}
+\end{soln}
+
+\newpage
+
+\begin{problem}
+    Suppose $a,b\in\RR$ with $a<b$ and $f\colon[a,b]\to\RR$ is a bounded function.
+    \begin{enumerate}[(a)]
+        \ii Let $\eps > 0$. Show that there exists $\delta > 0$ such that
+	\begin{equation*}
+	    L(f,\mathcal P) > L(f,[a,b]) - \eps
+	    \quad\text{and}\quad
+	    U(f,\mathcal P) < U(f,[a,b]) + \eps
+	\end{equation*}
+	for every partition $\mathcal P$ of $[a,b]$
+	with mesh size $\delta(\mathcal P) < \delta$.
+	\ii Let $\mathcal P_n$ be a sequence of partitions of $[a,b]$
+	such that $\delta(\mathcal P_n)\to 0$. Show that
+	\begin{equation*}
+	    L(f,[a,b]) = \lim_{n\to\infty} L(f,\mathcal P_n)
+	    \quad\text{and}\quad
+	    U(f,[a,b]) = \lim_{n\to\infty} U(f,\mathcal P_n).
+	\end{equation*}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) By definition, $L(f,[a,b])$ is the supremum of
+    $L(f,\mathcal P)$ over all partitions $\mathcal P$ of $[a,b]$.
+    Therefore, for every $\eps > 0$, there exists
+    a partition $\mathcal P_{\eps/2} = (x_0, x_1, \dots, x_m)$ such that
+    \begin{equation*}
+	L(f,\mathcal P_{\eps/2}) > L(f, [a,b]) - \frac\eps2.
+    \end{equation*}
+    Given an arbitrary partition $\mathcal P = (y_0, y_1, \dots, y_n)$ with
+    \begin{equation*}
+	\delta(P) \coloneq \min_{i=1,\dots,n} y_i - y_{i-1} <
+	\delta \coloneq \frac{\eps}{2M(m+1)},
+    \end{equation*}
+    we will compare $L(f,\mathcal P)$ with $L(f,\mathcal P')$,
+    where $\mathcal P'$ is the common refinement
+    $\mathcal P\cup\mathcal P_{\eps/2}$ of $\mathcal P$ and $\mathcal P_{\eps/2}$
+    (i.e. merge the two partitions to get $\mathcal P'$).
+    Keep in mind that $L(f,\mathcal P')$ is at least as large as
+    both $L(f,\mathcal P)$ and $L(f,\mathcal P_{\eps/2})$.
+    To do the comparison, observe that at most $m+1$ of the intervals
+    $[y_{i-1}, y_i]$ contain some $x_j$, since there are only $m+1$ elements
+    in the $\mathcal P_{\eps/2}$ list.
+    Clearly, these intervals are the ones that account for
+    the difference between $L(f,\mathcal P)$ and $L(f,\mathcal P')$,
+    since if $y_{i-1}$ and $y_i$ are consecutive in both $\mathcal P$ and $\mathcal P'$
+    then the interval $[y_{i-1},y_i]$ has the same contribution of
+    \begin{equation*}
+	(y_i - y_{i-1})\inf_{x\in[y_{i-1},y_i]} f(x)
+    \end{equation*}
+    to both $L(f,\mathcal P)$ and $L(f,\mathcal P')$.
+    Within one of these intervals $[y_{i-1}, y_i]$ that contain some $x_j$s,
+    we see that the total contribution of this interval to $L(f,\mathcal P')$
+    is bounded above by
+    \begin{equation*}
+	(y_i - y_{i-1})\sup_{x\in[y_{i-1}, y_i]} f(x)
+    \end{equation*}
+    because the infimum of $f$ over each of the subintervals of $[y_{i-1}, y_i]$
+    is trivially bounded above by the suprerum of $f$ over $[y_{i-1}, y_i]$.
+    Since $f$ is bounded there exists a positive $M$ such that
+    $\abs{f(x)} < M/2$ for all $x$.
+    The contribution of the interval $[y_{i-1}, y_i]$ to
+    the increase between $L(f,\mathcal P)$ and $L(f,\mathcal P')$
+    can then be bounded above as
+    \begin{equation*}
+	(y_i - y_{i-1})\left(\sup_{x\in[y_{i-1}, y_i]} f(x) -
+	\inf_{x\in[y_{i-1}, y_i]}\right) <
+	\delta\cdot M.
+    \end{equation*}
+    There are up to $m+1$ such intervals $[y_{i-1}, y_i]$,
+    meaning $L(f, \mathcal P') - L(f, \mathcal P)$ can be bounded above by
+    $M(m+1)\delta = \frac{\eps}2$. Therefore,
+    \begin{equation*}
+        L(f,\mathcal P) > L(f,\mathcal P') - \frac\eps2
+	\ge L(f, \mathcal P_{\eps/2}) - \frac\eps2
+	> L(f,[a,b]) - \eps,
+    \end{equation*}
+    which is what we wanted.
+
+    For the upper Riemann integral, we can use the fact that
+    $U(f,[a,b]) = -L(-f,[a,b])$ and $U(f,\mathcal P) = -L(-f,\mathcal P)$
+    for any partition $\mathcal P$, so, given $\delta$ such that
+    $\delta(P) < \delta$ implies $L(-f,\mathcal P) > L(-f,[a,b]) - \eps$,
+    \begin{equation*}
+	U(f,\mathcal P) = -L(-f,\mathcal P) < -L(-f, [a,b]) - \eps
+	= U(f,[a,b]) - \eps.
+    \end{equation*}
+    Since we want one $\delta$ to satisfy both the condition on $L$ and on $U$,
+    we can just take $\delta$ to be the minimum of the two $\delta$s obtained
+    for $L$ and $U$ above.
+
+    (b) Given $\eps = \frac 1m$ for some positive integer $m$,
+    part (a) posits the existence of a $\delta_m > 0$ such that
+    a partition $\mathcal P$ with $\delta(\mathcal P) < \delta_m$ satisfies
+    \begin{equation*}
+	L(f,\mathcal P) > L(f,[a,b]) - \frac 1m
+	\quad\text{and}\quad
+	U(f,\mathcal P) < U(f,[a,b]) + \frac 1m.
+    \end{equation*}
+    Since $\delta(\mathcal P_n)\to 0$, for each $m$, there is an $N_m$
+    such that $n > N_m$ implies $\delta(\mathcal P_n) < \delta_m$.
+    Thus for each positive integer $m$,
+    there exists an $N_m$ such that $n > N_m$ implies
+    \begin{align*}
+	L(f,[a,b]) \ge L(f,\mathcal P_n) > L(f,[a,b]) - \frac 1m
+	&\iff \abs{L(f,[a,b]) - L(f,\mathcal P_n)} < \frac 1m\\
+	U(f,[a,b]) \le U(f,\mathcal P_n) < U(f,[a,b]) + \frac 1m
+	&\iff \abs{U(f,[a,b]) - U(f,\mathcal P_n)} < \frac 1m.
+    \end{align*}
+    This is exactly what is meant by the statements
+    \begin{equation*}
+	L(f,[a,b]) = \lim_{n\to\infty} L(f,\mathcal P_n)
+	\quad\text{and}\quad
+	U(f,[a,b]) = \lim_{n\to\infty} U(f,\mathcal P_n),
+    \end{equation*}
+    so we are done.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Show that the function $f\colon\RR\to\RR$ given by
+    \begin{equation*}
+	f(x) = \sum_{n=0}^\infty 2^{-n}\sin(2^nx)
+    \end{equation*}
+    is well-defined, bounded, and Riemann integrable on $[0,\pi]$.
+    Find $\int_0^\pi f(x) \dd x$.
+\end{problem}
+
+\begin{soln}
+    Since $f_n(x) = 2^{-n}\sin(2^nx)$ is bounded in absolute value by $2^{-n}$
+    for all real $x$ and $\sum_{n=0}^\infty 2^{-n} = 2 < \infty$,
+    the Weierstass $M$-test tells us that the sum $\sum_{n=0}^\infty f_n(x)$
+    converges uniformly on $\RR$.
+
+    We can see that $f$ is bounded because for any nonnegative integer $N$
+    the triangle inequality lets us bound the partial sums
+    \begin{equation*}
+	\abs{\sum_{n=0}^N f_n(x)} \le
+	\sum_{n=0}^N\abs{f_n(x)} \le
+	\sum_{n=0}^\infty 2^{-n} = 2
+    \end{equation*}
+    so that in the limit as $N$ grows arbitrarily large we get
+    \begin{equation*}
+	\abs{f(x)} = \abs{\sum_{n=0}^\infty f_n(x)} \le 2.
+    \end{equation*}
+
+    Finally, since $f$ is defined as a uniformly converging
+    sum of continuous functions on $\RR$,
+    $f$ is itself continuous on $\RR$, hence Riemann integrable on $[0,\pi]$.
+    Moreover, the Riemann integral commutes with uniform limits, so
+    \begin{align*}
+	\int_0^\pi f(x)\dd x
+	&= \sum_{n=0}^\infty \int_0^{\pi} 2^{-n}\sin(2^nx)\dd x\\
+	&= \sum_{n=0}^\infty 4^{-n}(\cos(2^n\cdot 0) - \cos(2^n\cdot\pi))\\
+	&= \cos(0) - \cos(\pi) + \sum_{n=1}^\infty 4^{-n}(\cos(0)-\cos(2^n\pi))\\
+	&= 2 + \sum_{n=1}^\infty 4^{-n}(1-1) = \boxed 2\qedhere
+    \end{align*}
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Axler's Definition 2.2 of outer measure on $\RR$ uses \emph{open} intervals.
+    Show that the resulting outer measure would not change if \emph{open} intervals
+    were replaced by \emph{closed}, or by \emph{closed-open}, or by \emph{open-closed},
+    or by \emph{any}, i.e.
+    \begin{equation*}
+	|A|_{()} = |A|_{[]} = |A|_{[)} = |A|_{(]} = |A|_{\text{any}}
+	\qquad \forall A\subseteq\RR.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Given $A\subseteq\RR$, define
+    \begin{equation*}
+	\mathcal L_A^{T} = \left\{ \sum_{j=1}^\infty \ell(I_j) :
+	I_1, I_2, \dots \text{ are bounded intervals of type $T$ such that }
+        A\subseteq\bigcup_{j=1}^\infty I_j\right\},
+    \end{equation*}
+    where $T$ indicates the status of the intervals' endpoints
+    (open, closed, etc.); thus for example
+    \begin{equation*}
+	\abs{A}_{[)} = \inf\mathcal L_A^{[)}
+	\quad\text{and}\quad
+	\abs{A}_{\text{any}} = \inf\mathcal L_A^{\text{any}}.
+    \end{equation*}
+    We stipulate that the intervals $I_j$ are bounded
+    because $\infty$ is trivially in each $\mathcal L_A^\bullet$ anyway,
+    so we don't need to concern ourselves with intervals of infinite length.
+    
+    \begin{claim}
+        \label{claim:om-ineqs}
+	For any $A\subseteq\RR$,
+	\begin{equation*}
+	    \mathcal L_A^{()}\subseteq
+	    \mathcal L_A^{\bullet}\subseteq\mathcal L_A^{\text{any}}.
+	\end{equation*}
+    \end{claim}
+
+    \begin{proof}
+	Obviously $\mathcal L_A^{\text{any}}$ contains
+	all the other $\mathcal L_A^\bullet$.
+	For the other inclusion, we note that the open interval $(a,b)$
+	is contained by each of $(a,b]$, $[a,b)$, and $[a,b]$, so
+	if $A$ is covered by a sequence of bounded intervals
+	$(a_1, b_1)$, $(a_2, b_2)$, \dots, then
+	it is covered by each of the sequences of intervals resulting from
+	closing one or both of the endpoints of all the intervals
+	(i.e. the sequences $(a_i, b_i]$, $[a_i, b_i)$, and $[a_i, b_i]$);
+	therefore if $\sum_{j=1}^\infty (b_j - a_j)$ is in $\mathcal L_A^{()}$
+	then it is contained in the other $\mathcal L_A^{\bullet}$ as well.
+    \end{proof}
+    
+    Taking infima gives the inequality
+    \begin{equation*}
+	\abs{A}_{\text{any}}\le \abs{A}_{\bullet}\le \abs{A}_{()}
+    \end{equation*}
+    for all $A\subseteq\RR$.
+    To finish the solution, we will prove the reverse inequality
+    \begin{equation*}
+	\abs{A}_{()}\le \abs{A}_{\text{any}}.
+    \end{equation*}
+    Let $I_1$, $I_2$, \dots be a sequence of (not necessarily open) intervals
+    whose union contains $A$. Then, if $I_j$ has endpoints $a_j < b_j$,
+    we can see that
+    $I_j\subseteq I'_j\coloneq(a_j-\eps\cdot 2^{-j}, b_j+\eps\cdot 2^{-j})$
+    for any $\eps>0$, so the $I'_j$ are a covering of $A$ by open intervals.
+    Moreover,
+    \begin{equation*}
+	\underbrace{\sum_{j=1}^\infty (b_j-a_j)}_{\text{total length of $I_j$s}}
+	\le \underbrace{\sum_{j=1}^\infty (b_j-a_j + \eps\cdot 2^{-j+1})}_
+	{{\text{total length of $I'_j$s}}}
+	= \sum_{j=1}^\infty (b_j-a_j) + 2\eps
+	= \sum_{j=1}^\infty \ell(I_j) + 2\eps
+    \end{equation*}
+    so $\abs{A}_{()}\le \sum_{j=1}^\infty\ell(I_j) + 2\eps$
+    for all $\eps > 0$, which implies that it is smaller than
+    $\sum_{j=1}^\infty\ell(I_j)$. Taking the infimum over
+    all choices of the $I_j$s gives $\abs{A}_{()}\le\abs{A}_{\text{any}}$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Show that the set
+    \begin{equation*}
+	A = \left\{ x\in[-1,1] : |\sin(nx)| \le \frac 1n
+	\text{ for all } n\in\NN \right\}
+    \end{equation*}
+    has (outer) measure zero.
+\end{problem}
+
+\begin{soln}
+    Let $A_n = \{ x\in[-1,1] : |\sin(nx)| \le \frac 1n\}$, so
+    $A = \bigcap_{n=1}^\infty A_n$. This means that $|A| \le |A_n|$
+    for all $n$, so it suffices to prove that $\lim_{n\to\infty} |A_n| = 0$.
+    To do this, we first rewrite $A_n$ as
+    \begin{equation*}
+	A_n = \left\{ x\in[-1,1] :
+	-\arcsin\frac1n \le nx\bmod\pi \le\arcsin\frac 1n \right\}
+    \end{equation*}
+    where $nx\bmod\pi$ is the unique real number $r\in[0,\pi]$
+    for which there exists an integer $q$ such that $nx = q\pi + r$.
+    Equivalently,
+    \begin{equation*}
+	A_n = \left\{ x\in[-1,1] :
+	\frac{-\arcsin\frac1n}n \le x\bmod\frac\pi n \le\frac{\arcsin\frac 1n}n
+	\right\}.
+    \end{equation*}
+    If $x\in[-1,1]$ then $x + \frac\pi n\cdot n > 1$
+    and $x - \frac\pi n\cdot n < -1$, so
+    each value of $x\bmod\frac\pi n$ corresponds to
+    at most $2n$ points in $A_n$. This means that $A_n$ is
+    the union of up to $2n$ disjoint closed intervals,
+    each with length at most $\frac{2\arcsin\frac 1n}n$, so
+    \begin{equation*}
+	|A_n|\le \frac{2\arcsin\frac 1n}n \cdot 2n
+    \end{equation*}
+    Taking the limit as $n$ goes to infinity, we have
+    \begin{equation*}
+	\abs A \le \lim_{n\to\infty} |A_n| \le
+	\lim_{n\to\infty} \frac{2\arcsin\frac 1n}{n} \cdot 2n =
+	\lim_{n\to\infty} 4\arcsin\frac 1n =
+	4\arcsin(0) = 0
+    \end{equation*}
+    using the fact that $\arcsin$ is continuous at $0$,
+    so $\abs A$ is indeed zero.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $A\subseteq[0,1]$ be a subset of (outer) measure zero. Show that
+    \begin{equation*}
+	B = \{ x^2 : x\in A\}
+    \end{equation*}
+    is also of (outer) measure zero. Is the conclusion still true if $A\subseteq\RR$?
+\end{problem}
+
+\begin{soln}
+    We prove both parts via the following claim:
+    \begin{claim}
+        \label{claim:square-meas-zero-interval}
+	Let $A$ be a subset of the interval $[a,b]$ for which $0\notin(a,b)$.
+	If $A$ has outer measure zero, so does $B = \{x^2 : x\in A\}$.
+    \end{claim}
+    \begin{proof}
+	Let $\eps$ be a positive real number smaller than.
+	We know by definition that there exists a sequence of open intervals
+	$I_1$, $I_2$, $I_3$, \dots whose union contains $A$ such that
+	$\sum_{j=1}^\infty \ell(I_j) < \frac{\eps}{2\max(|a|,|b|)}$.
+	Define $I'_j = I_j\cap [a,b]$, so that each interval is contained in $[a,b]$,
+	and let $I'_j = (a_j, b_j)$ for real numbers $a_j<b_j$. Then we have
+	\begin{equation*}
+	    \sum_{j=1}^\infty b_j-a_j =
+	    \sum_{j=1}^\infty \ell(I'_j)\le
+	    \sum_{j=1}^\infty \ell(I_j) < \frac{\eps}{2\max(|a|,|b|)}.
+	\end{equation*}
+	Since $x\mapsto x^2$ is monotonic on $[a,b]$ (increasing if $0\le a<b$
+	and decreasing if $a<b\le 0$), the set of intervals
+	$\{(\min(a_j^2,b_j^2), \max(a_j^2,b_j^2)) : j\in\NN\}$
+	covers $B$, and
+	\begin{align*}
+	    \sum_{j=1}^\infty |b_j^2-a_j^2| &=
+	    \sum_{j=1}^\infty (b_j-a_j)\cdot|b_j+a_j|\\
+	    &\le \sum_{j=1}^\infty (b_j-a_j)\cdot(|b_j|+|a_j)\\
+	    &\le \sum_{j=1}^\infty (b_j-a_j)\cdot2\max(|a|,|b|)\\
+	    &< 2\max(|a|,|b|)\cdot \frac{\eps}{2\max(|a|,|b|)} = \eps.
+	\end{align*}
+	Thus the outer measure of $B$ is bounded above by $\eps$ for all $\eps$,
+	i.e. is zero. (Here we are using the result of Problem 4
+	so that some of the intervals in the covering $I'_j$ of $A$
+	may be half-open instead of open.)
+    \end{proof}
+
+    This immediately solves the first part of the problem with $a=0$, $b=1$.
+    For the second part of the problem, we can write
+    $\RR = \bigcup_{n\in\ZZ}[n,n+1]$, noting that $0$ does not lie in
+    the interior of any of these intervals.
+    If $A\subseteq\RR$ has measure zero, then by monotonicity
+    so do its subsets $A\cap[n,n+1]$ for any $n\in\ZZ$;
+    and then by the claim, $B_n = \{x^2 : x\in A\cap[n,n+1]\}$
+    also has outer measure zero.
+    Obviously $B = \bigcup_{n\in\ZZ} B_n$,
+    and the union of countably many sets of outer measure zero
+    has outer measure zero (by countable subadditivity,
+    since the outer measure of the union is bounded by
+    the sum of countably many zeroes),
+    which implies that $|B| = 0$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $C$ be the Cantor set and $\Lambda\colon[0,1]\to[0,1]$ the Cantor function.
+    \begin{enumerate}[(a)]
+	\ii Suppose $x$ is a rational number in $[0,1]$.
+	Explain why $\Lambda(x)$ is rational.
+	\ii Suppose $x\in C$ is such that $\Lambda(x)$ is rational.
+	Explain why $x$ is rational.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    We will take for granted the fact that
+    a real number $x\in[0,1]$ is rational if and only if,
+    for every integer $b\ge 2$, when $x$ is expressed in base $b$ as
+    \begin{equation*}
+	x = \sum_{n=1}^\infty \frac{d_n}{b^n}
+    \end{equation*}
+    with digits $0\le d_n<n$, the sequence $(d_n)_{n\ge r}$ is
+    eventually periodic, which we say to mean that there exists an $N$
+    such that $(d_n)_{n\ge N}$ is a periodic sequence.
+
+    (a) Let $x\in[0,1]$ be rational. If $x\in C$, then
+    \begin{equation*}
+	x \overset{\text{base 3}}= \sum_{n=1}^\infty \frac{d_n}{3^n}
+	\implies
+	\Lambda(x) \overset{\text{base 2}}= \sum_{n=1}^\infty \frac{d_n/2}{2^n}.
+    \end{equation*}
+    where the digits $d_n$ of the base-3 expansion of $x$ are in $\{0,2\}$.
+    Since $(d_n)_{n\ge1}$ is eventually periodic (because $x$ is rational),
+    so is the sequence $(d_n/2)_{n\ge1}$, so $\Lambda(x)$ is rational.
+    On the other hand, if $x\notin C$, then
+    let $t$ be the smallest positive integer for which
+    the base-3 expansion of $x$ has a digit $d_t = 1$. Then,
+    \begin{equation*}
+	\Lambda(x) = \sum_{n=1}^{t-1} \frac{d_n/2}{2^n}
+    \end{equation*}
+    which is rational because it is the sum of finitely many rational numbers.
+
+    (b) As stated in the solution to (a), if $x\in C$ then
+    \begin{equation*}
+	x \overset{\text{base 3}}= \sum_{n=1}^\infty \frac{d_n}{3^n}
+	\implies
+	\Lambda(x) \overset{\text{base 2}}= \sum_{n=1}^\infty \frac{d_n/2}{2^n}.
+    \end{equation*}
+    Therefore if $\Lambda(x)$ is rational for some $x\in C$,
+    the sequence $(d_n/2)_{n\ge1}$ is eventually periodic,
+    hence so is the sequence $(d_n)_{n\ge1}$,
+    implying that $x$ is rational too.
+\end{soln}
+
+\end{document}

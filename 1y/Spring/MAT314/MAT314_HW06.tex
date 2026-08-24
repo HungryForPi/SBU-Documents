@@ -1,0 +1,351 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 322 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 314 HW06}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 314 HW06}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/17}
+\begin{document}
+\maketitle
+
+\begin{problem*}1.2.
+	Let $V$ be an abelian group. Prove that if $V$ has a structure of
+	$\QQ$-module with its given law of composition as addition,
+	then that structure is uniquely determined.
+\end{problem*}
+
+\begin{soln}
+	We wish to show that there is only one map $\QQ\times V\to V$
+	given by $(q,x)\mapsto qx$ such that $1x = x$, $q(x+y) = qx+qy$,
+	$(q+r)x = qx + rx$, and $q(rx) = qr(x)$ for $q,r\in\QQ$ and $x,y\in V$.
+	
+	We have established that there is only one such map $\ZZ\times V\to V$
+	(i.e. abelian groups have exactly the natural $\ZZ$-module structure),
+	so we want to show that this structure can only be extended to
+	that of a $\QQ$-module in at most one way.
+	We can see that for $p/q\in\QQ$ with $p,q\in\ZZ$ and $q>0$,
+	\[\underbrace{\frac pqx + \cdots + \frac pqx}_{q\text{ times}}
+	= q\cdot\frac pqx = px,\]
+	so $\frac1q x$ is an element of $V$ that, when added to itself $q$ times,
+	equals $x$. If there are two such elements $y$ and $y'$,
+	then $q(y-y') = x-x = 0$, so multiplying by $\frac1q$ shows that $y=y'$.
+	Thus there can only be at most one choice of $\frac1qx$,
+	and then $\frac pqx$ is uniquely determined: it is
+	either $0$ (if $p=0$), $\frac 1qx$ added to itself $p$ times
+	(if $p>0$), or $-\frac1qx$ added to itself $p$ times (if $p<0$).
+\end{soln}
+
+\begin{problem*}2.1.
+	Let $R = \CC[x,y]$, and let $M$ be the ideal of $R$
+	generated by the two elements $x$ and $y$.
+	Is $M$ a free $R$-module?
+\end{problem*}
+
+\begin{soln}
+	Let $\{P_1, \dots, P_n\}$ be a generating set for $M$.
+	We note that $n$ cannot equal $1$ because the ideal generated by
+	$P\in R$ has every element divisible by $P$, which implies
+	$P\mid x$ and $P\mid y$ so $P$ is a constant polynomial,
+	which is impossible because clearly $M$ does not contain
+	any polynomials with nonzero constant terms.
+	
+	 Now we show that $P_1$, \dots, $P_n$ are not independent: indeed,
+	 \[-P_2\cdot P_1 + P_1\cdot P_2
+	 + 0\cdot P_3 + \cdots + 0\cdot P_n = 0\]
+	 but the coefficients of the $P_i$ are not all zero.
+	 Therefore no generating set of $M$ is a basis for $M$,
+	 so $M$ cannot be a free $R$-module.
+\end{soln}
+
+\begin{problem*}3.3.
+	Let $A$ and $B$ be $m\times m$ and $n\times n$ matrices, respectively.
+	Prove that the trace of the linear operator $f(M) = AMB$
+	on the space $R^{m\times n}$ is the product
+	$(\operatorname{trace}A)(\operatorname{trace}B)$.
+\end{problem*}
+
+\begin{soln}
+	Let $E_{i,j}$ be the $m\times n$ matrix whose only nonzero entry
+	is a $1$ in row $i$, column $j$.
+	Clearly the $E_{i,j}$ are a basis for $R^{m\times n}$.
+	The trace of $f$ can be computed as
+	\[\sum_{i=1}^m\sum_{j=1}^n \langle E_{i,j}, f(E_{i,j})\rangle\]
+	where $\langle X, Y\rangle = \sum_{i,j} X_{i,j}Y_{i,j}$
+	for $X,Y\in R^{m\times n}$. The summand is therefore
+	the row $i$, column $j$ entry of $AMB$. Now we can see easily that
+	$MB$ is the $m\times n$ matrix whose rows are all zeroes
+	except for its $i$th row being equal to the $j$th row of $B$,
+	and then the entry of $A(MB)$ in row $i$, column $j$ is
+	the product $a_{i,i}\cdot b_{j,j}$,
+	since column $j$ of $MB$ has $b_{j,j}$ as its only nonzero entry,
+	appearing in row $i$, and then the $i$th element in row $i$
+	of $A$ is $a_{i,j}$. Therefore the trace is equal to
+	\[\sum_{i=1}^m\sum_{j=1}^n a_{i,i}b_{j,j} =
+	\left(\sum_{i=1}^ma_{i,i}\right)\left(\sum_{j=1}^na_{j,j}\right).\]
+	(The question asked to use the permanence of identities thing,
+	but this last equation just directly holds over arbitrary commutative rings
+	so I don't really need to appeal to $\CC$ here?)
+\end{soln}
+
+\begin{problem*}4.6.
+	Let $\varphi\colon\ZZ^k\to\ZZ^k$ be a homomorphism
+	given by multiplication by an integer matrix $A$.
+	Show that the image of $\varphi$ is of finite index
+	if and only if $A$ is nonsingular and that
+	if so, then the index is equal to $|\det A|$.
+\end{problem*}
+ 
+\begin{soln}
+	We wish to show that $\ZZ^k/A\ZZ^k$ is finite with order $|\det A|$
+	if and only if $A$ is nonsingular. We can write $A = Q\inv A'P$
+	for invertible $P,Q$ where $A'$ is diagonal,
+	so that $\ZZ^k/A\ZZ^k\cong\ZZ^k/A'\ZZ^k$. Let the nonzero entries
+	of the main diagonal of $A'$ be positive integers $d_1$, \dots, $d_r$
+	for $r\le k$ (i.e. Smith normal form, but we don't care about
+	the divisibility information here). We can see that
+	$A'\ZZ^k = d_1\ZZ\oplus\cdots\oplus d_r\ZZ$,
+	so if $A$ (hence $A'$) is nonsingular, then $r = k$, meaning
+	\[\ZZ^k/A'\ZZ^k \cong \bigoplus_{i=1}^k \ZZ/d_i\ZZ,\]
+	and then the order of this group is $d_1\cdots d_k = \det A' = |\det A|$.
+	Conversely if $A$ (hence $A'$) is singular, then $r<k$, so
+	\[\ZZ^k/A'\ZZ^k\cong\ZZ^{k-r}\oplus\ZZ/d_1\ZZ\oplus\cdots\oplus \ZZ/d_r\ZZ\]
+	which is infinite.
+\end{soln}
+
+\begin{problem*}7.4.
+	In each case, identify the abelian group
+	that has the given presentation matrix:
+	\[\begin{pmatrix}
+		2\\1
+	\end{pmatrix}, \begin{pmatrix}
+		0\\5
+	\end{pmatrix},
+\begin{pmatrix}
+	2&0&0
+\end{pmatrix},
+\begin{pmatrix}
+	1&0\\0&1\\0&0
+\end{pmatrix},
+\begin{pmatrix}
+	2&3\\1&2
+\end{pmatrix},
+\begin{pmatrix}
+	2&4\\1&4
+\end{pmatrix},
+\begin{pmatrix}
+	2&4\\6&4
+\end{pmatrix},\\
+\begin{pmatrix}
+	4&6\\2&3
+\end{pmatrix}.\]
+\end{problem*}
+
+\begin{soln}
+	In general for an $m\times n$ matrix $A$,
+	the abelian group with presentation matrix $A$ is $\ZZ^m/A\ZZ^n$.
+	\begin{itemize}
+		\ii The first group is
+		\[\ZZ^2/\begin{pmatrix}
+			2\\1
+		\end{pmatrix}\ZZ = \ZZ^2/\{(2x,x) : x\in\ZZ\} \cong \ZZ,\]
+		noting that any element of $\ZZ^2$ can be written as
+		$(a + 2x, x)$ for integers $a,x$.
+		\ii The second group is
+		$\ZZ^2/\{(0, 5x) : x\in\ZZ\}\cong\ZZ\oplus\ZZ/5\ZZ$.
+		\ii The third group is $\ZZ/(2\;0\;0)\cdot\ZZ^3 = \ZZ/2\ZZ$.
+		\ii The fourth group is the trivial group because
+		$A\ZZ^3 = \ZZ^2$, as $A(x,y,0) = (x,y)$ for any $(x,y)\in\ZZ^2$.
+		\ii The fifth group is also the trivial group because
+		$\det A = 1$, hence it is an automorphism of $\ZZ^2$,
+		i.e. $A\ZZ^2 = \ZZ^2$.
+		\ii After applying a change of generators and relations,
+		we diagonalize this matrix as
+		$\begin{pmatrix}
+			1&0\\0&4
+		\end{pmatrix}$,
+		so the corresponding group is
+		$\ZZ^2/(\ZZ\oplus 4\ZZ) = \ZZ/4\ZZ$.
+		\ii Similar to the previous group, the Smith normal form here is
+		$\begin{pmatrix}
+			2&0\\0&8
+		\end{pmatrix}$, so the quotient is $\ZZ/2\ZZ\oplus\ZZ/8\ZZ$.
+		\ii Finally, for the eighth group we can compute that
+		$A\ZZ^2 = \{(2x,x) : x\in\ZZ\}$, so the quotient $\ZZ^2/A\ZZ^2$
+		is the same as the first group, namely $\ZZ$.
+	\end{itemize}
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,637 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 324 HW02}
+\author{\large Aditya Pahuja}
+\date{\large Due 09/11}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $X$, $Y$ be sets, $\mathcal S\subseteq 2^X$ and $\mathcal T\subseteq 2^Y$
+    be $\sigma$-algebras on $X$ and $Y$, respectively,
+    and $f\colon X\to Y$ be a map.
+    Suppose $\mathcal T$ is the $\sigma$-algebra generated by
+    some subcollection $\mathcal T_0\subseteq\mathcal T$ and
+    $f\inv(B)\in\mathcal S$ for every $B\in\mathcal T_0$.
+    Show that $f\inv(B)\in\mathcal S$ for every $B\in\mathcal T$.
+\end{problem}
+
+\begin{soln}
+    Let $\mathcal A = \{ A\subseteq Y : f\inv(A)\in\mathcal S\}$.
+    Then $\mathcal A$ is a $\sigma$-algebra on $Y$ because
+    (1) $f\inv(\varnothing) = \varnothing\in\mathcal S$,
+    so $\varnothing\in \mathcal A$;
+    (2) if $A\in\mathcal A$ then $f\inv(A)\in\mathcal S$
+    hence $X\setminus f\inv(A) = f\inv(Y\setminus A)\in\mathcal S$,
+    so $Y\setminus A\in\mathcal A$; and
+    (3) if $A_1,A_2,\ldots\in\mathcal A$ then
+    $f\inv(A_1),f\inv(A_2),\dots\in\mathcal S$ hence
+    $\bigcup_{n=1}^\infty f\inv(A_n) =
+    f\inv\left(\bigcup_{n=1}^\infty A_n\right)\in\mathcal S$,
+    so $\bigcup_{n=1}^\infty A_n\in\mathcal A$.
+    By assumption $\mathcal T_0\subseteq\mathcal A$,
+    hence the $\sigma$-algebra generated by $\mathcal T_0$,
+    namely $\mathcal T$, is also contained in $\mathcal A$,
+    i.e. $f\inv(B)\in\mathcal S$ for each $B\in\mathcal T$.
+\end{soln}
+
+%\pagebreak
+
+\begin{problem}
+    Suppose $A\subseteq B\subseteq C$ are such that $A$, $C$ are Lebesgue
+    and $\abs A = \abs C < \infty$. Show that $B$ is also Lebesgue.
+\end{problem}
+
+\begin{soln}
+    By monotonicity $\abs A = \abs B = \abs C$.
+    Since $\abs A$ and $\abs C$ are finite,
+    $\abs{C\setminus A} = 0$, so $\abs{B\setminus A}\le\abs{C\setminus A}=0$
+    implies that $B\setminus A$ is Lebesgue because it has outer measure zero.
+    Then $B$ is Lebesgue because it is the union of Lebesgue sets
+    $A$ and $B\setminus A$.
+\end{soln}
+
+%\pagebreak
+
+\begin{problem}
+    Let $A\subseteq\RR$ with $\abs A\ne 0$.
+    Show that there exists $A'\subseteq A$ which is not Lebesgue measurable.
+\end{problem}
+
+\begin{soln}
+    There exists an integer $N$ such that $\abs{A\cap[N-1,N+1]} > 0$;
+    if such an $N$ didn't exist (so $\abs{A\cap [n-1,n+1]} = 0$ for all $n\in\ZZ$),
+    then by subadditivity
+    \begin{equation*}
+	\abs A \le \sum_{n\in\ZZ} \abs{A\cap [n-1,n+1]} = 0.
+    \end{equation*}
+    Let $B = -N + (A\cap[N,N+1])\subseteq [-1,1]$, so $\abs B > 0$.
+
+    The solution now proceeds nearly identically to Axler 2.18.
+    Given numbers $x$ and $y$ in $B$, say that $x\sim y$ if $x-y\in\QQ$.
+    This partitions $B$ into equivalence classes, and we write $[x]$
+    for the equivalence class of $x\in B$.
+    Define a set $S$ by taking one element
+    from each of these equivalence class, i.e. $S\cap [x]$ has
+    exactly one element for each $x\in B$.
+    If $q_1$, $q_2$, \dots is an enumeration of $[-2,2]\cap\QQ$, we have
+    \begin{equation*}
+	B\subseteq \bigcup_{k=1}^\infty(q_k + S),
+	\implies
+	\abs B \le \sum_{k=1}^\infty \abs{q_k+S} = \sum_{k=1}^\infty \abs S,
+    \end{equation*}
+    implying $\abs S > 0$.
+    On the other hand the translates $q_k + S$ are pairwise disjoint and
+    \begin{equation*}
+	\bigcup_{k=1}^\infty (q_k+S) \subseteq [-3,3].
+    \end{equation*}
+    Since the left-hand side is a countable union of pairwise disjoint sets,
+    if $S$ were Lebesgue then we should be able to write
+    \begin{equation*}
+	\sum_{k=1}^\infty \abs S = \sum_{k=1}^\infty \abs{q_k+S}
+	= \abs{\bigcup_{k=1}^\infty (q_k+S)} \le \abs{[-3,3]} = 6,
+    \end{equation*}
+    but this is a contradiction because $\abs S > 0$ implies
+    the left-hand side is $\infty$, so $S$ is not Lebesgue.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $A\subseteq\RR$ and $A^c\coloneq\RR\setminus A$
+    be the complement of $A$. Show that $A$ is Lebesgue if and only if
+    \begin{equation*}
+	\abs E = \abs{E\cap A} + \abs{E \cap A^c} \text{ for all }E\subseteq\RR.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Say that $A\subseteq\RR$ has the \emph{splitting property} if
+    \begin{equation*}
+	\abs E = \abs{E\cap A} + \abs{E \cap A^c} \text{ for all }E\subseteq\RR.
+    \end{equation*}
+
+    We first prove the \emph{only if} direction.
+    Let $A$ be Lebesgue. It suffices to prove
+    \begin{equation*}
+	\abs E \ge \abs{E\cap A} + \abs{E\cap A^c}\text{ for all }E\subseteq\RR
+    \end{equation*}
+    because the reverse inequality holds by subadditivity.
+    % If $\abs E = \infty$, then
+    % \begin{equation*}
+    %     \abs E = \abs{E\cap A} + \abs{E\cap A^c}
+    % \end{equation*}
+    % always holds because the right-hand side is at least as large as
+    % $\abs E = \infty$, hence is $\infty$.
+    % Assume now that $\abs E$ is finite.
+    Since $\abs E$ is the infimum of $\abs U$ over
+    all open sets $U$ (manifested as a union of
+    countably many open intervals) that contain $E$,
+    for a given $\eps>0$ we can find an open $U_\eps\subseteq\RR$
+    such that $\abs{U_\eps}\le \abs E + \eps$
+    This gives
+    \begin{equation*}
+	\abs E \ge \abs{U_\eps} - \eps
+	= \abs{U_\eps\cap A} + \abs{U_\eps\cap A^c} - \eps
+	\ge \abs{E\cap A} + \abs{E\cap A^c} - \eps
+    \end{equation*}
+    for all $\eps>0$, where
+    $\abs{U_\eps} = \abs{U_\eps\cap A} + \abs{U_\eps\cap A^c}$
+    because the sets $U_\eps\cap A$ and $U_\eps\cap A^c$
+    are disjoint and Lebesgue. This implies that
+    $A$ has the splitting property if it is Lebesgue.
+    \\
+
+    Suppose conversely that $A$ has the splitting property.
+    If $\abs A <\infty$, then by definition of outer measure,
+    given $\eps > 0$, we can find an open set $U_\eps$ for which
+    $\abs{U_\eps} < \abs A + \eps$. Setting $E = U_\eps$ yields
+    \begin{equation*}
+	\abs{U_\eps} = \abs{U_\eps\cap A} + \abs{U_\eps\cap A^c}
+	= \abs A + \abs{U_\eps\setminus A}
+	\iff \abs{U_\eps\setminus A} = \abs{U_\eps} - \abs A < \eps.
+    \end{equation*}
+    The existence of such a $U_\eps$ is one of the criteria we proved in class
+    for $A$ to be Lebesgue, sets of finite outer measure
+    with the splitting property are Lebesgue.
+
+    To finish, suppose that $A$ has the splitting property and $|A|=\infty$.
+    We have proven above that $I_n \coloneq [n,n+1]$
+    has the splitting property because it is Lebesgue, so
+    \begin{align*}
+	\abs{E\cap A\cap I_n} + \abs{E\cap (A\cap I_n)^c}
+	&= \abs{E\cap A\cap I_n} + \abs{E\cap (A\cap I_n)^c\cap A} +
+	\abs{E\cap (A\cap I_n)^c\cap A^c}\\
+	&= \abs{E\cap A\cap I_n} + \abs{E\cap A\cap I_n^c} + \abs{E\cap A^c}\\
+	&= \abs{E\cap A} + \abs{E\cap A^c} = \abs E,
+    \end{align*}
+    which proves that $A\cap I_n$ also has the splitting property.
+    Since $A\cap I_n$ has finite outer measure and has the splitting property,
+    it is Lebesgue, hence so is $A = \bigcup_{n\in\ZZ} (A\cap I_n)$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Let $X$ be a set, $\mathcal A\subseteq 2^X$, and
+    $\ell\colon A\to[0,\infty]$ be a function such that
+    $\varnothing\in\mathcal A$ and $\ell(\varnothing) = 0$.
+    For each $A\subseteq X$, define
+    \begin{equation*}
+	\mathcal L_A \coloneq
+	\left\{\sum_{n=1}^\infty \ell(I_n) : I_1,I_2,\ldots\in\mathcal A,\;
+	A\subseteq\bigcup_{n=1}^\infty I_n\right\}\subseteq[0,\infty],\quad
+	m(A) = \inf\mathcal L_A\in[0,\infty],
+    \end{equation*}
+    \begin{equation}\label{eq:cara-restriction}
+	\mathcal M = \left\{A\subseteq X : m(E) = m(E\cap A) + m(E\cap A^c)
+	\text{ for all }E\subseteq X\right\}.
+    \end{equation}
+    \begin{enumerate}[(a)]
+	\ii Show that
+	\begin{equation*}
+	    m(\varnothing)=0;\; m(A)\le m(B)\text{ if }A\subseteq B;\;
+	    m\left(\bigcup_{n=1}^\infty A_n\right)\le
+	    \sum_{n=1}^\infty m(A_n)\text{ for all }A_1,A_2,\dots\subseteq X.
+	    \stepcounter{equation}\tag{\theequation}\label{eq:om-props}
+	\end{equation*}
+	\ii Suppose in addition that $\mathcal A$ is an algebra on $X$ and
+	\begin{equation*}
+	    \ell\left(\bigcup_{n=1}^\infty I_n\right) = \sum_{n=1}^\infty\ell(I_n)
+	\end{equation*}
+	for all pairwise disjoint sequences of sets
+	$I_1,I_2,\ldots\in\mathcal A$ such that
+	$\bigcup_{n=1}^\infty I_n\in\mathcal A$.
+	Show that $m|_{\mathcal A} = \ell$ and
+	$\mathcal A\subseteq\mathcal M$.
+\end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) $\mathcal L_{\varnothing}$ contains $0$, as we can cover $\varnothing$
+    with the sequence of sets $I_1=I_2=\cdots=\varnothing$,
+    so $\inf L_\varnothing = m(\varnothing) \le 0$,
+    but of course $0$ is a lower bound for $\mathcal L_\varnothing$,
+    so in fact $m(\varnothing) = 0$.
+
+    Then, if $A\subseteq B$, a sequence of sets $I_1,I_2,\ldots\in\mathcal A$
+    whose union contains $B$ must also contain $A$, meaning
+    $\mathcal L_B\subseteq\mathcal L_A$; taking infima translates this to
+    \begin{equation*}
+	m(A) = \inf\mathcal L_A\le \inf\mathcal L_B = m(B).
+    \end{equation*}
+
+    Finally, let $A_1,A_2,\ldots\subseteq X$ be a sequence of subsets of $X$.
+    For each $\eps > 0$ and $k\in\NN$, since $m(A_k) = \inf\mathcal L_{A_k}$,
+    there exist sets $I^{(k)}_1,I^{(k)}_2,\ldots\in\mathcal A$
+    such that $A_k\subseteq\bigcup_{k=1}^\infty I^{(k)}_n$ and
+    \begin{equation*}
+	\sum_{n=1}^\infty \ell(I^{(k)}_n)\le m(A_k) + \frac\eps{2^k}.
+    \end{equation*}
+    Summing over all $k$, we get
+    \begin{equation*}
+	\eps+\sum_{k=1}^\infty m(A_k) =
+	\sum_{k=1}^\infty \left(m(A_k) + \frac\eps{2^k}\right)
+	\ge \sum_{k=1}^\infty \sum_{n=1}^\infty \ell(I^{(k)}_n)
+	\ge m\left(\bigcup_{k=1}^\infty A_k\right)
+    \end{equation*}
+    where the last inequality is a result of the fact that
+    the intervals $\{I^{(k)}_n\}_{k,n\in\NN}$ cover $\bigcup_{k=1}^\infty A_k$.
+
+    (b) Suppose that $A$ is in $\mathcal A$ and let $\eps>0$.
+    Then, there exists a sequence $I_1,I_2,\ldots\in\mathcal A$
+    such that $A\subseteq \bigcup_{n=1}^\infty I_n$ and
+    \begin{equation*}
+	\sum_{n=1}^\infty \ell(I_n) \le m(A) + \eps.
+    \end{equation*}
+    Let $I'_n = I_n\cap A\in\mathcal A$ and define $J_1 = I'_1$
+    and $J_n = I'_n\setminus\bigcup_{k=1}^{n-1}I'_n\in\mathcal A$ for $n\ge 2$.
+    The $J_n$ are pairwise disjoint and
+    $\bigcup_{n=1}^\infty J_n = A\in\mathcal A$, so
+    \begin{equation*}
+	\ell(A) = \sum_{n=1}^\infty \ell(J_n)
+	\le \sum_{n=1}^\infty \ell(I'_n)
+	\le \sum_{n=1}^\infty \ell(I_n)
+	\le m(A) + \eps.
+    \end{equation*}
+    This holds for all $\eps>0$, implying $\ell(A) \le m(A)$.
+    On the other hand, $A$ can be covered by
+    $A$ and countably many copies of $\varnothing$, implying that
+    \begin{equation*}
+        m(A) \le \ell(A) + \ell(\varnothing) + \ell(\varnothing) + \cdots
+	= \ell(A).
+    \end{equation*}
+    Therefore, $m(A) = \ell(A)$ for all $A\in\mathcal A$.
+    \\
+
+    Suppose now that $E\subseteq X$ is arbitrary and $A\in\mathcal A$.
+    Then, given $\eps>0$, there exist sets $I_1,I_2,\dots\in\mathcal A$
+    whose union contains $A$ such that
+    \begin{equation*}
+	\sum_{n=1}^\infty \ell(I_n) \le m(E) + \eps.
+    \end{equation*}
+    Noting that $A^c\in\mathcal A$
+    and so $I_n\cap A$, $I_n\cap A^c\in\mathcal A$,
+    we thus get the inequality
+    \begin{align*}
+	m(E\cap A) + m(E\cap A^c)
+	&\le m\left(\left(\bigcup_{n=1}^\infty I_n\right) \cap A\right)
+	+ m\left(\left(\bigcup_{n=1}^\infty I_n\right)\cap A^c\right)\\
+	&= m\left(\bigcup_{n=1}^\infty (I_n\cap A)\right)
+	+ m\left(\bigcup_{n=1}^\infty (I_n\cap A^c)\right)\\
+	&\le \sum_{n=1}^\infty \ell(I_n\cap A) + \ell(I_n\cap A^c) =
+	\sum_{n=1}^\infty \ell(I_n) \le m(E) + \eps
+    \end{align*}
+    where the equality in the last line holds
+    by additivity on the disjoint sets
+    $I_n\cap A$, $I_n\cap A^c$
+    (and we can pad the finite union into an infinite one
+    with infinitely many copies of $\varnothing$).
+    The resulting inequality holds
+    for all $\eps>0$, so $m(E\cap A) + m(E\cap A^c) \le m(E)$.
+    The reverse inequality is immediate by subadditivity,
+    hence $m(E) = m(E\cap A) + m(E\cap A^c)$ for all $E\subseteq X$,
+    i.e. $A\in\mathcal M$.
+\end{soln}
+
+\pagebreak
+
+\begin{problem}
+    Suppose $X$ is a set, $m\colon 2^X\to[0,\infty]$ is a function satisfying
+    (2), and $\mathcal M\subseteq 2^X$ is as in (1).
+    For $A\subseteq X$, let $A^c\coloneq X\setminus A$
+    be the complement of $A$ in $X$. Show that
+    \begin{enumerate}[(a)]
+	\ii $m(A\cup B)\le m(A) + m(B)$ for all $A,B\subseteq X$;
+	\ii $X\in\mathcal M$, $A^c\in\mathcal M$ if $A\in\mathcal M$,
+	and $A\in\mathcal M$ if $m(A) = 0$;
+	\ii if $A,B\in\mathcal M$ and $E\subseteq X$, then
+	\begin{align*}
+	    m(E) &= m(E\cap A\cap B) + m(E\cap A\cap B^c)
+	    + m(E\cap A^c\cap B) + m(E\cap A^c\cap B^c)\\
+	    &\ge m(E\cap(A\cup B)) + m(E\cap(A\cup B)^c);
+	\end{align*}
+	\ii $\mathcal M$ is an algebra on $X$ (not $\sigma$-algebra yet) and
+	\begin{equation*}
+	    m\left(\bigcup_{k=1}^n A_k\right) = \sum_{k=1}^n m(A_k)
+	\end{equation*}
+	for all sequences of pairwise disjoint sets
+	$A_1,\dots, A_n\in\mathcal M$;
+	\ii if $A_1,A_2,\ldots\in\mathcal M$ are pairwise disjoint, then
+	\begin{equation*}
+	    m\left(E\cap \bigcup_{n=1}^\infty A_n\right) =
+	    \sum_{n=1}^\infty m(E\cap A_n)
+	    \text{ for all $E\subseteq X$,}\quad
+	    m\left(\bigcup_{n=1}^\infty A_n\right) = \sum_{n=1}^\infty m(A_n);
+	\end{equation*}
+	\ii $(X,\mathcal M,\mu\equiv m|_{\mathcal M})$
+	is a complete measure space.
+\end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Take $A_1=A$, $A_2=B$, and, for integers $n>2$, $A_n = \varnothing$.
+    Then,
+    \begin{equation*}
+	m(A\cup B) = m\left(A\cup B\cup \bigcup_{n=3}^\infty \varnothing\right)
+	\le m(A) + m(B) + \sum_{n=3}^\infty m(\varnothing)
+	= m(A) + m(B).
+    \end{equation*}
+
+    (b) $X\in\mathcal M$ because for any $E\subseteq X$,
+    \begin{equation*}
+	m(E\cap X) + m(E\cap X^c)
+	= m(E) + m(\varnothing) = m(E).
+    \end{equation*}
+    If $A\in\mathcal M$, then $A^c\in\mathcal M$ because
+    for any $E\subseteq X$,
+    \begin{equation*}
+	m(E\cap A^c) + m(E\cap(A^c)^c) = m(E\cap A^c) + m(E\cap A) = m(E).
+    \end{equation*}
+    If $A\in\mathcal M$ has $m(A) = 0$, then
+    \begin{equation*}
+        m(E)\le m(E\cap A) + m(E\cap A^c) = m(E\cap A^c) \le m(E)
+    \end{equation*}
+    where the first inequality is by (a)
+    and the equality is by $m(E\cap A)\le m(A)$ implying $m(E\cap A) = 0$.\\
+
+    (c) If $A,B\in\mathcal M$, then
+    \begin{align*}
+	m((E\cap A)\cap B) + m((E\cap A)\cap B^c) &= m(E\cap A)\\
+	m((E\cap A^c)\cap B) + m((E\cap A^c)\cap B^c) &= m(E\cap A^c),
+    \end{align*}
+    so the left-hand sides sum to
+    $m(E\cap A) + m(E\cap A^c) = m(E)$, proving the equality.
+    The inequality follows from
+    $A\cup B = (A\cap B)\cup(A\cap B^c)\cup(A^c\cap B)$,
+    since subadditivty says that
+    \begin{equation*}
+	m(E\cap A\cap B) + m(E\cap A\cap B^c) + m(E\cap A^c\cap B^c)
+	\ge m(E\cap(A\cup B))
+    \end{equation*}
+    and then we can add $m(E\cap(A^c\cap B^c)) = m(E\cap(A\cup B)^c)$
+    to both sides.
+    \pagebreak
+
+    (d) $\mathcal M$ contains $X$ and is closed under complements by (b).
+    By (c), for any $E\subseteq X$,
+    \begin{equation*}
+	m(E) \ge m(E\cap(A\cup B)) + m(E\cap(A\cup B)^c),
+    \end{equation*}
+    and the reverse inequality holds by (a), so
+    $m(E) = m(E\cap(A\cup B)) + m(E\cap(A\cup B)^c)$;
+    This is what it means for $A\cup B$ to be in $\mathcal M$.
+    Suppose now that unions of up to $n-1$ sets in $\mathcal M$
+    are also in $\mathcal M$; then, if $A_1,\dots,A_n\in\mathcal M$,
+    so is 
+    \begin{equation*}
+	\bigcup_{k=1}^{n-1} A_k \cup A_n,
+    \end{equation*}
+    so by induction $\mathcal M$ is closed under arbitrary finite unions.
+
+    Now, if $A,B\in\mathcal M$ are disjoint sets, then
+    \begin{equation*}
+	m(A\cup B) = m((A\cup B)\cap A) + m((A\cup B)\cap A^c)
+	= m(A) + m(B),
+    \end{equation*}
+    i.e. additivity holds for two disjoint sets.
+    If we suppose that additivity holds for $n-1$ pairwise disjoint
+    sets in $\mathcal M$, then, given pairwise disjoint sets
+    $A_1,\dots,A_n\in\mathcal M$,
+    \begin{equation*}
+	m\left(\bigcup_{k=1}^n A_k\right)
+	= m\left(\bigcup_{k=1}^{n-1} A_k\right) + m(A_n)
+	= \sum_{k=1}^{n-1}m(A_k) + m(A_n)
+	= \sum_{k=1}^n m(A_n).
+    \end{equation*}
+    By induction, the measure of the union of any finite number of
+    pairwise disjoint sets in $\mathcal M$
+    is equal to the sum of the measures of the component sets.
+    \\
+
+    (e) Suppose $A_1,A_2,\ldots\in\mathcal M$ are pairwise disjoint.
+    Then, for any positive integer $N$,
+    \begin{equation*}
+	m\left(E\cap\bigcup_{n=1}^\infty A_n\right) \ge
+	m\left(E\cap\bigcup_{n=1}^N A_n\right).
+    \end{equation*}
+    I now claim that the right-hand side can be written as
+    $\sum_{n=1}^N m(E\cap A_n)$.
+    This follows from an induction argument:
+    the version for two disjoint sets is shown by
+    \begin{align*}
+	m(E\cap(A\cup B)) &=
+	m(E\cap(A\cup B)\cap A) + m(E\cap(A\cup B)\cap A^c)\\
+			  &= m(E\cap A) + m(E\cap B)
+    \end{align*}
+    where $(A\cup B)\cap A^c = B$ because $A$ and $B$ are disjoint,
+    and, assuming the result for unions of $N-1$ pairwise disjoint sets,
+    we get that
+    \begin{align*}
+	m\left(E\cap\bigcup_{n=1}^N A_n\right)
+	&= m\left(E\cap\bigcup_{n=1}^{N-1} A_n\right) + m(E\cap A_N)\\
+	&= \sum_{n=1}^{N-1} (m(E\cap A_n)) + m(E\cap A_N)
+	= \sum_{n=1}^N m(E\cap A_n)
+    \end{align*}
+    In summary, we have shown that
+    \begin{equation*}
+	m\left(E\cap\bigcup_{n=1}^\infty A_n\right) \ge
+	\sum_{n=1}^N m(E\cap A_n).
+    \end{equation*}
+    In the limit as $N$ grows arbitrarily large,
+    \begin{equation*}
+	m\left(E\cap\bigcup_{n=1}^\infty A_n\right) \ge
+	\lim_{N\to\infty}\sum_{n=1}^N m(E\cap A_n)
+	= \sum_{n=1}^\infty m(E\cap A_n).
+    \end{equation*}
+    The reverse inequality holds by countable subadditivity,
+    so in fact the inequality is sharp.
+    Then, we take $E = \bigcup_{n=1}^\infty A_n$ to get
+    \begin{equation*}
+	m\left(\bigcup_{n=1}^\infty A_n\right) =
+	\sum_{n=1}^\infty m\left(\bigcup_{k=1}^\infty A_k\cap A_n\right) =
+	\sum_{n=1}^\infty m(A_n).
+    \end{equation*}
+
+    (f) Suppose $A_1,A_2,\ldots\in\mathcal M$.
+    If $m(E\cap\bigcap_{n=1}^\infty A_n) = \infty$, then
+    by the assumption (2) we have $m(E) = \infty$ as well,
+    in which case
+    $m(E\cap\bigcup_{n=1}^\infty A_n) + m(E\cap\bigcap_{n=1}^\infty A_n^c) = m(E)$.
+    Assume now that $m(E\cap\bigcap_{n=1}^\infty A_n) < \infty$.
+    Define $B_1 = A_1$ and $B_n = A_n\setminus\bigcup_{k=1}^{n-1}A_k$ for $n>1$,
+    and note that since $\mathcal M$ is an algebra,
+    $\bigcup_{k=1}^n A_n = \bigcup_{k=1}^n B_n\in\mathcal M$ for all $n\in\NN$.
+    By (e), since the $B_n$ are pairwise disjoint,
+    \begin{align*}
+	m\left(E\cap\bigcup_{n=1}^\infty A_n\right) +
+	m\left(E\cap\bigcap_{n=1}^\infty A_n^c\right)
+	&= m\left(E\cap\bigcup_{n=1}^\infty B_n\right) +
+	m\left(E\cap\bigcap_{n=1}^\infty B_n^c\right)\\
+	&= \sum_{n=1}^\infty (m(E\cap B_n)) +
+	m\left(E\cap\bigcap_{n=1}^\infty B_n^c\right)
+    \end{align*}
+    The sum is finite, so given $\eps>0$
+    there exists $N$ such that
+    $\sum_{n=1}^\infty m(E\cap B_n) < \eps+\sum_{n=1}^N m(E\cap B_n)$.
+    Thus
+    \begin{align*}
+	\sum_{n=1}^\infty (m(E\cap B_n)) +
+	m\left(E\cap\bigcap_{n=1}^\infty B_n^c\right)
+	&\le \sum_{n=1}^N (m(E\cap B_n)) +
+	m\left(E\cap\bigcap_{n=1}^N B_n^c\right) + \eps\\
+	&= m\left(E\cap\bigcup_{n=1}^N B_n\right) +
+	m\left(E\cap\bigcap_{n=1}^N B_n^c\right) + \eps = m(E) + \eps
+    \end{align*}
+    where the first equality follows from part (e),
+    since we can pad the union of the (pairwise disjoint) sets
+    $B_1$, \dots, $B_N$ into a countable union with copies of $\varnothing$;
+    and the second equality follows from $\bigcup_{k=1}^n B_n$
+    being in $\mathcal M$ as stated earlier. In summary,
+    \begin{equation*}
+	m\left(E\cap\bigcup_{n=1}^\infty A_n\right) +
+	m\left(E\cap\bigcap_{n=1}^\infty A_n^c\right)
+	\le m(E) + \eps
+    \end{equation*}
+    for every $\eps>0$, so the left-hand side is bounded above by $m(E)$.
+    Yet again the reverse inequality is true by subadditivity, so
+    $m(E\cap\bigcup_{n=1}^\infty A_n) + m(E\cap\bigcap_{n=1}^\infty A_n^c)
+    = m(E)$ for all $E$, which is what it means for
+    the union $\bigcup_{n=1}^\infty A_n$ to be in $\mathcal M$;
+    this proves that $\mathcal M$ is a $\sigma$-algebra.
+
+    To show that $\mu \equiv m|_{\mathcal M}$ is a measure,
+    we have $\mu(\varnothing) = 0$ by assumption and
+    if $A_1,A_2,\ldots\in\mathcal M$ are pairwise disjoint, then by (e)
+    \begin{equation*}
+	\mu\left(\bigcup_{n=1}^\infty A_n\right) =
+	\sum_{n=1}^\infty \mu(A_n).
+    \end{equation*}
+    This completes the proof that $(X,\mathcal M, \mu)$ is a measure space.\\
+
+    Finally, this measure space is complete:
+    given $A\in\mathcal M$ with $\mu(A) = 0$, any subset
+    $B\subseteq A$ has $m(B)\le m(A) = \mu(A)$,
+    which implies $m(B) = 0$, so by part (b), $B\in\mathcal M$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

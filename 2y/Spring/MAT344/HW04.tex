@@ -1,0 +1,321 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 344 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+\providecommand{\im}{\operatorname{im}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 344 HW04}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/24}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Let $f\colon\CC\to\CC$ be holomorphic.
+    Find a weaker condition than being bounded above on $\CC$
+    which implies that $f$ is constant, and give the proof.
+\end{problem}
+
+\begin{soln}
+    We will show that if $f\in\mathcal O(C)$
+    and there is a polynomial $p(z)$ of degree $N>0$ such that
+    \begin{equation*}
+	\lim_{\abs z\to\infty} \frac{f(z)}{p(z)} = 0,
+    \end{equation*}
+    then $f$ is a polynomial of degree at most $N-1$.
+    In particular, the $N=1$ case, in which $\frac{f(z)}{z}$ has limit zero,
+    is one criterion for being constant.
+    % The main idea is that any $f\in\mathcal O(\CC)$ can be represented as
+    % a power series that converges on all of $\CC$.
+    % For any $R > 0$, letting $\Omega = B_R(0)$ be
+    % the ball of radius $R$ centered at zero,
+    % we showed during the lecture on 02/11 that the power series
+    % \begin{equation*}
+    %     \sum_{n=1}^\infty \left(\frac 1{2\pi i}\int_{\partial\Omega}
+    %     \frac {f(\zeta)}{\zeta^{n+1}}\dd\zeta\right)z^n
+    % \end{equation*}
+    % converges to $f(z)$ for $z$ satisfying $\abs z < R$.
+    % Letting $R$ be arbitrarily large, we find that
+    % this power series converges for any $z$
+    % (noting that the integral defining the coefficients
+    % of the power series is independent of $R$;
+    % we showed this in HW01\#4 via a Green's theorem argument).
+
+    Let $f$ be as in the claim and suppose that
+    $a_0,a_1,\dots\in\CC$ are such that $f(z) = \sum_{n=0}^\infty a_nz^n$
+    in a neighborhood of $0$. The limit condition is equivalent to
+    \begin{equation*}
+	\lim_{\abs{z}\to\infty} \frac{f(z)}{p(z)}\cdot\frac{p(z)}{z^N} = 0
+    \end{equation*}
+    since the limit of $\frac{p(z)}{z^N}$ is the leading coefficient of $p$.
+    Define $q(z) = a_0 + a_1z + \cdots + a_{N-1}z^{N-1}$ and
+    \begin{equation*}
+	g(z) = \frac{f(z) - q(z)}{z^N}\in\mathcal O(\CC - \{0\}).
+    \end{equation*}
+    Since the degree of $q$ is smaller than $N$,
+    $g(z)$ also has limit zero as $\abs z$ grows arbitrarily large,
+    and $g$ extends to a holomorphic function
+    $\tilde g\in\mathcal O(\CC)$ by setting $\tilde g(0) = a_N$,
+    since $\tilde g(z) = a_Nz^N + a_{N+1}z^{N+1} + \cdots$
+    in a neighborhood of $0$.
+    The limit condition implies $\tilde g$ is bounded,
+    hence constant by Liouville's theorem, so
+    \[
+	\frac{f(z) - q(z)}{z^N} = \tilde g(z) = \tilde g(0) = a_N
+    \]
+    for all $z$, implying that
+    $f(z) = a_0 + a_1z + \cdots + a_{N-1}z^{N-1} + a_Nz^N$.
+    However, the only way that this is compatible with the limit
+    of $\frac{f(z)}{z^N}$ being zero is if $a_N = 0$,
+    proving the claim.
+\end{soln}
+
+\begin{problem}
+    Let $\gamma\colon S^1\to\CC$ be a regular curve,
+    possibly with self-intersections.
+    Show that for $a\notin\im\gamma$,
+    \begin{equation*}
+	\frac 1{2\pi i}\int_\gamma \frac{\dd z}{z-a}
+    \end{equation*}
+    is the number of times that $\gamma$ goes around $a$.
+\end{problem}
+
+\begin{soln}
+    Suppose without loss of generality that $a = 0$.
+    Let $\omega\colon S^1\equiv\RR/2\pi\ZZ\to\CC$ be defined by
+    $\omega(t) = \gamma(0)\cdot e^{i\theta}$. Recall that
+    $\omega$ generates the fundamental group $\pi_1(\CC-\{0\},\gamma(0))$,
+    so there exists an integer $d$ such that
+    $\gamma$ is path homotopic to $\omega$ concatenated with itself $d$ times
+    (or the reverse path $t\mapsto \omega(2\pi - t)$
+    is concatenated with itself $\abs d$ times, if $d < 0$);
+    this integer $d$ is what we will take to be
+    the ``number of times that $\gamma$ goes around $a$,''
+    where the sign tells us the orientation of the curve $\gamma$.
+    Since line integrals are invariant under path homotopy,
+    \begin{equation*}
+	\frac 1{2\pi i}\int_{\gamma}\frac{\dd z}z
+	= d\cdot \frac 1{2\pi i}\int_{\omega}\frac{\dd z}z = d
+    \end{equation*}
+    where the last equality is because $\omega$ is a parametrization
+    of the boundary of an open ball centered at $0$.
+\end{soln}
+
+\begin{problem}
+    Let $U\subseteq\CC$ be an open set.
+    Suppose $f\in\mathcal O(U)$.
+    Show that $f$ cannot have a local maximum in $U$
+    unless $f$ is constant.
+\end{problem}
+
+\begin{soln}
+    For any $z\in U$ and open ball $B\equiv B_r(z)\subseteq U$
+    centered at $z$ with radius $r$, Cauchy's integral formula says
+    \begin{equation*}
+	f(z) = \frac 1{2\pi i}\int_{\partial B}
+	\frac{f(\zeta)}{\zeta-z}\dd\zeta
+	= \frac 1{2\pi}\int_0^{2\pi} f(z + re^{i\theta})\dd\theta.
+    \end{equation*}
+    Taking magnitudes,
+    \begin{equation*}
+	\abs{f(z)} \le \frac 1{2\pi}\int_0^{2\pi}
+	\abs{f(z + re^{i\theta})}\dd\theta
+	\le \sup_{\theta\in[0,2\pi]} \abs{f(z+re^{i\theta})}
+    \end{equation*}
+    so there is a point on $\partial B$ whose image under $f$
+    is farther from $0$ than $f(z)$.
+    Since this argument works for any sufficiently small $r$,
+    we can find points $w$ arbitrarly close to $z$
+    such that $\abs{f(w)} > \abs{f(z)}$,
+    meaning $z$ is not a local maximum for $f$.
+\end{soln}
+
+\begin{problem}
+    Let $\Omega$ be a good domain, and suppose $f$ is holomorphic
+    on a neighborhood of $\ol\Omega$. Suppose $a\in\CC$ satisfies
+    $a\notin f(\partial\Omega)$.
+    \begin{enumerate}[(i)]
+        \ii Show that the number $N = N(a)$ of times
+	$a$ is taken in $\Omega$ (counting multiplicity) is given by
+	\begin{equation*}
+	    N = \frac 1{2\pi i}\int_{\partial\Omega}
+	    \frac{f'(\zeta)}{f(\zeta)-a}\dd\zeta.
+	\end{equation*}
+	\ii Let $z_1$, \dots, $z_N$ be the points in $\Omega$,
+	counting multiplicity, where $f=a$.
+	Show that if $g$ is holomorphic in a neighborhood of $\ol\Omega$, then
+	\begin{equation*}
+	    \sum_{k=1}^N g(z_k) = \frac 1{2\pi i}\int_{\partial\Omega}
+	    g(\zeta)\frac{f'(\zeta)}{f(\zeta)-a}\dd\zeta.
+	\end{equation*}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    We prove (ii), and then (i) follows from the special case $g \equiv 1$.
+    For each $z_k$, let $B_k$ be an open ball centered at $z_k$
+    which is contained in $\Omega$
+    and on which $f$ has a power series expansion centered at $z_k$.
+    Consider $\Lambda = \Omega - \bigcup_{k=1}^N B_k$:
+    since $f(\zeta) - a$ is nonzero on $\Lambda$,
+    Green's theorem implies that
+    \begin{equation*}
+	\frac 1{2\pi i}\int_{\partial\Lambda}
+	g(\zeta)\frac{f'(\zeta)}{f(\zeta)-a}\dd\zeta = 0,
+    \end{equation*}
+    so
+    \begin{equation*}
+	\frac 1{2\pi i}\int_{\partial\Omega}
+	g(\zeta)\frac{f'(\zeta)}{f(\zeta)-a}\dd\zeta
+	= \frac 1{2\pi i}\sum_{k=1}^N\int_{\partial B_k}
+	g(\zeta)\frac{f'(\zeta)}{f(\zeta)-a}\dd\zeta.
+    \end{equation*}
+    For a given $k\in\{1,\dots,N\}$ let $d_k$ be the unique integer
+    such that $f(z) - a = (z-z_k)^{d_k}h(z)$ for a function
+    $h\in\mathcal O(B_k)$ with $h(z_k)\ne 0$. Then
+    \begin{equation*}
+	\frac{f'(z)}{f(z) - a} = \frac{d_k(z-z_k)^{d_k-1}h(z)
+	+ (z-z_k)^{d_k}h'(z)}{(z-z_k)^{d_k}h(z)}
+	= \frac{d_k}{z-z_k} + \frac{h'(z)}{h(z)}.
+    \end{equation*}
+    In the integral,
+    \begin{equation*}
+	\int_{\partial B_k} g(\zeta)\frac{f'(\zeta)}{f(\zeta)}\dd\zeta
+	= \int_{\partial B_k} \frac{d_k g(\zeta)}{\zeta-z_k}
+	+ \frac{g(\zeta)h'(\zeta)}{h(\zeta)}\dd\zeta
+	= 2\pi i\cdot d_kg(z_k)
+    \end{equation*}
+    where, in the second integral, the first addend of the integrand
+    integrates to $2\pi i\cdot d_kg(z_k)$ by Cauchy's integral formula
+    and the second addend integrates to zero because
+    it is holomorphic on $B_k$.
+    Summing over all $k$ and dividing $2\pi i$ gives the desired result.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

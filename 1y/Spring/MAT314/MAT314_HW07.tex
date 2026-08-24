@@ -1,0 +1,277 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 322 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 314 HW07}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 314 HW07}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/29}
+\begin{document}
+\maketitle
+
+\begin{problem*}1.1.
+	Let $R$ be an integral domain that contains a field $F$
+	as a subring and that is finite-dimensional when viewed as
+	a vector space over $F$. Prove that $R$ is a field.
+\end{problem*}
+
+\begin{soln}
+	We show that any nonzero $r\in R$ has an inverse.
+	If $n$ is the dimension of the $F$-vector space $R$, then
+	$1$, $r$, \dots, $r^n$ is linearly dependent, satisfying some relation
+	$c_0 + c_1r + \cdots + c_nr^n = 0$. Let $k\ge 0$ be the smallest integer
+	for which $c_k\ne 0$; obviously $k<n$. Since $R$ is an integral domain
+	we can deduce that
+	\[c_k + c_{k+1}r + \cdots + c_nr^{n-k} = 0
+	\iff r\cdot (-c_k\inv)(c_{k+1} + c_{k+2}r + \cdots + c_n r^{n-k-1}) = 1\]
+	so that $r$ has an inverse (this exact manipulation is also used
+	in the following problem).
+\end{soln}
+
+\begin{problem*}2.2.
+	Let $f(x) = x^n - a_{n-1}x^{n-1} + \cdots + (-1)^n a_0$ be
+	an irreducible polynomial over $F$, and let $\alpha$ be a root of $f$
+	in the extension field $K$. Determine the element $\alpha\inv$ explicitly
+	in terms of $\alpha$ and the coefficients $a_i$.
+\end{problem*}
+
+\begin{soln}
+	Since $f$ is irreducible over $F$, $a_0$ must be nonzero.
+	Then, $f(\alpha)=0$ so
+	\[-\frac{(-1)^n}{a_0}(f(\alpha) - (-1)^n a_0) = 1.\]
+	so the inverse of $\alpha$ is $-(-1)^na_0\inv\cdot
+	(\alpha^{n-1} - a_{n-1}\alpha^{n-2} + \cdots + (-1)^{n-1}a_1)$,
+	factoring out $\alpha$ from $f(\alpha) - (-1)^na_0$.
+\end{soln}
+
+\begin{problem*}3.1.
+	Let $F$ be a field, and let $\alpha$ be an element that generates
+	a field extension of $F$ of degree $5$.
+	Prove that $\alpha^2$ generates the same extension.
+\end{problem*}
+
+\begin{soln}
+	Obviously $\alpha^2\in F(\alpha)$, so $F(\alpha^2)\subseteq F(\alpha)$.
+	On the other hand,
+	\[[F(\alpha):F(\alpha^2)][F(\alpha^2):F] = 5\]
+	and $\alpha$ is a root of the quadratic polynomial
+	$p(X) = X^2 - \alpha^2\in F(\alpha^2)[X]$, so the degree of $F(\alpha)$
+	over $F(\alpha^2)$ is either $1$ or $2$; being a divisor of $5$,
+	the degree must be $1$, and so $F(\alpha) = F(\alpha^2)$.
+\end{soln}
+
+\begin{problem*}8.1.
+	Prove that every finite extension of a finite field has a primitive element.
+\end{problem*}
+
+\begin{soln}
+	Let $K$ be a finite extension of the finite field $\FF_q$,
+	with $q = p^m$ and $|K| = p^n$ for prime $p$ and positive integers $m$, $n$.
+	Then, if $\alpha$ generates the cyclic group $K^\times$,
+	we can see that $\FF_q(\alpha)$ on one hand contains $K$
+	(since it contains $K^\times$, of course)
+	but on the other hand is contained in $K$ because $\FF_q\subseteq K$
+	and $\alpha\in K$, so $\alpha$ is a primitive element for the extension.
+\end{soln}
+
+\begin{problem*}10.1.
+	Prove that the subset of $\CC$ consisting of the algebraic numbers
+	is algebraically closed.
+\end{problem*}
+
+\begin{soln}
+	Let $\ol\QQ$ be the set of algebraic numbers
+	and let $p(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_0$
+	be a polynomial with coefficients in $\ol\QQ$. Then,
+	$p$ has coefficients in the finite extension $K=\QQ(a_0,\dots,a_{n-1})$
+	of $\QQ$. We wish to show that the roots of $p$ are also algebraic numbers,
+	i.e. are contained in a finite extension of $\QQ$.
+	If $\beta$ is any root of $p$, then $K(\beta)= \QQ(a_0,\dots,a_{n-1},\beta)$
+	is spanned by $\{v_i\beta^j : 0\le i< m,\;0\le\beta < n\}$
+	over $\QQ$ where $\{v_1, \dots, v_m\}$ is a basis for $K$.
+	Thus $K(\beta)$ is a finite extension of $\QQ$,
+	so $\beta$ is an algebraic number, hence any root of a polynomial
+	with algebraic number coefficients is also algebraic.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

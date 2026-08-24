@@ -1,0 +1,318 @@
+% TODO make hw stylesheet
+
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 535 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\tensor}{\otimes}
+\renewcommand{\hom}{\operatorname{Hom}}
+\providecommand{\tor}{\operatorname{Tor}}
+\providecommand{\Gal}{\operatorname{Gal}}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 535 HW07}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/02}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [\S13.6\#5]
+    Prove that there are finitely many roots of unity
+    in any finite extension $K$ of $\QQ$.
+\end{problem}
+
+\begin{soln}
+    Let $L$ be the Galois closure of $K$ over $\QQ$,
+    which is also a finite extension of $\QQ$.
+
+    \begin{lemma}
+        For each positive integer $k$, $\varphi(n) = k$
+	has finitely many positive integer solutions $n$.
+    \end{lemma}
+    \begin{proof}
+	Let $p$ be a prime number and $e$ a positive integer.
+	If $p > 3$, then
+	\begin{equation*}
+	    \varphi(p^e) = p^{e-1}(p-1) > \frac{p^e}2 > \sqrt{p^e},
+	\end{equation*}
+	and if $p \le 3$ then $\varphi(p^e) \ge\frac{\sqrt{p^e}}2$ instead.
+	Thus, for an arbitrary positive integer $n$
+	with prime factorization $n = p_1^{e_1}\cdots p_r^{e_r}$
+	for distinct primes $p_j$ and positive integers $e_j$,
+	\begin{equation*}
+	    \varphi(n) = \prod_{j=1}^r \varphi(p_j^{e_j})
+	    \ge \frac 14\prod_{j=1}^n \sqrt{p_j^{e_j}} = \frac{\sqrt n}4.
+	\end{equation*}
+	In other words, if $\varphi(n) = k$, then
+	$k\ge\frac{\sqrt n}4$ implies $n \le 16k^2$,
+	and there are only finitely many such $n$.
+	(The constant $16$ can be improved to $2$
+	with a little bit more care
+	when analyzing $p = 2,3$;
+	in particular $\varphi(3^e) > \sqrt{3^e}$ for all $e$
+	and $\varphi(2^e) \ge \sqrt{2^e}$ when $e > 1$,
+	so the only obstruction to a lower bound of $\varphi(n)\ge \sqrt n$     
+	is $\varphi(2) = 1 < \sqrt 2$,
+	giving the inequality $\varphi(n) \ge \sqrt{\frac n2}$
+	which is sharp if and only if $n = 2$.)
+    \end{proof}
+
+    Each root of unity $\zeta_m\in K$ with multiplicative order $m$
+    generates the Galois subextension $\QQ(\zeta_m)$ of $L$.
+    By the fundamental theorem of Galois theory, $\Gal(\QQ(\zeta_m)/\QQ)$,
+    which has order $\varphi(m)$,
+    is a quotient of the finite group $\Gal(L/\QQ)$,
+    so $\varphi(m)$ must divide its order $N$.
+    By the lemma, only finitely many positive integers $m$
+    have the property that $\varphi(m)$ divides $N$,
+    so only finitely many roots of unity can be in $K$.
+    (This also yields a crude upper bound of
+    \begin{equation*}
+	\sum_{\substack{m\in\NN\\ \varphi(m)\mid N}} \varphi(m)
+    \end{equation*}
+    for the number of roots of unity in $K$,
+    since $\zeta_m$ has $\varphi(m)$ Galois conjugates.)
+\end{soln}
+
+\begin{problem}
+    [\S13.6\#7]
+    Use the M\"obius inversion formula to show that
+    \begin{equation*}
+	\Phi_m(x) = \prod_{d\mid n}(x^d - 1)^{\mu(n/d)}.
+    \end{equation*}
+\end{problem}
+
+\begin{proof}
+    The M\"obius inversion formula in its usual (additive) form says that
+    for functions $f,F\colon\NN\to\CC$,
+    \begin{equation*}
+	F(n) = \sum_{d\mid n}f(d) \iff
+	f(n) = \sum_{d\mid n}F(d)\mu(n/d).
+    \end{equation*}
+    By exponentiating, we get the identity 
+    \begin{equation*}
+	F(n) = \prod_{d\mid n} f(d)\iff
+	f(n) = \prod_{d\mid n} F(d)^{\mu(n/d)},
+    \end{equation*}
+    which gives the desired equation
+    by taking $F(n) = x^n - 1$ and $f(n) = \Phi_n(x)$ since, by definition,
+    \begin{equation*}
+	x^n - 1 = \prod_{d\mid n}\Phi_d(x).\qedhere
+    \end{equation*}
+\end{proof}
+
+\pagebreak
+
+\begin{problem}
+    [\S14.3\#2]
+    Write out the multiplication tables for $\FF_4$ and $\FF_8$.
+\end{problem}
+
+\begin{soln}
+    The group of units of $\FF_4$ is cyclic of order $3$,
+    so write $\FF_4 = \{0, 1, a, a^2\}$ where $a$
+    generates the group of units. Then the multiplication table is
+    \begin{center}
+	\begin{tabular}{c | cccc}
+	    & $0$ & $1$ & $a$ & $a^2$\\
+	    \hline
+	    $0$ & $0$ & $0$ & $0$ & $0$\\
+	    $1$ & $0$ & $1$ & $a$ & $a^2$\\
+	    $a$ & $0$ & $a$ & $a^2$ & $1$\\
+	    $a^2$ & $0$ & $a^2$ & $1$ & $a$
+	\end{tabular}
+    \end{center}
+    Similarly, the group of units of $\FF_8$ is cyclic of order $7$,
+    so write $\FF_8 = \{0, 1, b, \dots, b^6\}$
+    where $b$ generates the group of units.
+    Then the multiplication table is
+    \begin{center}
+	\begin{tabular}{c|cccccccc}
+	    &$0$&$1$&$b$&$b^2$&$b^3$&$b^4$&$b^5$&$b^6$\\
+	    \hline
+	    $0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$\\
+	    $1$&$0$&$1$&$b$&$b^2$&$b^3$&$b^4$&$b^5$&$b^6$\\
+	    $b$&$0$&$b$&$b^2$&$b^3$&$b^4$&$b^5$&$b^6$&$1$\\
+	    $b^2$&$0$&$b^2$&$b^3$&$b^4$&$b^5$&$b^6$&$1$&$b$\\
+	    $b^3$&$0$&$b^3$&$b^4$&$b^5$&$b^6$&$1$&$b$&$b^2$\\
+	    $b^4$&$0$&$b^4$&$b^5$&$b^6$&$1$&$b$&$b^2$&$b^3$\\
+	    $b^5$&$0$&$b^5$&$b^6$&$1$&$b$&$b^2$&$b^3$&$b^4$\\
+	    $b^6$&$0$&$b^6$&$1$&$b$&$b^2$&$b^3$&$b^4$&$b^5$\\
+        \end{tabular}
+    \end{center}
+\end{soln}
+
+\begin{problem}
+    [\S14.3\#8]
+    Determine the splitting field for the polynomial $x^p - x - a$
+    over $\FF_p$ where $a\in\FF_p^\times$. Show explicitly
+    that the Galois group is cyclic.
+\end{problem}
+
+\begin{proof}
+    We have shown on previous homework that if $f(x) = x^p - x - a$
+    does not have any roots in a given field $K$ of characteristic $p$
+    then it is irreducible, and that if $f(x)$ has any root
+    $\alpha\in K$ then it splits in $K$,
+    with the roots of $f(x)$ being $\alpha + j$, $j\in\FF_p$.
+
+    Since $y^p - y = 0\ne a$ for any $y\in\FF_p$,
+    $f(x)$ is irreducible over $\FF_p[x]$.
+    Then $K = \FF_p[x]/(f(x))$ contains a root $\ol x$
+    (the image of $x$ under the projection)
+    of $f(x)$, so $f(x)$ splits in this field.
+    Moreover $K = \FF_p(\ol x)$ is generated by
+    the roots of $x^p - x - a$, so $K$ is the splitting field of $f(x)$.
+    By construction, $[K : F] = \deg(f) = p$, hence $K = \FF_{p^p}$.
+    We noted above that the roots of $f(x)$ are
+    $\ol x + j$ for $j\in\FF_p$.
+    I claim that the maps $\varphi_j\colon K\to K$ defined by
+    \begin{equation*}
+	\varphi_j(a_0 + a_1\ol x + \cdots + a_{p-1}\ol x^{p-1})
+	= a_0 + a_1(\ol x + j) + \cdots + a_{p-1}(\ol x + j)^{p-1}
+    \end{equation*}
+    for $a_0,\dots,a_{p-1}\in\FF_p$ are the automorphisms of $K$.
+    To see this, observe that
+    \begin{align*}
+	\varphi_a(a_0 + a_1\ol x + \cdots + a_{p-1}\ol x^{p-1})
+	&= a_0 + a_1(\ol x + a) + \cdots + a_{p-1}(\ol x + a)^{p-1}\\
+	&= a_0 + a_1\ol x^p + \cdots + a_{p-1}\ol x^{p(p-1)}\\
+	&= (a_0 + a_1\ol x + \cdots + a_{p-1}\ol x^{p-1})^p,
+    \end{align*}
+    which is the Frobenius automorphism,
+    and for any other $j\in\FF_p$,
+    we can write $j = na$ for some $n\in\FF_p$
+    to get $\varphi_j = \varphi_a^n$, so that
+    $\varphi_a$ generates a cyclic subgroup of $\Gal(K/\FF_p)$
+    of order $p$. Since $[K : \FF_p] = p$, this implies
+    $\Gal(K/\FF_p)$ is equal to $\langle \varphi_a\rangle$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\end{document}

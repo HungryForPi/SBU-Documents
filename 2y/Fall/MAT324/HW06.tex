@@ -1,0 +1,536 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 324 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 324 HW06}
+\author{\large Aditya Pahuja}
+\date{\large Due 10/09}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Denote by $\lambda$ the Lebesgue measure on $\RR$.
+    \begin{enumerate}[(a)]
+        \ii Suppose $f\colon\RR\to\RR$ is continuous and compactly supported.
+	Show that
+	\begin{equation*}
+	    \lim_{t\to0} \int_\RR \abs{f(x+t) - f(x)}\dd\lambda = 0.
+	\end{equation*}
+	\ii Suppose $f\in\mathcal L^1(\RR)$. Show that
+	\begin{equation*}
+	    \lim_{n\to\infty} \int_\RR f(x)\cos(nx)\dd\lambda = 0
+	    \quad\text{and}\quad
+	    \lim_{n\to\infty} \int_\RR f(x)\sin(nx)\dd\lambda = 0,
+	\end{equation*}
+	explaining along the way why the above integrals are well-defined.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since the support of $f$ is compact, $f$ is uniformly continuous.
+    Let $U=(a,b)$, with $a,b\in\RR$, $a<b$, be an open interval
+    containing the (compact, hence bounded) support of $f$
+    and let $\eps > 0$. Uniform continuity means there exists $\delta > 0$
+    such that $\abs{f(x+t) - f(x)} < \eps/\abs U$
+    for all $x,t\in\RR$ such that $t<\delta$.
+    Also, $\inf\operatorname{supp}f > a$, so let $\delta'$ be the difference
+    $\inf\operatorname{supp}f - a$.
+    If $t < \min\{\delta,\delta'\}$, then
+    \begin{equation*}
+	\int_\RR \abs{f(x+t)-f(x)}\dd\lambda
+	= \int_U \abs{f(x+t)-f(x)}\dd\lambda
+	+ \int_{\RR\setminus U}\underbrace{\abs{f(x+t)-f(x)}}_{0-0=0}\dd\lambda
+	< \int_U \frac{\eps}{\abs U}\dd\lambda = \eps,
+    \end{equation*}
+    which implies that the limit as $t$ approaches $0$
+    of the left-hand integral is zero.
+    \\
+
+    (b) First, if $b\colon\RR\to\RR$ is a Lebesgue measurable function
+    with $\abs{b(x)}\le 1$ for all $x\in\RR$, then $\abs{fb}\le \abs f$, so
+    \begin{equation*}\tag{$\dagger$}
+	\int_{\RR}\abs{fb}\dd\lambda \le \int_\RR\abs f\dd\lambda
+	= \norm{f}_1 < \infty,
+    \end{equation*}
+    meaning $fb\in\mathcal L^1(\RR)$. Taking $b(x) = \cos(nx), \sin(nx)$
+    shows that $f(x)\cos(nx)$ and $f(x)\sin(nx)$ are in $\mathcal L^1(\RR)$.
+
+    Given $f\in\mathcal L^1(\RR)$, let $(*)$ be the assertion that
+    $\lim_{n\to\infty}\int_\RR f(x)\cos(nx)\dd\lambda = 0$.
+    We first show that $(*)$ holds if $f = \ind_I$ for some interval
+    $I$ with endpoints $a,b\in\RR$ where $a<b$. We can compute
+    \begin{align*}
+	\abs{\int_\RR \ind_I\cos(nx)\dd\lambda} =
+	\abs{\int_a^b\cos(nx)\dd\lambda}
+	= \frac 1n\abs{\sin(nb) - \sin(na)} \le \frac 2n
+    \end{align*}
+    so, in the limit, the left-hand side is zero, which proves $(*)$.
+    In turn, we can easily see that $(*)$ also holds for
+    ``step functions'' of the form $\sum_{j=1}^m a_j\ind_{I_j}$
+    where $I_1,\dots,I_m\subseteq\RR$ are intervals
+    and $a_1,\dots,a_m\in\RR$.
+
+    Now, we prove $(*)$ for compactly supported continuous functions $f$.
+    Let $\eps>0$;
+    since $f$ is Riemann integrable on an interval $I$ containing
+    $\operatorname{supp}f$ there exists a step function $f_\eps\colon\RR\to\RR$
+    for which $f_\eps \le f$ and
+    \begin{equation*}
+	\norm{f-f_\eps}_1 = \abs{\int_If\dd\lambda -\int_I f_\eps\dd\lambda} < \eps
+    \end{equation*}
+    (so $f_\eps$ corresponds to a partition $\mathcal P$ of $I$ into intervals
+    such that $L(f,P)$ is within $\eps$ of $\int_If\dd\lambda$).
+    By $(\dagger)$ and the triangle inequality for $\norm{\bullet}_1$,
+    \begin{equation*}
+	\norm{f\cos(nx)}_1
+	\le \norm{(f-f_\eps)\cos(nx)}_1 + \norm{f_\eps\cos(nx)}_1
+	\le \norm{f-f_\eps} + \norm{f_\eps\cos(nx)}_1
+	< \eps + \norm{f_\eps\cos(nx)}_1.\tag{$**$}
+    \end{equation*}
+    Taking the limit, we have via $(*)$ for step functions that for every $\eps>0$,
+    \begin{equation*}
+	\lim_{n\to\infty}\norm{f\cos(nx)}_1 \le
+	\eps + \lim_{n\to\infty}\norm{f_\eps}_1 \overset{(*)}= \eps.
+    \end{equation*}
+    This shows that the limit on the left is zero,
+    proving $(*)$ for compactly supported continuous functions.
+
+    Finally, let $f\in\mathcal L^1(\RR)$ be arbitrary.
+    Let $\eps > 0$; by Axler's 3.48, there exists a
+    compactly supported continuous function $g_\eps\colon\RR\to\RR$ such that
+    $\norm{f-g_\eps}_1 < \eps$. Then, the inequality $(**)$ holds here
+    with $g_\eps$ in place of $f_\eps$, which as above implies that
+    \begin{equation*}
+	\lim_{n\to\infty}\norm{f\cos(nx)}_1 \le
+	\eps + \lim_{n\to\infty}\norm{g_\eps}_1 \overset{(*)}= \eps
+	\implies \lim_{n\to\infty}\norm{f\cos(nx)}_1 = 0,
+    \end{equation*}
+    this time using $(*)$ for compactly supported continuous functions
+    to extract $(*)$ in the generic case.
+    \\
+
+    The last thing to do is to prove the corresponding result with $\sin$.
+    Since $\sin(x) = \cos(\frac\pi2 - x) = \cos(x - \frac\pi2)$
+    and Lebesgue measure is translation invariant,
+    \begin{equation*}
+	\int_{\RR} f(x)\sin(nx)\dd\lambda =
+	\int_{\RR}f\left(x-\frac\pi{2n}\right)
+	\sin\left(n\left(x-\frac\pi{2n}\right)\right)\dd\lambda
+	= \int_{\RR}f\left(x-\frac\pi{2n}\right)\cos(nx)\dd\lambda.
+    \end{equation*}
+    If $f_n(x) \coloneq f(x - \frac\pi{2n})$ then,
+    similarly to the first part of the bound in $(**)$
+    (with $f_n$ in place of $f_\eps$),
+    \begin{align*}
+	\lim_{n\to\infty}\norm{f\sin(nx)}
+	&= \lim_{n\to\infty} \norm{f_n\cos(nx)}_1\\
+	&\le \lim_{n\to\infty} \norm{f_n\cos(nx) - f\cos(nx)}_1
+	+ \underbrace{\lim_{n\to\infty} \norm{f\cos(nx)}_1}_{0}
+	\le \lim_{n\to\infty}\norm{f - f_n} \overset{\text{(a)}}= 0.\qedhere
+    \end{align*}
+\end{soln}
+
+\begin{problem}
+    [Axler 4A \#1,2]
+    \begin{enumerate}[(a)]
+        \ii Suppose $(X,\mathcal S,\mu)$ is a measure space and
+	$f\colon X\to\RR$ is an $\mathcal S$-measurable function. Prove that
+	\begin{equation*}
+	    \mu(\{x\in X : \abs{f(x)}\ge c\}) \le
+	    \frac 1{c^p}\int_X\abs f^p\dd\mu
+	\end{equation*}
+	for all positive numbers $c$ and $p$.
+	\ii Suppose $(X,\mathcal S,\mu)$ is a measure space
+	with $\mu(X) = 1$ and $f\in\mathcal L^1(\mu)$. Prove that
+	\begin{equation*}
+	    \mu\left(\left\{x\in X: \abs{f(x) - \int_X f\dd\mu} \ge c\right\}\right)
+	    \le \frac1{c^2}\left(\int_Xf^2\dd\mu - \left(\int_Xf\dd\mu\right)^2\right).
+	\end{equation*}
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since $c$ and $p$ are positive, $\abs{f(x)}\ge c$ if and only if
+    $\abs{f(x)}^p\ge c^p$; thus,
+    \begin{equation*}
+	c^p\mu(\{x\in X : \abs{f(x)}\ge c\})
+	= c^p\mu(\{x\in X : \abs{f(x)}^p\ge c^p\}) =
+	\int_Xc^p\ind_{\{x\in X : \abs{f(x)}^p\ge c^p\}}\dd\mu
+	\le \int_X\abs{f}^p\dd\mu.
+    \end{equation*}
+
+    (b) Let $M = \int_Xf\dd\mu$. Using (a), we can compute
+    \begin{align*}
+        \mu\left(\left\{x\in X: \abs{f(x) - M} \ge c\right\}\right)
+	&\le \frac 1{c^2}\int_X\left(f - M\right)^2\dd\mu
+	= \frac 1{c^2}\int_X(f^2 - 2Mf + M^2)\dd\mu\\
+	&= \frac1{c^2}\left(\int_Xf^2\dd\mu - 2M\int_Xf\dd\mu + \int_XM^2\dd\mu\right)\\
+	&= \frac1{c^2}\left(\int_Xf^2\dd\mu - 2M^2 + M^2\mu(X)\right)
+	= \frac1{c^2}\left(\int_Xf^2\dd\mu - M^2\right)\qedhere.
+    \end{align*}
+\end{soln}
+\pagebreak
+
+\begin{problem}
+    [Axler 4A \#12,13]
+    \begin{enumerate}[(a)]
+	\ii Show that $\abs{\{b\in\RR : f^*(b) = \infty\}} = 0$
+	for every $f\in\mathcal L^1(\RR)$.
+	\ii Show that there exists $f\in\mathcal L^1(\RR)$ such that
+	$f^*(b) = \infty$ for very $b\in\QQ$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since $\{b\in\RR : f^*(b) = \infty\} =
+    \bigcap_{n=1}^\infty \{b\in\RR : f^*(b) > n\}$,
+    Axler's 4.8 implies that for all $n\in\NN$,
+    \begin{equation*}
+	\abs{\{b\in\RR : f^*(b) = \infty\}} \le
+	\abs{\{b\in\RR : f^*(b) > n\}} \le \frac 3n\norm f_1,
+    \end{equation*}
+    which means $\abs{\{b\in\RR : f^*(b) = \infty\}} = 0$.
+    \\
+
+    (b) Let $\{q_1,q_2,\dots\} = \QQ$ and,
+    for $n,k\in\NN$, let $I_{n,k} = (q_n - 2^{-k}, q_n + 2^{-k})$.
+    Then, define $f\colon\RR\to\RR$ by
+    \begin{equation*}
+	f_n = 2^{-n}\sum_{k=1}^\infty \ind_{I_{n,k}}.
+    \end{equation*}
+    For any $m\in\NN$, since $I_{n,m}$ is centered at $q_n$,
+    \begin{equation*}
+	f^*_n(q_n) \ge \frac 1{\abs{I_{n,m}}}\int_{I_{n,m}}f_n\dd\lambda
+	\ge \frac 1{\abs{I_{n,m}}}
+	\int_{I_{n,m}}\left(2^{-n}\sum_{k=1}^m \ind_{I_{n,k}}\right)\dd\lambda
+	= \frac{1}{\abs{I_{n,m}}}\cdot 2^{-n}\cdot m\cdot\abs{I_{n,m}} = 2^{-n}m,
+    \end{equation*}
+    which implies that $f^*_n(q_n) = \infty$.
+    Now define $f = \sum_{n=1}^\infty f_n$.
+    This function is in $\mathcal L^1(\RR)$ because
+    \begin{equation*}
+	\int_\RR f\dd\mu = \sum_{n=1}^\infty \int_\RR f_n\dd\mu
+	= \sum_{n=1}^\infty \left(2^{-n}\sum_{k=1}^\infty \abs{I_{n,k}}\right)
+	= \sum_{n=1}^\infty \left(2^{-n}\sum_{k=1}^\infty 2^{-k+1}\right)
+	= \sum_{n=1}^\infty 2^{-n}\cdot 2 = 2 < \infty.
+    \end{equation*}
+    Furthermore, since $0\le f_n \le f$ for all $n$,
+    \begin{equation*}
+	f^*(q_n) = \sup_{t\ge0} \frac 1{2t}\int_{[q_n-t,q_n+t]} f\dd\lambda
+	\ge \sup_{t\ge0} \frac 1{2t}\int_{[q_n-t,q_n+t]} f_n\dd\lambda
+	= f^*_n(q_n) = \infty,
+    \end{equation*}
+    which means $f^*$ is $\infty$ on $\QQ$,
+    so $f$ has the desired properties.
+\end{soln}
+
+\begin{problem}
+    [Axler 4A \#9, 4B\#5]
+    \begin{enumerate}[(a)]
+        \ii Suppose $f\colon\RR\to\RR$ is Lebesgue measurable. Prove that
+	\begin{equation*}
+	    \{b\in\RR : f^*(b) > c\}
+	\end{equation*}
+	is an open subset of $\RR$ for every $c\in\RR$.
+	\ii Suppose $f\colon\RR\to\RR$ is a Lebesgue measurable function.
+	Prove that $\abs{f(b)} \le f^*(b)$
+	for almost every $b\in\RR$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) We show the equivalent statement that $A = \{b\in\RR : f^*(b) \le c\}$
+    is closed in $\RR$. Let $b_1,b_2,\ldots\in A$ be a sequence of points
+    converging to $b\in\RR$.
+    Let $U$ be an open interval $(b-r,b+r)$ centered at $b$ with radius $r$
+    and for each $n\in\NN$, let $U_n$ be the smallest open interval
+    containing $U$ that is centered at $b_n$,
+    i.e. $U_n = (b_n - (r + \abs{b - b_n}), b_n + (r + \abs{b - b_n}))$.
+    Since $b_n\in A$, we can bound $\int_{U_n}\abs f\dd\lambda \le c\abs{U_n}$, so
+    \begin{equation*}
+	\frac 1{\abs U}\int_U\abs f\dd\lambda
+	\le \frac 1{\abs U}\int_{U_n}\abs f\dd\lambda
+	\le \frac 1{\abs U}\cdot c\abs{U_n}
+    \end{equation*}
+    for all $n\in\NN$. Since $b_n$ converges to $b$,
+    $\abs{U_n} = \abs U + 2(b - b_n)$ converges to $\abs U$,
+    so the right-hand side converges to $\frac 1{\abs U}\cdot c\abs U = c$,
+    meaning the left-hand side is bounded above by $c$
+    for every open interval $U$ centered at $b$.
+    This means $b\in A$, so $A$ contains all of its limit points
+    and must be closed.
+    \\
+
+    (b) If $f^*(b) = \infty$ everywhere then the inequality holds automatically.
+    Otherwise, there exists $b$ such that $f^*(b) < \infty$, meaning
+    $\frac 1{2t}\int_{(b-t,b+t)} \abs f\dd\lambda$
+    is finite for all $n\in\NN$. Thus, if $U_n = (b - n, b + n)$,
+    then $f|_{U_n}\in\mathcal L^1(\RR)$. By Axler's 4.21 on $f|_{U_n}$,
+    \begin{equation*}
+	\abs{f(b)} = \abs{f|_{U_n}(b)} =
+	\lim_{t\to0^+}\frac 1{2t}\int_{(b-t,b+t)} \abs{f|_{U_n}(b)}\dd\lambda
+	\le \sup_{t>0} \frac 1{2t}\int_{(b-t,b+t)} \abs{f(b)}\dd\lambda = f^*(b).
+    \end{equation*}
+    for almost all $b\in U_n$; let $U^*_n$ be the set of all such $b$.
+    Then, $\bigcup_{n=1}^\infty U^*_n$ contains almost every point of $\RR$
+    because its complement is the intersection of measure-zero sets
+    $\bigcap_{n=1}^\infty (\RR\setminus U^*_n)$; this finishes the proof.
+\end{soln}
+
+\begin{problem}
+    Let $A\subseteq\RR$ be a Lebesgue measurable subset
+    and denote by $\lambda$ the Lebesgue measure on $\RR$.
+    \begin{enumerate}[(a)]
+        \ii Suppose $\abs A<\infty$ and $a\in\RR$ is such that
+	the density $\delta_A(a)\in[0,1]$ of $A$ at $a$
+	is defined and $\delta_A(a)\in\{0,1\}$. Define $g_A\colon\RR\to\RR$ by
+	\begin{equation*}
+	    g_A(x) = \int_{(-\infty,x)}\ind_A\dd\lambda.
+	\end{equation*}
+	Show that $g'_A(a)$ exists and equals $\delta_A(a)$.
+	\ii Suppose $\delta_A(a) = 1$ for every $a\in A$ and
+	$\delta_A(a) = 0$ for every $a\in\RR\setminus A$.
+	Show that $A = \varnothing$ or $A = \RR$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) If $\delta_A(a) = 0$, then the one-sided limits
+    \begin{equation*}
+	\lim_{t\to0^+} \frac{\abs{A\cap (a-t,a)}}{2t},\quad
+	\lim_{t\to0^+} \frac{\abs{A\cap (a,a+t)}}{2t}
+    \end{equation*}
+    must both exist and equal $0$ because we can bound
+    \begin{equation*}
+	0\le\liminf_{t\to0^+} \frac{\abs{A\cap(a-t,a)}}{2t} \le
+	\limsup_{t\to0^+}\frac{\abs{A\cap(a-t,a)}}{2t}\le
+	\limsup_{t\to0^+} \frac{\abs{A\cap(a-t,a+t)}}{2t} = \delta_A(a) = 0
+    \end{equation*}
+    and similarly with $\frac{\abs{A\cap(a,a+t)}}{2t}$.
+    This implies immediately that $g'_A(a)$ exists and equals $\delta_A(a) = 0$.
+
+    If $\delta_A(a) = 1$, then for any $\eps>0$,
+    there exists $\delta>0$ such that $0 < t < \delta$ implies
+    \begin{equation*}
+        1-\eps < \frac{\abs{A\cap (a-t,a+t)}}{2t}
+	= \frac{\abs{A\cap (a-t,a)}}{2t} + \frac{\abs{A\cap (a,a+t)}}{2t}.
+    \end{equation*}
+    The two addends on the right are both bounded above by $\half$,
+    so they must be bounded below by $\half - \eps$; therefore,
+    \begin{equation*}
+	\half - \eps \le\liminf_{t\to0^+} \frac{\abs{A\cap (a-t,a)}}{2t}
+	\le \liminf_{t\to0^+} \frac{\abs{A\cap (a,a+t)}}{2t} \le \half.
+    \end{equation*}
+    Since this hold s for every $\eps>0$,
+    we get $\lim_{t\to0^+}\frac{\abs{A\cap (a-t,a)}}{2t} = \half$.
+    By the same logic $\lim_{t\to0^+}\frac{\abs{A\cap (a,a+t)}}{2t} = \half$.
+    The existence and equality of these one-sided limit
+    implies that $g'_A(a)$ exists and equals $\delta_A(a)$.
+    \\
+
+    (b) Let $U_a$ be an open interval centered at $a\in A$
+    so that $A\cap U_a$ has finite measure, and then define
+    \begin{equation*}
+	g_a(x) = \int_{(-\infty, x)} \ind_{A\cap U_a}\dd\lambda.
+    \end{equation*}
+    By (a) and the given information about $\delta_A$,
+    $g_a'(x) = \delta_{A\cap U_a}(x) = \delta_A(x) = \ind_A(x)$
+    for all $x\in U_a$.
+
+    Recall the intermediate value theorem for derivatives:
+    \begin{theorem*}[IVT for derivatives]
+        Let $I\subseteq\RR$ be an open interval and let
+	$f\colon I\to\RR$ be differentiable on $I$.
+	If $a,b\in I$ are such that $f'(a)<f'(b)$,
+	then the interval $[f'(a),f'(b)]$ is contained in the image $f'(I)$.
+    \end{theorem*}
+    We know that $g' = \ind_A|_{U_a}$ only takes on the values $0$ and $1$, so
+    according to the theorem above, it must be constant on $U_a$,
+    since otherwise $g'$ would have to take on every value in $[0,1]$.
+    This means $\ind_A$ is constant on each $U_a$,
+    i.e. it is locally constant, hence constant because $\RR$ is connected.
+    Therefore, $\ind_A$ is either $0$ everywhere, in which case $A = \varnothing$,
+    or $\ind_A$ is $1$ everywhere, in which case $A = \RR$.
+\end{soln}
+
+\begin{problem}
+    Let $A,B\subseteq\RR$ be Lebesgue measurable subsets.
+    \begin{enumerate}[(a)]
+        \ii Suppose $a,b\in\RR$ are such that the densities
+	$\delta_A(a),\delta_B(b)\in[0,1]$ of $A$ at $a$ and $B$ at $b$,
+	respectively, are defined and $\delta_A(a) + \delta_B(b) > 1$.
+	Show that the subset
+	\begin{equation*}
+	    A + B \coloneq \{ x + y : x\in A, y\in B \}
+	\end{equation*}
+	contains an open interval around $a+b$.
+	\ii Show that for alomst all $a\in A$ and almost all $b\in B$
+	the subset $A+B\subseteq\RR$ contains an open interval around $a+b$.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Since Lebesgue measure is translation invariant,
+    we can assume by translating $A$ and $B$ that $a=b=0$.
+    Then, supposing for the sake of contradiction that
+    $A+B$ does not contain an open interval around $a+b=0$,
+    let $\eps>0$ and let $t_\eps\in (-\eps,\eps)$
+    be a number not contained in $A+B$.
+    
+    Let $t > 0$. If $x\in A\cap(-t,t)$ then
+    $t_\eps - x\in B^c\cap (-t-t_\eps, t+t_\eps)$
+    where $B^c = \RR\setminus B$, so
+    \begin{equation*}
+	\abs{B^c\cap(-t-t_\eps,t+t_\eps)}
+	\ge \abs{\{t_\eps - x : x\in A\cap(-t,t)\}}
+	= \abs{A\cap (-t,t)}
+    \end{equation*}
+    where the equality comes from translation invariance.
+    This implies that
+    \begin{align*}
+	\abs{B\cap (-t,t)}
+	\le \abs{B\cap(-t-t_\eps, t+t_\eps)}
+	&\le 2(t+t_\eps) - \abs{B^c\cap(-t-t_\eps, t+t_\eps)}
+	\le 2(t+\eps) - \abs{A\cap(-t,t)}\\
+	\iff &\abs{A\cap(-t,t)} + \abs{B\cap(-t,t)} < 2t + 2\eps\\
+	\iff &\frac{\abs{A\cap(-t,t)} + \abs{B\cap(-t,t)}}{2t} \le 1 + \frac\eps t.
+    \end{align*}
+    Since this holds for all $\eps>0$, this means the upper bound
+    can be strengthened to $1$, so
+    \begin{equation*}
+	\delta_A(0) + \delta_B(0)
+	= \lim_{t\to 0^+} \frac{\abs{A\cap(-t,t)} + \abs{B\cap(-t,t)}}{2t}
+	\le 1,
+    \end{equation*}
+    which is a contradiction, so $A+B$ contains an open interval around $0$.
+    \\
+
+    (b) By Axler's 4.24, almost every $a\in A$ has $\delta_A(a) = 1$
+    and almost every $b\in B$ has $\delta_B(b) = 1$.
+    We are then done by (a), since if $\delta_A(a) = 1$ and $\delta_B(b) = 1$
+    (hence $\delta_A(a) + \delta_B(b) > 1$),
+    $A+B$ contains an open interval around $a+b$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

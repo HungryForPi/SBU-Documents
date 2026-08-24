@@ -1,0 +1,453 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 314 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 314 HW02}
+\ohead{\footnotesize Last compiled \today}
+
+\title{\vspace{-2em}MAT 314 HW02}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/20}
+\begin{document}
+\maketitle
+
+\begin{problem*}[1.1]
+	Show that the image of a representation of dimension $1$
+	of a finite group is a cyclic group.
+\end{problem*}
+
+\begin{soln}
+	Let $G$ be a finite group and $\rho\colon G\to \CC^\times$
+	a one-dimensional representation (identifying $GL_1(\CC)$ with
+	the multiplicative group $\CC^\times = \CC\setdiff\{0\}$).
+	We know by Lagrange's theorem that, if $|G| = n$, then for any $g\in G$,
+	\[1 = \rho(1) = \rho(g^n) = \rho(g)^n,\]
+	so $\rho(g) = \omega^k$ for some integer $k$ with $\omega = e^{2\pi i/n}$. Thus the image of $G$ is a subgroup of
+	\[\{\omega^k\colon 0\le k\le n\}\]
+	under multiplication, which is a cyclic group,
+	and subgroups of cyclic groups are cyclic.
+\end{soln}
+
+\begin{problem*}[3.1]
+	Let $G$ be a cyclic group of order $3$.
+	The matrix $A = \begin{pmatrix}
+		-1&-1\\1&0
+	\end{pmatrix}$ has order $3$, so it defines a matrix representation of $G$.
+	Use the averaging process to produce a $G$-invariant form
+	from the standard Hermitian product $X^*Y$ on $\CC^2$.
+\end{problem*}
+
+\begin{soln}
+	The form generated by the averaging process is
+	\[\langle x,y\rangle = \frac1{|G|}\sum_{g\in G} (gx)^*(gy)
+	= \frac13\sum_{k=0}^3 x^*(A^k)^*A^ky.\]
+	We can compute
+	\begin{align*}
+		(A^0)^*A^0 &= \begin{pmatrix}
+			1&0\\0&1
+		\end{pmatrix}\\
+		(A^1)^*A^1 &= \begin{pmatrix}
+			2&1\\1&1
+		\end{pmatrix}\\
+		(A^2)^*A^2 &= \begin{pmatrix}
+			1&1\\1&2
+		\end{pmatrix}
+	\end{align*}
+	so the average is
+	\[\langle x,y\rangle = x^*\begin{pmatrix}
+		4/3&2/3\\2/3&4/3
+	\end{pmatrix}y,\]
+	which, in terms of the components of $x$ and $y$, can be written as
+	\[\langle x,y\rangle =
+	\boxed{
+		\frac{4\ol{x_1}y_1 + 2\ol{x_1}y_2 +2\ol{x_2}y_1 + 4\ol{x_2}y_2}{3}
+	}.\qedhere\]
+\end{soln}
+
+\begin{problem*}[4.10]
+	(a) Find the missing rows in the character table below.
+	
+	(b) Determine the orders of the elements $a$, $b$, $c$, $d$.
+	
+	(c) Show that the group $G$ with this character table
+	has a subgroup $H$ of order $10$, and describe this subgroup
+	as a union of conjugacy classes.
+	
+	(d) Decide whether $H$ is $C_{10}$ or $D_5$.
+	
+	(e) Determine all normal subgroups of $G$.
+	
+	\begin{center}
+		\begin{tabular}{c|ccccc}
+			&(1)&(4)&(5)&(5)&(5)\\
+			&1&$a$&$b$&$c$&$d$\\
+			\hline
+			$\chi_1$&1&1&1&1&1\\
+			$\chi_2$&1&1&$-1$&$-1$&1\\
+			$\chi_3$&1&1&$-i$&$i$&$-1$\\
+			$\chi_4$&1&1&$i$&$-i$&$-1$
+		\end{tabular}
+	\end{center}
+\end{problem*}
+
+\begin{soln}
+	(a) There is one missing row, since $G$ has $5$ conjugacy classes
+	hence $5$ representations. Let $\chi_5$ be the missing character.
+	\begin{itemize}
+		\ii We must have $\chi_5(1) = 4$ because
+		\[\chi_1(1)^2 + \chi_2(1)^2 + \chi_3(1)^2 + \chi_4(1)^2 + \chi_5(1)^2
+		= |G| = 20.\]
+		\ii Since the columns of a character table are orthogonal,
+		comparing the first and second columns gives $\chi_5(a) = -1$,
+		and comparing the first column to the rest of the columns shows that
+		$\chi_5(b) = \chi_5(c) = \chi_5(d) = 0$
+		(or one can use the fact that the characters are orthonormal to get
+		\begin{align*}
+			20 &= |\chi_5(1)|^2 + |\chi_5(a)|^2 + |\chi_5(b)|^2 +
+			|\chi_5(c)|^2 + |\chi_5(d)|^2\\
+			&= 20 + |\chi_5(b)|^2 + |\chi_5(c)|^2 + |\chi_5(d)|^2\\
+			&\ge 20
+		\end{align*}
+		for the same result because squares of real numbers are nonnegative).
+	\end{itemize}
+	
+	(b) Note that $b$ is the inverse of an element in the conjugacy class of $c$
+	because the column of $c$ is the only one conjugate with the column of $b$,
+	which means that $b$ and $c$ have the same order.
+	Look at $\chi_3$; it is a $1$-dimensional representation
+	($\chi_3(1) = 1$), so $\chi_3(G)$ is a cyclic group (Problem 1.1).
+	The order of $\chi_3(b)$ in this cyclic group
+	divides the order of $b$, meaning the order of $b$ is divisible by $4$.
+	This means $b$ either has order $4$ or $20$,
+	but the latter would imply that $G$ is cyclic, which is impossible
+	because the conjugacy classes in an abelian group are singleton sets,
+	which the table disagrees with. Hence \framebox{$b$ and $c$ have order $4$}.
+	
+	For $a$ and $d$, since one-dimensional representations are homomorphisms
+	to $\CC^\times$, we can conclude that the union of
+	the conjugacy classes of $1$ and $a$ (kernel of $\chi_3$)
+	is a normal subgroup of $G$, as is the union of
+	the classes of $1$, $a$, $d$ (kernel of $\chi_2$).
+	
+	The former subgroup is isomorphic to $\ZZ/5\ZZ$ because
+	groups of prime order are cyclic, so \framebox{the order of $a$ is $5$}.
+	
+	For the latter, subgroup all five elements in the class of $d$
+	have the same order.
+	This means that the elements' common order,
+	and in particular \framebox{the order of $d$, must be 2}.
+	The common order can't be $5$ because elements of order $5$
+	come in groups of $4$ (it's easy to show that two subgroups of order $5$
+	either intersect at the identity or are the same subgroup),
+	and the common order can't be $10$ because the existence of
+	elements of order $10$ implies the existence of elements of order $2$,
+	which couldn't exist here --- we don't have enough conjugacy classes.
+	
+	(c), (d) We showed above that $H$ must be the group
+	consisting of the conjugacy classes of $1$, $a$, and $d$.
+	Moreover, we must have $H\cong D_5$ because, as we showed above,
+	$G$ has no elements of order $10$.
+	
+	(e) From the character table, we know that the trivial subgroup,
+	$G$, the subgroup of order $10$, and the subgroup of order $5$
+	are all normal in $G$. We will show that these are the only one.
+	
+	We know that normal subgroups are always unions of conjugacy classes,
+	so it remains to rule out any other combinations of unions.
+	Let $N$ be a normal subgroup of $G$.
+	If the conjugacy class of $b$ or $c$ is contained in $N$,
+	then so is the other one of the two (because the inverse of
+	$b$ is in the class of $c$ and vice versa), and $1\in N$ as well.
+	This totals to $11$ elements already, so the only subgroup
+	(let alone a normal one) containing these elements is $G$,
+	since $20$ is the only divisor of $20$ at least as large as $11$.
+	
+	Now suppose that the classes of $b$ and $c$ are not subsets of $N$.
+	If the conjugacy class of $d$ is contained in $N$, then
+	the class of $d$ and $1$ together provide us with $6$ elements,
+	so, again noting that $|N|$ divides $|G|$, we get that
+	$N$ is the union of the classes of $1$, $a$, and $d$
+	or $N = G$, both of which were listed above.
+	
+	Finally, the only remaining consideration is when
+	the conjugacy classes of $b$, $c$, and $d$ are all outside $N$,
+	in which case we are either left with the normal subgroup generated by
+	$1$ and $a$ or the trivial subgroup, both of which we have counted.
+\end{soln}
+
+\begin{problem*}[5.5]
+	Prove that the one-dimensional characters of a finite group $G$
+	form a group under multiplication of functions.
+	This group is called the \vocab{character group} of $G$,
+	and is often denoted by $\widehat G$. Prove that if $G$ is abelian,
+	$|\widehat G| = |G|$ and $\widehat G\cong G$.
+\end{problem*}
+
+\begin{soln}
+	Let $\chi,\chi'\in\widehat G$. Then, for any $g,h\in G$,
+	\[\chi(gh)\cdot \chi'(gh) = \chi(g)\chi(h)\cdot\chi'(g)\chi'(h)
+	= (\chi\chi')(g)\cdot (\chi\chi')(h),\]
+	which proves that the product of two characters is a character,
+	hence $\widehat G$ is closed under multiplication.
+	Multiplication is also an associative operation,
+	and there is an identity $\chi_1\equiv 1$ and an inverse
+	$\chi\inv = \frac{1}{\chi}$ (noting that the codomain of $\chi$
+	is the multiplicative group of complex numbers, so in particular
+	$\chi(g)\ne 0$ for all $g$), so $\widehat G$ is indeed a group.
+	
+	To show that $G$ is isomorphic to its character group if it is abelian,
+	we first prove that this statement is true when $G\cong\ZZ/n\ZZ$
+	is cyclic. In this case, the characters (of which there are $n = |G|$,
+	because $G$ has $n$ conjugacy classes) are uniquely determined by
+	the image of a generator $g$ of $G$. We will assign a character to
+	each element $g^k$ of $G$ by
+	\[\chi_{g^k}(g) = \omega^k\]
+	where $\omega = \exp(\frac{2\pi i}n)$ is a primitive $n$th root of unity.
+	Then, we can see that for any characters
+	$\chi_{g^a},\chi_{g^b}\in\widehat G$,
+	\[\chi_{g^a}(g)\cdot \chi_{g^b}(g) =
+	\omega^a\cdot\omega^b = \omega^{a+b} = \chi_{g^{a+b}}(g),\]
+	which proves in general that $\chi_{g^a}\chi_{g^b} = \chi_{g^{a+b}}$
+	because $g$ generates $G$, so $G\cong\widehat G$.
+	
+	Now, we show that we can patch together cyclic groups
+	to get at arbitrary finite abelian groups.
+	\begin{claim*}
+		Suppose that finite abelian groups $G$, $H$ are
+		isomorphic to their character groups. Then,
+		\[\widehat G\times\widehat H\cong \widehat{G\times H}.\]
+	\end{claim*}
+	\begin{proof}
+		Let $g_1 = 1_G$, $g_2$, \dots, $g_n$ be the $n$ elements of $G$
+		and $h_1 = 1_H$, $h_2$, \dots, $h_m$ be the $m$ elements of $H$.
+		Then, given an element $(\chi_{g_i}, \chi_{h_j})\in
+		\widehat G\times\widehat H$, we assign to $(g_i,h_j)\in G\times H$
+		the character of $G\times H$ defined by
+		\[\chi_{(g_i,h_j)}(g,h) := \chi_{g_i}(g)\cdot \chi_{h_j}(h)\]
+		for any $(g,h)\in G\times H$.
+		To see that this is indeed a character, we
+		just leverage the fact that $\chi_{g_i}$ and $\chi_{h_j}$
+		are characters of $G$ and $H$ to conclude that
+		\begin{align*}
+			\chi_{(g_i,h_j)}((g,h)\cdot(g',h'))
+			&=\chi_{(g_i,h_j)}(gg',hh')\\
+			&= \chi_{g_i}(gg')\cdot\chi_{h_j}(hh')\\
+			&= \chi_{g_i}(g)\chi_{h_j}(h)\cdot\chi_{g_i}(g)\chi_{h_j}(h)\\
+			&= \chi_{(g_i,h_j)}(g,h)\cdot\chi_{(g_i,h_j)}(g',h')
+		\end{align*}
+		so that $\chi_{(g_i,h_j)}$ is a homomorphism $G\times H\to\CC$.
+		Moreover, $\chi_{(g_i,h_j)}$ is uniquely determined by
+		the images of $G\times\{1_H\}$ and $\{1_G\}\times H$,
+		which are in turn in bijection with the images of
+		$\chi_{g_i}$ and $\chi_{h_j}$, so we have
+		exactly $mn = |G\times H|$ characters
+		and our map $(\chi_{g_i}, \chi_{h_j})\mapsto\chi_{(g_i,h_j)}$
+		is an injective homomorphism between finite groups,
+		hence it is an isomorphism.
+		Thus we have exhibited an isomorphism between
+		$\widehat G\times\widehat H$ and $\widehat{G\times H}$, as desired.
+	\end{proof}
+	
+	To finish, we recall that every finite abelian group $G$
+	is a direct product of finite cyclic groups,
+	so the claim decrees that $G$ must be isomorphic to $\widehat G$.
+\end{soln}
+\pagebreak
+\begin{problem*}[7.1]
+	Prove a converse to Schur's lemma: If $\rho$ is a representation,
+	and if the only $G$-invariant linear operators on $V$
+	are multiplications by scalars, then $\rho$ is irreducible.
+\end{problem*}
+
+\begin{soln}
+	Suppose $\rho$ were reducible. Then, by Maschke's theorem,
+	we can write $V$ as the direct sum of two $G$-invariant subspaces
+	$U$, $W$. Consider the map $\pi\colon V\to W$ given by
+	$\pi(v) = u$ where $v = u + w$ is the unique representation of $V$
+	as the sum of a vector $u\in U$ and a vector $w\in W$. We get
+	\[\pi(gv) = \pi(gu + gw) = \pi(gu) + \pi(gw) = \pi(gw)
+	= gw = g\pi(w) = g\pi(v),\]
+	using the fact that $gu\in U$, $gw\in W$, and $\pi(a) = a$ for all $a\in W$.
+	This is therefore a non-scalar $G$-invariant linear operator on $G$,
+	as desired.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

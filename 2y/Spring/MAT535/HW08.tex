@@ -1,0 +1,264 @@
+% TODO make hw stylesheet
+
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 535 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\tensor}{\otimes}
+\renewcommand{\hom}{\operatorname{Hom}}
+\providecommand{\tor}{\operatorname{Tor}}
+\providecommand{\Gal}{\operatorname{Gal}}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\,\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 535 HW08}
+\author{\large Aditya Pahuja}
+\date{\large Due 04/16}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [\S13.3\#4]
+    The construction of the regular heptagon amounts to
+    the constructibility of $\alpha = \cos(2\pi/7)$.
+    We shall see later that $\alpha$ satisfies
+    the equation $x^3 + x^2 - 2x + 1 = 0$.
+    Use this to prove that the regular heptagon is not constructible
+    by straightedge and compass.
+\end{problem}
+
+\begin{soln}
+    The polynomial $x^3 + x^2 - 2x + 1$ is irreducible
+    because it has no rational roots
+    (the only candidate rational roots are $\pm 1$
+    by the rational root theorem, and they aren't roots).
+    This means $[\QQ(\alpha) : \QQ] = 3$ is not a power of $2$,
+    hence $\alpha$ is not constructible by straightedge and compass
+    by Proposition 23.
+\end{soln}
+
+\begin{problem}
+    [\S13.3\#5]
+    Use the fact that $\alpha = 2\cos(2\pi/5)$
+    satisfies the equation $x^2 + x - 1 = 0$ to conclude that
+    the regular pentagon is constructible by straightedge and compass.
+\end{problem}
+
+\begin{soln}
+    Since $\QQ(\alpha)$ is a quadratic extension of $\QQ$,
+    $\alpha$ is constructible, and then $\sin(2\pi/5)$
+    can also be constructed (since
+    $[\QQ(\sqrt{1-\alpha^2}):\QQ(\alpha)]\le 2$).
+    Then, we can rotate segments by $2\pi/5$,
+    so we can also rotate segments by $\pi - 2\pi/5 = 3\pi/5$,
+    which is the measure of the interior angles of a regular pentagon.
+    Draw a segment $A_0A_1$ and, for $i\ge 0$, let $A_{i+2}$
+    be the rotation $A_i$ about $A_{i+1}$ by $3\pi/5$ counterclockwise;
+    this constructs the regular pentagon $A_0A_1A_2A_3A_4$.
+\end{soln}
+
+\begin{problem}
+    [\S14.5\#2]
+    Determine the subfields of $\QQ(\zeta_8)$ generated by
+    the periods of $\zeta_8$ and in particular show that
+    not every subfield has such a period as a primitive element.
+\end{problem}
+
+\begin{soln}
+    The Galois group
+    $G = \Gal(\QQ(\zeta_8)/\QQ)\cong(\ZZ/2\ZZ)\times(\ZZ/2\ZZ)$
+    has three nontrivial subgroups $\{1,\sigma_3\}$,
+    $\{1,\sigma_5\}$, and $\{1,\sigma_7\}$,
+    where $\sigma_a\in G$ is the automorphism sending
+    $\zeta_8$ to $\zeta_8^a$. Thus the periods of $\zeta_8$ are
+    \begin{equation*}
+        \zeta_8 + \zeta_8^3 = i\sqrt 2,\quad
+	\zeta_8 + \zeta_8^5 = 0,\quad
+	\zeta_8 + \zeta_8^7 = \sqrt 2.
+    \end{equation*}
+    The corresponding subfields are respectively
+    $\QQ(i\sqrt 2)$, $\QQ$, and $\QQ(\sqrt 2)$,
+    so the subfield $\QQ(i)$ does not have a period of $\zeta_8$
+    as a primitive element.
+\end{soln}
+
+\begin{problem}
+    [\S14.5\#5]
+    Let $p$ be a prime and let $S_n$ be the sum
+    of the $n$th powers of all the primitive $p$th roots of unity.
+    Show that $S_n = -1$ when $p$ does not divide $n$
+    and $S_n = p-1$ when $p$ does divide $n$.
+\end{problem}
+
+\begin{soln}
+    Let $\zeta$ be a primitive $p$th root of unity, so that
+    $S_n = \zeta^n + \zeta^{2n} + \cdots + \zeta^{(p-1)n}$.
+    If $p$ divides $n$ then $\zeta^n = 1$, so of course $S_n = 1$.
+    If $p$ does not divide $n$, then
+    multiplication by $\ol n$ (the residue class of $n$)
+    is an isomorphism on $(\ZZ/p\ZZ)^\times$, so
+    \begin{equation*}
+	S_n = \zeta^n + \zeta^{2n} + \cdots + \zeta^{(p-1)n}
+	= \zeta + \zeta^2 + \cdots + \zeta^{p-1} = S_1
+    \end{equation*}
+    because the exponents on the left are a permutation
+    of the exponents on the right (modulo $p$).
+    We can then see that $S_1 = -1$ by Vieta's formulas applied to
+    $\Phi_p(x) = x^{p-1} + x^{p-2} + \cdots + 1$.
+\end{soln}
+
+\begin{problem}
+    [\S14.5\#7]
+    Show that complex conjugation restricts to the automorphism
+    $\sigma_{-1}\in\Gal(\QQ(\zeta_n)/\QQ)$ of
+    the cyclotomic field of $n$th roots of unity.
+    Show that the field $K^+ = \QQ(\zeta_n + \zeta_n\inv)$
+    is the subfield of real elements of $K = \QQ(\zeta_n)$,
+    called the \vocab{maximal real subfield} of $K$.
+\end{problem}
+
+\begin{soln}
+    The conjugate of $\zeta_n$ is $\zeta_n\inv$,
+    and the only automorphism of $\Gal(K/\QQ)$ sending
+    $\zeta_n$ to $\zeta_n\inv$ is $\sigma_{-1}$,
+    so the conjugation automorphism must restrict to $\sigma_{-1}$.
+    The maximal real subfield $L$ the fixed field
+    of the order-$2$ subgroup $\{1,\sigma_{-1}\}$, hence $[K:L] = 2$.
+    Since $\zeta_n + \zeta_n\inv$ is real, $K^+\subseteq L$,
+    hence $[K:K^+]\ge 2$. Letting $\eta = \zeta_n + \zeta_n\inv$
+    and noting that $\zeta_n\zeta_n\inv = 1$,
+    we can see that $\zeta_n$ is a root of the quadratic polynomial,
+    \begin{equation*}
+        p(t) = t^2 - \eta t + 1
+    \end{equation*}
+    so $[\QQ(\zeta_n):K^+] = [K:K^+]\le 2$,
+    hence $[K:K^+] = [K:L] = 2$ and $K^+\subseteq L$,
+    implying $K^+ = L$.
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,316 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 528 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=thmredbox,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\norm}[1]{\left\|#1\right\|}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 528 HW10}
+\author{\large Aditya Pahuja}
+\date{\large Due 11/20}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    [Munkres 51.2]
+    Given spaces $X$ and $Y$, let $[X,Y]$ denote the set of
+    homotopy classes of maps of $X$ into $Y$.
+    \begin{enumerate}[(a)]
+	\ii Let $I = [0,1]$. Show that for any $X$,
+	the set $[X,I]$ has a single element.
+	\ii Show that if $Y$ is path connected,
+	the set $[I,Y]$ has a single element.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Each continuous map $f\colon X\to I$ is homotopic to the zero map
+    via the homotopy
+    \begin{align*}
+	F\colon X\times I&\to I\\
+	F(x,t) &= (1-t)f(x).
+    \end{align*}
+    We can see that $F(x,0) = (1-0)f(x) = f(x)$ and $F(x,1) = (1-1)f(x) = 0$
+    for all $x\in X$, so to verify that $F$ is a homotopy
+    it remains to check continuity of $F$;
+    this follows from the continuity of the maps
+    $(x,t)\mapsto f(x)$ and $(x,t)\mapsto 1-t$
+    and Munkres's Theorem 21.5.
+    \\
+
+    (b) Let $f,g\colon I\to Y$ be two paths in $Y$.
+    Let $f(0) = x_0$, $f(1) = x_1$, $g(0) = y_0$, and $g(1) = y_1$.
+    Since $Y$ is path connected, there exists a path
+    $h\colon I\to Y$ from $x_1$ to $y_0$.
+    Define $F\colon I\times I\to Y$ by
+    \begin{equation*}
+        F(x,t) = \begin{cases}
+	    f(x + 2t) & \text{if }x+2t \le 1\\
+	    h(x + 2t - 1) & \text{if }1\le x+2t \le 2\\
+	    g(x + 2t - 2) & \text{if }x+2t \ge 2.
+        \end{cases}
+    \end{equation*}
+    This map is continuous by the pasting lemma,
+    as $f(x+2t)$, $h(x+2t-1)$, and $g(x+2t-2)$
+    are continuous maps on
+    $\{(x,t)\in I\times I : x+2t\le 1\}$,
+    $\{(x,t)\in I\times I : 1\le x+2t\le 2\}$,
+    and $\{(x,t)\in I\times I : x+2t\ge 2\}$, respectively,
+    and the maps agree when these sets intersect because
+    $f(1) = h(0) = x_1$ and $h(1) = g(0) = y_0$.
+    Furthermore $F(x,0) = f(x)$ and $F(x,1) = g(x)$ for all $x\in I$,
+    so $F$ is a homotopy from $f$ to $g$.
+    Thus any $f,g\colon I\to Y$ are homotopic,
+    so $[I,Y]$ has only one element.
+\end{soln}
+
+\begin{problem}
+    [Munkres 51.3]
+    A space $X$ is \vocab{contractible} if the
+    identity map $i_X\colon X\to X$ is nulhomotopic.
+    \begin{enumerate}[(a)]
+        \ii Show that $I$ and $\RR$ are contractible.
+	\ii Show that a contractible space is path connected.
+    \end{enumerate}
+\end{problem}
+
+\begin{soln}
+    (a) Let $X = I$ or $\RR$ and consider the map
+    $F\colon X\times I\to X$ given by $F(x,t) = (1-t)x$.
+    Then $F(x,0) = (1-0)x = x$ and $F(x,1) = (1-1)x = 0$ for all $x\in X$,
+    and $F$ is continuous because it is the product of continuous maps
+    $(x,t)\mapsto x$ and $(x,t)\mapsto t$,
+    so $F$ is a homotopy between the constant map and the zero map
+    (this is the same logic as part (a) of the previous problem).
+    \\
+
+    (b) Suppose $i_X$ is homotopic to the constant map $f$
+    that is equal to $c\in X$ on all of $X$.
+    Then, for any $x_1,x_2\in X$, define
+    $f_1\colon I\to X$ and $f_2\colon I\to X$ by
+    \begin{equation*}
+        f_1(t) = F(x_1,t),\quad f_2(t) = F(x_2,1-t)
+    \end{equation*}
+    so $f_1$ is a path from $x_1$ to $c$
+    and $f_2$ is a path from $c$ to $x_2$;
+    then $f_1\ast f_2$ is a path from $x_1$ to $x_2$.
+\end{soln}
+
+\begin{problem}
+    [Munkres 52.3]
+    Let $x_0$ and $x_1$ be points of the path-connected space $X$.
+    Show that $\pi_1(X,x_0)$ is abelian if and only if
+    for every pair $\alpha$ and $\beta$ of paths
+    from $x_0$ to $x_1$, we have $\widehat\alpha = \widehat\beta$.
+\end{problem}
+
+\begin{soln}
+    By Munkres's Theorem 52.1, $\widehat \alpha$ and $\widehat \beta$
+    are isomorphisms $\pi_1(X,x_0)\to\pi_1(X,x_1)$,
+    so $\widehat\beta\inv\circ\widehat\alpha\colon\pi_1(X,x_0)\to\pi_1(X,x_0)$,
+    which is equal to the map
+    \begin{equation*}
+	[f]\mapsto [\beta * \ol\alpha][f][\alpha * \ol\beta]
+    \end{equation*}
+    (note that the right-hand side is a product of three elements of $\pi_1(X,x_0)$).
+    If $\pi_1(X,x_0)$ is abelian, then this composed map
+    sends $[f]\in\pi_1(X,x_0)$ to $[\beta*\ol\alpha][f][\alpha*\ol\beta]
+    = [\beta*\ol\alpha][\alpha*\ol\beta][f] = [f]$,
+    i.e. the inverse of $\widehat\beta$ is equal to the inverse of $\widehat\alpha$,
+    which implies $\widehat\alpha = \widehat\beta$.
+
+    On the other hand suppose $\widehat\alpha = \widehat\beta$
+    for any two paths $\alpha,\beta$ from $x_0$ to $x_1$.
+    Let $[f],[g]\in\pi_1(X,x_0)$ and $\beta$ an arbitrary path
+    from $x_0$ to $x_1$. Define $\alpha = g*\beta$,
+    which is also a path from $x_0$ to $x_1$,
+    so that $[\alpha*\ol\beta] = [g]$
+    (hence also $[\beta*\ol\alpha] = [\ol g]$).
+    Then, by assumption, $\widehat\alpha = \widehat\beta$,
+    so the two maps share an inverse, meaning
+    \begin{equation*}
+	[f] = \widehat\beta\inv\widehat\alpha([f])
+	= [\beta*\ol\alpha][f][\alpha*\ol\beta]
+	= [\ol g][f][g]
+	\iff [g][f] = [f][g],
+    \end{equation*}
+    hence $\pi_1(X,x_0)$ is abelian.
+\end{soln}
+
+\begin{problem}
+    [Munkres 52.4]
+    Let $A\subseteq X$; suppose $r\colon X\to A$ is
+    a continuous map such that $r(a) = a$ for each $a\in A$.
+    If $a_0\in A$, show that
+    \begin{equation*}
+        r_*\colon\pi_1(X,a_0)\to\pi_1(A,a_0)
+    \end{equation*}
+    is surjective.
+\end{problem}
+
+\begin{soln}
+    For each path $f$ in $A$ based at $a_0$,
+    the path homotopy class $[f]$ in $\pi_1(X,a_0)$ gets sent by $r_*$ to
+    $r_*([f]) = [r\circ f] = [f]\in\pi_1(A,a_0)$,
+    where $r\circ f = f$ because $r$ is the identity on $A$,
+    so each $[f]\in\pi_1(A,a_0)$ is mapped to by the corresponding
+    path homotopy class $[f]$ in $\in\pi_1(X,a_0)$.
+\end{soln}
+
+\begin{problem}
+    [Munkres 52.5]
+    Let $A$ be a subspace of $\RR^n$
+    and let $h\colon(A,a_0)\to(Y,y_0)$ be a basepoint-preserving
+    continuous map. Show that if $h$ is extendable to
+    a continuous map of $\RR^n$ into $Y$,
+    then $h_*$ is the trivial homomorphism.
+\end{problem}
+
+\begin{soln}
+    Let $\widetilde h\colon(\RR^n,a_0)\to(Y,y_0)$ be a continuous extension of $h$
+    and let $i\colon(A,a_0)\to(\RR^n,a_0)$ be the inclusion map.
+    Then $\tilde h\circ i = h$, so $h_* = \widetilde h_*\circ i_*$.
+    Since $\pi_1(\RR^n,a_0)$ is the trivial group
+    (as stated in Section 52 Example 1),
+    $\widetilde h_*\colon\pi_1(\RR^n,a_0)\to\pi_1(Y,y_0)$
+    is the trivial homomorphism, hence so is $h_* = \widetilde h_*\circ i_*$.
+\end{soln}
+
+\begin{problem}
+    [Munkres 52.6]
+    Let $X$ be path connected. Let $h\colon X\to Y$ be continuous,
+    with $h(x_0) = y_0$ and $h(x_1) = y_1$.
+    Let $\alpha$ be a path in $X$ from $x_0$ to $x_1$,
+    and let $\beta = h\circ\alpha$. Show that
+    \begin{equation*}
+	\widehat\beta\circ(h_{x_0})_* = (h_{x_1})_*\circ\widehat\alpha.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Let $[f]\in\pi_1(X,x_0)$. Then,
+    \begin{equation*}
+	(\widehat\beta\circ(h_{x_0})_*)([f]) = [\ol\beta][h\circ f][\beta]
+	= [h\circ\ol\alpha][h\circ f][h\circ\alpha]
+	= (h_{x_1})_*([\ol\alpha][f][\alpha])
+	= ((h_{x_1})_*\circ\widehat\alpha)([f]).\qedhere
+    \end{equation*}
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

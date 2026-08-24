@@ -1,0 +1,175 @@
+\documentclass[10pt]{article}
+\usepackage[notes]{aditya}
+\usepackage{extarrows}
+
+\title{MAT 545 Notes}
+\author{Aditya Pahuja}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{08/24}
+
+\emph{In which we vaguely discuss the concepts that will be presented
+during the semester.}
+
+
+{\scriptsize Maybe I will revise this section once the semester ends.}
+
+\subsection{Textbook}
+
+We will cover the first two chapters (0 and 1) of
+\emph{Principles of Algebraic Geometry} by Griffiths and Harris.
+Aleksey Zinger has a
+\href{https://www.math.stonybrook.edu/~azinger/mat545-fall19/GHnotes.pdf}{list of typos/corrections}
+for the book (link downloads a pdf).
+
+\subsection{Course overview}
+
+In what follows, green bold words are vocabulary words
+that I for the most part don't know/care to define right now.
+
+The goal of this course is to study complex manifolds,
+and in particular \vocab{projective} and \vocab{K\"ahler manifolds}.
+Ultimately, we will build up to a proof of the
+\alert{Kodaira embedding theorem}, which says that
+if the \vocab{K\"ahler form} $\omega$ of a compact K\"ahler manifold $X$
+is \vocab{rational}, then $X$ is projective, meaning
+it can be embedded in some (large enough) projective space.
+% One reason we care about projective manifolds is that
+% projective spaces have many sub-projective spaces,
+% whose intersections with an embedded $X$, if transverse,
+% give many natural subvarieties/submanifolds to get our hands on
+% when trying to understand $X$'s geometry.
+
+\subsubsection{Several complex variables}
+If we want to work with complex manifolds, we will have to do
+analysis in several complex variables, analogous to the real case.
+Many things from single variable complex analysis carry over
+to the $n$-variable case; here is a small list.
+\begin{itemize}
+    \ii Taylor series.
+    \ii The Cauchy integral formula.
+    \ii Identity theorem: if a holomorphic function
+    is zero on an open subset of its domain, then it is identically zero
+    (but NOT the stronger version, in which
+    a holomorphic function on $U\subseteq\CC$ is zero identically
+    if its zero set has an accumulation point).
+    \ii Some extension phenomena if the holomorphic function is bounded\todo{?}
+    \ii Weierstrass preparation theorem:
+    if $f\colon U\to\CC$ is holomorphic on an open
+    $U\subseteq\CC\times\CC^{n-1}$,
+    then $f(w,z) = w^k + f_{k-1}(z)w^{k-1} + \cdots + f_0(z)$
+    where the $f_i$ are holomorphic on $\CC^{n-1}$,
+    in some small neighborhood of zero.
+    When $n=1$ this manifests as $f(w) = w^k$ locally.
+    \todo{say more about WPT (zero set branched cover blah blah\dots?)}
+\end{itemize}
+
+On the other hand, there are phenomena in higher dimensions
+that are entirely different from the single variable case.
+For example, \vocab{Hartog's theorem} says that
+for $n\ge 2$, any holomorphic function on the punctured $n$-disk in $\CC^n$
+admits a holomorphic extension to the whole disk;
+this is obviously not true when $n = 1$, since $f(z) = \frac 1z$
+is unbounded near zero.
+
+\subsubsection{Tangent, cotangent bundles, cohomology}
+
+Let $M$ be a complex manifold of (complex) dimension $n$.
+The real tangent bundle $T^\RR M$ is a rank $2n$ real vector bundle,
+and its complexification is the rank $2n$ complex vector bundle
+$T^\CC M \coloneq T^\RR M\otimes_\RR \CC = T^\RR M\oplus i T^\RR M$.
+This complexification splits canonically
+into a \vocab{holomorphic part} $T^{1,0}M$
+and a \vocab{antihomolomorphic part} $T^{0,1}M$,
+both rank $n$ complex vector bundles;
+the holomorphic part is spanned by the vectors
+$\frac\partial{\partial z_j}$
+and the antiholomorphic part is spanned by the vectors
+$\frac\partial{\partial\ol z_j}$.
+The holomorphic and antiholomorphic cotangent bundles
+$\check T^{1,0}M$ and $\check T^{0,1}M$
+are then defined as the duals of the respective tangent bundles
+and are respectively spanned by covectors of the form
+$\dd z_j$ and $\dd\ol z_j$.
+
+We can also define complex differential $k$-forms as
+elements of $\Lambda^k (\check T^\RR\otimes\CC)$,
+which are written in local coordinates as
+holomorphic linear combinations of wedges of $\dd z_i$ and $\dd\ol z_i$.
+It turns out that the number of covectors in the holomorphic cotangent bundle
+and the number of covectors in the antiholomorphic tangent bundle
+needed to express an addend of a $k$-form in local coordinates
+is independent of the coordinates chosen, so we get a splitting
+\begin{equation*}
+    \Lambda^k(\check T^\RR M\otimes\CC) = \bigoplus_{p+q=k}\check T^{p,q}M
+\end{equation*}
+for each $k$, and these $\check T^{p,q}M$ are functorially defined.
+One can then define complex de~Rham cohomology in the usual way,
+and \vocab{Dolbeault cohomology} $H^{p,q}_{\ol\partial}$,
+which looks at $\ol\partial$-closed and exact forms
+in the space of $(p,q)$-forms.
+These two cohomology theories are related by the
+\vocab{Hodge-de~Rham spectral sequence}
+(which we will not cover in this course).
+
+We will also study \vocab{sheaves},
+which package ``local'' information in a way that
+lets us try to extract ``global'' information (often manifesting as
+sheaf cohomology). For example, we will prove
+the de~Rham and Dolbeault theorems via the machinery of sheaves.
+
+\subsubsection{Connections and Chern classes}
+For a holomorphic vector bundle $E$, we can define
+analogues of standard differential-geometry structures, such as
+connections, curvature, and metrics.
+To this end, let $h$ be a \vocab{Hermitian metric} on $E$.
+We will show that there is a canonical \vocab{connection} $D_h$
+on $E$ associated with $h$, analogous to the Levi-Civita connection.
+Any connection then gives rise to a notion of \vocab{curvature} $D^2$.
+
+In the case of line bundles, $D^2$ turns out to be a
+$2$-form with coefficients in the bundle $\hom(E,E)$;
+using the tensor-hom adjunction we can show that this bundle is trivial,
+so that we can treat it as a bona fide $2$-form.
+In fact, it is a closed $(1,1)$-form, and the associated cohomology class,
+up to scaling by $2\pi i$, belongs to the integral cohomology $H^2(M;\ZZ)$.
+Moreover, this cohomology class is the \vocab{first Chern class} of $E$!
+
+\subsubsection{Hodge theory}
+
+Let $M$ be a compact K\"ahler manifold with K\"ahler form $\omega$.
+Let $\mathcal H^k_\omega(M)$ be the space of $k$-forms on $M$
+which are \vocab{harmonic} with respect to $\omega$.
+It turns out that
+\begin{equation*}
+    H^k(M;\RR)\cong\mathcal H^k_\omega(M)\cong\mathcal H^{p,q}_\omega(M)
+    \cong H^{p,q}(M),
+\end{equation*}
+which is the \vocab{Hodge decomposition}.\todo{is the coef field right?}
+This is one tool that can be used to prove the following:
+\begin{theorem}[Hard Lefschetz theorem]
+    \label{thm:hard-lefschetz}
+    Let $M$ be an $n$-dimensional compact K\"ahler manifold
+    with K\"ahler form $\omega$. Then, there is an isomorphism
+    \begin{equation*}
+	H^{n-k}(M;\RR)\overset{\omega^k\smile}\too H^{n+k}(M;\RR).
+    \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Weak Lefschetz theorem]
+    \label{thm:weak-lefschetz}
+    If $N^{n-1}\into M^n$ is a hypersurface, then
+    \todo{probably need more conditions on $N$}
+    \begin{equation*}
+        i^*\colon H^j(M;\ZZ)\to H^j(N;\ZZ)
+    \end{equation*}
+    is an isomorphism for $j<n-1$ and injective for $j=n-1$.
+\end{theorem}
+\todo{idk i don't have much else to say}
+
+\end{document}

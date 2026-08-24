@@ -1,0 +1,893 @@
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={5.5in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={MAT 322 Notes}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=small]{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\abs}[1]{\left|{#1}\right|}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+\setlength{\marginparwidth}{3cm}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+
+\declaretheorem[style=thmredbox,name=Problem,numberwithin=section]{problem}
+
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=example]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\ord}{\operatorname{ord}}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\ihead{\footnotesize\textbf{MAT 322 Spring 2025 Notes}}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2.0cm} MAT 322 Spring 2025}
+\author{\large Aditya Pahuja}
+\date{\large \today}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Week 1: 1/27 and 1/29}
+
+\subsection{Topology of Euclidean space (Munkres \S3)}
+\begin{definition}[Euclidean $n$-space]
+	\vocab{Euclidean $n$-space}, denoted $\RR^n$, is the set
+	of all $n$-tuples of real numbers.
+\end{definition}
+
+$\RR^n$ is a vector space over $\RR$:
+it is equipped with two binary operations,
+addition and scalar multiplication.
+We then care about functions that behave nicely with
+these two operations:
+
+\begin{definition}
+	A function $f\colon\RR^n\to\RR^m$ is \vocab{linear}
+	if it respects the addition and scalar multiplication operations ---
+	that is, $f(x+y) = f(x)+f(y)$ for all $x,y\in\RR^n$
+	and $f(cx) = cf(x)$ for all $c\in\RR$ and $x\in\RR^n$.
+\end{definition}
+
+More tangibly, we can say that if $e_1$, \dots, $e_n$
+is a basis for $\RR^n$, then $f(e_1)$, \dots, $f(e_n)$
+determine the values of the function on every other point of $\RR^n$,
+since each point of $\RR^n$ is a linear combination of the $e_i$.
+We will generally reserve $e_1$, \dots, $e_n$ for the
+\vocab{standard basis} of $\RR^n$, i.e. the unit vectors
+along the positive direction of each axis (so $e_3 = (0, 0, 1, 0, \dots, 0)$).
+If we also specify a basis for the codomain $\RR^m$
+(which by abuse of notation we will just reuse $e_1$, \dots, $e_m$;
+the ambient space should be clear by context),
+then we can say that
+\begin{align*}
+	f(e_1) &= a_{11}e_1 + a_{21}e_2 + \cdots + a_{m1}e_m\\
+	&\vdots\\
+	f(e_n) &= a_{1n}e_1 + a_{2n}e_2 + \cdots + a_{mn}e_m,
+\end{align*}
+and we represent $f$ with the matrix
+\[\begin{pmatrix}
+	a_{11} &\cdots  &a_{1n}\\
+	\vdots & \ddots & \vdots\\
+	a_{m1} &\cdots &a_{mn}
+\end{pmatrix}.\]
+
+However, $\RR^n$ isn't just any old vector space;
+we can measure length and angles, too (unlike, say, $\RR[x]$).
+Abstractly, the linear algebraic mechanism for this is the inner product
+$\langle\bullet,\bullet\rangle\colon\RR^n\times\RR^n\to\RR$
+defined by
+\[\langle x,y\rangle = \sum_{i=1}^n x_iy_i.\]
+Then, $\|x\| = \sqrt{\langle x,x\rangle} = \sqrt{x_1^2 + \cdots + x_n^2}$
+is the \vocab{Euclidean norm} on $\RR^n$.
+The norm induces a metric on $\RR^n$ by $d(x, y) = \|x-y\|$.
+Specifically, one can verify the following proposition:
+\begin{prop}[$d$ is a metric]
+	For all $x,y,z\in\RR^n$, the function
+	$d\colon\RR^n\times\RR^n\to\RR$ satisfies
+	\begin{enumerate}[(a)]
+		\ii Symmetry: $d(x,y) = d(y,x)$.
+		\ii Positive definiteness: $d(x,y)\ge 0$ with equality iff $x=y$.
+		\ii Triangle inequality: $d(x,z)\le d(x,y)+d(y,z)$.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	We only prove the triangle inequality. We want to show that
+	\[\|x-z\|\le \|x-y\| + \|y-z\|.\]
+	After substituting $a = x-y$ and $b = y-z$,
+	this becomes $\|a+b\|\le \|a\| + \|b\|$.
+	Squaring gives the equivalent
+	\[\langle a+b,a+b\rangle \le \langle a,a\rangle + \langle b,b\rangle
+	+ 2\|a\|\cdot\|b\|.\]
+	Expanding the LHS via bilinearity reduces to
+	\[\langle a,b\rangle\le\|a\|\cdot\|b\|,\]
+	the Cauchy-Schwarz inequality, which we take for granted
+	(but you can square, expand, and spam AM-GM).
+\end{proof}
+
+\begin{remark}
+	Actually, the variation of the triangle inequality
+	with $a$ and $b$ that I proved is the triangle inequality that norms
+	are required to satisfy, so this would've been free
+	if we verified that $\|\bullet\|$ is actually a norm on $\RR^n$.
+\end{remark}
+
+This metric induced by the norm gives us the natural metric topology on $\RR^n$.
+\begin{definition}
+	The \vocab{open ball} centered at $x$ with radius $r$ is the set
+	\[B_r(x) = \{y\in\RR^n : d(x,y) < r\}.\]
+	Then, we say that $U\subseteq\RR^n$ is \vocab{open} in $\RR^n$
+	if, for each $x\in U$, some open ball centered at $x$
+	is contained in $U$.
+	A subset $C\subseteq\RR^n$ is \vocab{closed} (in $\RR^n$) if its complement
+	$\RR^n\setdiff C$ is open (in $\RR^n$).
+\end{definition}
+
+\begin{example}
+	Open intervals $(a,b)$ are open in $\RR$,
+	and indeed a product of $n$ intervals
+	$(a_1, b_1)\times\cdots\times(a_n,b_n)$
+	is an open subset of $\RR^n$.
+	
+	Similarly, products of closed intervals
+	$[a_1, b_1]\times\cdots\times[a_n,b_n]\subseteq\RR^n$
+	are closed, as is the \vocab{closed ball}
+	$\ol{B_r(x)} := \{y\in\RR^n:d(x,y)\le r\}$.
+	
+	On the other hand, $(a,b]$ is neither open nor closed in $\RR$.
+	\alert{Open and closed are not opposites in topology}.
+\end{example}
+
+\begin{definition}[Continuity]
+	Let $U\subseteq\RR^n$ be open and $f\colon U\to\RR^m$ a function.
+	Then, $f$ is \vocab{continuous} at a point $x\in U$ if
+	given any $\eps > 0$, there exists $\delta > 0$ such that
+	$d(x,y)<\delta$ implies $d(f(x),f(y)) < \eps$.
+	If $f$ is continuous at every point in its domain
+	then we can use ``continuous'' to describe $f$ itself,
+	and if $f$ is continuous at every point in $V\subseteq U$
+	then we say that $f$ is continuous on $V$.
+\end{definition}
+
+We can also phrase this definition more globally:
+\begin{prop}
+	Let $U\subseteq\RR^n$. Then $f\colon U\to\RR^m$ is continuous
+	if and only if, for each open $V\subseteq\RR^m$, the pre-image
+	$f\inv(V)\subseteq\RR^n$ is also open.
+\end{prop}
+
+\begin{prop}
+	A linear function $f\colon\RR^n\to\RR^m$ is continuous.
+\end{prop}
+
+\begin{proof}[Proof Sketch]
+	Just write $f(x) = Ax$ for some matrix $A$
+	and then expand $\|f(x) - f(y)\|^2$ in terms of the entries of $A$
+	to get a bound.
+\end{proof}
+
+\subsection{Differentiation}
+Differentiation is about approximating
+continuous functions by linear functions.
+
+\begin{definition}
+	Let $U\subseteq\RR^n$ be open and let $f\colon U\to\RR^m$ be a function.
+	We say that $f$ is \vocab{differentiable} at $x\in U$ if
+	there exists a linear function $L\colon\RR^n\to\RR^m$ such that
+	\[\lim_{h\to 0} \frac{f(x+h) - f(x) - L(h)}{\|h\|} = 0,\]
+	and we plainly say that $f$ is differentiable if it
+	is differentiable at every point in $U$.
+	The \vocab{derivative} of $f$ at $x$ is this linear function $L$,
+	and we denote this by $(\mathrm df)_x$.
+\end{definition}
+
+\begin{remark}
+	We can rephrase this as saying
+	for any $\eps > 0$, there exists a $\delta > 0$ such that
+	$0 < \|h\| < \delta$ implies
+	\[\|f(x + h) - f(x) - L(h)\| < \eps\|h\|,\]
+	unfurling the limit definition.
+\end{remark}
+
+Compare this to the standard definition of differentiability
+with a function $f\colon\RR\to\RR$; there are a few discrepancies.
+The one I will point out is that the ``derivative''
+in the sense that we use it in single variable calculus
+is a number rather than a function because linear functions $\RR\to\RR$
+can be identified with their slope.
+
+\begin{exercise}
+	Let $f\colon\RR^n\to\RR^m$ be defined by $f(x) = Ax + b$
+	where $A$ is an $m\times n$ matrix and $b\in\RR^m$.
+	What is the derivative of $f$?
+	(for the moment, take for granted that the derivative is unique)
+\end{exercise}
+
+\begin{prop}
+	If $U\subseteq\RR^n$ is open and $f\colon U\to\RR^m$ is differentiable
+	at $x$, then $f$ is also continuous at $x$.
+\end{prop}
+
+\begin{exercise}
+	Prove this (it is the exact same proof as the $\RR\to\RR$ case).
+\end{exercise}
+
+\begin{definition}
+	The \vocab{directional derivative} of $f$ at $x\in U$ along
+	$v\in\RR^n$ is the vector
+	\[\frac{\partial f}{\partial v}(x) :=
+	\lim_{t\to0} \frac{f(x + tv) - f(x)}{t}.\]
+	If $e_1,\dots,e_n\in\RR^n$ is the standard basis,
+	we instead write
+	\[\frac{\partial f}{\partial x_i}(x) :=
+	\frac{\partial f}{\partial e_i}(x).\]
+\end{definition}
+
+\begin{prop}
+	If $f$ is differentiable at $x\in U$, then $\frac{\partial f}{\partial v}$
+	exists for all $v\in\RR^n$. Moreover,
+	\[(\mathrm df)_x(v) = \frac{\partial f}{\partial v}(x).\]
+\end{prop}
+
+\begin{remark}
+	This implies that the derivative of $f$ is unique,
+	as the wording of the definition of derivative suggests.
+\end{remark}
+
+\begin{proof}
+	\todo{left as an exercise for us}
+\end{proof}
+
+\begin{warning}
+	The proposition essentially says that a differentiable function
+	at $x$ has all its partial derivatives at $x$.
+	One might conjecture the converse statement that
+	having all partial derivatives implies $f$ is differentiable,
+	but this is false, as the example of
+	\[f(x,y) = \begin{cases}
+		\frac{x^3}{x^2+y^2} & (x,y)\ne(0,0)\\
+		0 & (x,y) = (0,0)
+	\end{cases}\]
+	shows: all directional derivatives exist everywhere
+	but $f$ isn't differentiable at $(0,0)$.
+\end{warning}
+
+The function $(\mathrm df)_x$, being linear,
+is a matrix called the \vocab{Jacobian matrix}.
+The preceding proposition lets us say that if
+\[f = \begin{pmatrix}
+	f_1\\\vdots\\f_m
+\end{pmatrix},\quad f_j\colon\RR^n\to\RR\]
+then
+\[(\mathrm df)_x = \begin{pmatrix}
+	\frac{\partial f_1}{\partial x_1} &\cdots &\frac{\partial f_1}{x_n}\\
+	\vdots & \ddots & \vdots\\
+	\frac{\partial f_m}{\partial x_1} &\cdots &\frac{\partial f_m}{x_n}
+\end{pmatrix}.\]
+
+\begin{definition}
+	A function $f\colon U\to\RR^m$ is
+	\vocab{continuously differentiable} (or \vocab{class $C^1$})
+	on $U$ if $\partial f/\partial x_i$ exists at all $u\in U$
+	and $i = 1,2,\dots,n$ and
+	\[\frac{\partial f}{\partial x_i}\colon U\to\RR^m\]
+	is continuous.
+\end{definition}
+
+The nice thing about this is the following fact:
+
+\begin{theorem}
+	If $f\colon U\to\RR^m$ is $C^1$ then it is differentiable.
+\end{theorem}
+
+\begin{proof}
+	\todo{pf}
+\end{proof}
+
+\section{Week 2: 2/3 and 2/5}
+\subsection{Chain rule}
+\begin{example}[1-D chain rule]
+	Suppose we have functions $f\colon (a,b)\to\RR$ and $g\colon(c, d)\to\RR$
+	such that
+	\begin{itemize}
+		\ii $f$ is differentiable at $u\in (a,b)$.
+		\ii $g$ is differentiable at $v = f(u)\in (c,d)$.
+	\end{itemize}
+	Then, the composition $(g\circ f)(x) = g(f(x))$ is differentiable at $x=0$
+	and $(g\circ f)'(u) = g'(f(u))f'(u) = g'(v)f'(u)$
+	(sweeping domain issues under the rug).
+\end{example}
+
+The generalization of this to several variables is as follows:
+\begin{theorem}[$n$-D chain rule]
+	Let $f\colon U\to \RR^m$ for an open $U\subseteq\RR^n$
+	and let $g\colon V\to\RR^\ell$ for an open $V\subseteq \RR^m$.
+	Suppose that
+	\begin{itemize}
+		\ii $f$ is differentiable at $u\in U$.
+		\ii $g$ is differentiable at $v = f(u)\in V$.
+	\end{itemize}
+	Then, $g\circ f$ is differentiable at $u$ and
+	\[(\mathrm d(g\circ f))_u = (\mathrm dg)_v \circ (\mathrm df)_u
+	\colon\RR^n\to\RR^\ell.\]
+\end{theorem}
+
+\begin{remark}
+	This makes sense in $1$ dimension because composition of linear maps
+	$\RR\to\RR$ looks like multiplying their coefficients.
+\end{remark}
+
+You can also write this out by multiplying the Jacobians but
+i don't hate myself $\heartsuit$
+
+\begin{proof}
+	Following the definition of derivative,
+	\begin{enumerate}[(1)]
+		\ii $f(u + h) - f(u) = (\mathrm df)_u(h) + \|h\| F(h)$,
+		and $\lim_{h\to 0} F(h) = 0$.
+		\ii $g(v + k) - g(v) = (\mathrm dg)_u(h) + \|k\| G(k)$,
+		and $\lim_{h\to 0} G(h) = 0$.
+	\end{enumerate}
+	Then, letting $\Delta(h) = f(u+h) - f(u)$,
+	\begin{align*}
+		(g\circ f)(u + h) - (g\circ f)(u)
+		&= g(f(u + h)) - g(f(u))\\
+		&= g(v + k) - g(v)\\
+		&= (\mathrm dg)_v(\Delta) + \|k\|G(k)\\
+		&= (\mathrm dg)_v\circ (\mathrm dg)_u + \|h\|(\mathrm dg)_v F(h)
+		+ \|\Delta\|G(\Delta).
+	\end{align*}
+	\todo{finish}
+\end{proof}
+
+
+\begin{theorem}[Inverse function theorem]
+	If $f\colon U\to\RR^n$ for open $u\subseteq\RR^n$ is a $C^1$ function
+	such that $(\mathrm df)_u\colon\RR^n\to\RR^n$ is invertible
+	for some $u\in U$, there exists an open $U'\subseteq U$ containing $u$
+	such that $V' = f(U')$ is open and there is a
+	$C^1$ function $g\colon V'\to U'$ such that
+	\[g\circ(f|_{U'}) = \opname{Id}_{U'},\quad
+	f\circ g = \opname{Id}_{V'}.\]
+\end{theorem}
+
+\begin{proof}
+	Let $f$ be as in the statement.
+	\begin{lemma*}[Injectivity]
+		There exist constants $\delta > 0$, $\alpha > 0$
+		such that if $x_0, x_1\in B_{\delta}(u)$, then
+		$\|f(x_1) - f(x_0)\|\ge \alpha\cdot\|x_1 - x_0\|$.
+	\end{lemma*}
+	\begin{proof}
+		\todo{todo}
+	\end{proof}
+	In particular, $f$ is injective on $B_\delta(u)$,
+	since there are no two distinct points $x_0$, $x_1$ such that
+	$\|f(x_1) - f(x_0)\|  = 0 < \alpha\cdot\|x_1 - x_0\|$.
+	
+	\begin{lemma*}[Open to open]
+		Let $B_\delta(u)\subseteq U$ be as in the previous lemma.
+		Then $f(B_\delta(u))\subseteq\RR^m$ is open.
+	\end{lemma*}
+	\begin{proof}
+		Let $x\in B_\delta(u)$ and $y = f(x)\in f(B_\delta(u))$.
+		Then, we are looking for an $\eps > 0$ such that
+		$B_\eps(y)\subseteq f(B_\delta(u))$.
+		
+		Let $r < \delta$ be such that $y\in f(B_r(u))$.
+		Since $f$ is injective on $B_\delta(u)$,
+		$y$ is not contained in $f(\partial B_r(u))$,
+		the image of the boundary of $B_r(u)$.
+		The magic trick now is that $\partial B_r(u)$ is compact,
+		so its image is compact hence closed (because $\RR^n$ is Hausdorff);
+		this means we can find a neighborhood of $y$, say $B_\eps(y)$, that
+		doesn't intersect $f(\partial B_r(u))$.
+		
+		It remains to prove that $B_\eps(y)$ is contained in $f(B_r(u))$.
+		That is, we want to show that any given $y_0\in B_\eps(y)$
+		is contained in $f(B_r(u))$.
+		Consider a function $\varphi\colon B_\delta(u)\to\RR$ given by
+		$\varphi(z) = \|f(z) - y_0\|^2$.
+		We know that $\varphi$ is continuous, so it attains a minimum
+		on the compact set $\ol{B_r(u)}$ at some point $x_0\in\ol{B_r(u)}$.
+		We know a priori that
+		\[\varphi(x) = \|f(x) - y_0\|^2 = \|y - y_0\|^2 < \eps^2,\]
+		so $x\notin\partial B_r(u)$ because $f(\partial B_r(u))$
+		is disjoint from $B_\eps(y)$.
+		Thus, $x_0\in B_r(u)$. Then we can apparently use
+		the first lemma from lesson 4 to conclude that
+		$(\mathrm d\varphi)_{x_0} = 0$, but then we also know that
+		\[0 = (\mathrm d\varphi)_{x_0}(h) = 2\langle f(x_0) - y_0,
+		(\mathrm df)_{x_0}(h)\rangle.\]
+		We must then have $f(x_0) - y_0$ is the zero vector,
+		and we can use injectivity to conclude $y_0 = f(x_0)$,
+		which is contained inside $f(B_r(u))$.
+		\begin{remark*}
+			Is it true that $f(\partial B_r(u)) = \partial f(B_r(u))$?
+			If so, a proof involving the fact that continuous functions
+			preserve connectedness would go through.
+		\end{remark*}
+	\end{proof}
+	
+	Now let $U' = B_\delta(u)$; thus $f$ is a bijection
+	$U'\to V' := f(B_\delta(U)) = f(U')$. Thus there is a unique
+	$g\colon V'\to U'$ that is the inverse of $f$ on $U'$.
+	We know that $\det (\mathrm df)_x \ne 0$ holds on a neighborhood of $x$
+	because the partials of $f$ are continuous (Proof: we have a
+	polynomial condition in the partials, so the locus of points
+	for which the polynomial is zero will be a closed set,
+	thus having open complement), so shrink $\delta$
+	even further so that we now live in a neighborhood
+	where the determinant is always nonzero (we'll still call the
+	shrunk number $\delta$).
+	
+	\begin{claim*}
+		$g$ is continuous.
+	\end{claim*}
+	\begin{proof}
+		We can use the ``open to open'' lemma to argue that
+		the image of any open subset of $B_\delta(u)$ under $f$
+		is open in $\RR^m$, so $f$ is an open map on $U'$
+		hence its inverse $g$ is continuous (this is why we needed to make sure
+		that the derivative is invertible on all of $U'$).
+	\end{proof}
+
+	Now, we will show that $g\colon V'\to U'$ is differentiable.
+	Let $y\in V'$ and $g(y) = x$. Also let $A = (\mathrm df)_x$
+	and $\Delta(k) = g(y+k) - g(y)$ for $k\ne 0$
+	(so that $\Delta(k)$ is never zero).
+	Our goal is to show that $(\mathrm dg)_x = A\inv$.
+	We can write
+	\[k = f(x + \Delta(k)) - f(x),\]
+	so that
+	\begin{align*}
+		\frac{g(y+k) - g(y) - A\inv k}{\|k\|}
+		&=\frac{\Delta(k) - A\inv k}{\|k\|}\\
+		&= -A\inv\cdot \frac{k - A\Delta(k)}{\|k\|}\\
+		&= -A\inv\cdot\frac{f(x + \Delta(k)) - f(x) - A\Delta(k)}{\|\Delta(k)\|}
+		\cdot\frac{\|\Delta(k)\|}{\|k\|}.
+	\end{align*}
+	We know that $g$ is continuous, so as $k\to 0$, $\Delta(k)\to 0$,
+	hence the whole thing in the middle goes to $0$.
+	To show that the entire expression goes to zero
+	(thereby proving that $(\mathrm dg)_x = A\inv$),
+	we only need to show that $\frac{\|\Delta(k)\|}{\|k\|}$ is bounded.
+	Luckily, this is exactly what the injectivity lemma above proves,
+	so $g$ is differentiable.
+	
+	Finally, before we can go home, we have to prove that
+	$g$ is in fact \emph{continuously} differentiable.
+	This follows from the entries of the Jacobian matrix of $g$ at $f(x)$
+	being ``algebraic functions'' of the entries of $(\mathrm df)_x\inv$,
+	which are themselves continuous functions of $x$
+	(or matrix inversion is continuous on the space of invertible matrices).
+	And the crowd goes wild.
+\end{proof}
+
+\section{Week 3: 2/10 and 2/12}
+The first lesson was completing the proof of the inverse function theorem.
+
+We now talk about a consequence of the inverse function theorem.
+
+\subsection{Implicit function theorem}
+Let's look at a small example.
+Let $f\colon\RR^2\to\RR$ be a $C^1$ function.
+\begin{mdframed}
+	\emph{Question.} When does $f(x,y) = 0$ determine $y$
+	implicitly as a function of $x$?
+\end{mdframed}
+
+\begin{example}
+	Let $f(x,y) := x^2 + y^2 - 1 = 0$.
+	This locus of points is what's commonly known as a circle.
+	Then, if you look at a point in this locus and consider
+	some open neighborhood, you can usually find $y$ as a function of $x$;
+	for example if you have a small enough neighborhood of
+	$(3/5,4/5)$ then $y = \sqrt{1-x^2}$, or if your point is
+	$(7/25,-24/25)$ then $y = -\sqrt{1-x^2}$ on a small neighborhood.
+	
+	On the other hand, you run into issues at $(1,0)$ because you have
+	points with both positive and negative $y$ (and same with $(-1,0)$).
+	Concretely, the issue here is that $\partial f/\partial y(\pm1,0) = 0$.
+	We can, though, write $x$ as a function of $y$ in this case.
+\end{example}
+
+As usual we care very much about local behavior
+and pretty much not at all about global behavior.
+
+In general, let $f\colon U\to\RR^m$ be $C^1$
+where $U\subseteq \RR^n\times\RR^n =\RR^{n+m}$ is open. Then, write
+\[\mathrm df = \begin{pmatrix}
+	\frac{\partial f_1}{\partial x_1} &\cdots&
+	\frac{\partial f_1}{\partial x_n} & \frac{\partial f_1}{\partial y_1}
+	&\cdots&\frac{\partial f_1}{\partial y_m}\\
+	\vdots\\
+	\frac{\partial f_1}{\partial x_1} &\cdots&
+	\frac{\partial f_1}{\partial x_n} & \frac{\partial f_1}{\partial y_1}
+	&\cdots&\frac{\partial f_1}{\partial y_m}
+\end{pmatrix}\]
+and write $\partial f/\partial x$ for the left half of the matrix
+and $\partial f/\partial y$ for the right half.
+\todo{how do you make line down the middle of matrix?}
+(so instead of writing $x_{n+k}$ we write $y_k$ for the latter $m$
+coordinates for convenience)
+\begin{theorem}
+	If $f\colon U\subseteq\RR^n\times\RR^m\to\RR^m$ be a $C^1$ function.
+	Suppose $\partial f/\partial y$ is invertible at $(x_0,y_0)\in U$
+	and $f(x_0, y_0) = 0$.
+	Then, there exist some open $A$ and $B$ containing $x_0$ and $y_0$
+	such that there is a unique $C^1$ function $g\colon A\to B$ satisfying
+	\[f(x,g(x)) = 0,\quad g(x_0) = y_0.\]
+\end{theorem}
+
+The idea is that the derivative being invertible
+corresponds to the idea of never having a ``vertical tangent line''
+in a neighborhood of $(x_0,y_0)$. In particular we can
+project points in $\{f(x,y) = 0\}$ to the ``$x$-axis'' ($\RR^n$)
+[in an injective fashion wrt the graph?], which gives you
+a $C^1$ parametrization of the locus near $(x_0,y_0)$.
+
+Now we shall write down an actual proof.
+
+\begin{proof}
+	Define $F\colon U\colon \RR^n\times\RR^m\to\RR^n\times\RR^m$ by
+	$F(x,y) = (x,f(x,y))$. The derivative at $(x,y)$ looks like
+	\[(\mathrm dF)_{(x,y)} = \begin{pmatrix}
+		I_n & 0\\
+		\frac{\partial f}{\partial x}(x,y) & \frac{\partial f}{\partial y}(x,y)
+	\end{pmatrix}.\]
+	Then this is invertible because $\frac{\partial f}{\partial y}$
+	is by assumption invertible (either due to determinant calculations
+	or due to row reduction).
+	
+	By the inverse function theorem, we can find an open $U'\subseteq U$
+	containing $(x_0,y_0)$ such that $V' = F(U')$ is open
+	and there is a $C^1$ inverse function $G\colon V'\to U'$
+	of $F$ within these small open sets. We can assume that
+	$U' = U'_1\times B$ is a product of open sets such that $x_0\in U'_1$
+	and $y_0\in B$.
+	
+	Write $G(x,y) = (P(x,y), Q(x,y))\in\RR^n\times\RR^m$. Then
+	\[G\circ (F|_{U'}) = \opname{Id}_{U'}\]
+	means that $P(x, f(x,y)) = x$ and $Q(x,f(x,y)) = y$.
+	Similarly
+	\[(F|_{U'})\circ G = \opname{Id}_{V'}\]
+	entails $P(x,y) = x$ and $f(P(x,y), Q(x,y)) = y$.
+	
+	Let $A\times V_2'\subseteq V'$ be a product of open sets
+	where $x_0\in A$ and $0\in V_2'$.
+	Then consider $g\colon A\to B$ given by $g(x) = Q(x,0)$.
+	We can see that
+	\[f(x, g(x)) = f(P(x, 0), Q(x, 0)) = 0\]
+	and, from $Q(x, f(x,y)) = y$, we can see that if $f(x, g(x)) = 0$ then
+	$Q(x, 0) = Q(x, f(x, g(x))) = g(x)$, i.e. this $g := Q(x, 0)$
+	is really the only function we can procure
+	(and checking $g$ is $C^1$ is easy).
+\end{proof}
+
+\begin{exercise}
+	Compute the derivative of $g$ at $x_0$.
+\end{exercise}
+
+\section{Week 4: 2/17 and 2/19}
+\subsection{Differentiate, and then do it again}
+\todo{2/17 notes}
+
+\begin{theorem}
+	[Taylor's theorem]
+	Let $f\colon U\subseteq\RR^n\to\RR^m$ be a $C^k$ function and let $x\in U$.
+	Then, the Taylor polynomial of $f$ centered at $x$ is the polynomial
+	\[f(x + h) = \sum_{|\alpha|\le k} \frac{1}{\alpha!}
+	\frac{\partial^{\alpha}f}{\partial x^{\alpha}}(x)\cdot h^\alpha + o(h^k).\]
+\end{theorem}
+
+Here $\alpha$ is a tuple $(\alpha_1,\dots,\alpha_n)$ of nonnegative integers,
+and we define
+\[\alpha! = \alpha_1!\cdots\alpha_n!,\quad
+\frac{\partial^\alpha}{\partial x^{\alpha}} =
+\left(\frac{\partial}{\partial x_1}\right)^{\alpha_1}\cdots
+\left(\frac{\partial}{\partial x_n}\right)^{\alpha_n},\quad
+h^\alpha = h_1^{\alpha_1}\cdots h_n^{\alpha_n},\quad
+|\alpha| = \alpha_1+\cdots+\alpha_n.\]
+Thus if we wanted to unfurl the definition we could instead write
+\[f(x+h) = \sum_{\alpha_1,\dots,\alpha_n\le k}
+\frac{1}{\alpha_1!\cdots\alpha_n!}
+\frac{\partial^{\alpha_1}}{\partial x^{\alpha_1}}\cdots
+\frac{\partial^{\alpha_n}f}{\partial x^{\alpha_n}}(x)\cdot
+h_1^{\alpha_1}\cdots h_n^{\alpha_n} + o(h).\]
+
+\begin{definition}
+	A function $f\colon U\subseteq\RR^n\to\RR^m$ is \vocab{$C^\infty$}
+	or \vocab{smooth} or \vocab{infinitely differentiable}
+	if its $k$-th derivative exists for all $k$.
+	We say $f$ is analytic if $f$ is smooth and
+	for all $x\in U$, there is an $r > 0$ such that $\|h\| < r$ implies that
+	the Taylor polynomials around $x$ within this ball converge to $x$.
+\end{definition}
+
+\begin{exercise}
+	Show that the inverse/implicit function theorems produce
+	$C^k$ or $C^\infty$ or analytic functions if they are given
+	respectively $C^k$/$C^\infty$/analytic functions. (woah analytic??)
+\end{exercise}
+
+\subsection{Integration over rectangles!!}
+Fuck wait Riemann sums again noooooooooo
+
+Recall that a \vocab{partition} $\mathcal P$ of an interval $[a,b]$
+is a finite collection of points $a = t_0 < t_1 < \cdots < t_k = b$.
+We would like to generalize this to arbitrary boxes
+so that we can talk about Riemann sums over arbitrary boxes.
+
+\begin{definition}
+	A \vocab{partition} $\mathcal P$ of the rectangle $Q$ is an
+	$n$-tiuple $(\mathcal P_1, \dots, \mathcal P_n)$ where
+	$\mathcal P_j$ is a partition of $[a_j, b_j]$.
+\end{definition}
+
+\todo{explain intuition}
+
+Let $f\colon Q\to\RR$ be a bounded function and define
+\[m_Q(f) = \inf_{x\in Q}f(x),\quad
+M_Q(f) = \sup_{x\in Q} f(x).\]
+Then, given a partition $\mathcal P$ of $Q$, the
+\vocab{lower} and \vocab{upper Riemann sums} are respectively
+\[L(f,\mathcal P) = \sum_{R} m_R(f)\cdot |R|,\quad
+U(f,\mathcal P) = \sum_{R} M_R(f)\cdot |R|\]
+where the sums are over all subrectangles $R$ of the partition
+and $|R|$ is the volume of the box $R$.
+
+\begin{lemma}
+	Let $\mathcal P'$ be a refinement of a partition $\mathcal P$
+	of a box $Q$. Then,
+	\[L(f, \mathcal P)\le L(f, \mathcal P'),\quad
+	U(f, \mathcal P)\ge U(f, \mathcal P')\]
+\end{lemma}
+
+\begin{proof}
+	Look at monotonicity of infimum/supremum.
+\end{proof}
+
+\begin{lemma}
+	If $\mathcal P$ and $\mathcal P'$ are two partitions of $Q$ then
+	\[L(f,\mathcal P)\le U(f, \mathcal P').\]
+\end{lemma}
+
+\begin{proof}
+	Look at the common refinement of the two partitions.
+\end{proof}
+
+\begin{definition}
+	[Lower/upper Riemann integrals]
+	The lower Riemann integral of a bounded $f\colon Q\to\RR$ ($Q$ box) is
+	\[\underline{\int}_Q f := \sup_{\mathcal P} L(f, \mathcal P)\]
+	and the upper Riemann integral is
+	\[\overline{\int}_Q f := \inf_{\mathcal P} L(f, \mathcal P)\]
+	The lower integral is always at most as large as the upper integral;
+	if they are equal, then we just write
+	\[\int_Q f := \ol{\int}_Q f = \underline\int_Qf\]
+	and say that $f$ is Riemann integrable.
+\end{definition}
+
+\begin{lemma}
+	A bounded function $f\colon Q\to\RR$ is Riemann integrable if and only if
+	for every $\eps > 0$ there is a partition $\mathcal P$ of $Q$ such that
+	\[U(f,\mathcal P) - L(f, \mathcal P) < \eps.\]
+\end{lemma}
+
+\section{Week 5: 2/24 and 2/26}
+
+We are interested in describing what Riemann integrable functions look like.
+\begin{theorem}
+	Let $Q\subseteq\RR^n$ be a rectangle and $f\colon Q\to\RR$ bounded.
+	Then $f$ is (Riemann) integrable if and only if
+	the set $D\subseteq Q$ on which $f$ is discontinuous has measure zero.
+\end{theorem}
+
+Given bounded $f\colon Q\to\RR$ and $x\in Q$, let
+\[A_{\delta,x} = \{f(y) : y\in Q, \|y-x\|<\delta\}.\]
+The \vocab{oscillation} of $f$ at $x\in Q$ is
+\[\opname{osc}(f,x) = \inf_{\delta>0} \sup A_{\delta,x} - \inf A_{\delta,x}.\]
+
+\begin{lemma}
+	The oscillation of $f$ at a point $x$ is zero if and only if
+	$f$ is continuous at $x$.
+\end{lemma}
+The proof comes from just unraveling the definitions.
+
+\begin{proof}[Proof of Theorem 5.1]
+	Suppose $f$ is Riemann integrable over $Q$
+	and let $D$ be its set of discontinuities. We can then write
+	\[D_m = \left\{x\in Q : \opname{osc}(f, x) < \frac1m\right\}\]
+	so that $D = \bigcup_{m=1}^\infty D_m$, so it suffices to prove that
+	the $D_m$ each have measure zero.
+	
+	Let $\eps > 0$ and pick a partition $\mathcal P$ of $Q$ such that
+	$U(f,\mathcal P) - L(f, \mathcal P) < \eps$.
+	Additionally, let $D'_m\subseteq D_m$ be the subset of $D_m$
+	contained in the boundary of some subrectangle $R$ of the partition of $Q$;
+	we can ignore those points because they already lie in
+	a set of measure zero (because boundaries of rectangles have measure zero).
+	Thus let $D_m'' = D_m\setdiff D_m'$.
+	
+	Let $R_1,\dots,R_N\subseteq Q$ be the rectangles of $\mathcal P$
+	that contain some points of $D_m''$. For each $x\in D_m''$,
+	if $i$ is the index such that $x\in R_i$, then there exists $\delta>0$
+	for which
+	\[B_\delta(x) \subseteq\opname{Int}R_i.\]
+	Then,
+	\[\frac1m\le \opname{osc}(f,x) \le \sup A_{\delta,x} - \inf A_{\delta,x}
+	\le M_{R_i}(f) - m_{R_i}(f).\]
+	In particular,
+	\[\sum_{i=1}^N \frac{1}{m}|R_i|\le
+	\sum_{i=1}^N (M_{R_i}(f) - m_{R_i}(f)) |R_i| \le
+	U(f,\mathcal P) - L(f,\mathcal P) <\eps,\]
+	which is enough to imply that $D_m''$ is a null set because
+	the $R_i$ together cover $D_m''$ and their total volume is at most $m\eps$,
+	which can get arbitrarily small.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

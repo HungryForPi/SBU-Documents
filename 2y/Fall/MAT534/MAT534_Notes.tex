@@ -1,0 +1,819 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{stmaryrd}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=magenta,
+	pdftitle={MAT 534 Notes}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=theorem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\normaleq}{\trianglelefteq}
+\providecommand{\normal}{\triangleleft}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+
+\reversemarginpar
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\sgn}{\operatorname{sgn}}
+\providecommand{\abs}[1]{\left|#1\right|}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 534 Notes}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2em}MAT 534: Algebra I}
+\author{\large Aditya Pahuja}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{August 25}\label{sec:aug25}
+
+\begin{definition}[Group]
+    \label{def:group}
+    A \vocab{group} is a set $G$ with a binary operation
+    \begin{align*}
+        *\colon G\times G &\to G \\
+	(g,h)&\mapsto g*h
+    \end{align*}
+    such that
+    \begin{enumerate}[(1)]
+        \ii $*$ is associative, so $f*(g*h) = (f*g)*h$.
+	\ii There is a \vocab{neutral element} $e\in G$ such that
+	for all $g\in G$, $e*g=g*e=g$.
+	\ii For all $g\in G$, there is an \vocab{inverse element}
+	$h\in G$ such that $g*h=h*g=e$.
+    \end{enumerate}
+\end{definition}
+
+Some basic facts:
+\begin{itemize}
+    \ii $e$ is unique, because if $e$ and $e'$ are neutral
+    then $e = e*e' = e'$.
+    \ii For each $g\in G$, the inverse of $g$ is unique, for
+    if $h$ and $h'$ are inverses of $g$ then
+    $h = h*(g*h') = (h*g)*h' = h'$.
+    In a generic group we write $g\inv$ for the inverse of $g$.
+    \ii The inverse of $g\inv$ is $g$.
+\end{itemize}
+
+From here on, when working with a generic group,
+we use multiplicative notation, meaning
+\begin{itemize}
+    \ii multiplication is written either with juxtaposition or,
+    if emphasis is need, a multiplication dot: $g*h = gh = g\cdot h$.
+    \ii repeated multiplication is given by exponents:
+    if $n$ is a positive integer, then $g^n$ is the $n$-fold product of $g$;
+    if $n = 0$, then $g^0 = 1$, and if $n$ is negative, then
+    $g^n = (g\inv)^{-n}$, the $-n$-fold product of $g\inv$.
+\end{itemize}
+
+\begin{definition}[Abelian group]
+    \label{def:abeliangroup}
+    $G$ is \vocab{abelian} if its multiplication operation is commutative,
+    i.e. $gh = hg$ for all $g,h\in G$.
+\end{definition}
+
+For generic abelian groups we instead prefer additive notation, so
+\begin{itemize}
+    \ii we write $g+h$ instead of $gh$ or $g\cdot h$ or $g*h$ for the operation;
+    \ii we write $0$ instead of $1$ for the neutral element;
+    \ii we write $-g$ instead of $g\inv$ for inverses;
+    \ii we write $ng$ instead of $g^n$ for $n$-fold applications of the operation
+    where $n$ is an integer.
+\end{itemize}
+
+\begin{example}
+    [Examples of groups]
+    Some abelian groups are the additive groups
+    $(\ZZ,+)$, $(\QQ,+)$, $(\RR,+)$, $(\CC,+)$, \dots
+    and the multiplicative groups
+    $(\QQ^\times, \cdot)$, $(\RR^\times,\cdot)$, etc.
+    where the superscript $\times$ means ``nonzero''
+    (so $\QQ^\times$ is the set of nonzero rationals.)
+\end{example}
+
+In real life groups often show up as symmetries of objects
+(where ``symmetry'' is often interpreted as ``structure-preserving,''
+such as, say, the group of isomorphisms between two groups,
+the group of automorphisms on an algebraic extension of $\QQ$,
+the group of deck transformations on a covering space, etc.)
+A fairly literal example of this is the \vocab{dihedral group} $D_{2n}$,
+which is the group of symmetries of a regular $n$-gon, i.e.
+the set of rigid motions in space that map an $n$-gon onto itself,
+like rotations by $\frac{2\pi}n$ about the center
+or reflections over certain lines; the group operation
+is performing these rigid motions one after the other.
+
+\begin{exercise}
+    Convince yourself that these transformations form a group.
+\end{exercise}
+
+To abstract this into a more symbolic form,
+suppose that the vertices of the $n$-gon are the points $e^{2\pi k/n}$
+for $k = 1,\dots,n$ in the complex plane, so that the real line
+is an axis of symmetry of the $n$-gon. Then, let $r$ represent
+rotation of the $n$-gon counterclockwise by $\frac{2\pi}n$
+and $d$ reflection over the real axis.
+\begin{exercise}
+    Show that $drd = r\inv$, and hence that the elements of $D_{2n}$ are
+    the powers of $r$ ($1$, $r$, \dots, $r^{n-1}$)
+    and $d$ times these powers of $r$ ($d$, $dr$, \dots, $dr^{n-1}$).
+    This means that $D_{2n}$ has $2n$ elements, justifying the subscript.
+\end{exercise}
+
+We can also express $D_{2n}$ with a \vocab{group presentation}, namely
+\begin{equation*}
+    D_{2n} = \langle r,d \mid r^n = 1,\, d^2 = 1,\, drd = r\inv\rangle;
+\end{equation*}
+this says that $D_{2n}$ is the group with two generators $r$, $d$
+that can be algebraically manipulated with the given relations.
+This is in general not that fruitful of a task, though,
+since the problem of deciding whether two elements of a group are equal
+by looking at the group's presentation is undecidable.
+
+Another example is the \vocab{matrix group} $GL_n(F)$,
+which is the group of invertible $n\times n$ matrices
+whose entries are in the field $F$ (this of course consists of
+the $n\times n$ matrices $A$ with nonzero determinant),
+whose operation is matrix multiplication. Checking that this is a group:
+\begin{enumerate}[(1)]
+    \ii Matrix multiplication is associative because
+    matrices in $GL_n(F)$ are just concrete representations
+    of linear maps on $F^n$, and function composition is associative.
+    \ii The neutral element is the identity matrix
+    \begin{equation*}
+        I = \begin{pmatrix}
+	    1&0&\cdots&0\\
+	    0&1&\cdots&0\\
+	    \vdots&\vdots&\ddots&\vdots\\
+	    0&0&\cdots&1\\
+        \end{pmatrix}.
+    \end{equation*}
+    \ii The inverse of a matrix can either be computed concretely
+    or, again understanding matrices to be linear maps,
+    one can directly construct the inverse of the corresponding linear map
+    by looking at bases of the vector spaces that the map acts on.
+\end{enumerate}
+
+A final very useful group is the \vocab{symmetric group} $S_n$,
+which is the group of \vocab{permutations} on a set of $n$ things
+(for concreteness, the $n$ things are the elements of $[n] := \{1,\dots,n\}$);
+that is, $S_n$ is the set of bijections $\sigma\colon[n]\to[n]$
+endowed with the operation of function composition
+(thus multiplication happens right-to-left here;
+we did not need to worry about this with matrices because
+we can imagine them as just grids of numbers
+for which we have an admittedly obtuse multiplication rule).
+Note that $|S_n| = n!$, since there are $n$ choices for $\sigma(1)$,
+followed by $n-1$ choices for $\sigma(2)$, and so on,
+for a total of $n\cdot(n-1)\cdots2\cdot 1 = n!$.
+
+When working with permutations, we would like to have a good way to write them down;
+naively, one can simply write down a table
+\begin{equation*}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+	$i$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 \\
+	\hline
+	$\sigma(i)$ & 12 & 13 & 3 & 1 & 11 & 9 & 5 & 10 & 6 & 4 & 7 & 8 & 2
+    \end{tabular}
+\end{equation*}
+but this is clunky and annoying, as well as
+not telling us much about the structure of $\sigma$
+(which is why we'd rather not just resort to a more compact 13-tuple).
+
+Instead, we use \vocab{cycle notation}.
+\begin{definition}[Cycles]
+    \label{def:Sn-cycles}
+    Given distinct $a_1,\dots,a_k\in\{1,\dots,n\}$, define
+    \begin{equation*}
+	(a_1\; a_2\; \dots\; a_k)
+    \end{equation*}
+    to be the permutation that maps
+    $a_1\mapsto a_2\mapsto\cdots\mapsto a_k\mapsto a_1$.
+    We call this a \vocab{$k$-cycle}.
+\end{definition}
+
+It is a theorem (that we will not prove rigorously) that
+any permutation in $S_n$ can uniquely by expressed as a product
+$\sigma_1\sigma_2\cdots\sigma_r$ of pairwise disjoint nontrivial cycles $\sigma_j$,
+up to the ordering of the $\sigma_j$
+(pairwise disjoint every element of $[n]$ is fixed by
+all but one of the $\sigma_j$, and nontrivial meaning
+the cycles aren't the identity permutation, so not $1$-cycles).
+The way that one computes this cycle representation of a permutation
+(and, incidentally, proves that this representation exists and is unique)
+is simply by following where the numbers are mapped to, say by using the table.
+For example, in the table of $\sigma\in S_{13}$ above,
+\begin{itemize}
+    \ii $1\mapsto 12\mapsto 8\mapsto 10\mapsto 4\mapsto 1$,
+    giving the cycle $(1\; 12\; 8\; 10\; 4)$.
+    \ii $2\mapsto13\mapsto 2$,
+    giving the cycle $(2\;13)$.
+    \ii $3$ maps to itself,
+    giving the cycle $(3)$, which we omit.
+    \ii $5\mapsto 11\mapsto 7$,
+    giving the cycle $(5\;11\;7)$.
+    \ii $6\mapsto 9\mapsto 6$,
+    giving the cycle $(6\;9)$.
+\end{itemize}
+Therefore,
+\begin{equation*}
+    \sigma = (1\; 12\; 8\; 10\; 4)(2\;13)(5\;11\;7)(6\;9).
+\end{equation*}
+
+As another example of cycle notation, we can write
+\begin{equation*}
+    S_3 = \{(1), (1\; 2), (1\; 3), (2\; 3), (1\; 2\; 3), (1\; 3\; 2)\}
+\end{equation*}
+where by convention the identity permutation is written as $(1)$
+because the empty string is hard to write.
+Recalling that composition of permutations happens right-to-left,
+we can compute
+\begin{equation*}
+    (1\; 2)(1\; 3) = (1\; 3\; 2)
+\end{equation*}
+by following where each element goes (imagine moving the numbers around in a line):
+$1$ goes to position $3$, and then stays there because $(1\; 2)$
+doesn't touch position $3$; the newly displaced $3$ goes to position $1$
+and then is promptly moved to position $2$; and finally $2$,
+which is not moved by $(1\;3)$, is sent to position $1$,
+so the overall map is $1\mapsto3\mapsto 2\mapsto1$.
+On the other hand, $(1\;3)(1\;2) = (1\; 2\; 3)$ by the same logic,
+so in fact we have shown that $S_3$
+(and generally $S_n$)
+is non-abelian for all $n\ge 3$.
+
+\section{August 27}\label{sec:aug27}
+
+\begin{definition}[Homomorphism]
+    \label{def:homomorphism}
+    Let $G$ and $H$ be groups. A \vocab{homomorphism} $\varphi\colon G\to H$
+    is a function such that
+    \begin{equation*}
+        \varphi(g_1g_2) = \varphi(g_1)\varphi(g_2).
+    \end{equation*}
+    If $\varphi$ is bijective, it is called an \vocab{isomorphism}
+    and $G$, $H$ are said to be \vocab{isomorphic},
+    which is denoted as $G\cong H$.
+\end{definition}
+
+Some simple facts:
+\begin{itemize}
+    \ii $\varphi(1_G) = 1_H$ because $\varphi(1_G) = \varphi(1_G)\cdot\varphi(1_G)$.
+    \ii $\varphi(g\inv) = \varphi(g)\inv$ because
+    $\varphi(g)\varphi(g\inv) = \varphi(1_G) = 1_H$.
+    \ii If $\varphi\colon G\to H$ is an isomorphism
+    then so is $\varphi\inv\colon H\to G$.
+\end{itemize}
+
+In fact, isomorphism is an equivalence relation on groups.
+
+\begin{example}
+    Some examples of homomorphisms:
+    \begin{enumerate}[(1)]
+	\ii The determinant $\det\colon GL_n(F)\to F^\times$
+	is multiplicative, so it defines a homomorphism
+	on the set of invertible linear maps.
+	\ii If the vertices of a regular $n$-gon are labeled
+	$1$, \dots, $n$, then $D_{2n}$ permutes these vertices;
+	therefore we get a homomorphism $D_{2n}\to S_n$
+	by sending $d\mapsto (1)(2\; n)(3\; n-1)\cdots$
+	and $r\mapsto (1\; 2\; \cdots \; n)$.
+	\ii The groups $(\RR,+)$ and $(\RR_{>0}, \cdot)$
+	are isomorphic, with isomorphism $\exp\colon\RR\to\RR_{>0}$.
+	\ii Fix $g\in G$. Then, the \vocab{conjugation map} is an isomorphism
+	$\varphi_g\colon G\to G$ given by $\varphi_g(x) = gxg\inv$.
+	Moreover, $\varphi_a\varphi_b = \varphi_ab$,
+	so the group $\{\varphi_g : g\in G\}$ with operation being group composition
+	is isomorphic to $G$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Subgroup]
+    \label{def:subgroup}
+    A \vocab{subgroup} of a group $G$ is a subset $H\subseteq G$
+    that is a group under the operation of $G$; in particular,
+    \begin{enumerate}[(1)]
+        \ii $1_G\in H$
+	\ii $h_1,h_2\in H\implies h_1h_2\in H$
+	\ii $h\in H\implies h\inv\in H$.
+    \end{enumerate}
+    We more succinctly write $H\le G$ if $H$ is a subgroup of $G$.
+    Furthermore $H$ is \vocab{normal} in $G$
+    if $\varphi_g(H) = H$, i.e. $h\in H$ implies $ghg\inv\in H$;
+    this is denoted $H\trianglelefteq G$.
+\end{definition}
+
+Normal subgroups are a very important part
+of the structure of a group $G$ due to the following proposition:
+
+\begin{prop}
+    \label{prop:kernel-is-normal}
+    If $\varphi\colon G\to H$ is a homomorphism
+    then $\varphi(G)$ is a subgroup of $H$
+    and the kernel $\ker\varphi = \{g\in G : \varphi(G) = 1_H\}$
+    is a normal subgroup of $G$.
+\end{prop}
+
+\begin{proof}
+    Trivial; omitted.
+\end{proof}
+
+\begin{example}
+    Some examples:
+    \begin{enumerate}[(1)]
+        \ii $SL_n(F)$, the subset of $GL_n(F)$
+	whose determinant is $1$,
+	is the kernel of the determinant homomorphism,
+	so it is normal in $GL_n(F)$.
+	\ii The \vocab{center} $Z(G) = \{g\in G : gh = hg\forall h\in G\}$
+	is a normal subgroup of $G$.
+    \end{enumerate}
+\end{example}
+
+\begin{prop}
+    \label{prop:subgrp-intersection}
+    The intersection of an arbitrary collection of subgroups
+    of a group $G$ is also a subgroup of $G$.
+\end{prop}
+
+\begin{proof}
+    Trivial; omitted.
+\end{proof}
+
+\begin{definition}[Generated subgroup]
+    \label{def:generated-subgrp}
+    Let $A$ be a subset of a group $G$.
+    The subgroup $\langle A\rangle$ generated by $A$
+    is the smallest (with respect to inclusion)
+    subgroup of $G$ containing $A$, or equivalently
+    the set of elements of $G$ that can be expressed as
+    a finite product of elements in $\{a,a\inv : a\in A\}$
+    (i.e. take $\{a,a\inv : a\in A\}$ and shake vigorously).
+\end{definition}
+
+To be precise,
+\begin{equation*}
+    \langle A\rangle = \bigcap_{\substack{H\supseteq A\\ H\le G}} H.
+\end{equation*}
+This is not too practical for concrete descriptions of generated subgroups,
+but still good to keep in mind.
+
+\begin{example}
+    Given $g\in G$, the generated subgroup $\langle g\rangle$
+    is $\{g^n : n\in\ZZ\}$. If this set is infinite,
+    then it is isomorphic to $\ZZ$ via the isomorphism $n\mapsto g^n$.
+    In this case, we say that $g$ has infinite order.
+    Otherwise, $g^m = 1$ for some $m$; if $m$ is taken to be
+    positive and as small as possible, then
+    the kernel of the $n\mapsto g^n$ isomorphism has kernel
+    $m\ZZ = \{mn : n\in\ZZ\}$, hence $\langle g\rangle \cong \ZZ/m\ZZ$
+    (which is the group of integers modulo $m$ under addition).
+    We say here that $g$ has order $m$.
+    In general we denote the order of $g\in G$ with $\abs g$.
+\end{example}
+
+\begin{theorem}[Lagrange]
+    \label{thm:lagrange-thm}
+    If $G$ is finite and $H$ is a subgroup of $G$,
+    then $\abs H$ divides $\abs G$.
+\end{theorem}
+
+\begin{proof}
+    For $a,b\in G$, say that $a\sim b$ if $a\inv b \in H$.
+    It is easy to see that this an equivalence relation
+    due to $H$ being a subgroup of $G$. For a fixed $a$, then,
+    the equivalence class of $a$
+    \begin{equation*}
+	\{b\in G : b\sim a\} = \{ah : h\in H\} \eqcolon aH
+    \end{equation*}
+    (also called a \vocab{left coset} of $H$)
+    has the same size as $H$, hence
+    $\abs G = \abs H\cdot(\text{\# of left cosets of $H$})$
+    so $\abs G/\abs H$ is an integer.
+\end{proof}
+
+The number of left cosets of $H$ in $G$ is called the \vocab{index}
+of $H$ in $G$ and is denoted $(G:H)$; the proof above shows that
+if $G$ is finite then $(G:H) = \abs G/\abs H$.
+
+Another important homomorphism is the \vocab{sign homomorphism}
+$\sgn\colon S_n\to\{\pm1\}$. Noting that $S_n$ is generated by
+the set of $2$-cycles (\vocab{transpositions}),
+we say that $\sgn((a\; b)) = -1$ for all $a\ne b$ in $[n]$
+and then extend multiplicatively
+(so for example $3$-cycles, which are always a product of two $2$-cycles,
+all return $1$ when passed through the $\sgn$ homomorphism).
+The permutations $\sigma$ with $\sgn(\sigma) = -1$
+are called odd permutations and those with $\sgn(\sigma) = 1$ are even.
+The even permutations, being the kernel of $\sgn$,
+form a normal subgroup of $S_n$ called the \vocab{alternating group} $A_n$.
+
+\section{September 3}\label{sec:sep03}
+
+If $N\trianglelefteq G$ then
+\begin{equation*}
+    Nb = bN \implies aN\cdot bN = abN,
+\end{equation*}
+i.e. multiplication of cosets is well-defined here.
+\begin{definition}[Quotient group]
+    \label{def:quotient-group}
+    Given $N\normaleq G$, the \vocab{quotient group} or \vocab{factor group}
+    $G/N$ is the group of left cosets of $N$
+    with the multiplication $aN\cdot bN = abN$.
+\end{definition}
+
+Note that Lagrange's theorem tells us $\abs{G/N} = (G:N)$,
+the index of $N$ in $G$.
+Additionally, there is a natural homomorphism $\pi\colon G\to G/N$ mapping
+\begin{equation*}
+    \pi(g) = gN,
+\end{equation*}
+whose kernel is $\{g\in G : gN = N\} = N$, so every normal subgroup of $G$
+is the kernel of some homomorphism out of $G$.
+
+Now we turn to the four isomorphism theorems,
+which tell us about the structure of a group's subgroups
+in terms of homomorphisms going out of the group.
+
+\begin{theorem}[First isomorphism theorem]
+    \label{thm:first-iso-thm}
+    Let $\varphi\colon G\to H$ be a group homomorphism with kernel $K$.
+    Then, $K\normaleq G$ and $\varphi(G) = \ol G$ is
+    a subgroup of $H$ isomorphic to $G/K$ with isomorphism
+    $G/K\to\ol G$ given by $gK\mapsto \varphi(g)$.
+\end{theorem}
+
+This is a very simple and powerful theorem;
+proving that a group is isomorphic to a quotient
+often happens via the first isomorphism theorem.
+
+\begin{theorem}[Second isomorphism theorem]
+    \label{thm:second-iso-thm}
+    Let $G$ be a group and $H\le G$, $K\normaleq G$.
+    \begin{enumerate}[(1)]
+	\ii $HK = \{h\cdot k : h\in H, k\in K\}$ is a subgroup of $G$.
+	\ii $H\cap K\normaleq H$.
+	\ii $HK/K\cong H/(H\cap K)$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    Consider the normal subgroup $K = \{(1), (1\;2)(3\;4), (1\;3)(2\;4), (1\;4)(2\;3)\}$
+    of $S_4$ and $H$ the subgroup of permutations that fix $4$, so $H\cong S_3$.
+    Then, $H\cap K = \{1\}$, so by \autoref{thm:second-iso-thm}
+    \begin{equation*}
+        HK/K \cong H/H\cap K = H \cong S_3.
+    \end{equation*}
+    This implies that $\abs{HK} = \abs K\cdot \abs{S_3} = 24$,
+    so in fact $HK = S_4$.
+\end{example}
+
+The third and fourth isomorphism theorems are very closely related:
+\begin{theorem}[Third isomorphism theorem]
+    \label{thm:third-iso-thm}
+    Let $G$ be a group and $N\normaleq G$. If $K\normaleq G$ is
+    such that $N\le K\le G$ then
+    \begin{enumerate}[(1)]
+        \ii $K/N\normaleq G/N$
+	\ii $(G/N)/(K/N)\cong G/K$.
+    \end{enumerate}
+\end{theorem}
+
+This one says that normal subgroups $K$ ``pass through'' quotients
+as long as $K$ contains the group $N$ that $G$ is being quotiented by.
+
+\begin{theorem}[Fourth isomorphism theorem]
+    \label{thm:fourth-iso-thm}
+    Suppose $G$ is a group and $N\normaleq G$.
+    There is a 1-1 correspondence between subgroups $H\le G$ containing $N$
+    and subgroups of $G/N$ by the mapping $H\mapsto H/N$.
+\end{theorem}
+
+The fourth isomorphism theorem says that in fact the subgroups
+which pass through the quotient $G/N$
+(in the same spirit as in \autoref{thm:third-iso-thm})
+are all the subgroups of $G/N$.
+If one were to look at the subgroups of $G$ as a poset
+ordered by inclusion, the fourth isomorphism theorem says that
+the corresponding poset for $G/N$ looks like zooming in on
+just the section of the poset bigger than $N$ and smaller than $G$.
+
+Thus, if $N\normaleq G$, then we can try to understand
+the structure of $G$ by examining
+\begin{enumerate}[(1)]
+    \ii the smaller groups $N$ and $G/N$.
+    Repeating this analysis eventually reduces to the case where
+    $G$ has no nontrivial normal subgroups, where $G$ is called \vocab{simple}.
+    \ii how $G$ is put together from $N$ and $G/N$.
+\end{enumerate}
+
+\section{September 8}\label{sec:sep08}
+
+Two ways to study a group:
+\begin{enumerate}[(1)]
+    \ii For a field $F$ consider $GL_n(F)$.
+    We can study $G$ by homomorphisms $\rho\colon G\to GL_n(F)$;
+    this is called \vocab{representation theory}
+    (not discussed in this class)..
+    \ii For a set $X$, we can consider the symmetric group
+    $S_X = \{f\colon X\to X : f\text{ is bijective}\}$.
+    Then, we can study $G$ by homomorphisms $\rho\colon G\to S_X$.
+    In this case we say that $G$ \vocab{acts on} $X$
+    or that $G$ defines a \vocab{group action} on $X$.
+\end{enumerate}
+
+We shall elaborate on the latter point.
+\begin{definition}[Group action]
+    \label{def:group-action}
+    For each $g\in G$, we associate a bijection $\rho(g)\colon X\to X$
+    and write $g\cdot x \coloneq \rho(g)(x)$ such that the following hold:
+    \begin{enumerate}[(1)]
+	\ii $\rho(gh) = \rho(g)\circ \rho(h)$
+	\ii $\rho(1) = \operatorname{id}_X$, so $1\cdot x = x$ for all $x$.
+    \end{enumerate}
+    As mentioned above, we say that $G$ \vocab{acts on} the set $X$.
+    Since the group action is written to the left here,
+    this is called a \vocab{left action} of $G$ on $X$.
+\end{definition}
+
+\begin{example}
+    Some examples of group actions:
+    \begin{enumerate}[(1)]
+	\ii $D_8$ acts on the corners of a square,
+	as per its definition. If one were to label the vertices
+	$1$ through $4$, we would get a homomorphism $D_8\to S_4$
+	(see example [REFERENCE, 2.2]).
+	\ii If $G$ is a group and $H$ a subgroup,
+	then $G$ acts on the set of all left cosets of $H$
+	by $g\cdot aH = gaH$; it is an action because
+	multiplication in $G$ is associative.
+	If $(G:H)$ is finite then this gives a homomorphism
+	$G\to S_n$.
+	\ii A group $G$ can act on itself via conjugation, namely
+	$g\cdot h = ghg\inv$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Orbits and stabilizers]
+    \label{def:orbit-stab}
+    Suppose $G$ acts on a set $X$. For a given $x\in X$,
+    the \vocab{orbit} of $x$ is the set $G\cdot x = \{g\cdot x : g\in G\}$.
+    An element $x\in X$ is a \vocab{fixed point} if it is fixed by all $g\in G$,
+    i.e. $g\cdot x = x$ for all $g$.
+    $G$ acts \vocab{transitively} on $X$ if all of $X$ is one orbit.
+    Given $x\in X$, the \vocab{stabilizer} of $x$ is
+    the subgroup of $G$ that fixes $x$, namely
+    \begin{equation*}
+	G_x \coloneq \{g\in G : g\cdot x = x\}.
+    \end{equation*}
+\end{definition}
+
+\begin{exercise}
+    Check that ``being in the same orbit'' is an equivalence relation
+    on $X$, hence the orbits (equivalence classes) partition $X$.
+\end{exercise}
+
+\begin{exercise}
+    Show that for any $x\in X$, $G_x\le G$.
+\end{exercise}
+
+\begin{example}
+    [A famous example]
+    Let $\mathbb H = \{z\in\CC : \operatorname{Im}(z)>0\}$
+    be the upper half plane and $G = SL_2(\RR)$.
+    Then, $G$ acts on the Riemann sphere $\hat C = \CC\cup\{\infty\}$ by
+    \begin{equation*}
+        \begin{pmatrix}
+	    a&b\\c&d
+        \end{pmatrix} \cdot z =
+	\frac{az+b}{cz+d}.
+    \end{equation*}
+    Verifying that this is an action is a simple calculation.
+    
+    The orbit of $0$ is the entire real line $\RR\cup\{\infty\}$.
+    % TODO
+\end{example}
+
+If $y\in G\cdot x$, say $y = g\cdot x$, then
+\begin{equation*}
+    h\in G_y\implies h\cdot y = y \implies
+    h\cdot g\cdot x = g\cdot x \implies (g\inv hg)\cdot x = x,
+\end{equation*}
+so if $x$ is in the orbit of $y$ then elements of the stabilizer of $y$
+are conjugate to elements of the stabilizer of $x$;
+specifically, $G_y = g\cdot G_x \cdot g\inv$.
+
+Consider $f\colon G\to G\cdot x$ by $g\mapsto g\cdot x$.
+Obviously $f$ is surjective. Moreover, consider
+\begin{equation*}
+    f\inv(y) = \{g\in G : g\cdot x = y\}.
+\end{equation*}
+If $g\cdot x = h\cdot x$, then $h\inv g\cdot x = x$, meaning
+$h\inv g\in G_x$ or equivalently $g$ is in the left coset $h\cdot G_x$.
+This means $f\inv(y)$ is a left coset of $G_x$,
+hence left cosets of $G_x$ are in bijection with the orbit $G\cdot x$
+via $gG_x\mapsto g\cdot x$. In the case where the orbit is finite,
+the size of the orbit is $\abs{G\cdot x} = (G : G_x)$.
+When $G$ is a finite group acting on a set $X$, we thus have
+\begin{equation*}
+    \abs G = \abs{G\cdot x}\cdot \abs{G_x}.
+\end{equation*}
+When $X$ is also finite, we have $X$ as the disjoint union $\bigsqcup G\cdot x_i$
+where we choose one representative $x_i$ of each orbit, so
+\begin{equation*}
+    \abs X = \sum_{i} \abs{G\cdot x_i} = \sum_i \frac{\abs G}{\abs{G_{x_i}}}.
+\end{equation*}
+
+An important special case is the conjugation action described in
+[REFERENCE whichever example i wrote about conjugation in],
+namely $\alpha\colon G\times G\to G$ by $\alpha(g,h) = ghg\inv$.
+The orbit of an $h\in G$ is the \vocab{conjugacy class}
+$\{ghg\inv : g\in G\}$ of $h$.
+The stabilizer of $h$ is
+\begin{equation*}
+    G_h = \{g\in G : ghg\inv = h \iff gh = hg\},
+\end{equation*}
+i.e. the elements in $G$ that commute with $h$.
+This set is called the \vocab{centralizer} $C(h)$ of $h$.
+Of course, this means we can write the center of $G$ as
+\begin{equation*}
+    Z(G) = \bigcap_{h\in G} C(h).
+\end{equation*}
+
+\begin{exercise}
+    When is $h\in G$ a fixed point under conjugation?
+\end{exercise}
+
+If $G$ is finite and written as the union of conjugacy classes of
+$h_i$ (so we pick one $h_i$ from each conjugacy class)
+\begin{equation*}
+    \abs G = \sum_i \abs{\text{conjugacy class of $h_i$}}
+    = \sum_i \frac{\abs G}{\abs{C(h_i)}}
+    = \abs{Z(G)} + \sum_{C(h_j)\ne G} \frac{\abs G}{\abs{C(h_j)}}
+\end{equation*}
+where the last expression groups together all the singleton orbits
+and so the summation runs over representatives $h_j$
+of orbits with size greater than $1$ (i.e. $h_j\notin Z(G)$).
+This is called the \vocab{class equation} of $G$.
+The neat thing is that analyzing the addends in this equation
+can give constraints on the group
+because each adddend must be a factor of $\abs G$.
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

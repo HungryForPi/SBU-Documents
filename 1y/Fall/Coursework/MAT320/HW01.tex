@@ -1,0 +1,391 @@
+% TODO make hw stylesheet
+\documentclass[11pt]{scrartcl}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=magenta,
+	pdftitle={MAT 319 HW}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+
+\reversemarginpar
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+
+\declaretheorem[style=basehead,name=Problem]{problem}
+\declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=thmbloobox,name=Setup]{setup} % for config geo
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=problem]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+\declaretheorem[style=thmblackbox,name=Question,sibling=problem]{question}
+\declaretheorem[style=thmblackbox,name=Question,numbered=no]{question*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\usepackage{mathrsfs}
+
+\ihead{\footnotesize MAT 319 HW01}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2em}MAT 319 HW01}
+\author{\large Aditya Pahuja}
+\date{\large Due 9/4}
+\begin{document}
+\maketitle
+\begin{problem*}[1.5]
+	Prove $1 + \half + \frac 14 + \cdots + \frac{1}{2^n} = 2 - \frac1{2^n}$
+	for all positive integers $n$.
+\end{problem*}
+\begin{soln}
+	We show this by induction on $n$.
+	For the base case of $n = 1$, we get the obviously true equation
+	\[\frac 32 = 1 + \frac{1}{2^1} = 2 - \frac{1}{2^1} = \frac{3}{2}.\]
+	
+	Assume as the inductive hypothesis that
+	\[1 + \half + \frac 14 + \cdots + \frac{1}{2^n} = 2 - \frac1{2^n}\]
+	for some $n\in\NN$. Then, we want to show that the equation holds
+	when $n$ is replaced with $n + 1$, i.e.
+	\[1 + \half + \frac 14 + \cdots + \frac{1}{2^{n + 1}} =
+	2 - \frac1{2^{n + 1}}.\]
+	This can be done by manipulating the left-hand side as follows:
+	\begin{align*}
+		\left(1 + \half + \frac 14 + \cdots + \frac{1}{2^n}\right)
+		+ \frac{1}{2^{n+1}} &= 2 - \frac1{2^n} + \frac{1}{2^{n+1}}\\
+		&= 2 - \frac{2}{2^{n+1}} + \frac{1}{2^{n+1}}\\
+		&= 2 - \frac{1}{2^{n+1}}.
+	\end{align*}
+	
+	Therefore, by the principle of mathematical induction,
+	\[1 + \frac12 + \frac{1}{4} + \cdots + \frac{1}{2^n} = 2 - \frac{1}{2^n}\]
+	for all positive integers $n$.
+\end{soln}
+
+\begin{problem*}[2.3]
+	Show $\sqrt{2+\sqrt2}$ is not a rational number.
+\end{problem*}
+We present two solutions.
+\begin{proof}[Solution 1]
+	Suppose for the sake of contradiction $\sqrt{2 + \sqrt2}$ is rational.
+	Then, it can be expressed as a ratio of integers $\frac ab$ with $b\ne 0$.
+	By squaring and subtracting two, we find that
+	\[\sqrt 2 = \frac{a^2}{b^2} - 2 = \frac{a^2 - 2b^2}{b^2}\]
+	which is rational because $a$ and $b$ being integers implies that
+	$a^2 - 2b^2$ and $b^2$ are both integers.
+	However, this is a contradiction because $\sqrt 2$ is irrational,
+	so $\sqrt{2 + \sqrt 2}$ must be irrational.
+\end{proof}
+\begin{proof}[Solution 2]
+	Observe that $\sqrt{2 + \sqrt2}$ is a solution to the polynomial equation
+	\[(x^2 - 2)^2 - 2 = 0.\]
+	Expanding the left-hand side gives
+	$x^4 - 4x^2 + 4 - 2 = x^4 - 4x^2 + 2 = 0$.
+	By the rational root theorem (Corollary 2.3 in the textbook),
+	any rational value of $x$ satisfying the equation
+	must be an integer dividing the constant term $-2$.
+	Thus, if $\sqrt{2 + \sqrt2}$ is rational, then, being a root
+	of $x^4 - 4x^2 + 2$, it must be an integer.
+	However, $1 < \sqrt{2 + \sqrt2} < 2$ because
+	\[1 < 2 + \sqrt 2 < 4 \iff -1 < \sqrt 2 < 2,\]
+	and the latter inequality is true,
+	so $\sqrt{2 + \sqrt2}$ is bounded between two consecutive integers and thus
+	not an integer, hence it is irrational.
+\end{proof}
+
+\begin{problem*}[3.4]
+	Prove (v) and (vii) of Theorem 3.2.
+\end{problem*}
+\begin{soln}
+	We can prove (v) just by taking $a = 1$ in property (iv),
+	as $1 = 1^2 \ge 0$. We do have to check that $1^2 \ne 0$;
+	this follows from property (vi) of Theorem 3.1,
+	as $1\cdot 1 = 0$ would imply $1 = 0$, but obviously this is not true.
+	
+	To prove (vii), we notice that $a$ and $b$ being positive means
+	$\frac 1a$, $\frac 1b$, and $\frac 1{ab}$ are all positive too
+	due to properties (iii) and (vi) in 3.2. This means that
+	\[0\cdot \frac 1{ab} < a\cdot \frac 1{ab} < b\cdot \frac{1}{ab}
+	\iff 0 < \frac 1a < \frac 1b,\]
+	as desired.
+\end{soln}
+
+\begin{problem*}[3.6]\phantom{a}
+	\begin{enumerate}[\textbf{(\alph*)}]
+		\ii Prove $|a + b + c| \le |a| + |b| + |c|$
+		for all $a$, $b$, $c\in \RR$.
+		\ii Use induction to prove
+		\[|a_1 + a_2 + \cdots + a_n| \le |a_1| + |a_2| + \cdots + |a_n|\]
+		for $n$ real numbers $a_1$, $a_2$, \dots, $a_n$.
+	\end{enumerate}
+\end{problem*}
+\begin{soln}
+	For part (a), apply triangle inequality twice:
+	\[(|a| + |b|) + |c| \ge |a + b| + |c| \ge |a + b + c|.\]
+	
+	For part (b), we induct on $n$, as instructed,
+	with the base case of $n = 1$ being the trivial statement $|a_1|\le |a_1|$.
+	
+	Now, assume as the inductive hypothesis that
+	\[|a_1 + a_2 + \cdots + a_n| \le |a_1| + |a_2| + \cdots + |a_n|.\]
+	We wish to prove that
+	\[|a_1 + a_2 + \cdots + a_{n+1}| \le |a_1| + |a_2| + \cdots + |a_{n+1}|,\]
+	which is done exactly as in part (a):
+	\[|a_1| + |a_2| + \cdots + |a_{n}| + |a_{n+1}| \ge
+	|a_1 + a_2 + \cdots + a_n| + |a_{n+1}| \ge |a_1 + a_2 + \cdots + a_{n+1}|,\]
+	with the first inequality following from the hypothesis
+	and the second from the two-variable version of the inequality.
+	
+	We have hence proven that $|a_1 + \cdots + a_n| \le |a_1| + \cdots + |a_n|$
+	for all positive integers $n$ using the principle of mathematical induction.
+\end{soln}
+
+\begin{remark*}
+	The triangle inequality can also be proven non-inductively
+	by squaring both sides and subtracting $a_1^2 + a_2^2 + \cdots + a_n^2$
+	to get
+	\[|a_1 + a_2 + \cdots + a_n| \le |a_1| + |a_2| + \cdots + |a_n|
+	\iff \sum_{1 \le i < j \le n} 2a_ia_j \le \sum_{1\le i<j \le n} 2|a_ia_j|\]
+	which is obviously true because $|x| \ge x$ for all real $x$.
+\end{remark*}
+
+\begin{problem*}[4.11]
+	Consider $a$, $b\in \RR$ where $a < b$. Use the denseness of $\QQ$ in $\RR$
+	to show there are infinitely many rationals between $a$ and $b$.
+\end{problem*}
+\begin{soln}
+	The main idea is to split $(a, b)$ into infinitely many
+	disjoint open intervals, each of which contains a rational number
+	by denseness.
+	The rest of this solution can be seen as a verification
+	of the fact that this splitting is possible.
+	
+	Define the sequence of real numbers $(r_k)$ by $r_0 = a$ and
+	\[r_{k+1} = \frac{r_k + b}{2}\]
+	for integers $k\ge 0$.
+	
+	\begin{claim*}
+		For all $k$, $r_k < r_{k+1}$.
+		Additionally, the set $S = \{r_0, r_1, r_2, r_3, \dots\}$ is
+		bounded below by $a$ and bounded above by $b$.
+	\end{claim*}
+	\begin{proof}
+		We prove by induction on $k$ that $r_k < r_{k+1} < b$ for all
+		nonnegative integers $k$.
+		For the base case of $k = 0$, we already know that $r_0 = a < b$,
+		and then $r_0 < r_1 < b$ translates to
+		\[a < \frac{a + b}{2} < b \iff 2a = (a + a) < a + b < b + b \]
+		We then want to show that if $r_k < r_{k+1} < b$,
+		then $r_{k+1} < r_{k+2} < b$.
+		Using the definition of $r_k$, the inequality that we want to prove is
+		\[\frac{r_k + b}{2} < \frac{r_{k+1} + b}{2} < b,\]
+		which is equivalent to the inductive hypothesis after multiplying by $2$
+		and subtracting $b$.
+		Thus, by the principle of mathematical induction,
+		$r_k < r_{k+1} < b$ for all $k$.
+		This proves that $b$ is an upper bound for $S$
+		and that $(r_k)$ is an increasing sequence.
+		
+		Finally, every element of $S$ is at least as large as $r_0 = a$
+		due to the previous paragraph, so $a = \min S$
+		is a lower bound for $S$.
+	\end{proof}
+	
+	Now, we are done, since, by density, there is a rational number
+	in $(r_k, r_{k+1})\subset(a, b)$ for every nonnegative integer $k$
+	and the $(r_k, r_{k+1})$ intervals are pairwise disjoint
+	(since the sequence is increasing)
+	which gives us infinitely many rational numbers in the interval $(a, b)$
+	as desired.
+\end{soln}
+
+\begin{problem*}[4.12]
+	Let $\mathbb I$ be the set of irrational numbers. Prove that
+	if $a < b$, then there exists $x\in\mathbb I$ such that $a < x < b$.
+\end{problem*}
+\begin{soln}
+	Let $d$ be a rational number satisfying $0 < d < b - a$,
+	which must exist by denseness.
+	By the archimedean property, we can find an integer $n$ such that
+	$a - \sqrt 2 < nd$. There must be a smallest such integer $n$
+	because the right-hand side is not bounded below as $n$ decreases;
+	let $n_0$ be this smallest value
+	(in particular the inequality fails when $n \le \frac{a - \sqrt 2}{d}$,
+	so $n_0$ is the smallest integer bigger than $\frac{a - \sqrt2}{2}$).
+	Then, we claim that $n_0d < b - \sqrt 2$.
+	We prove this by contradiction: if the inequality were false,
+	then we find that
+	\[(n_0 - 1)d < a - \sqrt2 < b - \sqrt2 \le n_0d,\]
+	which implies the false statement
+	\[d = n_0d - (n_0 - 1)d > (b - \sqrt2) - (a - \sqrt2) > b - a.\]
+	
+	Therefore, we have found an integer $n_0$ such that
+	\[a < \sqrt2 + n_0d < b.\]
+	Since $\sqrt2$ is irrational, so is $\sqrt2 + n_0d$
+	(because $n_0d$ is rational), so we have found an irrational number
+	between $a$ and $b$.
+\end{soln}
+
+\begin{problem*}[5.1]
+	Write the following sets in interval notation:
+	\begin{enumerate}[\textbf{(\alph*)}]
+		\ii $\{x\in\RR : x < 0\}$
+		\ii $\{x\in\RR : x^3 \le 8\}$
+		\ii $\{x^2 : x\in\RR\}$
+		\ii $\{x\in\RR : x^2 < 8\}$
+	\end{enumerate}
+\end{problem*}
+\begin{soln}
+	\textbf{(a)} is the negative reals $(-\infty, 0)$.
+	
+	\textbf{(b)} is $(-\infty, 2]$ because the inequality is equivalent to
+	$x \le 2$.
+	
+	\textbf{(c)} is the nonnegative reals, since the square of a real number
+	is always at least zero and all nonnegative real numbers are squares,
+	so the corresponding interval is $[0, \infty)$.
+	
+	\textbf{(d)} is $(-\sqrt8, \sqrt8)$, since the inequality is equivalent to
+	$|x| < \sqrt 8$.
+\end{soln}
+
+\begin{problem*}[5.2]
+	Give the infimum and supremum of each set listed in Exercise 5.1.
+\end{problem*}
+\begin{soln}
+	Reading off the intervals:
+	\begin{enumerate}[\textbf{(\alph*)}]
+		\ii infimum is $-\infty$, supremum is $0$
+		\ii infimum is $-\infty$, supremum is $2$
+		\ii infimum is $0$, supremum is $\infty$
+		\ii infimum is $-\sqrt8$, supremum is $\sqrt8$
+	\end{enumerate}
+\end{soln}
+\end{document}

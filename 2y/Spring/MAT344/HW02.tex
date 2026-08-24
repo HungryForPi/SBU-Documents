@@ -1,0 +1,303 @@
+% TODO make hw stylesheet
+\documentclass[10pt]{article}
+\usepackage[letterpaper,top=1in,left=1in,right=1in]{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{bbm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=magenta,
+    pdftitle={MAT 344 HW}
+}
+
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage[textsize=footnotesize]{todonotes}
+\usepackage{titling}
+\usepackage{cancel}
+
+\reversemarginpar
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdbloobox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=TealBlue!5,linecolor=blue,}
+\declaretheoremstyle[headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbloobox},headpunct={\\[3pt]},postheadspace=0pt,]{thmbloobox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{boldhead}
+\declaretheoremstyle[spaceabove=6pt,spacebelow=6pt,headfont=\normalfont\itshape]{italichead}
+
+\declaretheorem[style=boldhead,name=Problem]{problem}
+\declaretheorem[style=boldhead,name=Problem,numbered=no]{problem*}
+\declaretheorem[style=boldhead,name=Setup]{setup} % for config geo
+\declaretheorem[style=boldhead,name=Example,sibling=problem]{example}
+\declaretheorem[style=boldhead,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=boldhead,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=boldhead,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=boldhead,name=Lemma,numberwithin=problem]{lemma}
+\declaretheorem[style=boldhead,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=boldhead,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=boldhead,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=boldhead,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=boldhead,name=Remark,numberwithin=problem]{remark}
+\declaretheorem[style=boldhead,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=boldhead,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=boldhead,name=Definition,numbered=no]{definition*}
+
+\providecommand{\ol}{\overline}
+\providecommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\providecommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\dd}{\mathrm{d}}
+\providecommand{\ul}{\underline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\II}{\mathbb I}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ind}{\mathbbm 1}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{blue}{#1}}}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\what}{\widehat}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\abs}[1]{\left\lvert #1\right\rvert}
+\providecommand{\smabs}[1]{\lvert #1\rvert}
+\providecommand{\innerprod}[1]{\langle\!\langle #1\rangle\!\rangle}
+\providecommand{\norm}[1]{\left\| #1\right\|}
+\providecommand{\smnorm}[1]{\| #1\|}
+\providecommand{\gr}{\operatorname{gr}}
+
+\usepackage{mathrsfs}
+
+% place title at top right
+\setlength{\droptitle}{-8ex}
+\pretitle{\begin{flushright}\Large\bfseries}
+\posttitle{\par\end{flushright}}
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+\title{MAT 344 HW02}
+\author{\large Aditya Pahuja}
+\date{\large Due 02/10}
+\begin{document}
+\maketitle
+
+\begin{problem}
+    Show for a complex valued function $f$ that
+    \begin{equation*}
+	\dd f = \frac{\partial f}{\partial z}\dd z
+	+ \frac{\partial f}{\partial \ol z}\dd\ol z.
+    \end{equation*}
+\end{problem}
+
+\begin{soln}
+    Recalling that
+    \begin{equation*}
+	\frac{\partial f}{\partial z}
+	= \half\left(\frac{\partial f}{\partial x}
+	- i\frac{\partial f}{\partial y}\right),\qquad
+	\frac{\partial f}{\partial z}
+	= \half\left(\frac{\partial f}{\partial x}
+	+ i\frac{\partial f}{\partial y}\right),
+    \end{equation*}
+    we directly compute
+    \begin{align*}
+        \frac{\partial f}{\partial z}\dd z
+	+ \frac{\partial f}{\partial \ol z}\dd z
+	&= \half\left(\frac{\partial f}{\partial x}
+	- i\frac{\partial f}{\partial y}\right)\cdot
+	(\dd x + i\dd y)
+	+ \half\left(\frac{\partial f}{\partial x}
+	+ i\frac{\partial f}{\partial y}\right)\cdot
+	(\dd x - i\dd y)\\
+	&= \frac{\partial f}{\partial f}\dd x
+	+ \frac{\partial f}{\partial y}\dd y = \dd f.\qedhere
+    \end{align*}
+\end{soln}
+
+\begin{problem}
+    For which values of $z$ is
+    \begin{equation*}
+	\sum_{n=0}^\infty \left(\frac z{1+z}\right)^n
+    \end{equation*}
+    convergent?
+\end{problem}
+
+\begin{soln}
+    A geometric series of complex numbers converges
+    if and only if the common ratio of the sequence being summed
+    has magnitude smaller than $1$, so we want to find
+    the subset of $\CC$ containing all $z$ such that
+    $\smabs{\frac{z}{1+z}} < 1$. Letting $z = a+bi$ for real $a,b$,
+    this is equivalent to
+    \begin{equation*}
+	\sqrt{a^2+b^2} < \sqrt{(1+a)^2 + b^2}
+	\iff a^2 < (1+a)^2 \iff -\half < a,
+    \end{equation*}
+    i.e. the series converges for \framebox{all $z$ such that
+    $\operatorname{Re}(z) > -\half$}.
+\end{soln}
+
+\begin{problem}
+    Using the skew-symmetric rules for wedge multiplication
+    of real $1$-forms, show that
+    \begin{equation*}
+        \dd z\wedge\dd z = \dd\ol z\wedge\dd\ol z = 0
+	\qquad\text{and}\qquad
+	\dd z\wedge\dd\ol z = -\dd\ol z\wedge\dd z
+	= -2i\dd x\wedge\dd y.
+    \end{equation*}
+    Use this to express the formula in Green's theorem
+    for $\omega = f(z)\dd z$
+    (where $f(x,y) = u(x,y) + iv(x,y)$) in terms of
+    $\frac{\partial f}{\partial\ol z}\dd z\wedge\dd\ol z$.
+\end{problem}
+
+\begin{soln}
+    Wedging a $1$-form with itself is always zero because
+    swapping the arguments yields
+    $\omega\wedge\omega = -\omega\wedge\omega$
+    by anticommutativity.
+    This implies that $2\omega\wedge\omega = \omega\wedge\omega = 0$,
+    so in particular $\dd z\wedge\dd z = \dd\ol z\wedge\dd\ol z = 0$.
+    The other two equations follow from a direct calculation:
+    \begin{gather*}
+	\dd z\wedge\dd\ol z
+	= (\dd x + i\dd y)(\dd x - i\dd y)
+	= \dd x\wedge\dd x + \dd y\wedge\dd y
+	+ i(\dd y\wedge\dd x - \dd x\wedge\dd y)
+	= -2i\dd x\wedge\dd y,
+    \end{gather*}
+    and this is equal to $-\dd\ol z\wedge\dd z$ by anticommutativity.
+    Green's theorem says that, for a good domain $U$,
+    \begin{equation*}
+	\int_{\partial U}\omega = \int_U\dd\omega
+	= \int_U \dd f\wedge\dd z
+	= \int_U \left(\frac{\partial f}{\partial z}\dd z
+	+ \frac{\partial f}{\partial\ol z}\dd\ol z\right)\wedge\dd z
+	= \int_U \frac{\partial f}{\partial\ol z}\dd z\wedge\dd\ol z,
+    \end{equation*}
+    where the other summand in the integral cancels out
+    because $\dd z\wedge\dd z = 0$.
+\end{soln}
+
+\pagebreak
+\begin{problem}
+    Let $\Delta = \{z\in\CC : \abs z\le 1\}$
+    and choose $a\in\operatorname{Int}\Delta$.
+    Let $\eps>0$ be small enough that
+    $\Delta(\eps,a) \equiv \{z\in\CC : \abs{z-a} < \eps\}\subseteq
+    \operatorname{Int}\Delta$. Let $f$ be a holomorphic function
+    in a neighborhood of $\Delta$. Write out Green's formula for
+    the holomorphic function
+    \begin{equation*}
+	F(z) = \frac {f(z)}{z-a}
+    \end{equation*}
+    on $\Omega \equiv\Delta - \operatorname{Int}\Delta(\eps,a)$.
+    What happens as $\eps\to 0$?
+\end{problem}
+
+\begin{soln}
+    Let $g(z) = \frac{f(z)}{z-a}$. Since $a\notin\Omega$,
+    $\frac 1{z-a}$ is holomorphic on $\Omega$, hence so is $g$,
+    being the product of two functions that are holomorphic on $\Omega$.
+    In particular, $\frac{\partial g}{\partial\ol z} = 0$ on $\Omega$, so
+    \begin{equation*}
+	\int_{\partial\Omega}g(z)\dd z
+	= \int_\Omega \frac{\partial g}{\partial\ol z}
+	\dd z\wedge\dd\ol z = 0
+    \end{equation*}
+    by the result of Problem 3.
+    If we orient the boundaries of $\Delta$ and $\Delta(\eps,a)$
+    counterclockwise, the left-hand side equalling zero implies
+    \begin{equation*}
+	\int_{\partial\Delta} g(z)\dd z
+	= \int_{\partial\Delta(\eps,a)}g(z)\dd z.\tag{$*$}
+    \end{equation*}
+    Let $\gamma_r = \partial\Delta(r,a)$,
+    which we can parametrize as the curve
+    $\gamma_r\colon[0,2\pi]\to\CC$ given by
+    $\gamma_r(\theta) = a + re^{i\theta}$. Then,
+    \begin{equation*}
+	\int_{\gamma_r} \frac{f(z)}{z-a}\dd z
+	= \int_0^{2\pi} \frac{f(a + r e^{i\theta})}
+	{r e^{i\theta}}\cdot rie^{i\theta}\dd\theta
+	= \int_0^{2\pi} if(a + re^{i\theta})\dd\theta.
+    \end{equation*}
+    Since $f$ is holomorphic at $a$, there exists a constant $C>0$
+    such that, for each $r>0$, there is a $\delta>0$ satisfying
+    $\abs{f(a+re^{i\theta}) - f(a)} < C\abs{re^{i\theta}} = Cr$
+    (in particular, any $C > \abs{f'(a)}$ has this property).
+    This implies that
+    \begin{equation*}
+	\abs{\int_0^{2\pi} if(a+re^{i\theta})\dd\theta
+	- 2\pi if(a)}
+	= \abs{\int_0^{2\pi} i(f(a + re^{i\theta}) - f(a))\dd\theta}
+	< \int_0^{2\pi} Cr\dd\theta = 2\pi Cr,
+    \end{equation*}
+    so, in the limit,
+    \begin{equation*}
+	\lim_{r\to 0}\int_{\gamma_r} \frac{f(z)}{z-a}\dd z = f(a).
+    \end{equation*}
+    By $(*)$, the argument of the limit is constant as $r$ varies,
+    so in fact this implies
+    \begin{equation*}
+	\int_{\partial\Delta}\frac{f(z)}{z-a}\dd z
+	= \int_{\gamma_r}\frac{f(z)}{z-a}\dd z = f(a).\qedhere
+    \end{equation*}
+\end{soln}
+
+
+
+
+
+
+
+
+
+
+\end{document}

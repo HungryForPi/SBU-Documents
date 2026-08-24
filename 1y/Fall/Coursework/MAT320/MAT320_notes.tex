@@ -1,0 +1,2243 @@
+\documentclass[10pt]{scrartcl}
+\usepackage[a4paper, total={5.5in, 8in}]{geometry}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdftitle={MAT 320 Notes}
+}
+
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage{thmtools}
+\usepackage[textsize=small]{todonotes}
+
+\addtolength{\textheight}{3.14cm}
+\providecommand{\ol}{\overline}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\dang}{\measuredangle} %% Directed angle
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\dg}{^\circ}
+\providecommand{\ind}[1]{\mathbf 1_{#1}}
+\providecommand{\ii}{\item}
+\providecommand{\alert}[1]{{\sffamily\textbf{\textcolor{magenta}{#1}}}}
+\providecommand{\opname}{\operatorname}
+\providecommand{\li}{\opname{li}}
+\providecommand{\ls}{\opname{ls}}
+\providecommand{\inv}{^{-1}}
+\providecommand{\setdiff}{\smallsetminus}
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\abs}[1]{\left|{#1}\right|}
+\providecommand{\dif}{\;d}
+
+\reversemarginpar
+\setlength{\marginparwidth}{3cm}
+
+\mdfdefinestyle{mdbluebox}{roundcorner=10pt,innerbottommargin=9pt,
+	linecolor=blue,backgroundcolor=TealBlue!5,}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{frametitlefont=\bfseries,innerbottommargin=8pt,
+	nobreak=true,backgroundcolor=Salmon!5,linecolor=RawSienna,}
+\declaretheoremstyle[headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},headpunct={\\[3pt]},postheadspace=0pt,]{thmredbox}
+
+\mdfdefinestyle{mdgreenbox}{linecolor=ForestGreen,backgroundcolor=ForestGreen!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+mdframed={style=mdgreenbox},headpunct={ --- },]{thmgreenbox}
+
+\mdfdefinestyle{mdorangebox}{linecolor=RedOrange,backgroundcolor=RedOrange!5,
+	linewidth=2pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{RedOrange!70!black},
+mdframed={style=mdorangebox},headpunct={ --- },]{thmorangebox}
+
+\mdfdefinestyle{mdblackbox}{linecolor=black,backgroundcolor=RedViolet!5!gray!5,
+	linewidth=3pt,rightline=false,leftline=true,topline=false,bottomline=false,}
+\declaretheoremstyle[mdframed={style=mdblackbox}]{thmblackbox}
+
+
+\declaretheorem[style=thmredbox,name=Problem,numberwithin=section]{problem}
+
+\declaretheorem[style=thmredbox,name=Example,sibling=problem]{example}
+\declaretheorem[style=thmredbox,name=$\bigstar$ Problem,sibling=problem]{niceprob}
+
+\declaretheorem[style=thmbluebox,name=Theorem,sibling=problem]{theorem}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{prop}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+\declaretheorem[style=thmgreenbox,name=Claim,numberwithin=problem]{claim}
+\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\declaretheorem[style=thmgreenbox,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmgreenbox,name=Definition,numbered=no]{definition*}
+\declaretheorem[style=thmorangebox,name=Warning,sibling=theorem]{warning}
+\declaretheorem[style=thmorangebox,name=Warning,numbered=no]{warning*}
+\declaretheorem[style=thmorangebox,name=Note,numbered=no]{note}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=example]{exercise}
+\declaretheorem[style=thmblackbox,name=Exercise,numbered=no]{exercise*}
+
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{walkthrough}{\noindent \textbf{Walkthrough.}}{\medskip}
+\newlist{walk}{enumerate}{3}
+\setlist[walk]{label=\bfseries (\alph*)}
+
+\providecommand{\pow}{\operatorname{Pow}}
+\providecommand{\vocab}[1]{{\textbf{\textcolor{ForestGreen}{#1}}}}
+\providecommand{\lcm}{\operatorname{lcm}}
+\providecommand{\ord}{\operatorname{ord}}
+
+\usepackage{asymptote}
+\begin{asydef}
+	defaultpen(fontsize(10pt));
+	unitsize(1cm);
+	size(8cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+	settings.tex="pdflatex";
+	settings.outformat="pdf";
+	// Replacement for olympiad+cse5 which is not standard
+	import geometry;
+	// recalibrate fill and filldraw for conics
+	void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
+	{ filldraw(pic, (path) g, fillpen, drawpen); }
+	void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
+	{ filldraw(pic, (path) g, p); }
+	// some geometry
+	pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
+	pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
+	pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+	// cse5 abbreviations
+	path CP(pair P, pair A) { return circle(P, abs(A-P)); }
+	path CR(pair P, real r) { return circle(P, r); }
+	pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
+	pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
+	path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+	// cse5 more useful functions
+	picture CC() {
+		picture p=rotate(0)*currentpicture;
+		currentpicture.erase();
+		return p;
+	}
+	pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
+		Label L = s;
+		L.s = "$"+s.s+"$";
+		label(L, A, B, p);
+		return A;
+	}
+	pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
+		dot(MP(s, A, B, p), p);
+		return A;
+	}
+	path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
+		draw(g, p, ar);
+		return g;
+	}
+\end{asydef}
+
+\ihead{\footnotesize\textbf{MAT 320 Fall 2024 Notes}}
+\ohead{\footnotesize \today}
+
+\title{\vspace{-2.0cm} MAT 320 Fall 2024}
+\author{\large Aditya Pahuja}
+\date{\large \today}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+These are notes for MAT 320 only (i.e. starting week 7).
+
+\setcounter{section}{6}
+\section{Week 7: 10/08 and 10/10}
+The following two theorems are some of the most important
+in analysis over $\RR$.
+\begin{theorem}[Weierstrass theorem]\label{wk7:thm:weierstrass}
+	If $f\colon\RR\to\RR$ is a continuous function on the interval $[a, b]$,
+	then it has a maximum and a minimum.
+	More precisely, the set $\{f(x) : x\in[a,b]\}$ has a minimum and a maximum.
+\end{theorem}
+
+\begin{theorem}[Intermediate value theorem]\label{wk7:thm:ivt}
+	If $f\colon\RR\to\RR$ is continuous on an interval $I$
+	(whether open, half-open, or closed)
+	and $a < b$ are two elements of $I$, then,
+	if $y$ is between $f(a)$ and $f(b)$
+	(so either $f(a) < y < f(b)$ or $f(b) < y < f(a)$),
+	there exists an $x\in(a,b)$ such that $f(x) = y$.
+\end{theorem}
+
+\begin{exercise}
+	Show that the intermediate value theorem equivalently says that
+	$f(I)$ is also an interval.
+\end{exercise}
+
+Some toy applications of these theorems:
+\begin{theorem*}
+	Let $y\ge 0$ be real and $m$ an integer.
+	Then, there exists a real $x\ge 0$ such that $x^m = y$.
+\end{theorem*}
+
+Note that there is no uniqueness assertion here!
+\begin{proof}
+	Let $f\colon \RR\to\RR$ be the function $f(x) = x^m$.
+	We check three cases.
+	\begin{itemize}
+		\ii If $y = 0$ or $y = 1$, then the result is trivial, as
+		we take $x = 0$, $x = 1$ respectively.
+		\ii If $0 < y < 1$, then $f(0) < y < f(1)$ implies that
+		there exists an $x\in(0,1)$ such that $f(x) = y$,
+		by the intermediate value theorem.
+		\ii If $1 < y$, then $f(1) < y < f(y)$ implies that
+		there exists an $x\in(1,y)$ such that $f(x) = y$,
+		again by the intermediate value theorem.
+	\end{itemize}
+	These cases encompass all possible values of $y$, so we are done.
+\end{proof}
+Note in fact that we got an estimate on how large $x$ must be
+for a given $y$, too! (A bad estimate, but still.)
+
+Some more problems for the reader:
+\begin{problem}
+	Show that if $f\colon[0,1]\to[0,1]$ is continuous
+	then $f$ has a fixed point;
+	that is, there exists an $x\in[0,1]$ such that $f(x) = x$.
+\end{problem}
+
+\begin{problem}
+	On Saturday, a mountain climber climbs from the base of a mountain
+	to its peak between 7 am and 10 pm.
+	On Sunday, the mountain climber climbs down from the peak to the base,
+	again between 7 am and 10 pm.
+	Prove that at some point on Sunday, the mountain climber
+	is at the same altitude that he was at exactly 24 hours ago.
+\end{problem}
+
+Rather than just proving these theorems for real numbers,
+we will depart into the world of \emph{metric spaces}
+to help us understand them in a much deeper context.
+
+\subsection{Metric spaces}
+Fundamentally, there is really only one thing that matters
+in the context of the basic ideas of convergence
+(which is what basically everything so far has been based on):
+the notion of a distance. In light of this,
+we momentarily strip away all the extra features of $\RR$
+to get the following.
+
+\begin{definition}[Metric space]\label{wk7:def:metricspace}
+	A \vocab{metric space} is a set $X$
+	equipped with a \vocab{metric} (``distance function'')
+	$d\colon X\times X\to \RR$ such that, for all $x,\,y,\,z\in X$,
+	\begin{itemize}
+		\ii $d(x,y)\ge 0$, with equality if and only if $x = y$;
+		\ii $d(x, y) = d(y, x)$; and
+		\ii $d(x, y) \le d(x, z) + d(z, x)$.
+	\end{itemize}
+	We refer to metric spaces as a pair $(X, d)$,
+	or, if $d$ is clear from context, then we will just say $X$.
+	If we just say ``$X$ is a metric space,''
+	then the corresponding metric will be called $d$.
+	We also often refer to the elements of $X$ as ``points''
+	to align with visual intuition.
+\end{definition}
+
+\begin{example}
+	Some example metric spaces:
+	\begin{itemize}
+		\ii Any subset of the real numbers is a metric space
+		with metric $d(x, y) = |x - y|$.
+		\ii In general, $n$-dimensional space is a metric space
+		with the Euclidean metric
+		\[d(\mb x, \mb y) = \sqrt{(x_1-y_1)^2 + \cdots + (x_n - y_n)^2}\]
+		or with the taxicab metric
+		\[d(\mb x, \mb y) = |x_1 - y_1| + \cdots + |x_n - y_n|\]
+		or with the Chebyshev metric
+		\[d(\mb x, \mb y) = \max\{|x_1 - y_1|, \dots, |x_n - y_n|\}.\]
+		\ii A (connected) graph can be turned into a metric space
+		with distance given by the length of the shortest path
+		between two points.
+		\ii We also have the trivial metric
+		\[d(x, y) = \begin{cases}
+			0 & \text{if }x=y\\
+			1 & \text{if }x\ne y.
+		\end{cases}\]
+		\ii The rationals can also be made a metric space
+		with distance $d(a,b) = p^{-\nu_p(a-b)}$;
+		this is called the $p$-adic metric.
+		Here $\nu_p(n)$ is the largest power of $p$ dividing $n$
+		if $n$ is a nonzero integer, $\infty$ if $n = 0$,
+		and we extend to rationals by decreeing that
+		$\nu_p(a/b) = \nu_p(a) - \nu_p(b)$ for all rationals;
+		note that we define $p^{-\infty} = 0$.
+		Actually, the rationals with this metric form an ultrametric space,
+		meaning the stronger version of the triangle inequality
+		\[d(x,y) \le \max\{d(x, z), d(y, z)\}\]
+		always holds (this is not too hard to prove
+		if you know some number theory).
+	\end{itemize}
+\end{example}
+
+Our job now is to carry over our basic definitions
+from $\RR$ to general metric spaces.
+Recalling that $|x - y|$ just means ``the distance between $x$ and $y$''
+in $\RR$, this is just a matter of copying the definitions and
+changing absolute values into distances. For example:
+
+\begin{definition}[Convergence]\label{wk7:def:convergence}
+	Let $(X, d)$ be a metric space
+	and let $(x_n)$ be a sequence of points in $X$.
+	Then, we say that $(x_n)$ converges to a point $\ell\in X$ if
+	\[\text{for all }\eps > 0,\quad d(x_n,\ell) < \eps\text{ eventually.}\]
+\end{definition}
+
+Similarly, we can define what it means for a function to be continuous;
+note that since we compare distances both in the domain (``$|x - c| < \delta$'')
+and in the codomain (``$|f(x) - f(x)| < \eps$''),
+both the domain and codomain need to be metric spaces
+(but not necessarily the same one!).
+
+\begin{definition}[Continuity]\label{wk7:def:continuity}
+	A function $f\colon X\to Y$ between metric spaces $(X, d_X)$ and $(Y, d_Y)$
+	is continuous at a point $c\in X$ if
+	\[\text{for all }\eps > 0,\text{ there exists }\delta > 0
+	\text{ such that }d_X(x, c) < \eps \implies d_Y(f(x), f(c)) < \eps.\]
+\end{definition}
+
+\subsection{Some topology}
+
+At this point, you might have made an observation:
+the idiom $d(a, x) < \eps$ keeps popping up,
+since we frequently need to refer to the idea of
+``$x$ is less than $\eps$ away from $a$.''
+To make notation less clunky, we define:
+\begin{definition}\label{wk7:def:openball}
+	In a metric space $(X, d)$, the \vocab{open ball}
+	centered at $x\in X$ with radius $\eps > 0$ is the set of points
+	\[B_X(x, \eps) := \{y\in X : d(x, y) < \eps\}.\]
+	The \vocab{open unit ball} is then just $B_X(x, 1)$.
+	We sometimes omit the subscript (simply writing $B(x,\eps)$)
+	if there is no risk of confusion about the ambient metric space.
+\end{definition}
+
+The adjective ``open'' here refers to the idea that this set
+doesn't have its natural ``boundary'' of points
+whose distance from $x$ is exactly $\eps$ ---
+the open balls in $\RR^n$ should give you a clearer idea of what this means.
+We will see a slightly more specific example of what this means
+in a moment.
+
+\begin{exercise}
+	Pick your three favorite metric spaces.
+	What do open balls look like in those spaces?
+\end{exercise}
+
+\begin{exercise}
+	Rewrite Definitions \ref{wk7:def:continuity} and \ref{wk7:def:convergence}
+	with the notation of open balls.
+\end{exercise}
+
+The kicker is that we very much care about sets $U\subseteq X$
+such that, for every $x\in U$, some open ball $B(x,\eps)$ with $\eps > 0$
+is contained in $U$, since these are contexts in which
+we can freely talk about convergence, continuity, and so on
+(we only require existence of an $\eps$
+because we only ever care about ``arbitrarily small $\eps$''
+In fact, such $U$ are so important that we give them a name:
+\begin{definition}[Open and closed sets]\label{wk7:def:openclosed}
+	Let $(X, d)$ be a metric space as usual.
+	A subset $U\subseteq X$ is said to be \vocab{open}
+	(in $X$, with respect to the metric $d$ ---
+	both of these descriptors are dropped if we have enough context)
+	if, for every $x\in U$, there exists an $\eps$ such that $B(x,\eps)$
+	is a subset of $U$.
+	
+	The set $E\subseteq X$ is \vocab{closed} if its complement
+	$X\setdiff E$ is open.
+\end{definition}
+
+\begin{exercise}
+	Show that every open ball is open in its respective metric space,
+	this earning open balls their name.
+\end{exercise}
+
+\begin{exercise}
+	Let $(X, d)$ be a metric space.
+	Prove the following facts about open sets:
+	\begin{enumerate}[(i)]
+		\ii $\varnothing$ and $X$ are open in $X$.
+		\ii The union of any (possibly infinite) collection
+		of open sets is also an open set.
+		\ii The intersection of finitely many open sets is also an open set.
+		Show that finiteness is a necessary assumption here
+		by finding an infinite collection of open sets in $\RR$
+		whose intersection is not open in $\RR$.
+	\end{enumerate}
+	What are the analogous statements for closed sets?
+	Write them down and prove them, too.
+\end{exercise}
+
+Closed sets are in fact aptly named too:
+\begin{theorem}[Alternate definition of closed set]
+	\label{wk7:def:closed-iff-contains-limitpts}
+	Let $E\subseteq X$.
+	A point $x\in X$ is a \vocab{limit point} of $E$
+	if there exists a sequence $(x_n)$ of points in $E$
+	whose limit is $x$.
+	Then, $E$ is closed if and only if
+	it contains all of its limit points. 
+\end{theorem}
+
+\begin{proof}
+	\todo{proof}
+\end{proof}
+
+You can think of this as ``closed sets do contain their boundaries.''
+\begin{exercise}
+	Show that finite sets are closed in every metric space.
+	Then, find a metric space in which all finite sets are open,
+	and find a metric space in which no finite sets are open.
+\end{exercise}
+
+The following theorem justifies the above definitions
+by allowing us to think about continuity much more globally
+rather than pointwise
+(in fact, this will be the exact definition of continuity
+in general topological spaces):
+\begin{theorem}[Continuity, topologically]
+	A function $f\colon X\to Y$ between metric spaces
+	is continuous if and only if, for each open $U\subseteq Y$,
+	the set $f\inv(U)\subseteq X$ is also open.
+	This theorem also holds if the word ``open'' is replaced with ``closed.''
+\end{theorem}
+
+The proof of this is given in Week 8,
+and a formal writeup was required for homework 7.
+You should try to draw a picture and prove the theorem yourself
+before reading on; being able to prove it yourself
+means you can be confident in your understanding of the preceding content.
+
+\section{Week 8: 10/17}
+From the end of last week's lecture:
+\begin{theorem}[Continuity, topologically]
+	\label{wk8:thm:topocont}
+	Let $f\colon X\to Y$ be a function between two metric spaces.
+	Prove that $f$ is continuous if and only if,
+	for every open subset $U\subseteq Y$, the pre-image
+	$f\inv(U)$ is open in $X$.
+\end{theorem}
+
+\begin{proof}
+	Here's a picture:
+	\begin{center}
+		\begin{asy}
+		unitsize(1.15cm);
+		draw((1.2,0)..(0,2)..(-1.2,0)..(0,-2)..cycle);
+		draw((6.2,0)..(5,2)..(3.8,0)..(5,-2)..cycle);
+		pair x = (0.3,0.5);
+		filldraw((0.3,0.08)..(0.6,0.2)..(0.72,0.37)..(0.3,1.5)..(-0.6,1.3)..(-0.4,0.2)..cycle,green+opacity(0.2),dashed);
+		filldraw(circle(x,0.35),red+opacity(0.3),dashed);
+		dot("$x$", x, dir(90));
+		pair fx = (4.8, -.3);
+		filldraw(circle(fx,0.7),green+opacity(0.2),dashed);
+		filldraw((5.1,-.34)..(4.8,-0.1)..(4.5,0.2)..(4.4,-0.2)..(5.2,-0.7)..cycle,red+opacity(0.3),dashed);
+		dot("$f(x)$", fx, dir(90),fontsize(9));
+		draw((0.7,0.5)..(2.5,0.3)..(4.3,-0.2),EndArrow(5));
+		
+		label("$B_X(x,\delta)$",x+(0,0.3),dir(100),fontsize(7.5));
+		label("$B_Y(f(x),\varepsilon)$",fx-(0,0.7),dir(-80),fontsize(7.5));
+		label("$f^{-1}(U)$",(0,2),dir(90),fontsize(11));
+		label("$U$",(5,2),dir(90),fontsize(11));
+		label("$f$",(2.5,0.3),dir(90));
+		label("$f^{-1}$",(2.5,0.15),dir(-90));
+		
+		draw((0.8,0.35)..(2.5,0.15)..(4.05,-0.28),BeginArrow(5));
+		label("$f^{-1}(B_Y(f(x),\varepsilon))$",(0,0.1),dir(-90),fontsize(7.5));
+		\end{asy}
+	\end{center}
+	
+	First, suppose $f$ is continuous.
+	For an open $U\subseteq Y$, let $x\in f\inv(U)$
+	and let $B_Y(f(x),\eps)$ be contained in $U$.
+	Then, there exists a $\delta > 0$ so that
+	$f(B_X(x,\delta))\subseteq B_Y(f(x),\eps)$ by definition of continuity.
+	This means that $B_X(x,\delta)\subseteq f\inv(U)$, i.e.
+	for each $x\in f\inv(U)$, we can find an open ball centered at $x$
+	contained in $U$, which is what it means for $f\inv(U)$ to be open.
+	
+	Conversely, suppose $f\inv(U)$ is open in $X$ for all open $U\subseteq Y$.
+	Then, let $x$ be in $Y$ and consider the set $f\inv(B_Y(f(x),\eps))$.
+	The ball is open in $Y$, so this pre-image is open in $X$
+	and contains $f\inv(x)$. This means we can find an open ball
+	$B_X(x,\delta)\subseteq f\inv(U)$ due to openness,
+	but then the existence of $\delta$ is exactly what is required
+	to prove $f$ is continuous, so we are done.
+\end{proof}
+
+\subsection{Subspaces of metric spaces}
+Let $(X, d)$ be a metric space.
+There are a couple of natural ways to generate more metric spaces
+given a few metric spaces: for example, homework 6 problem 6
+showed that the product of two metric spaces is a metric space
+in a natural way.
+We can also create a metric space by taking a subset
+and just restricting the metric to the subset; that is,
+if $E\subseteq X$, then we can define a metric on $E$ by
+\[d_{E} = d|_{E\times E}.\]
+
+For example, let $E$ be the unit circle $\{(x, y) : x^2 + y^2 = 1\}$.
+Then, we can define the distance between two points by\dots
+well, their distance (in the standard Euclidean sense).
+
+\begin{center}
+	\begin{asy}
+		draw((-3,0)--(3,0));
+		draw((0,-3)--(0,3));
+		draw(circle((0,0),2));
+		pair A = 2*dir(30);
+		pair B = 2*dir(140);
+		draw(A--B, dashed);
+		dot(A);
+		dot(B);
+	\end{asy}
+\end{center}
+
+Or, for a simpler toy example, we can take $E = (0,1]\subseteq\RR$.
+Then, \emph{within $E$}, an open ball $B_E(z, \eps)$ centered at $z$
+with radius $\eps$ would be
+\[B_E(z, \eps) = \{x\in E: d_E(x, z) < \eps\} =
+\{x\in X : d(x, z) < \eps\} \cap E = B_X(z,\eps) \cap E.\]
+That is, to look at an open ball in $E$,
+we take the corresponding open ball in $X$ and chop off
+the parts outside $E$ (and this generalizes to all open sets).
+Crucially, this means that \alert{openness is unique to each metric space}:
+a set can be open in $E$ while not being open in $X$.
+In our example with $X = \RR$, $E = (0, 1]$, $B_E(1, \eps) = (1-\eps,1]$
+is open in $E$, but not open in $\RR$
+(because any open ball in $\RR$ centered at $1$ would contain
+numbers bigger than $1$).
+
+\begin{exercise}
+	What do open sets look like on the unit circle,
+	when treated as a subset of $\RR^2$ with the usual distance metric?
+\end{exercise}
+
+\subsection{Connectedness}
+
+\begin{definition}
+	\label{wk8:def:connected}
+	A metric space $(X, d)$ is \vocab{connected} if
+	there are no nontrivial sets that are both open and closed (clopen).
+	That is, if $A\subset X$ is clopen, then $A = X$ or $A = \varnothing$.
+	We say that $E\subseteq X$ is connected if
+	$E$ is connected with respect to the metric inherited from $X$.
+	
+	If the space is not connected then we say it is \vocab{disconnected}.
+\end{definition}
+
+Perhaps the more natural way to think of this is that
+$X$ is connected if it cannot be expressed as
+the union of two nonempty disjoint open sets.
+This is equivalent to the definition because
+if $X = A\sqcup B$ for open $A$ and $B$, then
+$B = X\smallsetminus A = A^c$ and $A = X\smallsetminus B = B^c$
+are both complements of open sets and thus open.
+
+\begin{example}
+	The set $E = (-10, -1) \cup (1, 10)$ with the metric from $\RR$
+	is not connected, as $(-10, 1)$ and $(1, 10)$ are clopen in $E$.
+\end{example}
+
+\begin{exercise}[Disconnectedness of subspaces]
+	\label{wk8:exer:subspace-disconn}
+	Given metric space $(X, d)$, show that
+	a subset $E\subseteq X$ is disconnected iff
+	there exist disjoint sets $A,\,B\subseteq X$ that are open in $X$
+	such that $A\cap E\ne\varnothing$, $B\cap E\ne\varnothing$,
+	$A\cap B\cap E = \varnothing$, and $E\subseteq A\cup B$.
+	Use this to argue that $(-10, -1)\cup (1, 10)\subseteq \RR$
+	is disconnected.
+\end{exercise}
+
+What should the connected sets in $\RR$ look like?
+\begin{exercise}
+	Make a guess.
+\end{exercise}
+
+It's not hard to guess that, in fact, the connected sets
+are just be the intervals.
+\begin{theorem}[Connectedness of open intervals]
+	\label{wk8:thm:open-connected}
+	The open interval $(0, 1)$ is connected.
+\end{theorem}
+Of course, this generalizes to any $(a, b)$.
+\begin{proof}
+	Suppose that $(0, 1)$ is a disjoint union of two open sets $A$, $B$.
+	Take $x\in A$, and define
+	\[U_x = \{\delta > x : [x, \delta)\subseteq A\}\qquad
+	V_x = \{\delta < x : (x, \delta]\subseteq A\}.\]
+	That is, $U_x$ tells you
+	``how far away can you go to the right of $x$
+	before reaching a point outside $A$?''
+	and $V_x$ encodes the analogous information to the left.
+	
+	\begin{exercise*}
+		Draw a picture!!!
+	\end{exercise*}
+	
+	We can see that
+	\[0 \le \inf V_x < x < \sup U_x \le 1\]
+	(the middle two inequalities are strict by openness of $A$).
+	However, we cannot have both
+	$\inf V_x = 0$ and $\sup U_x = 1$, since these two together
+	force $A = (0, 1)$.
+	\begin{exercise*}
+		Prove the above statement.
+	\end{exercise*}
+
+	So, suppose WLOG that $\sup U_x < 1$.
+	
+	\begin{claim}
+		$y = \sup U_x$ is not in $A$.
+	\end{claim}
+	\begin{proof}
+		Suppose $y\in A$. Then, we can find an open ball
+		centered at $y$, say with radius $\eps$, that is contained in $A$.
+		Then, $[x,y)\cup(y,y+\eps) = [x,y+\eps)\subseteq A$,
+		so $\sup A > y$, contradiction.
+	\end{proof}
+	
+	This means $y\in B$. But then we can find an open ball
+	$(y - \eps, y + \eps)\subseteq B$,
+	so $(y-\eps,y+\eps)$ is disjoint from $A$.
+	This contradicts the fact that $y = \sup U_x$,
+	since this means that $y - \eps$ is an upper bound for $U_x$.
+\end{proof}
+
+\begin{remark}
+	The idea behind this proof is that
+	since open sets in $\RR$ are unions of open intervals,
+	we want to somehow look at a ``boundary'' between
+	$A$ and $B$, as this is where the issue fundamentally happens
+	(just look at how $y$ was an issue regardless of
+	whether it was in $A$ or $B$!).
+	This is what motivates defining $U_x$ and $V_x$;
+	we are essentially looking for a maximal open interval
+	$(w, y)$ containing $x$ such that $(w, y)\subseteq A$
+	(here $w$ would be $\inf V_x$).
+\end{remark}
+
+The similar result for closed intervals is deferred to the homework,
+or something.
+
+\begin{theorem}
+	\label{wk8:thm:cont-preserve-conn}
+	Let $f\colon X\to Y$ be continuous.
+	Then, if $E\subseteq X$ is connected, $f(E)\subseteq Y$ is connected.
+\end{theorem}
+
+\begin{proof}
+	We leverage Exercise \ref{wk8:exer:subspace-disconn}
+	to prove the contrapositive.
+	Namely, if $f(E)$ is disconnected, then there exist
+	open subsets $A$, $B$ of $Y$ that do not intersect inside $f(E)$
+	and whose union contains $f(E)$.
+	Let $A' = f\inv(A)$ and $B' = f\inv(B)$, which are both open.
+	Then, $A'$ and $B'$ are disjoint
+	and their union contains $f\inv(f(E))\supseteq E$, which is enough
+	to show that $E$ is disconnected.
+\end{proof}
+
+\begin{lemma}
+	\label{wk8:thm:conn-iff-interval:lemma}
+	A set $I\subseteq\RR$ satisfies the condition that,
+	for all $a,\,b\in I$,
+	\[a\le z\le b\implies z\in I\]
+	if and only if it is an interval.
+\end{lemma}
+\begin{proof}
+	If $I$ is an interval then the conclusion is trivial.
+	
+	For the other direction, let $p = \inf I$ and $q = \sup I$.
+	For any $\eps$, we can find $p'$ and $q'$ in $I$ such that
+	\[p' < p + \eps,\qquad q - \eps < q',\]
+	so $p + \eps \le z \le q-\eps$ implies $z\in I$.
+	Taking $\eps$ arbitrarily small gives $p < z < q\implies z\in I$
+	(where the inequalities are strict because
+	we cannot guarantee that $p$ or $q$ are in $I$).
+	This is enough to conclude that $I$ is an interval
+	because it is just the set $\{z : p < z < q\}$,
+	potentially with $p$ or $q$ added in.
+\end{proof}
+
+\begin{theorem}
+	\label{wk8:thm:conn-iff-interval}
+	$I\subseteq\RR$ is connected if and only if it is an interval.
+\end{theorem}
+\begin{proof}
+	We have shown (in conjunction with the homework, apparently)
+	that all intervals are connected.
+	
+	For the other direction, we prove that
+	if $I$ is not an interval then it is disconnected.
+	Lemma \ref{wk8:thm:conn-iff-interval:lemma}
+	shows that, since $I$ is not an interval,
+	we can find $a$ and $b$ in $I$ such that
+	there exists a $z$ that is in $[a, b]$ but not $I$.
+	Then we can take $A = (-\infty,z)$ and $B = (z,\infty)$
+	and use Exercise \ref{wk8:exer:subspace-disconn} to show disconnectedness.
+\end{proof}
+
+The upshot?
+\begin{theorem}
+	Let $(X, d)$ be a connected metric space
+	such that $f\colon X\to\RR$ is continuous.
+	Then, $f(X)$ is an interval.
+\end{theorem}
+\begin{proof}
+	$f(X)\subseteq\RR$ is connected, so it is an interval
+	by Theorem \ref{wk8:thm:conn-iff-interval}.
+\end{proof}
+
+\begin{exercise}
+	Prove Theorem \ref{wk7:thm:ivt}.
+\end{exercise}
+
+\subsection{Path-connectedness}
+There is a much more intuitive possible way to define connectedness:
+
+\begin{definition}
+	\label{wk8:def:pathconn}
+	We say that $a,b\in X$ are \vocab{connected by a path}
+	if there exists a continuous function $\gamma\colon[0, 1]\to X$
+	such that $\gamma(0) = a$, $\gamma(1) = b$.
+	The space $X$ is \vocab{path-connected} if
+	any two points in $X$ are connected by a path.
+\end{definition}
+
+\begin{theorem}
+	\label{wk8:thm:pathconn-implies-conn}
+	If $X$ is path-connected, then $X$ is connected.
+\end{theorem}
+\begin{proof}[Sketch]
+	Let $X$ be a union of disjoint open sets $A$, $B$.
+	Then, take a path $\gamma$ between $a\in A$ and $b\in B$
+	and look at $\gamma\inv(A)$, $\gamma\inv(B)$.	
+\end{proof}
+
+Unfortunately the converse of this theorem does not hold.
+
+\pagebreak
+\section{Week 9: 10/22 and 10/24}
+\subsection{Accumulation point}
+\begin{definition}[Accumulation point]\label{wk9:def:accumulationpt}
+	Let $E\subseteq X$ be a subset of metric space $X$.
+	We say that $x\in X$ is an \vocab{accumulation point} of $E$
+	if, for every $\eps > 0$, the ball $B_X(x, \eps)$
+	intersects $E$ at a point \alert{besides $x$}.
+\end{definition}
+
+In particular $B_X(x,\eps)\cap E$ must be infinite for any $\eps$
+in order for $x$ to be an accumulation point.
+Of course, accumulation points are limit points,
+since we can find a sequence of points converging to $x$
+by making $\eps$ smaller and smaller.
+
+The distinction is the following:
+consider the set
+\[S = \{(x, y)\in\RR^2 : x^2 + y^2 < 1\}\cup\{(0,100)\}.\]
+\begin{center}
+	\begin{asy}
+		draw((-3,0)--(3,0),Arrows(5));
+		draw((0,-3)--(0,3),Arrows(5));
+		filldraw(circle((0,0),1),red+opacity(0.3),red);
+		dot((2.5,0),red);
+	\end{asy}
+\end{center}
+
+(Diagram not to scale.)
+Then, $(100,0)$ is a limit point, but not an accumulation point!!
+
+
+\subsection{Basic definition of compactness and Weierstrass's theorem}
+Last week, we proved the intermediate value theorem
+via the machinery of connectedness.
+The other part of the two big theorem in week 7 is Weierstrass's theorem.
+
+\begin{definition}[Compactness]\label{wk9:def:compactness}
+	Let $(X, d)$ be a metric space.
+	We say that $X$ is compact if, whenever $X$ is written as a union
+	of open sets
+	\[X = \bigcup_{\alpha\in I} U_\alpha,\]
+	there exist indices $\alpha_1,\dots,\alpha_n\in I$ such that
+	\[X = \bigcup_{i=1}^n U_{\alpha_n}.\]
+\end{definition}
+
+\begin{example}[Non-example]
+	Note that $X = \RR$ is not compact.
+	To prove this, we need to antagonistically choose the $U_\alpha$.
+	We can clearly say that
+	\[\RR = \bigcup_{\alpha\in[1,+\infty)} U_\alpha, \]
+	where $U_\alpha = (-\alpha,\alpha)$.
+	Then, if $\alpha_1$, \dots, $\alpha_n$ is a finite set of indices
+	such that WLOG $\alpha_1 \le \alpha_2 \le \cdots\le \alpha_n$,
+	we would get
+	\[U_{\alpha_1}\cup\cdots\cup U_{\alpha_n} = (-\alpha_n,\alpha_n)\ne\RR.\]
+	In some sense, the point is that
+	we don't have ``too much redundancy''
+	with our choice of cover here.
+\end{example}
+
+\begin{exercise}\label{wk9:exer:open-not-compact}
+	Prove similarly that $(0,1)$ is not compact.
+\end{exercise}
+
+Some terminology to make all of this easier to talk about:
+\begin{definition}[Covers and subcovers]\label{wk7:def:covers-subcovers}
+	We say that a collection of open sets $\mathcal {U} = \{U_\alpha\}$
+	is a \vocab{(open) cover} for $E$ if
+	\[E\subseteq\bigcup_{U\in\mathcal U} U.\]
+	If $\mathcal U$ and $\mathcal U'$ are both covers of $E$
+	such that $\mathcal U' \subseteq \mathcal U$,
+	then $\mathcal U'$ is a \vocab{subcover} of $\mathcal U$.
+	%TODO (do people say ``of $\mathcal U$'' or ``of $E$''?)
+	Obviously, we attach the adjective ``finite'' to a (sub)cover
+	if the relevant collection of open sets is finite.
+\end{definition}
+
+So we can more concisely say
+``$X$ is compact if every cover of $X$ has a finite subcover.''
+As usual, when talking about subsets $E$ of some ambient metric space $X$,
+we work with the induced metric, so $E$ is compact
+if every open cover \alert{in $E$} has a finite subcover.
+This turns out to not be an issue at all.
+\begin{lemma}\label{wk9:lemma:subset-compactness}
+	$E$ is compact if and only if
+	every open cover of $E$ \alert{in $X$} has a finite subcover.
+\end{lemma}
+
+\begin{proof}
+	We will just prove the direction assuming $E$ is compact
+	(in the induced metric);
+	the other direction is left as an exercise. In this case, suppose that
+	$\mathcal{V} = \{V_\alpha\}$ is a cover for $E$.
+	Then, $U_\alpha = V_\alpha\cap E$ is open in $E$
+	by Problem 4 in the homework, so $\mathcal{U} = \{U_\alpha\}$
+	is an open cover for $E$ in $E$,
+	and then we can extract a finite subcover
+	$\{U_{\alpha_i} : 1\le i\le n\}$ whose union is $E$,
+	which in turn means we have a finite subcover
+	\[\bigcup_{i=1}^n V_{\alpha_i}\supset
+	\bigcup_{i=1}^n U_{\alpha_i} = E.\]
+\end{proof}
+
+\begin{exercise}
+	Prove the other direction of Lemma \ref{wk9:lemma:subset-compactness}.
+\end{exercise}
+
+This lemma says something very important:
+when talking about the compactness of a set,
+we don't need to refer to its parent metric space at all
+besides to get our open sets!
+This is very different from, say, deciding when sets are open,
+which is dependent on whether we are in $X$ or $E$
+(for example, $[0,1)$ and $[0,2]$ are open in $[0,2]$ but not $\RR$).
+
+\begin{example}[Compact sets]
+	Some examples of compact sets:
+	\begin{itemize}
+		\ii All finite sets.
+		\ii Closed intervals, as we show in
+		Theorem \ref{wk9:thm:closedinterval-complete}.
+		\ii Any closed and bounded subset of $\RR^n$, in fact ---
+		this is called the \hyperref[wk9:thm:heine-borel]{Heine-Borel theorem}.
+	\end{itemize}
+\end{example}
+
+\begin{theorem}\label{wk9:thm:closedinterval-complete}
+	The interval $[0,1]$ is compact.
+\end{theorem}
+
+\begin{remark}
+	In fact, it turns out that the set of rationals $q$
+	for which $0 \le q\le 1$ is not compact!
+	So we really have to make use of the fact that
+	we are living in $\RR$ here.
+\end{remark}
+
+\begin{proof}
+	Let $\mathcal{U} = \{U_\alpha\}$ be an open cover of $[0,1]$.
+	Now, suppose for the sake of contradiction that we can't
+	find a finite subcover here, and define $I_0 = [0,1] = [a_0, b_0]$.
+	Then, one of $[0,\half]$ and $[\half,1]$ are also covered by $\mathcal U$.
+	One of them must also not
+	have a finite subcover, since if both intervals
+	had a finite subcover then we could just merge them together.
+	Let $I_1 = [a_1, b_1]$ be the interval
+	that doesn't have a finite subcover (pick one at random if both are OK).
+	
+	Then, again, $I_1$ can be split into $[a_1, \frac{a_1+b_1}{2}]$
+	and $[\frac{a_1 + b_1}{2}, b_1]$, and yet again
+	one of these cannot have a finite subcover,
+	which we will call $I_2 = [a_2, b_2]$.
+	
+	In this way, we inductively define a sequence of intervals $I_n = [a_n,b_n]$
+	such that $I_0\supseteq I_1\supseteq I_2\supseteq\cdots$,
+	none of the $I_n$ has a finite subcover in $\mathcal U$, and
+	$b_n - a_n = 2^{-n}$.
+	
+	\begin{exercise}
+		Prove that $(a_n)$ and $(b_n)$ both converge
+		to the same number $x$.
+	\end{exercise}
+	
+	The result of the exercise tells us that
+	the intersection of all the $I_n$ is the singleton set
+	\[\bigcap_{n\ge0} I_n = [x,x] = \{x\}.\]
+	We know that $x$ has to belong to some $U\in\mathcal U$.
+	But then this means that $B(x,\eps) = (x-\eps,x+\eps)\subseteq U$
+	for some $\eps>0$ because $U$ is open.
+	Since $a_n$ and $b_n$ converge to $x$,
+	both $a_n$ and $b_n$ must belong to this interval eventually,
+	hence $I_n = [a_n,b_n]\subseteq(x-\eps,x+\eps)$ eventually.
+	This means that in fact $I_n$ has a finite cover in $\mathcal U$
+	eventually, so we have found a contradiction!
+\end{proof}
+
+\begin{exercise}
+	Where exactly did we use the fact that $\RR$ is complete?
+	Use this to argue that $[0,1]\cap\QQ$ is not compact.
+\end{exercise}
+
+\begin{theorem}[Preservation of compactness]
+	\label{wk9:thm:cont-preserve-comp}
+	If $f\colon X\to Y$ is continuous
+	and $K\subseteq X$ is compact,
+	then $f(K)\subseteq Y$ is also compact.
+\end{theorem}
+
+\begin{exercise}
+	Prove the theorem above.
+	Also, compare to Theorem \ref{wk8:thm:cont-preserve-conn}.
+\end{exercise}
+
+\begin{theorem}\label{wk9:thm:compact-is-closed}
+	Compact subsets are closed.
+\end{theorem}
+
+\begin{proof}
+	Let $K$ be compact subset of metric space $X$.
+	The goal obviously is to prove that $K$ contains its limit points.
+	
+	Suppose otherwise, so $\ell\notin K$.
+	Then, consider the open sets
+	\[U_n = \left\{x\in X : d(x,\ell) > \frac 1n\right\}.\]
+	
+	\begin{exercise}
+		Prove that the $U_n$ really are open in $X$.
+	\end{exercise}
+
+	Then the union of the $U_n$ contains every point in $X$ except $\ell$,
+	which means the union contains $K$
+	because of our assumption that $\ell$ isn't in $K$.
+	By compactness, we can find some $n_1$, \dots, $n_k$ such that
+	\[K\subseteq U_{n_1}\cup\cdots\cup U_{n_k},\]
+	but we can see that this union is just $U_{M}$
+	where $M = \max\{n_1, \dots, n_k\}$,
+	which is the complement of a closed ball.
+	That is, there is a ball $B_X(\ell,\eps)\subseteq X\setdiff K$
+	(since the closed ball contains an open ball).
+	The contradiction then comes from
+	taking a sequence $(x_n)$ of points in $K$ that converges to $\ell$,
+	as $(x_n)$ must eventually be in $B_X(\ell,\eps)$.
+\end{proof}
+
+You are now free to extract the Weierstrass theorem!
+\begin{exercise}
+	Prove Theorem \ref{wk7:thm:weierstrass}.
+	You will have to show that $[a, b]$
+	is the only kind of interval (infinite or not)
+	that is compact.
+	
+	You should also note that the proof that $(0, 1)$ is not compact
+	is completely trivial now due to Theorem \ref{wk9:thm:compact-is-closed},
+	as opposed to the work
+	that you had to do in Exercise \ref{wk9:exer:open-not-compact}.
+\end{exercise}
+
+\subsection{More properties of compactness}
+
+\begin{theorem}\label{wk9:thm:prod-compact}
+	If $X$ and $Y$ are compact, then so is $X\times Y$.
+\end{theorem}
+
+\begin{proof}
+	The idea behind this proof is that
+	if $U\subseteq X\times Y$ is open, then $U$ is a product of
+	sets of the form $B_X(x, \eps)\times B_Y(y,\eps)$.
+	\todo{proof}
+	
+	\begin{center}
+		\begin{asy}
+			draw((0,0)--(3,0));
+			draw((0,0)--(0,3));
+			draw((1,3)--(1,0),linewidth(1)+red);
+			dot((1,0),red);
+			label("$X$", (3,0),dir(0));
+			label("$Y$", (0,3),dir(90));
+		\end{asy}
+	\end{center}
+	For some point $x\in X$, we look at the ``line''
+	$\{x\}\times Y$.
+	Then, we have a continuous map (actually a homeomorphism)
+	$f_x\colon Y\to \{x\}\times Y$ given by $y\mapsto (x,y)$,
+	which means this line is compact too.
+	Fixing a cover $\{U_\alpha\}$, we can say that
+	$\{U_{x, i} : 1\le i\le n(x)\}$ is some finite cover of $\{x\}\times Y$.
+	Each $U_{x,i}$ can be written as $A_{x,i}\cap B_{x,i}$
+	where $A_{x,i}$ and $B_{x,i}$ are open balls in $X$ and $Y$ respectively.
+	\todo{finish pf (look at nb)}
+\end{proof}
+
+\begin{corollary}\label{wk9:corollary:kcell-compact}
+	Given real numbers $a_1$, \dots, $a_n$, $b_1$, \dots, $b_n$,
+	the set $[a_1, b_1]\times [a_2, b_2]\times\cdots\times [a_n, b_n]$
+	is compact.
+\end{corollary}
+
+Another way to generate compact sets:
+\begin{lemma}\label{wk9:lemma:closed-subset-is-compact}
+	If $X$ is compact and $K\subseteq X$ is closed, then $K$ is compact.
+\end{lemma}
+
+\begin{proof}
+	Let $\{U_\alpha\}$ be an open cover of $K$.
+	Then $\{U_\alpha\}\cup\{X \setdiff K\}$ is an open cover of $X$
+	because $X\setdiff K = U_0$ is open in $X$.
+	\todo{finish}
+\end{proof}
+
+Nicely enough, we can say something much stronger than Corollary
+\ref{wk9:corollary:kcell-compact}, fully characterizing
+all compact sets in $\RR^n$.
+\begin{theorem}[Heine-Borel]\label{wk9:thm:heine-borel}
+	A set $K\subseteq\RR^n$ is compact if and only if
+	it is closed in bounded.
+\end{theorem}
+
+When we say that a set $E$ is \vocab{bounded}, we mean that the quantity
+\[\opname{diam}(E) = \sup\{d(x,y):x,y\in E\}\]
+is a real number.
+
+\begin{proof}[Proof of Theorem \ref{wk9:thm:heine-borel}]
+	It is not hard to prove the forward direction.
+	\begin{lemma}
+		If $K$ is closed and bounded, it is compact.
+	\end{lemma}
+	\begin{proof}
+		If $K$ is closed and bounded, then $\opname{diam}(K) = R < +\infty$,
+	so $K\subseteq B(\mb x,R)$ where $\mb x$ is any point in $K$.
+	We know that the standard metric on $\RR^n$ is equivalent to
+	$d_{\infty}(x,y) = \max_i|x_i - y_i|$, meaning
+	there exists an $R'$ such that
+	$B(\mb x, R)\subseteq B_\infty(\mb x, R')$.
+	The balls in this new metric are just products of open intervals,
+	so, $\ol{B_\infty(\mb x,R')}$ is compact
+	and $K$ is a closed subset of this compact set,
+	thus it is compact.
+	\end{proof}
+	
+	The other direction uses very intrinsically the idea that
+	we are working in a metric space (in fact that we are in $\RR$).
+	\begin{definition}\label{wk9:thm:sequential-compactness}
+		A metric space is $(X, d)$ is \vocab{sequentially compact} if
+		every sequence $(x_n)$ in $X$ has a convergent subsequence
+		(the main point is that \alert{the limit is in $X$}).
+	\end{definition}
+
+	\begin{lemma}\label{wk9:lemma:seq-compact-if-compact}
+		If $K$ is compact, then it is sequentially compact.
+	\end{lemma}
+	\begin{proof}
+		Let $E = (x_n)$ be a sequence of elements in $K$. If $E$ is finite
+		then we can find a constant subsequence by pigeonhole,
+		so suppose $E$ is infinite.
+		
+		The goal is to show that $E$ has an accumulation point;
+		suppose otherwise for contradiction.
+		Then, each $z\in E$ is contained by some open set
+		whose intersection with $E$ is just $\{z\}$.
+		Take an open cover $U_x$ indexed by points in $X$
+		such that, if $z\in E$, then $U_z$ contains no points of $E$
+		except $z$ (for example, each $U_z$ could be a sufficiently small
+		open ball centered at $z$).
+		Then on one hand we can find a finite subcover of $X$ by compactness,
+		but on the other hand such a finite subcover
+		would have only finitely many elements of the infinite set $E$.
+	\end{proof}
+
+	\begin{lemma}
+		If $K$ is sequentially compact, then it is closed and bounded.
+	\end{lemma}
+	\begin{proof}
+		Suppose that $K$ is not closed.
+		Then, take a limit point $\ell$ of $K$ that is outside of $K$,
+		and let $(x_n)$ be a sequence of points in $K$ converging to $\ell$;
+		this sequence has no convergent subsequence in $K$
+		because each subsequence also converges to $\ell$.
+		
+		Suppose now that $K$ is unbounded.
+		Then, for some arbitrary $x\in K$, consider the sets
+		\[S_n = \{y\in K : n-1\le d(x, y) < n\}\]
+		for positive integers $n$.
+		These sets form a partition of $K$.
+		If there existed an $N$ for which $n > N$ implies $S_n$ is empty,
+		then $K$ would be bounded, so infinitely many $S_n$ are nonempty,
+		say $S_{n_1}$, $S_{n_2}$, \dots. Then take the sequence $(x_{n_k})$
+		such that $x_{n_k}\in S_{n_k}$. Each subsequence is unbounded,
+		but it is easy to show that a convergent sequence must be bounded
+		(exercise!), so $(x_{n_k})$ has no convergent subsequence.
+		
+		Therefore $K$ must be both closed and bounded
+		if it is sequentially compact.
+	\end{proof}
+
+	These three lemmas constitute a proof of the theorem!
+\end{proof}
+
+\subsection{Uniform continuity}
+Recall the definition of continuity of a function $f\colon X\to Y$:
+for each $x\in X$, given $\eps > 0$, there exists $\delta > 0$ such that
+\[d_X(x, y) < \delta \implies d_Y(f(x), f(y)) < \eps.\]
+The thing is that $\delta$ is dependent on both $x$ and $\eps$.
+We would like it to be dependent on just $\eps$; that is, we'd like to say
+for each $\eps > 0$, there exists a universal $\delta > 0$ such that
+\[d_X(x, y) < \eps \implies d_Y(f(x), f(y)) < \eps.\]
+
+\begin{theorem}\label{wk9:thm:compact-domain-impl-unif-cont}
+	If the domain of a continuous function $f\colon X\to Y$ is compact,
+	then the function is uniformly continuous.
+\end{theorem}
+
+\pagebreak
+\section{Week 10: 10/29 and 10/31}
+We begin by proving Theorem \ref{wk9:thm:compact-domain-impl-unif-cont}.
+
+\begin{proof}[Proof of theorem]
+	Suppose $f$ is not uniformly continuous.
+	Then, there exists an $\eps > 0$ such that, for each $\delta > 0$,
+	there are two points $x,\,y\in X$ such that
+	$d_X(x, y) < \delta$ but $d_Y(f(x), f(y)) \ge \eps$.
+	
+	In other words, for each $n\in\NN$, there exist $x_n$ and $y_n$ such that
+	$d_X(x_n, y_n) < \frac 1n$ and $d(f(x_n), f(y_n)) > \eps$.
+	Now, since $X$ is compact, it is sequentially compact
+	(Lemma \ref{wk9:lemma:seq-compact-if-compact}).
+	The trick is that we want convergent subsequences
+	$(x_{n_k})$ and $(y_{n_k})$ of $(x_n)$ and $(y_n)$
+	\emph{with the same indices}, since then the condition on $x_n$ and $y_n$
+	ensures that the limits of these subsequences are equal.
+	
+	To generate these convergent subsequences, we do a slick trick:
+	first, let $(x_{m_k})$ be a convergent subsequence of $(x_n)$.
+	Then, take a convergent subsequence of $(y_{m_k})$
+	and call it $(y_{n_k})$. The sequence $(n_k)$ is a subsequence of $(m_k)$,
+	so $(x_{n_k})$ is also a subsequence of the convergent sequence $(x_{m_k})$,
+	thus $(x_{n_k})$ also converges!
+	
+	Moreover, we can argue (e.g. by squeeze theorem) that
+	the limits are the same.
+	
+	\begin{remark}
+		Can you also say that once you know $x_{m_k}\to\alpha$
+		you also know $y_{m_k}\to\alpha$ by the distance condition?
+	\end{remark}
+
+	But then we have two sequences with the same limit,
+	so $f(x_{n_k})$ and $f(y_{n_k})$ are equal,
+	which contradicts the fact that their distance is at least $\eps$.
+\end{proof}
+
+\subsection{Completeness}
+Recall the following definition:
+\begin{definition}[Cauchy sequences in $\RR$]
+	A sequence of real numbers $(x_n)$ is \vocab{Cauchy} if
+	for each $\eps > 0$, there exists an $N$ such that
+	\[m,\,n > N\implies |x_m - x_n| < \eps.\]
+\end{definition}
+
+Obviously, we can generalize this to arbitrary metric spaces.
+\begin{definition}[Cauchy sequences]\label{wk10:def:cauchyseq}
+	A sequence of points $(x_n)$ in a metric space $(X, d)$ is \vocab{Cauchy}
+	if, for each $\eps > 0$, there exists an $N$ such that
+	\[m,\,n > N\implies d(x_m, x_n) < \eps.\]
+\end{definition}
+
+\begin{exercise}
+	Prove that all convergent sequences are Cauchy.
+\end{exercise}
+
+Intuitively, the idea is that a sequence is Cauchy if
+``it gets very bunched up as you go further in the sequence,''
+i.e. it \emph{should} have a limit (even if it doesn't actually converge).
+This motivates the following definition:
+\begin{definition}[Completeness]\label{wk10:def:completeness}
+	$(X, d)$ is \vocab{complete} if every Cauchy sequence in $X$
+	converges in $X$.
+\end{definition}
+
+This is one approach to constructing $\RR$, actually:
+we can identify each element of $\RR$ with equivalence classes
+of Cauchy sequences!
+
+\begin{lemma}\label{wk10:lemma:cauchybounded}
+	Cauchy sequences are bounded.
+\end{lemma}
+\begin{proof}
+	The idea is that we can bound cofinitely many of the points of the sequence
+	in a ball of radius $\eps$ centered at some $x_n$;
+	say all $x_k$ for $k > N$ are captured in this ball.
+	Then, it's a matter of growing the ball to have radius bigger than
+	\[\max(\eps, d(x_n, x_1), d(x_n, x_2), \dots, d(x_n, x_N)),\]
+	at which point we have captured the whole sequence.
+\end{proof}
+
+\begin{theorem}\label{wk10:thm:seqcomp-impl-complete}
+	If $X$ is compact, then it is complete.
+\end{theorem}
+
+\begin{proof}
+	We want to show that any Cauchy sequence in $X$ converges in $X$.
+	The idea is that if a Cauchy sequence has a convergent subsequence,
+	then it is convergent; indeed, letting $\ell$ be a subsequential limit,
+	we see that, for any $\eps > 0$,
+	\[d(x_n, \ell) \le d(x_{n_k}, x_n) + d(x_{n_k}, \ell) < 2\eps\]
+	is true eventually.
+	We can now leverage sequential compactness to win instantly.
+\end{proof}
+
+\begin{theorem}\label{wk10:thm:Rn-complete}
+	$\RR^n$ is complete.
+\end{theorem}
+\begin{proof}
+	Any Cauchy sequence is bounded, so it can be contained in
+	a closed open ball, which is compact.
+	This lets us see that all Cauchy sequences converge. Yay!
+\end{proof}
+
+\begin{theorem}\label{wk10:thm:l2-complete}
+	$\ell^2$ is complete.
+\end{theorem}
+
+\subsection{Sequences of functions}
+\begin{definition}[A first definition]\label{wk10:def:ptwise-conv}
+	Let $f_n: I\to\RR$ be a sequence of functions
+	and $E$ a subset of $I$.
+	We say that $f_n\to f$ \vocab{pointwise} on $E$ if
+	$\lim_{n\to\infty} f_n(x) = f(x)$ for all $x\in E$.
+\end{definition}
+
+\todo{examples}
+\begin{example}
+	content
+\end{example}
+
+We can rewrite the definition as saying that
+for each $\eps > 0$ and $x\in E$,
+\[|f_n(x) - f(x)| < \eps\]
+is true eventually, say for $n > N$.
+Here we run into something similar to the distinction of
+continuity and uniform continuity: $N$ depends on both $x$ and $\eps$.
+Indeed, we can define \emph{uniform} convergence:
+\begin{definition}[Uniform convergence]\label{wk10:def:unif-conv-func}
+	$f_n\to f$ \vocab{uniformly} if the threshold $N$
+	does not depend on $x$.
+\end{definition}
+
+\begin{exercise}
+	Show that $f_n(x) = \frac{1}{n^2x^2}$ does not converge to $f\equiv0$
+	uniformly on $(0,1)$,
+	while $g_n(x) = \frac{\sin(nx^2)}{n}$ does converge uniformly on $(0,1)$.
+\end{exercise}
+
+Consider
+\[\mathcal B(E,\RR) = \left\{f\colon E\to\RR :
+\sup_{x\in E} |f(x)| < +\infty \right\}.\]
+Then, we have a metric
+\[d(f, g) = \sup_{x\in E} |f(x) - g(x)|.\]
+Under this metric, $d(f, g) = \eps$ means that
+at each $x\in E$, $f$ and $g$ are at most $\eps$ apart.
+This is nice because it encodes uniform convergence as follows:
+\begin{lemma}
+	$f_n\to f$ uniformly on $E$ iff
+	$f_n\to f$ in $\mathcal B(E,\RR)$.
+\end{lemma}
+
+\begin{theorem}
+	$\mathcal B(E,\RR)$ is complete.
+\end{theorem}
+
+\begin{proof}
+	Consider a Cauchy sequence of functions $f_n(x)$.
+	Then, the sequence of numbers $f_n(c)$ is Cauchy for all $c\in E$,
+	so $f_n$ has a pointwise limit $f$.
+	This is a bounded function: for $x\in E$,
+	we can pick $N$ so that $n > N$ implies $|f_n(x) - f(x)| < 1$
+	(by definition of convergence), so, for $n > N$,
+	\begin{align*}
+		|f(x)| &\le |f_n(x)| + |f_n(x) - f(x)|\\
+		&\le \sup_{x\in E} |f_n(x)| + 1 < +\infty.
+	\end{align*}
+
+	To show that this converges with respect to our actual metric $d$,
+	pick an $\eps > 0$ and take $m$ and $n$ to be integers that are large enough
+	that $d(f_n, f_m) < \eps$; then,
+	\begin{align*}
+		|f_n(x) - f(x)| &\le |f_n(x) - f_m(x)| + |f_m(x) - f(x)|\\
+		&\le d(f_n, f_m) + |f_m(x) - f(x)|\\
+		\implies |f_n(x) - f(x)| &< \eps + |f_m(x) - f(x)|.
+	\end{align*}
+	By pointwise convergence we can take the limit as $m\to\infty$
+	and take the supremum to get that
+	$\sup_{x\in E}|f_n(x) - f(x)| = d(f_n, f) \le\eps$ for all $\eps > 0$.
+\end{proof}
+
+\begin{definition}
+	We call $C^0(E, \RR)$ the space of continuous functions
+	mapping $E\to\RR$,
+	and $C^0_b(E,\RR)$ the space of bounded continuous functions
+	from $E$ to $\RR$.
+\end{definition}
+
+\begin{theorem}\label{wk10:thm:bounded-cont-funcs-closed}
+	$C^0_b(E,\RR)$ is a closed subset of $\mathcal B(E,\RR)$.
+\end{theorem}
+
+\begin{proof}
+	Let $f_n$ be a sequence of continuous bounded functions
+	that converge to some $f\in\mathcal B(E,\RR)$.
+	We wish to show that $f$ is continuous; let $\eps > 0$.
+	By triangle inequality
+	\[|f(x) - f(x_0)| \le
+	|f(x_0) - f_n(x_0)| + |f_n(x_0) - f_n(x)| + |f_n(x) - f(x)|.\]
+	Take $n$ large so that the first and third terms are smaller than $\eps/3$
+	(since $f_n\to f$ uniformly --- we bound both by $d(f, f_n)$),
+	and then, since $f_n$ continuous, take $|x_0 - x| < \delta$
+	so that the middle term is smaller than $\eps/3$.
+	\begin{remark}
+		The bound of $|f_n(x) - f(x)|$ cannot be done with
+		just pointwise convergence because then
+		$\delta$ would have to depend on $n$.
+	\end{remark}
+	Thus $|f(x) - f(x_0)| < \eps$ for $|x - x_0| < \delta$,
+	so $f$ is continuous.
+\end{proof}
+
+\begin{corollary}
+	$C^0_b(E,\RR)$ is complete.
+\end{corollary}
+
+\begin{corollary}
+	If $E$ is compact, then $C^0(E,\RR)$ is complete.
+\end{corollary}
+\begin{proof}
+	\dots because $C^0(E,\RR) = C^0_b(E,\RR)$ if $E$ is compact.
+\end{proof}
+
+The magic of this theory is that we can create entirely new continuous functions
+as limits of sequences of pretty simple functions.
+The standard example of this is \vocab{power series}:
+take real numbers $c_0$, $c_1$, $c_2$, \dots, and define
+\[f(x):= c_0 + c_1x + c_2x^2 + c_3x^3 + \cdots =
+\lim_{n\to\infty} \sum_{k=0}^n c_kx^k.\]
+In other words $f$ is the limit of functions
+$f_n(x) = c_0 + c_1x + \cdots + c_nx^n$.
+The question, then, is when the limit exists.
+For this, the root test wants us to find
+\[\alpha = \limsup |c_kx^k|^{1/k} = |x|\cdot\limsup |c_k|^{1/k}
+:= |x|\cdot\beta.\]
+Root test thus tells us that the limit exists when $|x| < \frac 1\beta$
+and doesn't exist when $|x| > \frac1\beta$, so really
+$\frac1\beta$ is the thing we care about --- we will call it
+$R$, the \vocab{radius of convergence}.
+To clarify: $f$ is defined as a pointwise limit when $x\in(-R, R)$,
+it might be defined at $x = \pm R$ (since root test is inconclusive),
+and it is never defined for $|x| > R$.
+
+\begin{example}[Exponential function]
+	The exponential function $\exp$ can be defined as the power series
+	\[\exp(x) := \sum_{k=0}^\infty \frac{x^k}{k!}.\]
+	It is easy to check that its radius of convergence is all of $\RR$.
+	The familiar properties of the exponential function
+	are also not too hard to check.
+	We define Euler's number $e$ to then be $\exp(1)$.
+\end{example}
+
+In view of the theory above, we'd really like this convergence
+to be uniform on $(-R, R)$.
+
+\begin{theorem}[Weierstrass $M$-test]
+	Let $E\subseteq\RR$. Suppose that $(g_n)$ is a sequence of
+	(bounded) functions $E\to\RR$ such that $|g_k(x)| < M_k$ for all $x\in E$.
+	Then, if $\sum M_k$ converges, $f_n = \sum_{k=1}^n g_n$ converges uniformly.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+	Prove that $f_n$ is Cauchy by using the fact that
+	the sequence of partial sums of $M_k$ is Cauchy.
+\end{proof}
+
+\begin{exercise}
+	Show that a power series converges uniformly on every compact subset
+	of its interval of (pointwise) convergence.
+	Show also that we can't improve this to uniform convergence on $(-R, R)$.
+\end{exercise}
+
+\subsection{A really cool application}
+
+\begin{theorem}[Space filling curve]
+	There exists a function $f\colon[0,1]\to[0,1]^2$
+	that is both continuous and surjective.
+\end{theorem}
+
+\begin{exercise}
+	Show that $f$ cannot \emph{also} be injective ---
+	equivalently, prove that $[0,1]$ and $[0,1]^2$ are not homeomorphic.
+\end{exercise}
+
+\begin{proof}
+	Split the square into nine smaller squares of equal size
+	and draw a path through their centers as follows:
+	\begin{center}
+		\begin{asy}
+			for (int i = 0; i < 4; ++i) {
+				draw((i,0)--(i,3));
+				draw((0,i)--(3,i));
+			}
+			draw((0.5,0.5)--(0.5,2.5)--(1.5,2.5)--(1.5,0.5)--(2.5,0.5)--(2.5,2.5), red);
+			for (int i = 0; i < 3; ++i) {
+				for (int j = 0; j < 3; ++j) {
+					dot((i+0.5,j+0.5));
+				}
+			}
+		\end{asy}
+	\end{center}
+
+	Then, for any partition into $9^k$ squares, we can patch
+	these mini-pieces together as follows:
+	\missingfigure{text}
+	
+	Parameterize this path by \todo{param}[placeholder]
+	to get maps $f_n\colon[0,1]\to[0,1]^2$.
+	
+	\begin{claim}
+		For all $m$ and $n$,
+		\[|f_n(x) - f_m(x)| \le \sqrt2\cdot 3^{-\min(m, n)}.\]
+	\end{claim}
+	\begin{proof}
+		todo\todo{pf of claim}
+	\end{proof}
+
+	Then, the limit of the $f_n$ is a surjective continuous function!
+\end{proof}
+
+\pagebreak
+
+\section{Week 11: 11/5 and 11/7}
+
+\subsection{Limits of functions}
+
+\begin{definition}[Limits of functions]\label{wk11:def:func-limit-seq}
+	Let $E$ be a subset of $X$ and consider $f\colon X\to Y$.
+	Also, let $x_0\in X$ be an accumulation point of $E$.
+	Then,
+	\[\lim_{x\to x_0} f(x) = L\]
+	means that for each sequence $(x_n)$ of points in $E$ 
+	converging to $x_0$ such that $x_n\ne x_0$ for all $n\in\NN$,
+	we have $f(x_n)\to L$.
+	To emphasize: the limit does not care about $f(x_0)$.
+\end{definition}
+
+The expected limit uniqueness and combination properties hold.
+
+\begin{theorem}\label{wk11:thm:cont-and-real-lims-impl-bounded}
+	If $f\colon\RR\to\RR$ is continuous and
+	\[\lim_{x\to\infty} f(x) = L_1,\qquad
+	\lim_{x\to-\infty} f(x) = L_2\]
+	for real $L_1$ and $L_2$, then $f$ is bounded.
+\end{theorem}
+
+\begin{proof}
+	Suppose for the sake of contradiction that (WLOG)
+	\[\sup_{x\in\RR} f(x) = \infty.\]
+	Then, we can find a sequence of real numbers $(x_n)$
+	such that the sequence $(f(x_n))$ diverges to $\infty$.
+	
+	\begin{claim}
+		$(x_n)$ is unbounded.
+	\end{claim}
+	\begin{proof}
+		If $(x_n)$ were bounded, then we can find a convergent subsequence
+		$(x_{n_k})$ with limit $\ell$. By continuity,
+		the limit of $(f(x_{n_k}))$ is $f(\ell)\in\RR$,
+		but then $(f(x_n))$ has a limit, so the limit must be
+		$f(\ell)$, contradicting the fact that the limit is $\infty$.
+	\end{proof}
+	
+	But now we have found a sequence such that $x_n\to\infty$
+	or $x_n\to-\infty$ such that $f(x_n)$ blows up to $\infty$,
+	which contradicts the fact that $f(x_n)$ should converge to
+	either $L_1$ or $L_2$.
+\end{proof}
+
+\begin{definition}[Limits of functions, again]\label{wk11:def:func-limit-epsdel}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces
+	and let $f\colon X\to Y$ be a function. Then,
+	\[\lim_{x\to x_0} f(x) = \ell\]
+	is equivalent to saying that, for every $\eps > 0$,
+	there exists a $\delta > 0$ such that
+	\[0 < d_X(x, x_0) < \delta \implies d_Y(\ell, f(x)) < \eps.\]
+\end{definition}
+
+\subsection{Derivatives}
+And now comes the part where we actually have to live in $\RR$.
+\begin{definition}[Differentiability]\label{wk11:def:diffable}
+	Let $I\subseteq\RR$ be an open interval.
+	A function $f\colon I\to\RR$ is \vocab{differentiable}
+	at a point $x_0\in I$ if the limit
+	\[f'(x_0) := \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}\]
+	exists in $\RR$.
+	We call this limit the \vocab{derivative} of $f$ at $x_0$.
+\end{definition}
+
+\begin{exercise}[Equivalent formulation]
+	Show that if $f$ is differentiable at $x_0$, then
+	\[f'(x_0) = \lim_{h\to 0} \frac{f(x_0 + h) - f(x_0)}{h}.\]
+\end{exercise}
+
+\begin{lemma}[Differentiable implies continuous]
+	\label{wk11:lemma:diffable-impl-cont}
+	If $f\colon I\to\RR$ is differentiable at $x_0$,
+	then it is continuous at $x_0$.
+\end{lemma}
+
+\begin{proof}
+	By limit properties,
+	\[\lim_{x\to x_0} f(x) - f(x_0) =
+	\lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}\cdot (x - x_0)
+	= f'(x_0)\cdot 0 = 0,\]
+	so $f(x)\to f(x_0)$ as $x\to x_0$.
+	(Or you can get into the details with sequences
+	to prove the same thing.)
+\end{proof}
+
+\begin{theorem}[Derivative is zero at extrema]
+	\label{wk11:thm:zero-derivative-extrema}
+	If $f\colon I\to\RR$ is differentiable at $x_0$ and
+	$x_0$ is a local maximum (minimum) of $f$,
+	i.e. $f(x) \le f(x_0)$ ($f(x)\ge f(x_0)$) for all $x$ in some
+	open ball containing $x$, then $f'(x_0) = 0$.
+\end{theorem}
+
+\begin{proof}
+	We prove the theorem when $x_0$ is a local maximum,
+	i.e. $f(x_0) \ge f(x)$ whenever $|x - x_0| < \eps$.
+	Suppose for the sake of contradiction that $f'(x_0) \ne 0$,
+	and say WLOG that the derivative is positive.
+	Then, there is a $\delta> 0$ such that
+	\[\frac{f(x) - f(x_0)}{x - x_0} > 0\]
+	whenever $|x - x_0| < \delta$.
+	Picking $x$ so that $0 < x - x_0 < \min(\delta, \eps)$,
+	this forces $f(x) - f(x_0) > 0 \iff f(x) > f(x_0)$,
+	contradiction.
+\end{proof}
+
+\begin{theorem}[Rolle's theorem]\label{wk11:thm:rolle}
+	Let $f\colon[a,b]\to\RR$ be a continuous function
+	that is differentiable on $(a,b)$.
+	If $f(a) = f(b)$, then there exists $x\in(a, b)$
+	for which $f'(x) = 0$.
+\end{theorem}
+
+\begin{proof}
+	By Weierstrass's theorem, there exist points $m$ and $M$ such that
+	\[f(m) \le f(x) \le f(M)\]
+	for all $x\in[a,b]$. If $f$ is constant then the result is trivial
+	(the derivative is zero everywhere), so suppose $f$ isn't constant.
+	Then, say WLOG $f(M)\ne f(a)$. Since $M$ is a local maximum of $f$,
+	Theorem \ref{wk11:thm:zero-derivative-extrema} says that $f'(M)$ is zero.
+\end{proof}
+
+\begin{theorem}[Mean value theorem]\label{wk11:thm:mvt}
+	If $f\colon[a,b]\to\RR$ is continuous
+	and differentiable on $(a,b)$, then there exists an $x\in(a, b)$ such that
+	\[\frac{f(b) - f(a)}{b - a} = f'(x).\]
+\end{theorem}
+
+\begin{exercise}
+	Prove Theorem \ref{wk11:thm:mvt}. (You'll have to use Rolle's theorem.)
+\end{exercise}
+
+\begin{corollary}\label{wk11:corollary:zero-derivative-iff-const}
+	Prove that if $f\colon (a, b)\to\RR$ is a differentiable function
+	then $f'(x) = 0$ for all $x$ iff $f$ is a constant function.
+\end{corollary}
+
+\begin{exercise}
+	Prove Corollary \ref{wk11:corollary:zero-derivative-iff-const}.
+	Prove that if $f,g\colon(a, b)\to\RR$ are differentiable then
+	$f'(x) = g'(x)$ for all $x$ iff $f - g$ is a constant function.
+\end{exercise}
+
+\begin{corollary}
+	Let $f\colon(a,b)\to\RR$ be differentiable.
+	\begin{enumerate}[(i)]
+		\ii If $f' \ge 0$ then $f$ is increasing.
+		\ii If $f' \le 0$ then $f$ is decreasing.
+		\ii If the inequalities are strict in (i) and (ii)
+		then the monotonicity is also strict.
+	\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+	We just prove that $f' > 0$ implies $f$ strictly increasing.
+	This means we want to prove that $y > x$ implies $f(y) > f(x)$.
+	Indeed, let $y > x$. There exists a $\xi\in(x, y)$ such that
+	\[\frac{f(y) - f(x)}{y - x} = f'(\xi) > 0,\]
+	so $y -x > 0$ implies $f(y) - f(x) > 0$ too.
+\end{proof}
+
+\subsection{Sequences of functions, again}
+
+\begin{definition}[$C^k$ functions]\label{wk11:def:Ck-funcs}
+	A function is said to be \vocab{class $C^k$}
+	if it is differentiable $k$ times,
+	and all derivatives (in particular the $k$th derivative) are continuous.
+	So, for example, $C^0$ functions are just the continuous ones
+	and $C^1$ functions have continuous derivative.
+\end{definition}
+
+\begin{remark}
+	We don't really care about functions with discontinuous derivative.
+\end{remark}
+
+Now, as we did last week, we'd like to look at functions as a whole.
+We saw as a corollary of \ref{wk10:thm:bounded-cont-funcs-closed}
+that $C^0[a,b]$ (the continuous functions $[a,b]\to\RR$) form
+a complete metric space.
+
+We know that $C^1[a,b]\subseteq C^0[a,b]$,
+and we'd hope that, like $C^0[a,b]$, that this is a complete space.
+We are not so lucky.
+\begin{itemize}
+	\ii There exist sequences $(f_n)$ of $C^1$ functions
+	with limit $f$ not in $C^1$.
+	\ii There exist sequences $(f_n)$ of $C^1$ function
+	 with limit $f$ in $C^1$\dots
+	 but $f_n'$ need not converge to $f$.
+\end{itemize}
+
+So what do we do??
+The idea is to make our metric reflect what we want to control.
+\begin{definition}[$C^1$ metric]\label{wk11:def:C1-metric}
+	Let $d_{C^0} := d$ be the familiar metric on $C^0$.
+	We define a new metric
+	\[d_{C^1}(f, g) = d_{C^0}(u, v) + d_{C^0}(u', v').\]
+	Of course, we can generalize this to $C^k$ as
+	\[d_{C^k}(f, g) = d_{C^0}(u, v) + d_{C^{k-1}}(u', v')
+	= \sum_{i=0}^k d_{C^0}(u^{(i)} , v^{(i)}).\]
+\end{definition}
+
+\begin{theorem}\label{wk11:thm:new-Ck-complete}
+	With this new metric, $C^1[a,b]$ is complete.
+\end{theorem}
+
+\begin{proof}
+	Given a Cauchy sequence $(u_n)$ in $(C^1[a,b], d_{C^1})$, the point is that
+	both $(u_n)$ and $(u_n')$ are Cauchy with respect to $d_{C^0}$.
+	If $u_n\to u$ and $u_n'\to v$, we wish to show that
+	$u$ is class $C^1$ and $u' = v$.
+	
+	Fix $x\in[a,b]$. Then, consider the functions
+	\[\varphi_n(t) = \frac{u_n(t) - u_n(x)}{t - x},\qquad
+	\varphi(t) = \frac{u(t) - u(t)}{t - x}.\]
+	We know that
+	\begin{align*}
+		\lim_{n\to\infty} \varphi_n(t) &= \varphi(t)\\
+		\lim_{t\to x} \varphi_n(t) &= u_n'(t)\\
+		\lim_{t\to x} \varphi(t) &= u'(t)
+	\end{align*}
+	pointwise.\todo{wait why does $u'$ exist}
+	
+	\begin{claim}
+		$\varphi_n\to \varphi$ uniformly.
+	\end{claim}
+	\begin{proof}
+		todo\todo{todo}
+	\end{proof}
+	
+	\begin{claim}
+		If $\varphi_n\to\varphi$ uniformly on some $E$
+		and $x$ is an accumulation point, then
+		\[\lim_{n\to\infty} \lim_{t\to x} \varphi_n(t) =
+		\lim_{t\to x} \lim_{n\to\infty} \varphi_n(t),\]
+		i.e. we can swap the limits
+		if the convergence of $\varphi$ is uniform.
+	\end{claim}
+	\begin{proof}
+		Let
+		\[\lim_{t\to x }\varphi_n(t) = \ell_n\]
+		and suppose that $\ell_n\to\ell$, i.e. the LHS is $\ell$.
+		Then, the inner limit on the right is $\varphi(t)$, so
+		\[|\ell - \varphi(t)| \le
+		|\varphi(t) - \varphi_n(t)| + |\varphi_n(t) - \ell_n| + |\ell_n - \ell|\]
+		and each piece can be bounded independently of $\eps$
+		as long as $|t - x|$ is small enough.
+		\todo{what?}
+	\end{proof}
+\end{proof}
+
+\begin{exercise}
+	Generalize to $C^k[a,b]$.
+\end{exercise}
+
+\pagebreak
+\setcounter{section}{12}
+\section{Week 13: 11/19 and 11/21}
+
+\subsection{Derivatives of power series}
+We're going to use the theory from the latter portion of Week 11
+to look at derivatives of power series.
+The situation is that we have a power series $f$ given by the limit of
+\[f_n(x) = a_0 + a_1x + a_2x^2 + \cdots + a_nx^n.\]
+on the interval $(-R, R)$ of convergence.
+Restricting to the interval $[-R', R']\subseteq(-R, R)$, we look at the sequence
+\[f_n'(x) = a_1 + 2a_2x + 3a_3x^2 + \cdots + na_nx^{n-1}.\]
+Both $f_n$ and $f_n'$ converge uniformly on $[-R', R']$, so $f_n$
+converges in $C^1[-R', R']$.
+
+\begin{exercise}
+	Show that the radius of convergence of $f_n'$ is the same as that of $f_n$.
+\end{exercise}
+
+Via the theory in Week 11, we can see that the derivative of $f$ is just
+the power series we get by differentiating termwise.
+
+You should then be able to easily conclude the following:
+\begin{theorem}
+	Power series are infinitely differentiable
+	on their interval of convergence!
+\end{theorem}
+
+Now, we play!
+\begin{example}[Geometric series]
+	We know that $f(x) = \sum_{n=0}^\infty x^n = \frac{1}{1-x}$. Then,
+	\[f'(x) = \frac{1}{(1-x)^2} =
+	\sum_{n=1}^\infty nx^{n-1},\]
+	and you can spam derivatives to get more and more facts like this.
+\end{example}
+
+\begin{example}[Taylor series]
+	Let $f(x) = a_0 + a_1x + a_2x^2 + \cdots$ be a power series.
+	Then, we have
+	\[f'(x) = 1\cdot a_1 + 2a_2x + 3a_3x^2 + \cdots,\]
+	which, evaluated at $0$, gives $1\cdot a_1$.
+	Similarly
+	\[f''(0) = 2\cdot 1\cdot a_2,\quad f^{(3)}(0) = 3\cdot2\cdot1\cdot a_3,\]
+	and in general $f^{(n)}(0) = n!\cdot a_n$.
+	Thus, we can write
+	\[a_n = \frac{f^{(n)}(0)}{n!}.\]
+	In particular,
+	\[f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}\cdot x^n.\]
+\end{example}
+
+The caveat is that
+\[\limsup\abs{\frac{f^{(n)}(0)}{n!}}^{1/n}\]
+need not behave nicely.
+
+\begin{exercise}
+	Find an example where the Taylor series
+	has a radius of convergence of $0$.
+\end{exercise}
+
+\begin{lemma}
+	Let $f\colon(a, b)\to\RR$ and let $c\in(a, b)$.
+	Suppose also that $f\in C^n(a, b)$. Define
+	\[P_k(x) = \sum_{j=0}^k \frac{f^{(j)}(c)}{j!}\cdot (x-c)^j,\]
+	and let
+	\[R_n(x) = f(x) - P_{n-1}(x).\]
+	Then, for a fixed $x$, there exists a $y$ between $c$ and $x$ such that
+	\[R_n(x) = \frac{f^{(n)}(y)}{n!}\cdot (x-c)^n.\]
+\end{lemma}
+
+\begin{proof}
+	This should be screaming MVT; we need to find
+	a suitable function to use MVT on.
+	We can write
+	\[f(x) - P_{n-1}(x) = \frac{M\cdot (x-c)^n}{n!}\]
+	for some constant $M$. Then, consider
+	\[g(t) = P_{n-1}(t) + \frac{M\cdot(t-c)^n}{n!} - f(t).\]
+	In fact, all derivatives (up to the $n$th) of $g$ are
+	zero at $c$ and some point between $c$ and $x$,
+	so we can look at the $n$th derivative and win \todo{write up thoroughly}
+\end{proof}
+
+\subsection{Integration!!!!}
+
+\begin{warning*}
+	I was half asleep on the days that the integration lessons were taught,
+	so these notes are a post-lesson rendition based primarily on
+	my own knowledge. As such, some of the notation and content here
+	may not align with the stuff shown in class.
+\end{warning*}
+
+As we all know from high school, the goal of integration is to
+make the idea of ``area under a graph'' more precise.
+
+In high school geometry, we learned how to compute areas of simple shapes,
+like rectangles and triangles; to compute areas of more complicated shapes,
+we try to decompose them into these simpler shapes.
+
+\missingfigure{probably can make a neat diagram}
+
+However, this is hard (impossible) for fucky shapes like circles,
+so we resort to approximations from inside and outside.
+
+\missingfigure{approximating circles w ngons}
+
+Let's start with extra basic functions.
+The most basic function we can come up with is
+\[\varphi_{(a,b)}(x) = \begin{cases}
+	1 & a < x < b\\
+	0 & \text{otherwise}
+\end{cases}\]
+i.e. the indicator function of the interval $(a, b)$.
+More generally, for a (finite) interval $I$, we write
+\[\varphi_I(x) = \begin{cases}
+	1 & x\in I\\
+	0 & \text{otherwise}
+\end{cases}\]
+We call these \vocab{characteristic} or \vocab{indicator} functions.
+(In class, we also use \vocab{simple} functions,
+but I don't like that terminology.)
+
+\begin{center}
+	\begin{asy}
+		draw((-5,0)--(5,0));
+		draw((-2,1)--(3,1), red+linewidth(1));
+		draw((-5,0)--(-2,0), red+linewidth(1));
+		draw((3,0)--(5,0), red+linewidth(1));
+		fill((-2,0)--(3,0)--(3,1)--(-2,1)--cycle,red+opacity(0.2));
+	\end{asy}
+\end{center}
+
+The area under the graph of $\varphi_{(a,b)}$
+should obviously be $b-a$, so we write
+\[\int_{-\infty}^\infty \varphi := \ell((a,b)) = b-a.\]
+
+\begin{definition}[Step function]
+	Consider some finite set of intervals $I_1$, $I_2$, \dots, $I_n$
+	and some real constants $c_1$, $c_2$, \dots, $c_n$.
+	We call the function
+	\[\varphi := \sum_{k=1}^n c_k \varphi_{I_k},\]
+	a \vocab{step function}.
+\end{definition}
+
+\begin{exercise}
+	Show that step functions form a vector space.
+	That is, show that (finite) linear combinations of step functions
+	are also step functions.
+\end{exercise}
+
+We would like to define the integral of $\varphi$ in the obvious way, namely
+\[\int_{-\infty}^\infty \varphi =
+\sum_{k=1}^n c_k\int_{-\infty}^\infty \varphi_{I_k}.\]
+In order for this definition to be sound, we have to check the following:
+\begin{exercise}
+	Let $\varphi$ be a step function,
+	with value $c_k$ on the interval $I_k$ for $1\le k\le n$.
+	Then, the expression
+	\[\sum_{k=1}^n c_k\int_{-\infty}^\infty \varphi_{I_k}\]
+	is invariant of the choice of $I_k$s.
+	
+	(Hint: given two sets of intervals $I_1$, \dots, $I_n$
+	and $J_1$, \dots, $J_m$, consider a ``common refinement''
+	of the intervals such that each $I_a$ and $J_b$ can be written as
+	a disjoint union of the intervals in the refinement.)
+\end{exercise}
+
+This behaves as we would expect the integral to behave.
+Specifically:
+\begin{exercise}[Step function integral properties]
+	Show that the integral is a linear function on the set of step functions.
+	That is,
+	\[\int_{-\infty}^\infty c_1\varphi_1 + c_2\varphi_2 =
+	c_1\int_{-\infty}^\infty \varphi_1 + c_2\int_{-\infty}^\infty \varphi_2\]
+	for any step functions $\varphi_1$, $\varphi_2$ and
+	real numbers $c_1$, $c_2$.
+	Show also that if $\varphi_1\ge \varphi_2$ on all of $\RR$
+	then their integrals obey the same inequality.
+\end{exercise}
+
+We now have a large enough set of functions that
+we can start doing approximation.
+
+\begin{definition}[Darboux integral]
+	Let $f\colon\RR\to\RR$ be a bounded function with compact support
+	(i.e. the subset of $\RR$ on which $f(x)\ne 0$
+	can be contained in some compact set).
+	Then, let $S_{top}$ be the set of step functions $\varphi$
+	for which $\varphi \ge f$ on all of $\RR$
+	and $S_{bot}$ be the set of step functions $\varphi$
+	for which $\varphi \le f$ on all of $\RR$.
+	We define the \vocab{upper Darboux integral} of $f$ to be
+	\[\ol{\int_{-\infty}^\infty} f :=
+	\inf\left\{\int_{-\infty}^\infty \varphi : \varphi\in S_{top}\right\}\]
+	and the \vocab{lower Darboux integral} of $f$ to be
+	\[\underline{\int_{-\infty}^\infty} f :=
+	\sup\left\{\int_{-\infty}^\infty \varphi : \varphi\in S_{bot}\right\}.\]
+	If these two values coincide, then we can define the
+	\vocab{Darboux integral} of $f$ as the common value
+	of its upper and lower Darboux integrals.
+\end{definition}
+
+\begin{remark}
+	In your calculus class, you probably saw Riemann integration,
+	where you integrate over an interval $[a, b]$ by picking
+	some partition of the interval $a = x_0 \le x_1\le\cdots\le x_n = b$
+	and then picking arbitrary values $x_{k-1}\le x_k^*\le x_k$
+	so that you can estimate your function on $[x_{k-1}, x_k]$
+	with the constant value $f(x_k^*)$.
+	Then, we can compute the integral of this approximation
+	and take the limit as the subintervals of the partition
+	become arbitrarily small.
+	This turns out to be equivalent to integration in the sense of Darboux,
+	so we need not worry about using ``Darboux integrable''
+	and ``Riemann integrable'' interchangeably.
+\end{remark}
+
+\begin{exercise}
+	Prove that the integral properties from Exercise 13.10
+	extend to the Darboux integral.
+\end{exercise}
+
+\begin{exercise}
+	Show that unbounded functions are not Darboux integrable.
+\end{exercise}
+
+\pagebreak
+The following lemma makes it much easier to show
+whether a function is integrable.
+\begin{lemma}[Integrability criterion]\label{wk13:integrability-criterion}
+	Let $f\colon\RR\to\RR$ be a bounded function with compact support.
+	Then, $f$ is integrable if and only if, for each $\eps > 0$,
+	there exist step functions
+	$\varphi_1 \le f \le \varphi_2$ such that
+	\[\int_{-\infty}^\infty \varphi_2 - \varphi_1 \le \eps.\]
+\end{lemma}
+
+\begin{proof}
+	If $f$ is integrable, then there is a step function $\varphi_1$
+	bounded above by $f$ that is at most $\eps/2$ away from the integral of $f$
+	and a step function $\varphi_2$ bounded below by $f$
+	that is at most $\eps/2$ away from the integral of $f$,
+	by definition of sup/inf;
+	thus the integral of the difference between $\varphi_1$ and $\varphi_2$
+	is at most $\eps$.
+	
+	Conversely, if we can always find step functions like described,
+	then, for each $n$, then the idea is to construct
+	an increasing sequence of step functions below $f$
+	and a decreasing sequence of step functions above $f$
+	and then conclude that the limit of the increasing sequence
+	and decreasing sequence of integrals are the same.\todo{details}
+\end{proof}
+
+Now, we can finally show that a fairly large class of functions is integrable.
+First, let's define integration on an interval.
+\begin{definition}
+	The integral of a bounded function $f\colon\RR\to\RR$
+	on an interval $[a,b]$ is equal to
+	\[\int_a^b f := \int_{-\infty}^\infty f\cdot \varphi_{[a,b]},\]
+	recalling that $\varphi_I$ is the indicator function of the interval $I$.
+\end{definition}
+
+\begin{theorem}[Increasing functions are integrable]
+	Let $f\colon\RR\to\RR$ be increasing. Then $f$
+	is integrable on any interval $[a,b]$.
+\end{theorem}
+
+\begin{theorem}[Continuous functions are integrable]
+	Let $f\colon\RR\to\RR$ be continuous. Then $f$
+	is integrable on any interval $[a,b]$.
+\end{theorem}
+
+\begin{proof}
+	Pick $\eps > 0$. Then, since $[a,b]$ is compact,
+	$f$ is uniformly continuous on $[a,b]$.
+	Thus there exists a $\delta> 0$ such that
+	we can find $a = x_0 < x_1 < \cdots < x_n = b$
+	satisfying $x_i - x_{i-1} < \delta$ for $1\le i\le n$ and
+	the minimum $m_i$ of $f$ over the interval $[x_{i-1}, x_i]$
+	differs from the maximum $M_i$ by at most $\frac{\eps}{b-a}$.
+	If we take the step function $\phi$ that is $m_i$ on $[x_{i-1}, x_i]$
+	and the step function $\psi$ that is $M_i$ on $[x_{i-1}, x_i]$, then
+	$\phi \le f \le \psi$ on $[a,b]$ and
+	\[\int_a^b \psi - \phi = \sum_{i=1}^n (M_i - m_i)(x_i - x_{i-1})
+	\le \eps\sum_{i=1}^n x_i - x_{i-1} = \frac{\eps}{b-a}\cdot(b-a) = \eps.\]
+	We are then done by Lemma \ref{wk13:integrability-criterion}.	
+\end{proof}
+
+We can also finally prove the fundamental theorem of calculus.
+\begin{lemma}[Mean value theorem for integrals]\label{wk13:integralmvt}
+	Let $f\colon[a,b]\to\RR$ be a continuous function.
+	Then, there is some $c\in[a,b]$ for which
+	\[f(c) = \frac{1}{b-a}\int_a^b f(x)\dif x.\]
+\end{lemma}
+
+\begin{proof}
+	Bound the integral below by $m := \min_{x\in[a,b]} f(x)$
+	and above by $M := \max_{x\in[a,b]} f(x)$.
+	The existence of $c$ is then guaranteed by the intermediate value theorem.
+\end{proof}
+
+\begin{theorem}[First fundamental theorem of calculus]
+	Let $f\colon\RR\to\RR$ be a continuous function.
+	For a fixed $a\in\RR$, define
+	\[F(x) := \int_a^x f(t)\dif t.\]
+	Then, $F$ is differentiable with $F'(x) = f(x)$ for all $x\in\RR$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+	Fix some $x\in\RR$. Then, if $h > 0$,
+	\[\frac{F(x+h) - F(x)}{h} = \frac 1h\int_x^{x+h} f(t)\dif t.\]
+	By Lemma \ref{wk13:integralmvt}, the right-hand side is equal to
+	$f(\alpha_h)$ for some $\alpha_h\in[x, x+h]$.
+	As $h\to 0^+$, the $\alpha_h$ approach $x$, so $f(\alpha_h)$ goes to
+	$f(\alpha)$. We can get an analogous result for when $h < 0$,
+	so the limit of the difference quotient ends up just being $f(x)$.
+\end{proof}
+
+\setcounter{section}{14}
+\section{Week 15}
+\begin{theorem}[Second fundamental theorem of caluclus]
+	If $G\colon[a,b]\to\RR$ is such that $G'(x) = f(x)$
+	for all $x\in[a,b]$ and $f$ is Riemann integrable on $[a,b]$, then
+	\[\int_a^b f(t)\,dt = G(b) - G(a)\]
+\end{theorem}
+
+\begin{proof}
+	Consider $F(x) = \int_a^x f(t)\,dt$ and set
+	\[H(x) := F(x) - G(x).\]
+	\begin{claim}
+		$H$ is constant on $[a,b]$.
+	\end{claim}
+	\begin{proof}
+		We can compute
+		\[H'(x) = F'(x) - G'(x) = f(x) - f(x) = 0\]
+		for all $x\in[a,b]$.
+		\todo{wait why is $F$ dif'able? we don't know that $f$ is cont}
+	\end{proof}
+	
+	Then, we get
+	\[F(a) - G(a) = H(a) = H(b) = F(b) - G(b),\]
+	or equivalently $F(b) - F(a) = G(b) - G(a)$, and then
+	\[G(b) - G(a) = F(b) - F(a)
+	= \int_a^b f(t)\,dt - \int_a^a f(t)\,dt = \int_a^b f(t)\,dt\]
+	as desired.
+\end{proof}
+
+Recall that $\mathcal B([a,b],\RR)$ is the space of bounded functions
+$[a,b]\to\RR$, which is a complete metric space under the standard sup metric.
+
+Consider the subset $X\subseteq \mathcal B([a,b],\RR)$
+consisting of the space of integrable functions.
+
+\begin{theorem}
+	$X$ is closed (hence complete).
+\end{theorem}
+\begin{proof}
+	Let $f_n$ be a sequence of functions in $X$ converging uniformly to some $f$.
+	We can bound
+	\[|f - f_n| \le \frac{\eps}{2(b-a)}\]
+	for large enough $n$, independently of $x$. Then,
+	upper and lower Darboux integrals are monotonic, so
+	\[\underline{\int_a^b} f_n(x) - \frac{\eps}{2(b-a)}\dif x
+	\le \underline{\int_a^b} f(x)\dif x
+	\le \overline{\int_a^b} f(x)\dif x
+	\le \overline{\int_a^b} f_n(x) + \frac{\eps}{2(b-a)}\dif x.\]
+	Thus the difference between the upper and lower integrals
+	of $f$ over $[a, b]$ is bounded by $\eps$
+	(since the upper and lower integrals of $f_n$ are equal by hypothesis),
+	i.e. the upper and lower integrals coincide, so
+	uniform limits of Riemann integrable functions are still Riemann integrable.
+\end{proof}
+
+\begin{corollary}
+	Let $f$ be a power series with interval of convergence $(-R, R)$.
+	Then $f$ is integrable on every compact interval contained in $(-R, R)$.
+\end{corollary}
+
+\begin{proof}
+	Power series converge uniformly on compact subsets
+	of their interval of convergence, so we can appeal to Theorem 15.2.
+\end{proof}
+
+Consider now the map $T\colon X\to\RR$ given by
+$T(u) = \int_a^b f(t)\dif t$.
+
+\begin{theorem}
+	$T$ is a Lipschitz function (hence uniformly continuous).
+\end{theorem}
+
+\begin{proof}[Sketch]
+	Just write out the definition of Lipschitz function;
+	use linearity and triangle inequality to bound
+	\[|T(u) - T(v)| \le (b-a)d(u, v).\qedhere\]
+\end{proof}
+
+For integrals of functions that are bounded but not compactly supported, we define
+\[\int_0^\infty f(x)\dif x := \lim_{a\to\infty} \int_0^a f(x)\dif x\]
+and similarly for integrals from $-\infty$ to $0$, and then we glue them together
+for something like
+\[\int_{-\infty}^\infty f(x)\dif x :=
+\lim_{T\to\infty} \int_0^T f(x)\dif x + \int_{-T}^0 f(x)\dif x.\]
+
+\subsection{Differential equations}
+Let $\Omega\subseteq\RR^2$ be open
+(for simplicity, let $\Omega = I\times\RR$ for some open interval $I$)
+and consider a function $g\colon\Omega\to\RR$ that is continuous.
+We would like to look for functions $u\colon\RR\to\RR$ such that
+\[u'(t) = g(t, u(t))\]
+with a prescribed value $u(t_0) := u_0$.
+For example, we can have $g(t, u) := \sqrt{t^2 + u}$ so that we want
+\[u'(t) = \sqrt{t^2 + u(t)}\]
+and we can prescribe $u(0) = 1$.
+
+In many cases, we at least would like to know that a solution $u$ exists,
+even if it isn't actually tractable.
+
+The game plan is as follows. Suppose for a moment that we have a solution $u$.
+Then, we can integrate so get
+\[\int_0^x g(t, u(t))\dif t = \int_{t_0}^x u'(t)\dif t  = u(x) - u(t_0)
+= u(x) - u_0,\]
+so we get the rearrangement
+\[u(x) = u_0 + \int_{t_0}^x g(t, u(t))\dif t.\]
+We know a priori that $u$ is differentible, hence continuous,
+so the integral in this expression above is a class $C^1$ function.
+We can thus deduce that if a function solves this equation
+then it must be class $C^1$.
+(In general if $g$ is class $C^k$ then we can deduce that
+$u$ is class $C^{k+1}$).
+
+\begin{theorem}
+	There exists a $\delta > 0$ and a $C^1$ function
+	$u\colon(-\delta + t_0, \delta + t_0)\to\RR$ that satisfy
+	the constraints we want (namely $u'(t) = g(t, u(t))$ and $u(t_0) = u_0$),
+	if $g$ is $C^1$.
+\end{theorem}
+
+\begin{proof}
+	Let $X_\delta$ be the set of continuous bounded functions
+	$u\colon(-\delta + t_0, \delta + t_0)\to\RR$,
+	which we know is complete.
+	Consider the operator $T\colon X_\delta\to X_\delta$ defined as
+	\[u\mapsto Tu(x) := u_0 + \int_{t_0}^x g(t, u(t))\dif t.\]
+	
+	We will show that
+	\begin{center}
+		\framebox{The operator $T$ has a fixed point.}
+	\end{center}
+	
+	This will be done via the following theorem.
+	\begin{theorem*}
+		[Banach-Cacciopolli fixed point theorem]
+		Let $(X, d)$ be a complete metric space and suppose that
+		$T\colon X\to X$ is a \vocab{contraction},
+		meaning that it is Lipschitz and that its
+		Lipschitz constant $L$ is less than $1$.
+		Then, $T$ has a \emph{unique} fixed point.
+	\end{theorem*}
+	
+	\begin{proof}
+		Let $u_0$ be a point in $X$
+		and consider the sequence $(u_n) = (u, Tu, T^2u, \dots)$ given by
+		$u_0 := u$ and $u_{n+1} = Tu_n$ for $n\ge 0$. Then,
+		\begin{align*}
+			d(u_n, u_{n+1}) &= d(Tu_{n-1}, Tu_n)\\
+			&\le Ld(u_{n-1}, u_n)\\
+			&\le L^2d(u_{n-2}, u_{n-1})\\
+			&\vdots\\
+			&\le L^nd(u_0, u_1).
+		\end{align*}
+		Defining $C := d(u_0, u_1)$, we have that
+		$d(u_n, u_{n+1}) \le CL^n$ for $L < 1$.
+		This lets us estimate $d(u_n, u_m)$ from above by
+		$d(u_n, u_{n+1}) + d(u_{n+1}, u_{n+1}) + \dots$ so that
+		\[d(u_n, u_m) \le C\cdot (L^n + L^{n+1} + \cdots)
+		= \frac{CL^n}{1 - L},\]
+		and we get the same bound with $m$, so as long as $\min(m, n)$
+		is large enough, the distance between the terms
+		is going to be smaller than any given $\eps > 0$.
+		Thus the $u_n$ are Cauchy, so they converge (by completeness).
+		
+		This means
+		\[\lim_{n\to\infty} u_n = \lim_{n\to\infty} T(u_{n-1})
+		= T(\lim_{n\to\infty} u_{n-1}) = T(\lim_{n\to\infty} u_n),\]
+		so the limit of the $u_n$ is a fixed point.
+		To show uniqueness, we can see that if $u$ and $v$
+		are two distinct fixed points of $T$, then
+		\[d(u, v) = d(Tu, Tv) \le L\cdot d(u, v) < d(u, v),\]
+		which is a contradiction.
+	\end{proof}
+	
+	To finish, we claim that
+	\begin{claim}
+		The operator $T\colon X_\delta\to X_\delta$ is Lipschitz.
+	\end{claim}
+	\begin{proof}
+		For two functions $u$, $v$,
+		\[|Tu(x) - Tv(x)| = \abs{\int_{t_0}^x g(t, u(t)) - g(t, v_t)\dif t}
+		\le \int_{t_0}^x |g(t, u(t)) - g(t, v(t))|\dif t.\]
+		\todo{proof}
+	\end{proof}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
